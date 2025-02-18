@@ -1,0 +1,28 @@
+:root{
+    --pad:10px;
+
+    // royal society colour scheme
+    --col-blue:#5284c5;
+    --col-red: #d31245;
+    --col-white: #fff;
+    --col-black: #333132;
+
+    --col-accent:var(--col-red);
+    // this delineates the border 
+    --col-border:hsla(22, 13%, 47%, .2);
+
+    // directly from Royal Society website
+    --font-size-base: 16px;
+    --font-size-h1: 48px;
+    --font-size-h1-mobile: 40px;
+    --font-size-h2: 40px;
+    --font-size-h2-mobile: 28px;
+    --font-size-h3: 32px;
+    --font-size-h3-mobile: 24px;
+    --font-size-h4: 24px;
+    --font-size-h4-mobile: 18px;
+    --font-size-h5: 18px;
+    --font-size-h5-mobile: 16px;
+    --font-size-h6: 16px;
+    --font-size-h6-mobile: 14px;
+}

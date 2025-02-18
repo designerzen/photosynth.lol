@@ -1,0 +1,26 @@
+{
+  "name": "interface.lol",
+  "version": "1.0.0",
+  "description": "Royal Society Summer Exhibition 2025 Landing page",
+  "source": "source/index.html",
+   "scripts": {
+    "start": "parcel",
+    "build": "parcel build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "science",
+    "exhibition",
+    "royal society",
+    "summer exhibition",
+    "2025"
+  ],
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "author": "designerzen@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-jsonld": "2.13.3",
+    "@parcel/transformer-sass": "2.13.3",
+    "parcel": "latest"
+  }
+}

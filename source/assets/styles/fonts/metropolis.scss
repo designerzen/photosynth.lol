@@ -1,0 +1,52 @@
+:root{
+    --font-family-metropolis: "proxima-nova", 'Metropolis', "Helvetica", sans-serif;
+}
+
+@font-face {
+    font-family:"Metropolis";
+    src: url('/source/assets/fonts/metropolis/Metropolis-Regular.woff2') format('woff2');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family:"Metropolis";
+    src: url('/source/assets/fonts/metropolis/Metropolis-RegularItalic.woff2') format('woff2');
+    font-style: normal;
+    font-display: swap;
+    font-style: italic;
+}
+
+@font-face {
+    font-family:"Metropolis"; 
+    src: url('/source/assets/fonts/metropolis/Metropolis-Bold.woff2') format('woff2');
+    font-style: normal;
+    font-display: swap;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family:"Metropolis"; 
+    src: url('/source/assets/fonts/metropolis/Metropolis-BoldItalic.woff2') format('woff2');
+    font-style: normal;
+    font-display: swap;
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family:"Metropolis"; 
+    src: url('/source/assets/fonts/metropolis/Metropolis-ExtraBold.woff2') format('woff2');
+    font-style: normal;
+    font-display: swap;
+    font-weight: bolder;
+}
+
+@font-face {
+    font-family:"Metropolis"; 
+    src: url('/source/assets/fonts/metropolis/Metropolis-ExtraBoldItalic.woff2') format('woff2');
+    font-style: normal;
+    font-display: swap;
+    font-weight: bolder;
+    font-style: italic;
+}
