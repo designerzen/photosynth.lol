@@ -41,7 +41,7 @@ jobs:
 
             # Build command
             - name: Build the app into dist
-              run: pnpm run build --if-present
+              run: pnpm run build
 
             - name: List the build folder contents...
               run: ls ./dist
