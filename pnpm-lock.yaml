@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@parcel/config-default':
+        specifier: ^2.13.3
+        version: 2.13.3(@parcel/core@2.13.3(@swc/helpers@0.5.15))(@swc/helpers@0.5.15)
       '@parcel/transformer-jsonld':
         specifier: 2.13.3
         version: 2.13.3(@parcel/core@2.13.3(@swc/helpers@0.5.15))
@@ -17,6 +20,9 @@ importers:
       parcel:
         specifier: latest
         version: 2.13.3(@swc/helpers@0.5.15)
+      parcel-reporter-static-files-copy:
+        specifier: ^1.5.3
+        version: 1.5.3(@parcel/core@2.13.3(@swc/helpers@0.5.15))
 
 packages:
 
@@ -817,6 +823,10 @@ packages:
 
   ordered-binary@1.5.3:
     resolution: {integrity: sha512-oGFr3T+pYdTGJ+YFEILMpS3es+GiIbs9h/XQrclBXUtd44ey7XwfsMzM31f64I1SQOawDoDr/D823kNCADI8TA==}
+
+  parcel-reporter-static-files-copy@1.5.3:
+    resolution: {integrity: sha512-Ukq2SyJYn3GFIPCLamXuQ+2t+0j54llujjOUoRjtmVvfsuGnJDEpMznADeIoKuQDvy0jpxtWzWkQvxqI/j+U4A==}
+    engines: {parcel: ^2.0.0-beta.1}
 
   parcel@2.13.3:
     resolution: {integrity: sha512-8GrC8C7J8mwRpAlk7EJ7lwdFTbCN+dcXH2gy5AsEs9pLfzo9wvxOTx6W0fzSlvCOvZOita+8GdfYlGfEt0tRgA==}
@@ -1929,6 +1939,12 @@ snapshots:
   nullthrows@1.1.1: {}
 
   ordered-binary@1.5.3: {}
+
+  parcel-reporter-static-files-copy@1.5.3(@parcel/core@2.13.3(@swc/helpers@0.5.15)):
+    dependencies:
+      '@parcel/plugin': 2.13.3(@parcel/core@2.13.3(@swc/helpers@0.5.15))
+    transitivePeerDependencies:
+      - '@parcel/core'
 
   parcel@2.13.3(@swc/helpers@0.5.15):
     dependencies:

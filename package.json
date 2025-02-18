@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Royal Society Summer Exhibition 2025 Landing page",
   "source": "source/index.html",
-   "scripts": {
+  "scripts": {
     "start": "parcel",
     "build": "parcel build",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,12 +15,21 @@
     "summer exhibition",
     "2025"
   ],
+  "staticFiles": {
+		"staticFiles": [
+			{
+				"staticPath": "static"
+			}
+		]
+	},
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "author": "designerzen@gmail.com",
   "license": "ISC",
   "devDependencies": {
+    "@parcel/config-default": "^2.13.3",
     "@parcel/transformer-jsonld": "2.13.3",
     "@parcel/transformer-sass": "2.13.3",
-    "parcel": "latest"
+    "parcel": "latest",
+    "parcel-reporter-static-files-copy": "^1.5.3"
   }
 }
