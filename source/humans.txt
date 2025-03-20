@@ -1,0 +1,14 @@
+/* TEAM */
+	Inventor: zenon
+	Contact: zen [at] designerzen.com
+	Twitter: @designerzen
+	From: London UK
+
+/* THANKS */
+	Drake Music - DMLab
+
+/* SITE */
+	Last update:2025/03/17
+	Language: English
+	Doctype: HTML5
+	Technology: JS, Canvas, WebGL, WebAudio
