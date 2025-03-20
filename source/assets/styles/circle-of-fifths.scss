@@ -1,0 +1,113 @@
+// DIV wrapper for SVG and FORM
+.instrument-circular{
+    display: grid;
+    align-items: end;
+    margin-top: var(--pad);
+    margin-bottom: var(--pad);
+   
+    > *{
+        grid-area: 1/1/-1/-1;
+        pointer-events: none;
+    }
+    label,input{
+        pointer-events: auto;
+    }
+    
+    .octave-selector{
+        label:first-of-type{
+            transform: translateY(0px);
+        }
+        label:nth-of-type(2){
+            transform: translateY(70px);
+        }
+        label:nth-of-type(3){
+            transform: translateY(115px);
+        }       
+    }
+
+    .emotion-selector{
+        label:first-of-type{
+            transform: translateY(70px);
+        }
+        label:nth-of-type(2){
+            transform: translateY(10px);
+        }
+
+    }
+
+    fieldset{
+        border: 0;
+    }
+    form{
+        display: flex; 
+        justify-content: space-between;
+    }
+}
+
+.octave-selector{
+    margin: 0;
+    padding: 0;
+}
+
+.circle-of-fifths {
+    
+    max-height : 100vh;
+    margin: auto;
+
+    path{
+        transition: fill 90ms linear;
+        fill:var(--col-accent);
+        cursor: pointer;
+        pointer-events: auto;
+    }
+
+    // .circle-of-fifths-harmonies{
+    //     path:active{
+    //         stroke:var(--col-white);
+    //         // fill:var(--col-white);
+    //         animation: Throb 1s ease-out 0s infinite both alternate;
+    //     }
+    // }
+
+    .circle-of-fifths-harmonies,
+    .circle-of-fifths-tonics{
+       
+        path:hover{
+            stroke:var(--col-white);
+            stroke-width:2px;
+            // fill:var(--col-white);
+            animation: Throb 0.8s cubic-bezier(.4,0,.2,1) 0s infinite both alternate;
+        }
+        path:active{
+            animation: Peak 0.1s cubic-bezier(.4,0,.2,1) 0s infinite both;
+        }
+    }
+
+    .fifths-frame{
+        fill:var(--col-plum);
+    }
+
+    .fifths-emotion{
+        user-select: none;
+        touch-action: none;
+        border-radius: 99%;
+    }
+    text{
+        color:currentColor;
+    }
+}
+
+
+@keyframes Peak {
+    0%{
+        fill:var(--col-white);
+        
+    }
+
+}
+
+@keyframes Throb {
+    0%{
+        fill:var(--col-white);
+    }
+}

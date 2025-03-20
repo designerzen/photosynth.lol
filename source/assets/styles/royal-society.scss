@@ -1,0 +1,317 @@
+/**
+
+Brand Guidelines
+
+https://www.contractsfinder.service.gov.uk/Notice/Attachment/e991cc6b-a4d9-45bc-bc8b-6cc473a0bfb8
+https://styleguide.royalsociety.org/
+
+We are a red brand. The Royal Society red is Pantone® 200. Our colour palette
+has been designed to complement the lead colour and to add depth and
+vibrancy to communications. Red is a consistent thread throughout all
+communications.
+
+The Royal Society stone, Pantone® 7527, complements our red and supports
+the heritage of our brand. 
+
+The Royal Society plum, Pantone® 209, has been reserved for use on our
+illustrations, see page 13. It enhances both the red and stone colour palette.
+It can also be used as part of the secondary colour palette (see page 11).
+
+Charcoal has been reserved for use on typography – it should never be
+used as a block colour.
+
+The ratio of colour usage is indicated by the size of the squares shown
+here.
+
+Do not use tints of our primary colour palette.
+
+Please use the correct colours when setting up artwork and make sure
+that you use the colour breakdowns specified here.
+
+
+Secondary Colour Palette
+
+The secondary palette is a selection of complementary highlight colours
+that add a vibrant energy to our brand identity. These are always
+used in support of our primary colours and should never dominate
+or be used as a first introduction to the brand.
+
+The secondary colour palette can be used more experimentally within
+exhibition graphics, inside reports or brochures, on quotes, pullout facts
+and figures, and charts, graphs and infographics.
+
+Tints of the secondary colours can be used if necessary. Try to stick to
+round numbers when selecting tints. Please use the correct colours
+when setting up artwork and make sure that you use the colour
+breakdowns specified here.
+
+**/
+:root{
+
+    // Primary colours ------------------------------------------
+
+    // The Royal Society red
+    // Pantone® 200
+    // c0 m100 y70 k14
+    // r211 g18 b69
+    // Used throughout the site to indicate important areas of interest 
+    // and interactive elements such as navigation, active/hover states, 
+    // links and calls to action.
+    --col-red: #d31245;
+
+    // The Royal Society plum
+    // Pantone® 209
+    // c20 m 97 y40 k58
+    // r111 g38 b61
+    // Primarily for use on the Royal Society Illustration style
+    // Alternate call to action background colour, often used 
+    // where red would be too strong or a lower level of prominence
+    //  is required. Example uses include Rolodex, table headers 
+    // and event card date fields.
+    --col-plum: #6F263D; // #860038;
+
+    // The Royal Society stone
+    // Pantone® 7527
+    // c4 m4 y12 k8
+    // r237 g231 b221
+    // Interactive elements such as filter groups and inactive tabs. 
+    // Also used for descriptive information on journal cards.
+    --col-stone: #ede7dd;
+
+    // Page background
+    --col-stone-light:#e8e6df;
+
+    // The Royal Society charcoal
+    // 95% black
+    // r51 g49 b50
+    // #333132
+    // Headings, body text and the background colour for selected 
+    // additional information areas such as grant opening dates 
+    // and event series. Also used as the background for 
+    // mobile-specific user interface elements such as "related events" 
+    // and "event organisers".
+    // Charcoal has been reserved for use on typography 
+    // – it should never be used as a block colour.
+    // * Used for journals covering all sciences.
+    --col-charcoal:#333132; // #12100f;   // NB. Only for use on typography
+
+
+    // Secondary colour palette ------------------------------------
+    
+    // Orange
+    // Pantone® 144
+    // c0 m55 y95 k0
+    // r237 g139 b0
+    --col-orange:#ED8B00;
+
+    // Pink
+    // Pantone® 219
+    // c0 m95 y0 k0
+    // r218 g24 b132
+    --col-pink:#DA1884;
+
+    // Purple
+    // Pantone® 248
+    // c40 m100 y0 k0
+    // r165 g24 b144
+    // * Used for cross-disciplinary journals.
+    --col-purple:#A51890;
+
+    // Blue
+    // Pantone® Process Blue
+    // c100 m10 y0 k10
+    // r0 g133 b202
+    // Used for journals covering physical sciences.
+    --col-blue:#0085CA;
+
+    // Green
+    // Pantone® 369
+    // c68 m0 y100 k0
+    // r100 g167 b11
+    // * Used for journals covering biological sciences.
+    --col-green: #64A70B;
+
+    // Warm grey
+    // Pantone® 408
+    // c0 m10 y10 k50
+    // r151 g140 b135
+    // Used primarily for the heading area of grant cards. 
+    // Also used for icons such as blog date and the footer
+    // "back to top" icon.
+    // * Used for journals covering the history of science.
+    --col-warm-grey:#978C87;
+
+    // Event schedule headers, content page features 
+    // (such as grant application information on grant 
+    // content detail pages) and table cells.
+    --col-warm-grey-light:#e0dcdb;
+
+    // secondary colours    
+    // --col-blue:#5284c5;
+}
+
+// The minimum size for the stacked
+// logo is 20mm or 75 pixels.
+.royal-society-logo-stacked{
+    min-width:75px;
+    height:auto;
+    background-image: url(../logos/royal-society-stacked.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+// The minimum size for the single
+// line logo is 40mm or 150 pixels.
+.royal-society-logo-stacked{
+    min-width:150px;
+    height:auto;
+    background-image: url(../logos/royal-society-single-line.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+// 6 x 9 grid but we subdivide it for style
+.grid{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+
+}
+
+a, 
+button, 
+input[type=button]{
+    appearance: none;
+    // FIXME: Add accessibility
+    outline:0;
+    border:0;
+    min-width: 44px;
+    text-align: center;
+}
+
+// Call to Action Button
+// From the RS website
+// (NB. these do not seem to follow their own guidleines)
+a.cta, 
+button.cta, 
+input[type=button].cta{
+    
+    background-color: #ba0c2f;
+    color: #fff;
+
+    border-radius: 5px;
+    box-shadow: inset 0 -4px #930015;
+    padding: 13px 30px;
+    min-width: 175px;
+    // font-size: 1.8em;
+    // line-height: 1;
+    text-align: center;
+    text-decoration: none;
+}
+
+a.button, 
+button.button, 
+input[type=button].button{
+
+    background-color: #ba0c2f;
+    color: #fff;
+
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+html{
+    background-color: var(--col-stone-light);
+}
+
+details{
+
+    summary{
+        display: grid;
+        grid-template-columns: 1fr 44px;
+        grid-template-areas: "summary icon";
+        align-items: center;
+        cursor: pointer;
+        background-color: var(--col-stone-light);
+        color:var(--col-red);
+        padding: var(--pad) calc(var(--pad)/2);
+        font-weight:bold;
+        margin-bottom: var(--pad);
+        border-radius: 4px;
+        
+        &::after{
+            content:'';
+            background-image: url(../icons/up-chevron.svg);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            display: inline-block;
+            vertical-align: middle;
+            transition:
+                transform var(--time-quick, 90ms) ease-in-out,
+                color var(--time-quick, 90ms) ease-in-out,
+                background-color var(--time-quick, 90ms) ease-in-out;
+            width:44px;
+            height:44px;
+            grid-area: icon;
+            filter: invert(20%) sepia(32%) saturate(7261%) hue-rotate(330deg) brightness(88%) contrast(105%);
+        }
+    }
+    ::marker{
+        content:'';
+        display: none;
+    }
+    ::-webkit-details-marker { 
+        display:none; 
+    }
+}
+
+details[open]{
+
+    summary{
+        background-color: var(--col-red);
+        color:var(--col-stone-light);
+
+        &::after{    
+            transform: rotate(180deg);
+            filter: invert(100%) sepia(18%) saturate(2%) hue-rotate(349deg) brightness(111%) contrast(101%);
+        }
+    }
+}
+
+::details-content {
+    padding: var(--pad) calc(var(--pad)/2);
+    // animate in
+    
+    transition: 
+        height 0.5s ease, 
+        content-visibility 0.5s ease allow-discrete;
+    height: 0;
+    overflow: clip;
+}
+
+@supports (interpolate-size: allow-keywords) {
+    :root {
+      interpolate-size: allow-keywords;
+    }
+  
+    [open]::details-content {
+      height: auto;
+    }
+}
+
+hr{
+    clear: both;
+    display: block;
+    background: var(--col-warm-grey-light);
+    color: var(--col-warm-grey-light);
+    border: 0;
+    margin: 0 0 22px 0;
+    height: 1px;
+}
+
+figure {
+    break-after: column;
+}

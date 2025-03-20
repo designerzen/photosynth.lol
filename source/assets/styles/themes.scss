@@ -1,0 +1,39 @@
+// Deafult theme based on RS
+[data-theme="default"]{
+    //  background: light-dark(#fff, #000);
+    --col-bg:var(--col-stone-light, white);
+    --col-text:var(--col-charcoal, black);
+}
+
+
+// High Contrast theme
+[data-theme="contrast"]{
+    --col-bg:var(--col-black, black);
+    --col-text:var(--col-white, white);
+
+    button{
+        filter: invert(100%) contrast(92%);
+    }
+    // change all icons to white
+    // filter: invert(70%) sepia(55%) saturate(697%) hue-rotate(334deg) brightness(109%) contrast(92%);
+}
+
+// Low Colour theme
+[data-theme="monochrome"]{
+    color-scheme: dark only;
+    --col-bg:var(--col-white, white);
+    --col-text:var(--col-black, black);
+}
+
+// Low Colour theme
+[data-theme="bright"]{
+    color-scheme: light only;
+    --col-bg:var(--col-white, white);
+    --col-text:var(--col-black, black);
+}
+
+// High Colour theme
+[data-theme="colourful"]{
+    --col-bg:var(--col-white, white);
+    --col-text:var(--col-black, black);
+}

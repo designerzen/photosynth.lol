@@ -1,0 +1,250 @@
+.menu-main{
+
+    ul::before,
+    ul::after {
+        --transition: 0.18s;
+        content: '';
+        position: absolute;
+        pointer-events: none;
+        opacity: var(--intent, 0);
+        z-index: 0;
+        border-radius: 6px;
+        width:100px;
+        height:10px;
+        background: var(--col-accent);
+        transition: top var(--transition), 
+                    left var(--transition),
+                    height var(--transition), 
+                    opacity var(--transition), 
+                    color var(--transition),
+                    width var(--transition);
+    }
+
+    li{
+        position: relative;
+        z-index: 1;
+    }
+}
+
+
+// using anchor targetting for sizing
+@supports (anchor-name: --a) {
+    .menu-main{
+            
+        // a:is(:focus-visible, :hover),
+        // ul:has(a:target:is(:focus-visible, :hover))::after {
+        //     color: canvasText;
+        // }
+
+        ul:has(a:is(:focus-visible, :hover)) {
+            --intent: 1;
+        }
+
+        ul::before,
+        ul::after {
+            --transition: 0.18s;
+            content: '';
+            position: absolute;
+            pointer-events: none;
+            opacity: var(--intent, 0);
+            z-index: -1;
+            border-radius: 6px;
+            background: color-mix(in lch, canvasText, canvas 85%);
+            transition: top var(--transition), left var(--transition),
+                height var(--transition), opacity var(--transition), color var(--transition),
+                width var(--transition);
+            transition-timing-function: linear(
+                0 0%,
+                0.2342 12.49%,
+                0.4374 24.99%,
+                0.6093 37.49%,
+                0.6835 43.74%,
+                0.7499 49.99%,
+                0.8086 56.25%,
+                0.8593 62.5%,
+                0.9023 68.75%,
+                0.9375 75%,
+                0.9648 81.25%,
+                0.9844 87.5%,
+                0.9961 93.75%,
+                1 100%
+            );
+        }
+
+        ul::after {
+            top: calc(var(--target-y) * 1px);
+            left: calc((var(--target-x) * 1px) + 1.25rem);
+            height: calc(var(--target-height) * 1px);
+            width: calc((var(--target-width) * 1px) - 2.5rem);
+            opacity: 1;
+            background: transparent;
+            border-radius: 0;
+            border-bottom: 2px solid currentColor;
+            view-transition-name: target;
+        }
+        a:target {
+            anchor-name: --target;
+        }
+
+        li:has(a:is(:hover, :focus-visible)) {
+          anchor-name: --anchor;
+        }
+    
+        ul::before {
+            position-anchor: --anchor;
+            left: anchor(left);
+            top: anchor(top);
+            width: anchor-size(width);
+            height: anchor-size(height);
+        }
+    
+        ul::after {
+            position-anchor: --target;
+            left: calc(anchor(left) + 1.25rem);
+            top: anchor(top);
+            width: calc(anchor-size(width) - 2.5rem);
+            height: anchor-size(height);
+        }
+    }
+}
+
+//   ::view-transition-group(target),
+//   ::view-transition-group(item) {
+//     mix-blend-mode: normal;
+//   }
+  
+
+#menu-accessibility{
+    order:-1;
+    position: sticky;
+    top:0;
+    left:0;
+    width: 100%;
+    margin:0;
+    padding:0;
+    z-index: 303;
+    color: var(--col-text);
+    background-color: var(--col-bg);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap:0 calc( var(--pad)  );
+    grid-area: 1/1/-1/-1;
+    align-items: center;
+
+
+    .skip-to-content{
+        width: 44px;
+        height: 44px;
+        display: block;
+        overflow: hidden;
+        color: transparent;
+        background-image: url(../icons/down-chevron.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        transform: translateY(-1);
+        order:-99;
+
+        &:hover{
+            background-color: var(--col-accent);
+        }
+    }
+
+    .skip-to-content-link{
+        order:-1;
+    }
+    .volume-control-link{
+        order:0;
+    }
+    .color-scheme-link{
+        order:99;
+    }
+    .text-size-link{
+       
+    }
+    legend{
+        align-self: center;
+        text-align: right;
+        // margin-right:calc( var(--pad) / 2 );
+    }
+
+    form{
+        display: flex;
+        gap:calc( var(--pad) / 2 );
+        flex-wrap: wrap;
+    }
+
+    label{
+        padding:0; 
+        text-align: center;
+        display: flex;
+        align-items: center;
+        gap: calc( var(--pad) / 4 );
+    }
+    input[type="radio"] {
+        --size: 44px;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    #controls-volume{
+        display: grid;
+        grid-template-areas: "legend mute vol";
+        grid-template-columns: auto auto 1fr;
+    
+        legend{
+            grid-area:legend;
+        }
+    }
+}
+
+
+#mute{
+    grid-area: mute;
+    appearance: none;
+    border:0;
+    outline: 0;
+
+    min-width: 44px;
+    min-height: 44px;
+    padding:0;
+    margin:0;
+    cursor: pointer;
+
+    background-image: url(/source/assets/icons/volume_off-24px.svg);
+    background-size: contain;
+
+    &:hover{
+        background-color: var(--col-accent);
+    }
+   
+    &:checked{
+        background-image: url(/source/assets/icons/volume_mute-24px.svg);
+    }
+}
+
+#volume{
+    width: 100%;
+    grid-area: vol;
+    margin-right: var(--pad);
+    cursor: pointer;
+}
+
+// individual theme radio buttons
+// label[for='palette-default'],
+#palette-default{
+    background-image:url(/source/assets/icons/yard-24px.svg);
+}
+
+#palette-contrast{
+    background-image:url(/source/assets/icons/flourescent-24px.svg);
+}
+
+#palette-monochrome{
+    background-image: url(/source/assets/icons/light_mode-24px.svg);
+}
+
+#palette-colourful{
+    background-image: url(/source/assets/icons/color_lens-24px.svg);
+}

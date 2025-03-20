@@ -40,7 +40,6 @@
     overflow-x: hidden;
     // prevent "overscrolling"
     overscroll-behavior-y: none;
-    scroll-behavior: smooth;
 
     // https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/
     -moz-text-size-adjust: none;
@@ -55,9 +54,7 @@
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    align-content: stretch;
-    justify-content: space-between;
-    
+    align-content: stretch;    
     scroll-behavior: smooth;
 }
 
@@ -86,23 +83,18 @@
     margin-bottom:var(--pad);
 }
 
-// List item gaps
-:where(ol,ul)[role=list] li + li{
-    margin-top:calc( var(--pad) / 2 );
-}
-
 // Type
 :where(
     h1,h2,h3,h4,h5,h6
 ){ 
     overflow-wrap: break-word;
+    text-wrap:balance;
     text-wrap:pretty;
 }
 
 :where(
     canvas,
     video,
-    iframe,
     picture,
     figure,
     img,
@@ -111,6 +103,13 @@
     max-width:100%;
     height:auto;
     display: block;
+}
+
+:where(iframe){
+    max-width:100%;
+    display: block;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 video, 
@@ -131,12 +130,16 @@ abbr{
 
 :where(figure){	
     img{
-        width:100%;
+        min-width:100%;
     }
 }
 
 :where(figcaption){
     text-align: center;
+}
+
+:where(blockquote){
+    margin: 0;
 }
 
 
@@ -254,22 +257,45 @@ svg[aria-hidden='true'] {
 }
 
 // Marked text ----------------------------------------------
+::selection,
 :where(mark){
-    background-color: Highlight;
-    color: HighlightText;
+    // background-color: Highlight;
+    // color: HighlightText;
+    background-color:var(--col-orange);
+    padding:calc( var(--pad) * 1 ) calc( var(--pad) * 2 );
 }
 
 :where(input){
     text-align: center;
+   
+    // For iOS < 15 you need to remove the background
+    background-color: var(--col-white, white);
+    padding:0;
+    margin:0;
+
+    font: inherit;
+
+    color: currentColor;
 }
 
 :where(	
+    input[type=range],
     input[type=submit],
     input[type=reset],
     button
 ){
     cursor: pointer;
 }
+
+fieldset{
+    border-radius: 12px;
+
+    legend{
+        text-align: center;
+    }
+}
+
+
 
 output{
     display: block;
@@ -297,4 +323,11 @@ textarea:not([rows]) {
 // Anything that has been anchored to should have extra scroll margin 
 :target {
     scroll-margin-block: 5ex;
+}
+
+// override the above
+@media screen and (prefers-reduced-motion) {
+    body{
+        scroll-behavior:unset;
+    }
 }

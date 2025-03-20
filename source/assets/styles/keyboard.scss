@@ -1,0 +1,70 @@
+.piano-key{
+	transition: fill 90ms linear;
+    border-radius: 10%;
+
+	&:hover{
+		fill:var(--col-warm-grey);
+	}	
+    
+
+    &.active{
+		fill:var( --col-accent, var(--shade-brand, red) );
+	}
+    &.active:hover{
+		fill:var( --col-accent, var(--shade-brand, red) );
+	}
+}
+
+.piano-key-white{
+	background-color:white;
+	fill:white;
+}
+
+.piano-key-black{
+	fill:black;
+	background-color:black;
+	background-image:linear-gradient(to bottom, #000, #222);
+}
+
+.piano-note-indicator{
+	transition: opacity 90ms linear;
+	stroke:white;
+	stroke-width:0.3;
+	fill:yellow;
+	opacity: 0;
+}
+
+#headline{
+
+    .piano-key-black{
+        fill:white;
+        background-image:none;
+        stroke: transparent;
+    }
+    
+    .piano-key-white{
+        background-color:white;
+        fill:transparent;
+        stroke: white;
+    }
+}
+
+
+
+.piano{
+    --c:calc(100% - max(5vw, 24px) );
+    position: sticky;
+    bottom:calc( -1 * var(--footer-height,0 ));
+	transition: bottom var(--timing-s, 90ms) ease-in-out; 
+    // bottom:min( -12vw, -100px );
+    // bottom:0px;
+    // margin-top:calc( -1 * var(--c) );
+    // transform: translateY( var(--c) );
+}
+
+
+.show-full-keyboard{
+	.piano{
+		bottom:0;
+	}
+}

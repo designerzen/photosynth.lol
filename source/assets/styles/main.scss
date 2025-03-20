@@ -1,33 +1,344 @@
 html {
     display: grid;
     min-height: 100%;
+    background-color: var(--col-bg);  
+
+    // &::before{
+    //     content:"";
+    //     position: fixed;
+    //     top:0;
+    //     left:0;
+    //     width: 100%;
+    //     height: 100%;
+    //     background-color: var(--col-red);
+    //     color:var(--col-white);
+    //     z-index: 0;
+    //     display: flex;
+    //     place-content: center;
+    // }
+}
+.coming-soon{
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--col-red);
+    color:var(--col-white);
+    z-index: 909;
+    display: flex;
+    flex-wrap: wrap;
+    place-content: center;
+}
+
+body{
+    display: grid;
+    grid-template-areas: 
+        "header",
+        "main",
+        "footer"
+        ;
+    // gap:var(--pad);
+    grid-auto-flow: row;
+    color: var(--col-text); 
+    accent-color: var(--col-accent);
+}
+
+[data-attribute-number="0"],
+[data-attribute-key="A"]{
+    --col-accent: var(--col-orange);
+}
+[data-attribute-key="A#"]{
+    --col-accent: var(--col-orange);
+}
+[data-attribute-number="1"],
+[data-attribute-key="B"]{
+    --col-accent: var(--col-red);
+}
+[data-attribute-number="2"],
+[data-attribute-key="C"]{
+    --col-accent: var(--col-plum);
+}
+[data-attribute-key="C#"]{
+    --col-accent: var(--col-plum);
+}
+circle-of-fifths-harmonies
+[data-attribute-number="3"],
+[data-attribute-key="D"]{
+    --col-accent: var(--col-pink);
+}
+[data-attribute-key="D#"]{
+    --col-accent: var(--col-pink);
+}
+[data-attribute-number="4"],
+[data-attribute-key="E"]{
+    --col-accent: var(--col-purple);
+}
+[data-attribute-number="5"],
+[data-attribute-key="F"]{
+    --col-accent: var(--col-blue);
+}
+[data-attribute-key="F#"]{
+    --col-accent: var(--col-blue);
+}
+[data-attribute-number="6"],
+[data-attribute-key="G"]{
+    --col-accent: var(--col-green);
+}
+[data-attribute-key="G#"]{
+    --col-accent: var(--col-green);
 }
 
 // header{
 #headline{
+
+    --peek:20px;
+
+    box-sizing: border-box;
     color:var(--col-white);
     background-color: var(--col-blue);
-    padding:var(--pad) calc( 2 * var(--pad) );
+    // TODO minus some bottom space for the "fold"
+    min-height:calc(100vh - var(--peek));
+    min-height:calc(100dvh - var(--peek));
+    max-height:calc(100vh - var(--peek));
+    max-height:calc(100dvh - var(--peek));
+    width: 100%;
+
+    // display: flex;
+    // flex-direction: column;
+    display: grid;
+    grid-template-areas: 
+        "menu"
+        "headline"
+        "nav"
+    ;
+    grid-template-rows: 
+        auto 
+        1fr 
+        auto
+    ;
+
+    position: relative;
+    z-index: 2;
+
+    hgroup{
+        pointer-events: none;
+        touch-action: none;
+
+        padding:var(--pad) calc( 2 * var(--pad) );
+        grid-area: headline;
+        position: relative;
+        z-index: 202;
+        display: flex;
+        flex-direction: column;
+        gap:calc( var(--pad)) ;
+    }
+
+    nav{
+        margin:0;
+        padding:0;
+        position: sticky;
+        top:0;
+        z-index: 202;
+        grid-area: nav;
+        justify-self: end;
+
+        ul{
+            margin:var(--pad) calc( 2 * var(--pad) );
+            // margin-top:auto;
+            background-color:var(--col-white);
+            padding:var(--pad) calc( 2 * var(--pad) );
+            border-radius: 99px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap:var(--pad);
+        }
+    }
+
+    canvas{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top:0;
+        left:0;
+        grid-area:2/1/-1/-1;
+        z-index: -1;    // behind everything
+    }
+
+    .piano{
+        grid-area:1/1/-1/-1;
+        transform: scale(-1);
+        margin-top:auto;
+    }
+
+    img.logo-royal-society-crest{
+        position: absolute;
+        top: var(--pad);
+        right: var(--pad);
+        // order: 1;
+        // float: right;
+        grid-area: headline;
+        width: clamp( 100px, 20% , 256px);
+        height: auto;
+        max-height:75%;
+        z-index: 1;
+    }
+
+    menu{
+        grid-area: menu;
+        justify-self: center;
+    }
 }
 
-main{
-    padding:var(--pad);
+@media screen and (min-width:800px){
+    #headline hgroup{
+        padding-right: calc( 12ch + 4 * var(--pad) ) ;
+    }
+}
+
+// see menu in menu.scss
+
+main,
+body > footer,
+.piano{
+    // padding:var(--pad);
+    box-sizing: border-box;
     // padding:var(--pad) calc( 2 * var(--pad) );
+    z-index: 1;
+}
+
+main > :is(section, blockquote){
+   
+    container-type: inline-size;
+
+    margin-left:auto;
+    margin-right:auto;
+
+    max-width: var(--max-section-width);
+    min-height:100vh;
+    min-height:100dvh;
+    padding:calc( 2 * var( --pad ));
+    box-sizing: border-box;  
+    // display: block;
+    border-radius: 9px 9px 0 0;
+  
+    background-color: var(--col-bg);
+    width:100%;
+    position: relative;
+
+
+    // https://smoothshadows.com/#djEsMSw1LDAuMDgsMjQsMCwwLCMzMzMxMzIsI2U4ZTZkZiwjZmZmZmZmLDI%3D 
+    // box-shadow: 
+    //     0px 0px 1px rgba(51, 49, 50, 0.02),
+    //     0px 0px 4px rgba(51, 49, 50, 0.03),
+    //     0px 0px 9px rgba(51, 49, 50, 0.05),
+    //     0px 0px 15px rgba(51, 49, 50, 0.06),
+    //     0px 0px 24px rgba(51, 49, 50, 0.08);
+
+    // https://smoothshadows.com/#djEsMSw1LDAuMDQsNTcsMCwwLCMzMzMxMzIsI2U4ZTZkZiwjZmZmZmZmLDI%3D
+    box-shadow: 
+        0px 0px 2px rgba(51, 49, 50, 0.01),
+        0px 0px 9px rgba(51, 49, 50, 0.02),
+        0px 0px 21px rgba(51, 49, 50, 0.02),
+        0px 0px 36px rgba(51, 49, 50, 0.03),
+        0px 0px 57px rgba(51, 49, 50, 0.04);
 }
 
 
-img.framed {
+p.flood{
+    padding-top:calc( var(--pad) / 2 );
+    padding-bottom:calc( var(--pad) / 2 );
+    margin-top:calc( var(--pad) / 2 );
+    margin-bottom:calc( var(--pad) / 2 );
+}
+
+main > section + section{
+    margin-top:calc( 2 * var(--pad) );
+}
+main > section.sticky + section{
+    margin-top:calc( 4 * var(--pad) );
+}
+
+figure{
+
+}
+
+body > footer{
+    color:var(--col-text);
+    // background-color:var(--col-text);
+    background-image: url("/source/assets/logos/royal_society-crest.svg");
+    background-position: bottom calc( 1ch + var(--pad) * 2) right var(--pad);
+    background-repeat: no-repeat;
+    background-size: 20%;
+}
+
+footer{
+    margin-left:var( --pad );
+    margin-right:var( --pad );
+}
+
+
+
+#affiliates{
+    ul{
+        list-style: none;
+        display: grid;
+        gap:var(--pad);
+        grid-template-columns: repeat(auto-fill, minmax( min(180px, 33%), 1fr));
+        justify-content: end;
+        align-items: center;
+    }
+
+    
+    
+    li + li{
+        img{
+            height:196px;
+            width: auto;
+            max-width: none;
+        }
+        &::before{
+            content:"×";
+            font-size: 300%;
+            float: left;
+            padding: var(--pad);
+            height: 100%;
+            display: inline-block;
+            vertical-align: middle;
+            margin-top: 13%;
+        }
+    }
+}
+
+#socials{
+    ul{
+        display: flex;
+        list-style-position: inside;
+        gap:var(--pad);
+    }
+}
+
+img.framed,
+figure.framed {
     // corner size
     --corner-size: calc( 8 * var(--pad) ); 
-    --depth:8px;
-    --col:red;
+    --depth:calc( var(--pad) / 2 );
+    --col:var(--col-plum);
     // gap 
     padding: var(--pad);
     border: var(--depth) solid var(--col);
+    margin-top: var(--pad);
+    margin-bottom: var(--pad);
     mask:
         conic-gradient(at var(--corner-size) var(--corner-size),#0000 75%,#000 0)
         0 0/calc(100% - var(--corner-size)) calc(100% - var(--corner-size)),
         conic-gradient(#000 0 0) content-box;
+
+    figcaption{
+        margin-top: var(--pad);
+    }
 }
 
 .icon-plus {
@@ -63,4 +374,83 @@ img.framed {
 button.cta,
 a.cta{
 
+}
+
+
+dl.data-address{
+    display: grid;
+    grid-template-columns: minmax(80px, 1fr) minmax(120px, 10fr);
+    gap:calc(var(--pad) / 2);
+    align-items: baseline;
+}
+
+dd{
+    margin:0;
+}
+
+dt{
+    text-align: right;
+    color:var(--col-warm-grey, grey);
+}
+
+
+#emotion{
+
+    .notation{
+        display: grid;
+        grid-template-columns: repeat( auto-fill, minmax(64px, 1fr));
+    }
+}
+
+// #emotion
+.emotion-selector fieldset{
+    // display: grid;
+    // grid-template-columns: repeat(auto-fill, minmax(66px, 1fr));
+
+    
+    gap:var(--pad);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    justify-self: center;
+    align-items: start;
+    padding: calc( var(--pad) /2 ) calc( var(--pad) );
+
+    label::first-of-type,
+    output{
+        grid-area:1/1/-1/0;
+    }
+}
+
+#event-info{
+    display: flex;
+    flex-direction: column;
+}
+
+a[href$="designerzen.com"]{
+    text-decoration: none;
+    &::before{
+        --size:1.5ch;
+        content:'';
+        margin-right: calc( var(--pad) / 10 );
+        display: inline-block;
+        vertical-align: baseline;
+        background-image: url(../logos/designerzen.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: var(--size,1ch);
+        height: var(--size,1ch);
+    }
+}
+
+.map{
+    border:2px solid var(--col-accent, black);
+    margin-top:var(--pad);
+    max-height: 69vh;
+    max-height: 69dvh;
+}
+
+.link-map{
+    align-self: flex-end;
+    margin-bottom:var(--pad);
 }
