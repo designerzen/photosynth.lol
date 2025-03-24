@@ -58,6 +58,11 @@ export default class SVGKeyboard extends AbstractInteractive{
         return note
     }
 
+	createKeyName( key, x, y, width=23, height=120 ){
+		const textYPosition = y + height
+		return `<text x="${x}" y="${textYPosition}" class="piano-key-name">${key.noteName}</text>`
+	}
+
 	createBlackKey( key, x, y, r=1.5, width=13, height=80 ){
 		return `<rect 
 					x="${x}" 
@@ -138,6 +143,7 @@ export default class SVGKeyboard extends AbstractInteractive{
 		// Keys as strings
 		const whiteKeyElements = []
 		const blackKeyElements = []
+		
 		const keyElements = keys.map( (key,index)=>{
 			
             // FIXME: 
@@ -154,6 +160,13 @@ export default class SVGKeyboard extends AbstractInteractive{
 			 				blackKeyElements.push( keyElement ) :
 			 				whiteKeyElements.push( keyElement )
 			
+			if (isBlack)
+			{
+				this.createKeyName( key, x, y, blackKeyWidth, blackKeyHeight )
+			}else{
+				this.createKeyName( key, x, y, blackKeyWidth, blackKeyHeight )
+			}
+
 
 			x += isBlack ? halfBlackKeyWidth : whiteKeyWidth
 			// x += isBlack ? -halfBlackKeyWidth  : whiteKeyWidth

@@ -21,9 +21,10 @@ export const registerMultiTouchSynth = (audioContext, notes=[], noteOnCallback=n
         const percentageX = x / canvasWidth
         const percentageY = y / canvasHeight
         // set frequency based on the mouse position
-        const octave = 2 + Math.round((1 - percentageY) * 4)
-        const note = Math.round(percentageX * 12 + octave * 12 )
-        return notes[note%notes.length]
+        // from Octave 3->7
+        const octave = 3 + Math.round( percentageX * 4) 
+        const note = Math.round(percentageY * 12 + octave * 12 )
+    return notes[note%notes.length]
     }
 
     /**

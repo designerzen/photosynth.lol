@@ -21,11 +21,10 @@ export const addTextScalingFacilities = (initialFontSize=1, onFontSizeChange) =>
     }
     
     buttonFontSizeIncrease.addEventListener("click", ()=>{
-        setFontScale(  Math.min(fontScale + fontScaleBy, 2) )
+        setFontScale( Math.min(fontScale + fontScaleBy, 2).toFixed(1) )
     }) 
 
     buttonFontSizeDecrease.addEventListener("click", ()=>{
-        setFontScale( Math.max(fontScale - fontScaleBy, 1) )
+        setFontScale( Math.max(fontScale - fontScaleBy, 1).toFixed(1) )
     })
 }
-

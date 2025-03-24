@@ -7,6 +7,7 @@ export default class SynthOscillator{
 
     options = {
         gain:0.5,
+        attack:0.3,
         shape:OSCILLATORS[0],
         minDuration:1,
         arpeggioDuration:0.2,
@@ -182,7 +183,8 @@ export default class SynthOscillator{
         
         // fade in envelope
         this.gainNode.gain.cancelScheduledValues(now)
-		this.gainNode.gain.linearRampToValueAtTime( velocity * this.options.gain, now + this.options.fadeDuration )
+        this.gainNode.gain.setValueAtTime( 0, now )
+		this.gainNode.gain.linearRampToValueAtTime( velocity * this.options.gain + this.options.attack, now + this.options.fadeDuration )
 
 		// Shape the note
 		this.filterNode.frequency.cancelScheduledValues(now)
@@ -201,7 +203,6 @@ export default class SynthOscillator{
         if (arp)
         {
              this.addArpeggioAtIntervals( note, arp )
-
         }
        
         this.isNoteDown = true
