@@ -36,6 +36,7 @@ let keyboard
 // Shared DOM elements
 let hero
 let viz
+let circles
 
 const keyboardKeys = ( new Array(128) ).fill("")
 const ALL_KEYBOARD_NOTES = keyboardKeys.map((keyboardKeys,index)=> new Note( index ))
@@ -71,28 +72,6 @@ const getSynthForFinger = (finger=0)=>{
     return fingerSynths.get(finger)
 }
 
-const setTimbre = (timbre) => {
-    fingerSynths.forEach( synth => synth.shape = timbre )
-    shape = timbre
-}
-
-const setVolume = (value) => {
-    mixer.gain.value = value
-    volume = value
-    searchParams.set("volume", value)
-    updateURL()
-}
-
-const toggleMute = (value, volumeSlider=null) => {
-   if (value){
-        mixer.disconnect()
-        volumeSlider.setAttribute( "disabled", true )
-    }else{
-        mixer.connect(audioContext.destination)
-        volumeSlider.removeAttribute( "disabled" )
-    }
-}
-
 /**
  * Replace the existing URL with a specific one without refreshing the page
  * This query string can then be used to restore the state of the page
@@ -104,7 +83,9 @@ const updateURL = ()=>{
 }
 
 /**
- * 
+ * Adds a menu specifically for accessibility
+ * that includes text sizing / font selection
+ * audio controls and theme selection
  */
 const addAccessibilityFunctionality = ()=> {
 
@@ -112,13 +93,14 @@ const addAccessibilityFunctionality = ()=> {
     const accessibilityMenu = document.getElementById("menu-accessibility")
     accessibilityMenu.hidden = false
 
+    // THEME ------------------------------------------------
+
     // set theme from query string if provided
     if (theme !== "default")
     {
         setTheme(theme)
     }
     
-    // Choose Theme
     addThemeSelectionOptions((themeName) =>{
         searchParams.set("theme", themeName)
         updateURL()
@@ -131,6 +113,7 @@ const addAccessibilityFunctionality = ()=> {
         console.info("volumeSlider", input)
         setVolume(input / 100 )
     })
+
     const muteCheckbox = document.getElementById("mute")
     muteCheckbox.addEventListener("change", e => {
         toggleMute(e.target.checked, volumeSlider)
@@ -293,6 +276,42 @@ const setMode = (musicalMode) => {
     return mode
 }
 
+/**
+ * Set the shape of this sound
+ * @param {String|Number} timbre 
+ */
+const setTimbre = (timbre) => {
+    fingerSynths.forEach( synth => synth.shape = timbre )
+    shape = timbre
+}
+
+/**
+ * Set the Master Volume
+ * @param {Number} value 0->1
+ */
+const setVolume = (value) => {
+    mixer.gain.value = value
+    volume = value
+    searchParams.set("volume", value)
+    updateURL()
+}
+
+/**
+ * Mute / Unmute the Master Volume
+ * @param {Number} value 
+ * @param {HTMLElement} volumeSlider 
+ */
+const toggleMute = (value, volumeSlider=null) => {
+   if (value){
+        mixer.disconnect()
+        volumeSlider.setAttribute( "disabled", true )
+    }else{
+        mixer.connect(audioContext.destination)
+        volumeSlider.removeAttribute( "disabled" )
+    }
+}
+
+
 const DEFAULT_OBSERVATION_OPTIONS = {
     // root: document.body,
     root: null,
@@ -349,38 +368,49 @@ const monitorIntersections = ( query="[data-observe]", intersectionOptions = DEF
 
 const fetchStateFromRadioButtons = () => {
 
-    const radioButtons = document.querySelectorAll('input[type="radio"][ name="emotion"]:checked')
-    console.info("radioButtons", radioButtons)
-    // mode = 
+    const queries = [
+        '.emotion-selector input[type="radio"]:checked',
+        '#emotion input[type="radio"]:checked'
+    ]
 
+    const o = queries.map(query => {
+        const radioButtons = document.querySelectorAll(query)
+        console.info("radioButtons", radioButtons)
+        return radioButtons
+    })
+
+    const flat = Array.from(  new Set(...o) )
+  
+
+    flat.forEach(radioButton => {
+        console.info("checked", radioButton)
+        switch (radioButton.name)
+        {
+            case "emotion":
+                setMode( radioButton.value )
+                break
+            case "octave":
+                setOctave( radioButton.value )
+                break
+            case "timbre":
+                setTimbre( radioButton.value )
+                break
+            case "chord":
+                console.warn("No case for", radioButton.name)
+                break
+            default:
+                console.warn("No case for", radioButton.name)
+        }
+    })
+    
+    // now set each state by calling the relevant selection function
+    
 }
 
-const start =  () => {
-
-    // use the sta
-    fetchStateFromRadioButtons() 
-   
-    let circles
-    // for (const p of searchParams) {
-    //     console.info("searchParams",p, searchParams)
-    // }
-
-    // 
-    const showingPassword = pass && pass.hidden
-
-    // NB. if this is password protected we ignore visits until the user has logged in
-    const timesVisited = parseInt(searchParams.get("visited") ?? 0)
-    searchParams.set("visited", showingPassword ? 0 : timesVisited + 1 )
-    pass.hidden = timesVisited > 0
-   
-    addAccessibilityFunctionality()
-
-    // replace the current year with the current year
-    const currentYear = new Date().getFullYear()
-    document.querySelector(".current-year").textContent = currentYear
-
-    hero = new Hero(ALL_KEYBOARD_NOTES, noteOn, noteOff)
-
+/**
+ * Show the MIDI toggle button (ensure that MIDI is enabled first!)
+ */
+const showMIDIToggle = () => {
     const buttonMIDIToggle = document.getElementById("toggle-midi")
     buttonMIDIToggle.addEventListener("click", async(e) => {
         const midi = await enableMIDI()
@@ -392,61 +422,23 @@ const start =  () => {
         console.info(midi.inputs)
         console.info(midi.outputs)
     })
-   
-
-    // const headerElement = document.getElementById("headline")    
-    keyboard = new SVGKeyboard(KEYBOARD_NOTES, noteOn, noteOff )
-    
-    // headerElement.appendChild(keyboard.asElement)
-
-    // const keyboard2 = new SVGKeyboard(KEYBOARD_NOTES, noteOn, noteOff )
-    const keyboardElement = document.body.appendChild(  keyboard.asElement )
-    keyboardElement.addEventListener("dblclick", e => isHappy = !isHappy)
-    // document.body.appendChild(keyboard2.asElement)
+    buttonMIDIToggle.parentNode.hidden = false
+}
 
 
-    const emotionRadioButtons = emotionPanel.querySelectorAll("input[type=radio]") 
-    emotionRadioButtons.forEach(radioButton => {
-        radioButton.addEventListener("change", e => {
-            
-            const input = e.target.value
-            switch(input)
-            {
-                case "Major":
-                    // circles.happiness = 1
-                    isHappy = true
-                    break
+// replace the current year with the current year
+const setCurrentYear = () => {
+   const currentYear = new Date().getFullYear()
+   const yearElement = document.querySelector(".current-year")
+   if (yearElement)
+   {
+        yearElement.textContent = currentYear
+        return true
+   }
+   return false
+}
 
-                case "Minor":
-                    // circles.happiness = 0
-                    isHappy = false
-                    break
-
-                default: 
-                    setMode( input )
-                    // circles.happiness = mode / 7
-                    circles.mode = mode
-                    console.log("radioButton", radioButton, input)
-            }
-            emotionPanel.querySelector("output").textContent = input
-        })
-    })
-
-    const shapeButtons = Array.from( document.body.querySelectorAll('input[name="timbre"]') ) 
-    shapeButtons.forEach( (radioButton, index) => {
-        radioButton.addEventListener("change", e => {
-            const input = e.target.value
-            setTimbre( input )
-        })
-    })
-
-
-    const canvas = document.getElementById("wallpaper")
-    // viz = new NoteVisualiser( ALL_KEYBOARD_NOTES, canvas, false, 0.1 )
-    viz = new NoteVisualiser( KEYBOARD_NOTES, canvas, false, 0 )
-
-
-
+const showCircularSynth = () => {
 
     // const FIFTHS_LYDIAN = [0,1,1,1,1,1]
     // const FIFTHS_IONIAN = [0,1,1,1,1,5]
@@ -486,9 +478,92 @@ const start =  () => {
 
     console.info("COF", {f5, fifthData, fifthIndexes }) 
     // now chords foor the fifths
+}
 
+
+const start =  () => {
+   
+    // for (const p of searchParams) {
+    //     console.info("searchParams",p, searchParams)
+    // }
+
+    // Passowrd Protection ------------------------------------------------
+    const showingPasswordScreen = pass && pass.hidden
+
+    // NB. if this is password protected we ignore visits until the user has logged in
+    const timesVisited = parseInt(searchParams.get("visited") ?? 0)
+    searchParams.set("visited", showingPasswordScreen ? 0 : timesVisited + 1 )
+    pass.hidden = timesVisited > 0
+
+
+   
+    addAccessibilityFunctionality()
+    setCurrentYear()
+
+    if (navigator.requestMIDIAccess)
+    {
+        showMIDIToggle()
+    }
+   
+
+    hero = new Hero(ALL_KEYBOARD_NOTES, noteOn, noteOff)
+
+    // const headerElement = document.getElementById("headline")    
+    keyboard = new SVGKeyboard(KEYBOARD_NOTES, noteOn, noteOff )
+    
+    // headerElement.appendChild(keyboard.asElement)
+
+    // const keyboard2 = new SVGKeyboard(KEYBOARD_NOTES, noteOn, noteOff )
+    const keyboardElement = document.body.appendChild( keyboard.asElement )
+    keyboardElement.addEventListener("dblclick", e => isHappy = !isHappy)
+    // document.body.appendChild(keyboard2.asElement)
+
+    const canvas = document.getElementById("wallpaper")
+    viz = new NoteVisualiser( KEYBOARD_NOTES, canvas, false, 0 ) // ALL_KEYBOARD_NOTES
+
+    // reinstate the state recalled from the previous session
+    // fetchStateFromRadioButtons() 
+   
+    showCircularSynth()
     monitorIntersections()
     updateURL()
+
+    // UI ------------------------------------------------
+
+    const emotionRadioButtons = emotionPanel.querySelectorAll("input[type=radio]") 
+    emotionRadioButtons.forEach(radioButton => {
+        radioButton.addEventListener("change", e => {
+            
+            const input = e.target.value
+            switch(input)
+            {
+                case "Major":
+                    // circles.happiness = 1
+                    isHappy = true
+                    break
+
+                case "Minor":
+                    // circles.happiness = 0
+                    isHappy = false
+                    break
+
+                default: 
+                    setMode( input )
+                    // circles.happiness = mode / 7
+                    circles.mode = mode
+                    console.log("radioButton", radioButton, input)
+            }
+            emotionPanel.querySelector("output").textContent = input
+        })
+    })
+
+    const shapeButtons = Array.from( document.body.querySelectorAll('input[name="timbre"]') ) 
+    shapeButtons.forEach( (radioButton, index) => {
+        radioButton.addEventListener("change", e => {
+            const input = e.target.value
+            setTimbre( input )
+        })
+    })
 }
 
 /**

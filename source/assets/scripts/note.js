@@ -1,3 +1,14 @@
+/**
+ * Tonic
+ * Supertonic
+ * Mediant
+ * Subdominant
+ * Dominant
+ * Submediant
+ * Leading Tone
+ * Sub-Tonic
+ */
+
 import { PALETTE } from "./settings"
 
 const ROOT_FREQUENCY = 440 // 440 //frequency of A (coomon value is 440Hz)
