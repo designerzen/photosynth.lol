@@ -4,8 +4,8 @@
   "description": "Royal Society Summer Exhibition 2025 Landing page",
   "source": "source/index.html",
   "scripts": {
-    "start": "parcel",
-    "build": "parcel build",
+    "start": "parcel ./source/sitemap.html",
+    "build": "parcel build ./source/sitemap.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -31,8 +31,11 @@
     "@parcel/transformer-jsonld": "2.13.3",
     "@parcel/transformer-sass": "2.13.3",
     "@parcel/transformer-xml": "2.13.3",
+    "oxlint": "^0.16.2",
     "parcel": "latest",
     "parcel-reporter-static-files-copy": "^1.5.3",
-    "svgo": "^3.3.2"
+    "process": "^0.11.10",
+    "svgo": "^3.3.2",
+    "webmidi": "^3.1.12"
   }
 }
