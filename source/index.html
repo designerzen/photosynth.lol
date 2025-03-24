@@ -29,6 +29,8 @@
     <meta itemprop="name" content="Summer Science Exhibition 2025 | Royal Society | Drake Music">
     <meta name="twitter:description" content="A free six-day festival showcasing the science shaping our future.">
     <meta name="twitter:image" content="https://royalsociety.org/-/media/summer-science-exhibition/2024/sse-2024-newsletter.jpg">
+    
+    <meta name="color-scheme" content="dark light">
 
     <link type="text/plain" rel="author" href="https://interface.place/humans.txt">
 	
@@ -44,6 +46,9 @@
         <hgroup>
             <h1>Smile Powered Pop Music with the <cite>Photo<wbr>SYNTH</cite> and friends!</h1>
             <h2>Royal Society Summer Science Exhibition 2025</h2>
+            <a class="sr-only" href="#main-content">
+                Skip directly to the main content.
+            </a>
         </hgroup>
          
         <nav class="menu-main">
@@ -52,14 +57,16 @@
                 <li><a href="#history">History</a></li>
                 <li><a href="#research">Research</a></li>
                 <li><a href="#event">Event</a></li>
-                <li><a href="#faq">Q & A</a></li>
+                <li><a href="#faq">Q &amp; A</a></li>
                 <li><a href="#laboratory">Laboratory</a></li>
             </ul>
         </nav>
         
         <menu id="menu-accessibility" hidden>
             <li class="skip-to-content-link">
-                <a class="skip-to-content" href="#main-content">Skip accessibility menu and got straight to content</a>
+                <a class="skip-to-content" href="#main-content">
+                    Skip accessibility menu and jump straight to the main content.
+                </a>
             </li>
             <li class="text-size-link">
                 <form>
@@ -74,29 +81,51 @@
                 </form>
             </li>
 
+            <li class="font-link">
+                <form>
+                    <legend>Typeface</legend>
+
+                    <label for="font-default">
+                        <input name="font" id="font-default" type="radio" value="default" checked>
+                        Balanced<span class="sr-only"> font</span>
+                    </label>
+
+                    <label for="font-readable">
+                        <input name="font" id="font-readable" type="radio" value="readable">
+                        Readable<span class="sr-only"> font</span>
+                    </label>
+
+                    <label for="font-dsylexic">
+                        <input name="font" id="font-dsylexic" type="radio" value="dsylexic">
+                        Dsylexic<span class="sr-only"> font</span>
+                    </label>
+
+                </form>
+            </li>
+            
             <li class="color-scheme-link">
                 <form>
                     <legend>Colour Scheme</legend>
 
-                        <label for="palette-default">
-                            <input name="palette" id="palette-default" type="radio" value="default" checked>
-                            Balanced<span class="sr-only"> Colour Scheme.</span>
-                        </label>
+                    <label for="palette-default">
+                        <input name="palette" id="palette-default" type="radio" value="default" checked>
+                        Balanced<span class="sr-only"> Colour Scheme.</span>
+                    </label>
 
-                        <label for="palette-contrast">
-                            <input name="palette" id="palette-contrast" type="radio" value="contrast">
-                            High<span class="sr-only"> Contrast Scheme.</span>
-                        </label>
+                    <label for="palette-contrast">
+                        <input name="palette" id="palette-contrast" type="radio" value="contrast">
+                        High<span class="sr-only"> Contrast Scheme.</span>
+                    </label>
+                    
+                    <label for="palette-monochrome">
+                        <input name="palette" id="palette-monochrome" type="radio" value="monochrome">
+                        Monochrome<span class="sr-only"> Colour Scheme.</span>
+                    </label>
                         
-                        <label for="palette-monochrome">
-                            <input name="palette" id="palette-monochrome" type="radio" value="monochrome">
-                            Monochrome<span class="sr-only"> Colour Scheme.</span>
-                        </label>
-                            
-                        <label for="palette-colourful">
-                            <input name="palette" id="palette-colourful" type="radio" value="colourful">
-                            Colourful<span class="sr-only"> Scheme.</span>
-                        </label>
+                    <label for="palette-colourful">
+                        <input name="palette" id="palette-colourful" type="radio" value="colourful">
+                        Colourful<span class="sr-only"> Scheme.</span>
+                    </label>
 
                 </form>
             </li>
@@ -121,33 +150,46 @@
         </menu>
        
         <img class="logo-royal-society-crest" width="100" height="100" src="/source/assets/logos/royal_society-crest.svg" alt="">
-        <canvas id="wallpaper"></canvas>    
+      
+        <label for="toggle-midi">
+            MIDI
+            <input type="checkbox" id="toggle-midi" value="midi">
+        </label>
+
     </header>
+
+
 
     <main id="main-content">
 
-        <section id="hero" class="sticky full-width" data-observe data-full-keyboard>
+        <section id="hero" class="sticky full-width" data-observe data-full-keyboard data-inert>
             <figure id="hero-figure">
                 <img 
-                    width="3840" height="2160"
-                    src="./assets/figures/hero.svg" 
+                    width="9000" height="2160"
+                    src="./assets/wallpaper/hero.svg" 
                     alt="The Photosynth, smile powered music.">
-                <figcaption>Converting happiness into music</figcaption>
+            <figcaption class="sr-only">Converting happiness into music</figcaption>
             </figure>
             
         </section>
 
 
-        <section id="teaser" class="sticky" data-observe>
-            <h3>Drake Music presents, the <cite>Photo<wbr>SYNTH</cite>, the happiest way to make music!</h3>
+        <section id="teaser" class="" data-observe>
+            <h3 class="underline">Drake Music presents, the <cite>Photo<wbr>SYNTH</cite>, the happiest way to make music!</h3>
 
-            <hr>
+            
+
+
+
+
+
 
             <p>
                 Science, research, innovation and development allow us to augment people's abilities in radical new ways thanks to advancements in neural networking, machine learning and artificial intelligence that have made it possible to elegantly interface with machines in natural and intuitive new ways.
             </p>
 
             <h4>If you've ever dreamed of being more musical, you're not alone!</h4>
+            <p>Have you ever dreamed of being more musical, well alright... Hold tight!</p>
         
             <blockquote>
                 <p>Wouldn't it be nice if there was a musical magic-spell?</p>
@@ -156,36 +198,22 @@
             <p>We all know music can make you feel happy, but what if your happiness could make music?</p>
             <p>Imagine if you could just make music without having to learn a new instrument!</p>
 
-            <p>Makes learning how to play music simple and easy like Sunday morning!</p>
-            <blockquote>
-                <p>Imagine a world where rather than having to learn a musical instrument, the musical instrument could learn how to play you...</p>
+            <p>Makes learning how to play music simple ... easy, like a Sunday morning.</p>
+           
+        
+            <p>Imagine a world where rather than having to learn a musical instrument, the musical instrument could learn how to play you...</p>
+        
+
+    
+            <blockquote class="sticky full-height">
+                <p class="quote">Any sufficiently advanced technology is indistinguishable from magic.</p>
+                <p class="citation">Arthur C Clarke<cite></cite></p>
             </blockquote>
+    
+
+
+            <p>Come and have a play with some of the newest instruments from the <a href="#amic">Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></a></p>
         </section>
-
-        <blockquote>
-            <p>Mirror Mirror on the wall, who's the rarest of them all?</p>
-        </blockquote>
-
-        
-        <blockquote class="sticky">
-            <p class="quote">Music is an unconscious exercise in mathematics in which the mind is unaware that it is calculating.</p>
-            <p class="citation">Gottfried Wilhelm Leibniz <cite></cite></p>
-        </blockquote>
-
-        <blockquote class="sticky">
-            <p class="quote">Music is an unconscious exercise in metaphysics in which the mind is unaware that it is philosophizing.</p>
-            <p class="citation">Arthur Schopenhauer, <cite>The World as Will and Representation</cite></p>
-        </blockquote>
-        
-        <blockquote class="sticky">
-            <p class="quote">Music is an unconscious exercise in communication in which the mind is unaware that it is being guided.</p>
-            <p class="citation">Zenon Olenski <cite></cite></p>
-        </blockquote>
-
-        <blockquote class="sticky">
-            <p class="quote">Any sufficiently advanced technology is indistinguishable from magic.</p>
-            <p class="citation">Arthur C Clarke<cite></cite></p>
-        </blockquote>
 
         <section id="about" class="split" data-observe>
 
@@ -196,7 +224,7 @@
 
             <p><dfn id="definition-photosynth">The <cite>Photo<wbr>SYNTH</cite></dfn> is a 
                 <dfn id="definition-mixed-reality">mixed-reality</dfn> audio synthesizer that uses real-time motion capture with
-                facial-landmark tracking to enhance your movements, and the movements of your friends, with new musical
+                facial-landmark tracking to enhance your movements, and the movements of your friends, with radical new musical
                 superpowers, instantly controlling aspects of each instrument and sound... 
             </p>
             
@@ -205,6 +233,21 @@
             </p>
 
 
+            
+            <blockquote class="sticky full-height">
+                <p class="quote">Music is an unconscious exercise in mathematics in which the mind is unaware that it is calculating.</p>
+                <p class="citation">Gottfried Wilhelm Leibniz <cite></cite></p>
+            </blockquote>
+    
+            <blockquote class="sticky full-height">
+                <p class="quote">Music is an unconscious exercise in metaphysics in which the mind is unaware that it is philosophizing.</p>
+                <p class="citation">Arthur Schopenhauer, <cite>The World as Will and Representation</cite></p>
+            </blockquote>
+            
+            <blockquote class="sticky full-height">
+                <p class="quote">Music is an unconscious exercise in communication in which the mind is unaware that it is being guided.</p>
+                <p class="citation">Zenon Olenski <cite></cite></p>
+            </blockquote>
          
             <p>Developed from the ground up to be accessible and inclusive, with the support and feedback from Drake
                 Music and hundreds of disabled and differently-abled people met through #DMLabs throughout the years.
@@ -231,7 +274,7 @@
         <section id="research" class="split" data-observe data-full-keyboard>
             <h3>Research</h3>
 
-            <h6>"Some People"<h6>
+            <h4>"Some People"<h4>
             <p>
                 Everybody is different and unique. 
                 Some people have incredible memories and can vividly remember past events, whilst some people forget where they put their house keys every day. 
@@ -250,30 +293,29 @@
                 What a wonderful world it would be if we all celebrated our differences through the universal language of music!
             </p>
 
-            <p>Over 14 years, working directly with disabled artists and people with no musical abilities, DMLab has been researching ways to grant musical superpowers through research and technology.</p>
-          
-          
-            <o>Over the past 14 years we have run the DMLab workshop in London (and now Manchester too) that invites people with technical knowledge and people with disabilities and different abilities to work together in order to research and develop new ways of interacting with technology. 
-                One area that we have been working on is using neural networks and machine learning to attempt to determine intention from emotions and motions in realime, in order to augment existing skills with new musical powers. 
-                By piggybacking onto intrinsic movements, that come naturally, a performance can be both expressive and communicative, where the dance leads the music, this could be as simple as binding musical actions to hand movements, or as sophisticated as a collaborative multiplayer face controlled pop-music factory that learns how to play you! </o>
-          
-            <p>A duet collaboration between the godfather of biometric music, Zenon Olenski and DMLab, Drake Music's
-                legendary research and development team, and hundreds of disabled artists.
-                The exhibition will feature a series of interactive installations and hands-on demonstrations.
-            </p>
+            <blockquote class="sticky full-height">
+                <p class="quote">Magic Mirror on the wall, 
+                    <br>who's the fairest of them all?</p>
+                <p class="citation">Snow White Olenski <cite></cite></p>
+            </blockquote>
+    
+            <h4>Audio is powerful</h4>
+
             <p>DMLab </p>
             <p>Curiosity killed the cat, but also helped create world changing research.</p>
     
             
             <figure class="instrument-circular">
-                <figcaption class="sr-only">Circle of Fifths</figcaption>
+                <figcaption>Circle of Fifths</figcaption>
                 <svg class="circle-of-fifths" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="0 0 406 406">
-        
-                    <!-- Emoji -->
+                    <title>Emotional Circle of Fifths Synthesizer</title>
+                   
+                    <!-- Emoji & hit area -->
                     <path 
                         class="fifths-emotion" 
                         d="M277.53,202.85C277.53,243.846 243.796,277.58 202.8,277.58C161.804,277.58 128.07,243.846 128.07,202.85C128.07,161.854 161.804,128.12 202.8,128.12L202.85,128.12C243.827,128.169 277.531,161.873 277.58,202.85L277.53,202.85Z" 
                     />
+
                     <text class="fifths-emotion-text" font-family="&quot;noto-emoji&quot;,&quot;Segoe UI Emoji&quot;,sans-serif" font-size="135.757" y="248.79" x="116.5">😌</text>
 
                     <!-- outer circle -->
@@ -312,6 +354,8 @@
                     <path class="fifths-frame" d="M202.85 0C314.7 0 405.7 91 405.7 202.85s-91 202.85-202.85 202.85S0 314.7 0 202.85 91 0 202.85 0ZM62.14 345.33a200.432 200.432 0 0 0 87.65 50.68l15.82-59a139.282 139.282 0 0 1-60.26-34.89l-43.21 43.21Zm275.52-107.66 59 15.82a200.852 200.852 0 0 0 0-101.3l-59 15.82a139.702 139.702 0 0 1 0 69.66ZM202.85 2.5a199.975 199.975 0 0 0-50.65 6.49l15.82 59a139.702 139.702 0 0 1 69.66 0l15.82-59a199.975 199.975 0 0 0-50.65-6.49ZM2.5 202.85a199.975 199.975 0 0 0 6.49 50.65l59-15.82a139.702 139.702 0 0 1 0-69.66l-59-15.82a199.975 199.975 0 0 0-6.49 50.65Zm342.83 140.71a200.43 200.43 0 0 0 50.68-87.66l-59-15.82a139.28 139.28 0 0 1-34.89 60.27l43.21 43.21ZM9.65 255.91a200.44 200.44 0 0 0 50.69 87.65l43.2-43.2a139.28 139.28 0 0 1-34.89-60.27l-59 15.82Zm247.283-108.897 41.785-41.855a137.2 137.2 0 0 0-59.201-34.18l-15.268 57.165-.097.348a77.17 77.17 0 0 1 32.528 18.78l.253-.258ZM202.85 403.2a199.975 199.975 0 0 0 50.65-6.49l-15.82-59a139.702 139.702 0 0 1-69.66 0l-15.82 59a199.975 199.975 0 0 0 50.65 6.49ZM149.79 9.65a200.425 200.425 0 0 0-87.64 50.69l43.2 43.2a139.282 139.282 0 0 1 60.26-34.89l-15.82-59Zm106.12 386.4a200.44 200.44 0 0 0 87.65-50.69l-43.2-43.2a139.28 139.28 0 0 1-60.27 34.89l15.82 59ZM60.37 62.14a200.425 200.425 0 0 0-50.69 87.64l59 15.82a139.282 139.282 0 0 1 34.89-60.26l-43.2-43.2Zm216.68 119.52.4-.09 57.1-15.31a136.775 136.775 0 0 0-34.24-59.15l-42.06 42.06a77.258 77.258 0 0 1 18.8 32.49Zm-149.46 2.27-57.14-15.26a137.215 137.215 0 0 0 0 68.36l57.14-15.36.35-.09a77.154 77.154 0 0 1 0-37.56l-.35-.09Zm150.52 37.84 57.14 15.31a137.215 137.215 0 0 0 0-68.36l-57.14 15.31-.35.09a77.154 77.154 0 0 1 0 37.56l.35.09Zm117.94-71.98a200.425 200.425 0 0 0-50.69-87.64l-43.2 43.2a139.282 139.282 0 0 1 34.89 60.26l59-15.82Zm-174.28-22.2 15.26-57.14a137.215 137.215 0 0 0-68.36 0l15.36 57.14.09.35a77.154 77.154 0 0 1 37.56 0l.09-.35Zm-37.84 150.52-15.31 57.14a137.215 137.215 0 0 0 68.36 0l-15.31-57.14-.09-.35a77.154 77.154 0 0 1-37.56 0l-.09.35Zm40.16-.66 15.31 57.15a136.775 136.775 0 0 0 59.15-34.24l-42.06-42.06A77.231 77.231 0 0 1 224 277.1l.09.35Zm-95.84-53.36L71.1 239.4a136.775 136.775 0 0 0 34.24 59.15l42.06-42.06A77.258 77.258 0 0 1 128.6 224l-.35.09Zm149.28-21.24h.05c-.049-40.977-33.753-74.681-74.73-74.73h-.05c-40.996 0-74.73 33.734-74.73 74.73s33.734 74.73 74.73 74.73 74.73-33.734 74.73-74.73Zm66.03-142.48a200.44 200.44 0 0 0-87.65-50.69l-15.82 59a139.28 139.28 0 0 1 60.27 34.89l43.2-43.2Zm-194.71 198.2-41.79 41.78a136.775 136.775 0 0 0 59.15 34.24l15.31-57.14.09-.35a77.258 77.258 0 0 1-32.49-18.8l-.27.27Zm109.72-1.72 41.78 41.79a136.775 136.775 0 0 0 34.24-59.15l-57.14-15.31-.35-.09a77.231 77.231 0 0 1-18.8 32.49l.27.27Zm-76.96-128.6L166.3 71.1a136.775 136.775 0 0 0-59.15 34.24l42.06 42.06a77.231 77.231 0 0 1 32.49-18.8l-.09-.35Zm-34.48 20.6-41.78-41.74a136.775 136.775 0 0 0-34.24 59.15l57.14 15.26.35.09a77.231 77.231 0 0 1 18.8-32.49l-.27-.27Z"/>
                 </svg>
 
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit nulla labore non mollitia architecto necessitatibus dolor voluptates atque dicta voluptas dolorem, laborum corrupti incidunt aspernatur nihil. Tenetur alias in quis?</p>
+
                 <form id="emotion">
                 
                     <fieldset class="octave-selector">
@@ -341,13 +385,13 @@
                     <fieldset class="emotion-selector">
                         <legend>Emotion</legend>
                         <label for="emotion-major">
-                            <input id="emotion-major" type="radio" name="emotion" value="Major">
+                            <input id="emotion-major" type="radio" name="chord" value="Major">
                             <span class="emoji">🙂</span>
                             Happy
                         </label>
                         
                         <label for="emotion-minor">
-                            <input id="emotion-minor" type="radio" name="emotion" value="Minor">
+                            <input id="emotion-minor" type="radio" name="chord" value="Minor">
                             <span class="emoji">☹︎</span>
                             Sad
                         </label>
@@ -368,7 +412,7 @@
             <form class="emotion-selector" action="/">
                 <fieldset class="synth-shape">
 
-                    <legend>Timbre</legend>
+                    <legend>Shape <em>(Timbre)</em></legend>
                     
                     <label for="timbre-sine">
                         <input id="timbre-sine" type="radio" name="timbre" value="Sine" checked>
@@ -410,64 +454,72 @@
 
                 </fieldset>
 
-                <fieldset class="">
+                <fieldset class="happy">
 
-                    <legend>Emotion</legend>
+                    <legend><span class="sr-only">Choose an </span>Emotion</legend>   
 
                     <label for="emotion-ionian">
                         <input id="emotion-ionian" type="radio" name="emotion" value="Ionian">
                         <span class="emoji" aria-hidden="true">😐</span>
+                        <span class="emotion sr-only">Surprise</span> 
                         Ionian
                     </label>
 
                     <label for="emotion-dorian">
                         <input id="emotion-dorian" type="radio" name="emotion" value="Dorian">
                         <span class="emoji" aria-hidden="true">🥹</span>
+                        <span class="emotion sr-only">Surprise</span> 
                         Dorian
                     </label>
 
                     <label for="emotion-phrygian">
                         <input id="emotion-phrygian" type="radio" name="emotion" value="Phrygian">
                         <span class="emoji" aria-hidden="true">🫤</span>
+                        <span class="emotion sr-only">Surprise</span> 
                         Phrygian
                     </label>
 
                     <label for="emotion-lydian">
                         <input id="emotion-lydian" type="radio" name="emotion" value="Lydian">
-                        <span class="emoji" aria-hidden="true">☹️</span>
+                        <span class="emoji" aria-hidden="true">🧐</span>
+                        <span class="emotion sr-only">Surprise</span> 
                         Lydian
                     </label>
 
                     <label for="emotion-mixolydian">
                         <input id="emotion-mixolydian" type="radio" name="emotion" value="Mixolydian">
                         <span class="emoji" aria-hidden="true">😁</span>
+                        <span class="emotion sr-only">Jolly</span> 
                         Mixolydian
                     </label>
 
                     <label for="emotion-aeolian">
                         <input id="emotion-aeolian" type="radio" name="emotion" value="Aeolian">
                         <span class="emoji" aria-hidden="true">😲</span>
-                        Surprise Aeolian
+                        <span class="emotion sr-only">Surprise</span> 
+                        Aeolian
                     </label>
 
                     <label for="emotion-locrian">
                         <input id="emotion-locrian" type="radio" name="emotion" value="Locrian">
                         <span class="emoji" aria-hidden="true">😬</span>
+                        <span class="emotion sr-only">Fearful</span> 
                         Locrian
                     </label>
 
 
-                    
                     <!-- <label for="emotion-angry"><span class="emoji">😠</span> | Angry</label>
                     <input id="emotion-angry" type="radio" name="emotion" value="angry">
                 
                     <label for="emotion-fearful">Fearful</label>
                     <input id="emotion-fearful" type="radio" name="emotion" value="fearful"> -->
 
-                    <output>
-
-                    </output>
                 </fieldset>
+                
+                <output>
+
+                </output>
+
             </form>
         
         </section>
@@ -493,10 +545,41 @@
             </p>
         </section>
 
-        <section id="lab"  class="split" data-observe>
+        <section id="amic"  class="split" data-observe>
 
-            <h3><mark>DMLab</mark><strike>atory</strike></h3>
-      
+            <h3>Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h3>
+                  
+            <p>Over 14 years, working directly with disabled artists and people with no musical abilities, DMLab has been researching ways to grant musical superpowers through research and technology.</p>
+          
+            <figure class="sticky bumpers">
+                <img src="/source/assets/photos/zenon.olenski-photosyntn-amic.jpg" alt="The Holographic PhotoSYNTH being presented at the AMIC, Accessible Musical Instrument Collection.">
+                <figcaption>Deep in the laboratory</figcaption>
+            </figure>
+          
+            <figure class="sticky bumpers">
+                <img src="/source/assets/photos/alexander-baxevanis.jpg" alt="The Holographic PhotoSYNTH being presented at the Electromagnetic Fields Festival.">
+                <figcaption>
+                    Holographic PhotoSYNTH at the Electromagnetic Fields Festival 
+                    <br>Photograph by <cite class="attribution">Alexander Baxevanis</cite>
+                    <a class="license" href="https://creativecommons.org/licenses/by/2.0/">
+                       <img src="/source/assets/icons/cc-icon.svg" alt="Creative Commons Attribution 2.0 Generic" width="44" height="44">
+                       <img src="/source/assets/icons/cc-icons-person.svg" alt="Creative Commons Attribution 2.0 Generic" width="44" height="44">
+                        CC2.0
+                    </a>
+                </figcaption>
+            </figure>
+
+
+            <p>Over the past 14 years we have run the DMLab workshop in London (and now Manchester too) that invites people with technical knowledge and people with disabilities and different abilities to work together in order to research and develop new ways of interacting with technology. 
+                One area that we have been working on is using neural networks and machine learning to attempt to determine intention from emotions and motions in realime, in order to augment existing skills with new musical powers. 
+                By piggybacking onto intrinsic movements, that come naturally, a performance can be both expressive and communicative, where the dance leads the music, this could be as simple as binding musical actions to hand movements, or as sophisticated as a collaborative multiplayer face controlled pop-music factory that learns how to play you!
+            </p>
+          
+            <p>A duet collaboration between the godfather of biometric music, Zenon Olenski and DMLab, Drake Music's
+                legendary research and development team, and hundreds of disabled artists.
+               
+            </p>
+
             <p>
                 https://mimugloves.com/
             </p>
@@ -511,9 +594,14 @@
 
         
         <section  id="laboratory" data-observe>
-            <aside class="sticky">
-                <h4>#DMLab and the Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h4>
             
+            <article class="sticky">
+
+            </article>
+
+            <aside class="sticky">
+                <h3>Laboratory</h3>
+                <h4>#DMLab and the Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h4>
             
                 <dl class="data-address">
                 
@@ -589,6 +677,18 @@
         <section id="history" data-observe>
             <h3>History</h3>
             <p>Created by</p>
+
+            <figure class="sticky bumpers">
+                <img src="/source/assets/photos/gawain-hewitt-photosynth2.png" alt="The PhotoSYNTH version 2 being played by Gawain Hewitt.">
+                <figcaption>Gawain Hewitt playing with the PhotoSYNTH II</figcaption>
+            </figure>
+
+            <figure class="sticky bumpers">
+                <img src="/source/assets/photos/emf-photosynth4d.jpg" alt="The Holographic PhotoSYNTH 4D being played at Electromagnetic Fields.">
+                <figcaption>Holographic PhotoSYNTH 4D being played at Electromagnetic Fields</figcaption>
+            </figure>
+
+
             <details>
                 <summary>
                     Where we began
@@ -621,7 +721,20 @@
 
         <section id="event" class="sticky">
 
-            <h3>A fun musical celebration of diversity, technology and inclusion.</h3>
+            <h3>Come and join us for a fun musical celebration of diversity, inclusive technology and science!</h3>
+
+            <article>
+                <h4>Event Details</h4>
+                
+                <img class="icon float outside-leaning-polygon" width="100" height="100" src="/source/assets/icons/hearing-loop.svg" alt="Hearing loop enabled venue.">
+          
+                <p>The exhibition will feature a series of interactive installations and hands-on demonstrations.</p>
+                <p>
+                    The venue is fully accessible and has hearing loop T enabled 
+                    <i class="emoji">🦻</i> 
+                    and quiet spaces.
+                </p>
+            </article>
 
             <article id="event-info">
                 <iframe class="map" width="1080" height="540" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1344162225723267%2C51.50472238057011%2C-0.1302212476730347%2C51.506889393716634&amp;layer=mapnik"></iframe>
@@ -663,27 +776,39 @@
             </aside>
         </section>
 
-      
     </main>
 
     <footer>
         
-        Awesomething
-        
-        DMLab
-        Drake Music
-
         <p>
             A collaborative duet between the <a href="https://royalsociety.org/">Royal Society</a> and <a
                 href="https://www.drakemusic.org/">#DMLab @Drake Music</a>
         </p>
 
-    
-
         <div id="affiliates">
-            <h5>A duet between</h5>
+            <h5>A collaborative duet between</h5>
             <ul>
-                <!-- <li><a href="https://amicdrakemusic.wordpress.com/" rel="noopener noreferrer" target="_blank">
+  
+                <li><a href="https://www.drakemusic.org/pages-that-are-currently-not-live-on-the-site/instrument-led-projects/photosynth-by-zenon-olenski/"
+                        rel="noopener noreferrer" target="_blank">
+                        <figure>
+                            <figcaption class="sr-only">Drake Music Homepage</figcaption>
+                            <img class="logo-drake-music" src="/source/assets/logos/drake-square.svg" width="1024" height="1024" alt="Drake Music.">
+                        </figure>
+                    </a>
+                </li>
+
+                <li><a href="https://royalsociety.org/"
+                        rel="noopener noreferrer" target="_blank">
+                        <figure>
+                            <figcaption class="sr-only">Royal Society Homepage</figcaption>
+                            <img class="logo-royal-society" src="/source/assets/logos/royal-society-square.svg" width="1024" height="1024" alt="Royal Society.">
+                            <!-- <img src="/source/assets/logos/royal_society.svg" alt="Royal Society."> -->
+                        </figure>
+                        
+                    </a>
+                </li>
+                 <!-- <li><a href="https://accessiblemusicalinstrumentcollection.org/" rel="noopener noreferrer" target="_blank">
                         <figure>
                             <figcaption><small>Available at</small>Accessible Musical Instrument Collection</figcaption>
                             <img src="/source/assets/logos/amic.svg" alt="Accessible Misical Instrument Collection">
@@ -697,56 +822,10 @@
                         </figure>
                     </a>
                 </li> -->
-                <li><a href="https://www.drakemusic.org/pages-that-are-currently-not-live-on-the-site/instrument-led-projects/photosynth-by-zenon-olenski/"
-                        rel="noopener noreferrer" target="_blank">
-                        <figure>
-                            <figcaption class="sr-only">Drake Music Homepage</figcaption>
-                            <img src="/source/assets/logos/drakemusic.svg" width="610" height="412" alt="Drake Music.">
-                        </figure>
-                    </a>
-                </li>
-
-                <li><a href="https://royalsociety.org/"
-                        rel="noopener noreferrer" target="_blank">
-                        <figure>
-                            <figcaption class="sr-only">Royal Society Homepage</figcaption>
-                            <img src="/source/assets/logos/royal-society-stacked.svg" width="255" height="150" alt="Royal Society.">
-                            <!-- <img src="/source/assets/logos/royal_society.svg" alt="Royal Society."> -->
-                        </figure>
-                        
-                    </a>
-                </li>
-        
-                <!-- <li><a href="https://internetofsounds.net/1st-international-workshop-on-the-musical-metaverse/"
-                        rel="noopener noreferrer" target="_blank">
-                        <figure>
-                            <figcaption><small>Showcased at</small>IEEE 1st International Meeting of the Musical
-                                Metaverse</figcaption>
-                            <img src="/source/assets/logos/ieee-logo.svg"
-                                alt="IEEE 1st International Meeting of the Musical Metaverse">
-                        </figure>
-                    </a>
-                </li> -->
-
                 <!-- <li><a href="https://futureeverything.org" rel="noopener noreferrer" target="_blank">
                         <figure>
                             <figcaption><small>Supported by</small>Future Everything</figcaption>
                             <img src="/source/assets/logos/future-everything.svg" alt="Future Everything">
-                        </figure>
-                    </a>
-                </li> -->
-                <!-- <li><a href="https://wac2022.i3s.univ-cotedazur.fr/node/27" rel="noopener noreferrer" target="_blank">
-                        <figure>
-                            <figcaption><small>Showcased at</small>Web Audio Conference</figcaption>
-                            <img src="/source/assets/logos/wac.svg" alt="Web Audio Conference">
-                        </figure>
-                    </a>
-                </li>
-                <li><a href="https://web.mit.edu/" rel="noopener noreferrer" target="_blank">
-                        <figure>
-                            <figcaption><small>Showcased at</small>MIT<br>Massachusetts Institute of Technology
-                            </figcaption>
-                            <img src="/source/assets/logos/mit-logo.svg" alt="Massachusetts Institute of Technology">
                         </figure>
                     </a>
                 </li> -->
@@ -755,100 +834,27 @@
 
         <small>
             <i class="emoji">🫰</i>
-            <em>Made for humans, by humans, at <a href="https://designerzen.com">designerzen</a>.</em>
+            <em>Made for humans, by humans, at <a href="https://designerzen.com">designerzen</a> with <span>Awesomething</span>.</em> 
             <br>
             Dedicated to Josefa Olenska and Blue Ramsey.
-            © <span class="current-year">2025</span> Royal Society</small>
+            © <span class="current-year">2025</span> 
+                Royal Society & Accessible Musical Instrument Collection.
+        </small>
     </footer>
 
     <a href="#" class="back-to-top button">Back to Top</a>
 
+    <!-- Interactive wallpaper -->
+    <canvas id="wallpaper"></canvas>    
 
-    <!-- <svg width="100" height="100" class="fifths">
-        <circle r="25" cx="50" cy="50" class="pie"/>
-        <circle r="25" cx="50" cy="50" class="pie"/>
-        <circle r="25" cx="50" cy="50" class="pie"/>
-        <circle r="25" cx="50" cy="50" class="pie"/>
-        <circle r="25" cx="50" cy="50" class="pie"/>
-        <circle r="25" cx="50" cy="50" class="pie"/>
-        <circle r="25" cx="50" cy="50" class="pie"/>
-        <circle r="25" cx="50" cy="50" class="pie"/>
-        <circle r="25" cx="50" cy="50" class="pie"/>
-        <circle r="25" cx="50" cy="50" class="pie"/>
-        <circle r="25" cx="50" cy="50" class="pie"/>
-        <circle r="25" cx="50" cy="50" class="pie"/>
-    </svg> -->
-
-<!--     
-    <svg class="circle-of-fifths" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="0 0 406 406">
-        
-         <g class="circle-of-fifths-tonics">
-        <path data-attribute-key="C" d="m221.77 127.59-.09.35a77.154 77.154 0 0 0-37.56 0l-.09-.35-15.36-57.14a137.215 137.215 0 0 1 68.36 0l-15.26 57.14Z"/>
-        <path data-attribute-key="G" d="M277.05 181.66a77.258 77.258 0 0 0-18.8-32.49l42.06-42.06a136.775 136.775 0 0 1 34.24 59.15l-57.1 15.31-.4.09Z"/>
-        <path data-attribute-key="D" d="m278.11 221.77-.35-.09a77.154 77.154 0 0 0 0-37.56l.35-.09 57.14-15.31a137.215 137.215 0 0 1 0 68.36l-57.14-15.31Z"/>
-        <path data-attribute-key="A" d="m258.57 256.85-.27-.27a77.231 77.231 0 0 0 18.8-32.49l.35.09 57.14 15.31a136.775 136.775 0 0 1-34.24 59.15l-41.78-41.79Z"/>
-        <path data-attribute-key="E" d="m224.09 277.45-.09-.35a77.231 77.231 0 0 0 32.49-18.8l42.06 42.06a136.775 136.775 0 0 1-59.15 34.24l-15.31-57.15Z"/>
-        <path data-attribute-key="B" d="m183.93 278.11.09-.35a77.154 77.154 0 0 0 37.56 0l.09.35 15.31 57.14a137.215 137.215 0 0 1-68.36 0l15.31-57.14Z"/>
-        <path data-attribute-key="F#" d="m148.85 258.57.27-.27a77.258 77.258 0 0 0 32.49 18.8l-.09.35-15.31 57.14a136.775 136.775 0 0 1-59.15-34.24l41.79-41.78Z"/>
-        <path data-attribute-key="C#" d="m128.25 224.09.35-.09a77.258 77.258 0 0 0 18.8 32.49l-42.06 42.06A136.775 136.775 0 0 1 71.1 239.4l57.15-15.31Z"/>
-        <path data-attribute-key="G#" d="m127.59 183.93.35.09a77.154 77.154 0 0 0 0 37.56l-.35.09-57.14 15.36a137.215 137.215 0 0 1 0-68.36l57.14 15.26Z"/>
-        <path data-attribute-key="D#" d="m147.13 148.85.27.27a77.231 77.231 0 0 0-18.8 32.49l-.35-.09-57.14-15.26a136.775 136.775 0 0 1 34.24-59.15l41.78 41.74Z"/>
-        <path data-attribute-key="A#" d="m181.61 128.25.09.35a77.231 77.231 0 0 0-32.49 18.8l-42.06-42.06A136.775 136.775 0 0 1 166.3 71.1l15.31 57.15Z"/>
-        <path data-attribute-key="F" d="M202.85 2.5a199.975 199.975 0 0 1 50.65 6.49l-15.82 59a139.702 139.702 0 0 0-69.66 0l-15.82-59a199.975 199.975 0 0 1 50.65-6.49Z"/>
-         </g>
-        <path data-attribute-key="C" d="m343.56 60.37-43.2 43.2a139.28 139.28 0 0 0-60.27-34.89l15.82-59a200.44 200.44 0 0 1 87.65 50.69Z"/>
-        <path d="m396.05 149.79-59 15.82a139.282 139.282 0 0 0-34.89-60.26l43.2-43.2a200.425 200.425 0 0 1 50.69 87.64Z"/>
-        <path d="M337.66 237.67a139.702 139.702 0 0 0 0-69.66l59-15.82a200.852 200.852 0 0 1 0 101.3l-59-15.82Z"/>
-        <path d="m345.33 343.56-43.21-43.21a139.28 139.28 0 0 0 34.89-60.27l59 15.82a200.43 200.43 0 0 1-50.68 87.66Z"/>
-        <path d="m255.91 396.05-15.82-59a139.28 139.28 0 0 0 60.27-34.89l43.2 43.2a200.44 200.44 0 0 1-87.65 50.69Z"/>
-        <path d="M202.85 403.2a199.975 199.975 0 0 1-50.65-6.49l15.82-59a139.702 139.702 0 0 0 69.66 0l15.82 59a199.975 199.975 0 0 1-50.65 6.49Z"/>
-        <path d="m62.14 345.33 43.21-43.21a139.282 139.282 0 0 0 60.26 34.89l-15.82 59a200.432 200.432 0 0 1-87.65-50.68Z"/>
-        <path d="m9.65 255.91 59-15.82a139.28 139.28 0 0 0 34.89 60.27l-43.2 43.2a200.44 200.44 0 0 1-50.69-87.65Z"/>
-        <path d="M2.5 202.85a199.975 199.975 0 0 1 6.49-50.65l59 15.82a139.702 139.702 0 0 0 0 69.66l-59 15.82a199.975 199.975 0 0 1-6.49-50.65Z"/>
-        <path d="m60.37 62.14 43.2 43.2a139.282 139.282 0 0 0-34.89 60.26l-59-15.82a200.425 200.425 0 0 1 50.69-87.64Z"/>
-        <path d="m149.79 9.65 15.82 59a139.282 139.282 0 0 0-60.26 34.89l-43.2-43.2a200.425 200.425 0 0 1 87.64-50.69Z"/>
-      
-        <path class="fifths-frame" d="M202.85 0C314.7 0 405.7 91 405.7 202.85s-91 202.85-202.85 202.85S0 314.7 0 202.85 91 0 202.85 0Zm-21.24 128.25L166.3 71.1a136.775 136.775 0 0 0-59.15 34.24l42.06 42.06a77.231 77.231 0 0 1 32.49-18.8l-.09-.35Zm-34.48 20.6-41.78-41.74a136.775 136.775 0 0 0-34.24 59.15l57.14 15.26.35.09a77.231 77.231 0 0 1 18.8-32.49l-.27-.27Zm129.92 32.81.4-.09 57.1-15.31a136.775 136.775 0 0 0-34.24-59.15l-42.06 42.06a77.258 77.258 0 0 1 18.8 32.49Zm-55.28-54.07 15.26-57.14a137.215 137.215 0 0 0-68.36 0l15.36 57.14.09.35a77.154 77.154 0 0 1 37.56 0l.09-.35Zm-72.92 130.98-41.79 41.78a136.775 136.775 0 0 0 59.15 34.24l15.31-57.14.09-.35a77.258 77.258 0 0 1-32.49-18.8l-.27.27Zm129.26-36.8 57.14 15.31a137.215 137.215 0 0 0 0-68.36l-57.14 15.31-.35.09a77.154 77.154 0 0 1 0 37.56l.35.09Zm117.94-71.98a200.425 200.425 0 0 0-50.69-87.64l-43.2 43.2a139.282 139.282 0 0 1 34.89 60.26l59-15.82Zm-268.46 34.14-57.14-15.26a137.215 137.215 0 0 0 0 68.36l57.14-15.36.35-.09a77.154 77.154 0 0 1 0-37.56l-.35-.09Zm56.34 94.18-15.31 57.14a137.215 137.215 0 0 0 68.36 0l-15.31-57.14-.09-.35a77.154 77.154 0 0 1-37.56 0l-.09.35Zm40.16-.66 15.31 57.15a136.775 136.775 0 0 0 59.15-34.24l-42.06-42.06A77.231 77.231 0 0 1 224 277.1l.09.35Zm-95.84-53.36L71.1 239.4a136.775 136.775 0 0 0 34.24 59.15l42.06-42.06A77.258 77.258 0 0 1 128.6 224l-.35.09Zm130.32 32.76 41.78 41.79a136.775 136.775 0 0 0 34.24-59.15l-57.14-15.31-.35-.09a77.231 77.231 0 0 1-18.8 32.49l.27.27Zm18.96-54h.05c-.049-40.977-33.753-74.681-74.73-74.73h-.05c-40.996 0-74.73 33.734-74.73 74.73s33.734 74.73 74.73 74.73 74.73-33.734 74.73-74.73Zm66.03-142.48a200.44 200.44 0 0 0-87.65-50.69l-15.82 59a139.28 139.28 0 0 1 60.27 34.89l43.2-43.2ZM60.37 62.14a200.425 200.425 0 0 0-50.69 87.64l59 15.82a139.282 139.282 0 0 1 34.89-60.26l-43.2-43.2ZM2.5 202.85a199.975 199.975 0 0 0 6.49 50.65l59-15.82a139.702 139.702 0 0 1 0-69.66l-59-15.82a199.975 199.975 0 0 0-6.49 50.65ZM149.79 9.65a200.425 200.425 0 0 0-87.64 50.69l43.2 43.2a139.282 139.282 0 0 1 60.26-34.89l-15.82-59ZM62.14 345.33a200.432 200.432 0 0 0 87.65 50.68l15.82-59a139.282 139.282 0 0 1-60.26-34.89l-43.21 43.21ZM202.85 2.5a199.975 199.975 0 0 0-50.65 6.49l15.82 59a139.702 139.702 0 0 1 69.66 0l15.82-59a199.975 199.975 0 0 0-50.65-6.49Zm142.48 341.06a200.43 200.43 0 0 0 50.68-87.66l-59-15.82a139.28 139.28 0 0 1-34.89 60.27l43.21 43.21ZM9.65 255.91a200.44 200.44 0 0 0 50.69 87.65l43.2-43.2a139.28 139.28 0 0 1-34.89-60.27l-59 15.82Zm193.2 147.29a199.975 199.975 0 0 0 50.65-6.49l-15.82-59a139.702 139.702 0 0 1-69.66 0l-15.82 59a199.975 199.975 0 0 0 50.65 6.49Zm53.06-7.15a200.44 200.44 0 0 0 87.65-50.69l-43.2-43.2a139.28 139.28 0 0 1-60.27 34.89l15.82 59Zm81.75-158.38 59 15.82a200.852 200.852 0 0 0 0-101.3l-59 15.82a139.702 139.702 0 0 1 0 69.66Z"/>
-       
-      </svg> -->
-
-      
-<!-- 
-
-      <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="0 0 406 406">
-        <path d="M202.85 0C314.7 0 405.7 91 405.7 202.85s-91 202.85-202.85 202.85S0 314.7 0 202.85 91 0 202.85 0Zm-21.24 128.25L166.3 71.1a136.775 136.775 0 0 0-59.15 34.24l42.06 42.06a77.231 77.231 0 0 1 32.49-18.8l-.09-.35Zm-34.48 20.6-41.78-41.74a136.775 136.775 0 0 0-34.24 59.15l57.14 15.26.35.09a77.231 77.231 0 0 1 18.8-32.49l-.27-.27Zm129.92 32.81.4-.09 57.1-15.31a136.775 136.775 0 0 0-34.24-59.15l-42.06 42.06a77.258 77.258 0 0 1 18.8 32.49Zm-55.28-54.07 15.26-57.14a137.215 137.215 0 0 0-68.36 0l15.36 57.14.09.35a77.154 77.154 0 0 1 37.56 0l.09-.35Zm-72.92 130.98-41.79 41.78a136.775 136.775 0 0 0 59.15 34.24l15.31-57.14.09-.35a77.258 77.258 0 0 1-32.49-18.8l-.27.27Zm129.26-36.8 57.14 15.31a137.215 137.215 0 0 0 0-68.36l-57.14 15.31-.35.09a77.154 77.154 0 0 1 0 37.56l.35.09Zm117.94-71.98a200.425 200.425 0 0 0-50.69-87.64l-43.2 43.2a139.282 139.282 0 0 1 34.89 60.26l59-15.82Zm-268.46 34.14-57.14-15.26a137.215 137.215 0 0 0 0 68.36l57.14-15.36.35-.09a77.154 77.154 0 0 1 0-37.56l-.35-.09Zm56.34 94.18-15.31 57.14a137.215 137.215 0 0 0 68.36 0l-15.31-57.14-.09-.35a77.154 77.154 0 0 1-37.56 0l-.09.35Zm40.16-.66 15.31 57.15a136.775 136.775 0 0 0 59.15-34.24l-42.06-42.06A77.231 77.231 0 0 1 224 277.1l.09.35Zm-95.84-53.36L71.1 239.4a136.775 136.775 0 0 0 34.24 59.15l42.06-42.06A77.258 77.258 0 0 1 128.6 224l-.35.09Zm130.32 32.76 41.78 41.79a136.775 136.775 0 0 0 34.24-59.15l-57.14-15.31-.35-.09a77.231 77.231 0 0 1-18.8 32.49l.27.27Zm18.96-54h.05c-.049-40.977-33.753-74.681-74.73-74.73h-.05c-40.996 0-74.73 33.734-74.73 74.73s33.734 74.73 74.73 74.73 74.73-33.734 74.73-74.73Zm66.03-142.48a200.44 200.44 0 0 0-87.65-50.69l-15.82 59a139.28 139.28 0 0 1 60.27 34.89l43.2-43.2ZM60.37 62.14a200.425 200.425 0 0 0-50.69 87.64l59 15.82a139.282 139.282 0 0 1 34.89-60.26l-43.2-43.2ZM2.5 202.85a199.975 199.975 0 0 0 6.49 50.65l59-15.82a139.702 139.702 0 0 1 0-69.66l-59-15.82a199.975 199.975 0 0 0-6.49 50.65ZM149.79 9.65a200.425 200.425 0 0 0-87.64 50.69l43.2 43.2a139.282 139.282 0 0 1 60.26-34.89l-15.82-59ZM62.14 345.33a200.432 200.432 0 0 0 87.65 50.68l15.82-59a139.282 139.282 0 0 1-60.26-34.89l-43.21 43.21ZM202.85 2.5a199.975 199.975 0 0 0-50.65 6.49l15.82 59a139.702 139.702 0 0 1 69.66 0l15.82-59a199.975 199.975 0 0 0-50.65-6.49Zm142.48 341.06a200.43 200.43 0 0 0 50.68-87.66l-59-15.82a139.28 139.28 0 0 1-34.89 60.27l43.21 43.21ZM9.65 255.91a200.44 200.44 0 0 0 50.69 87.65l43.2-43.2a139.28 139.28 0 0 1-34.89-60.27l-59 15.82Zm193.2 147.29a199.975 199.975 0 0 0 50.65-6.49l-15.82-59a139.702 139.702 0 0 1-69.66 0l-15.82 59a199.975 199.975 0 0 0 50.65 6.49Zm53.06-7.15a200.44 200.44 0 0 0 87.65-50.69l-43.2-43.2a139.28 139.28 0 0 1-60.27 34.89l15.82 59Zm81.75-158.38 59 15.82a200.852 200.852 0 0 0 0-101.3l-59 15.82a139.702 139.702 0 0 1 0 69.66Z"/>
-        <path d="m147.13 148.85.27.27a77.231 77.231 0 0 0-18.8 32.49l-.35-.09-57.14-15.26a136.775 136.775 0 0 1 34.24-59.15l41.78 41.74Z"/>
-        <path d="m127.59 183.93.35.09a77.154 77.154 0 0 0 0 37.56l-.35.09-57.14 15.36a137.215 137.215 0 0 1 0-68.36l57.14 15.26Z"/>
-        <path d="m181.61 128.25.09.35a77.231 77.231 0 0 0-32.49 18.8l-42.06-42.06A136.775 136.775 0 0 1 166.3 71.1l15.31 57.15Z"/>
-        <path d="m221.77 127.59-.09.35a77.154 77.154 0 0 0-37.56 0l-.09-.35-15.36-57.14a137.215 137.215 0 0 1 68.36 0l-15.26 57.14Z"/>
-        <path d="M277.05 181.66a77.258 77.258 0 0 0-18.8-32.49l42.06-42.06a136.775 136.775 0 0 1 34.24 59.15l-57.1 15.31-.4.09Z"/>
-        <path d="m278.11 221.77-.35-.09a77.154 77.154 0 0 0 0-37.56l.35-.09 57.14-15.31a137.215 137.215 0 0 1 0 68.36l-57.14-15.31Z"/>
-        <path d="m258.57 256.85-.27-.27a77.231 77.231 0 0 0 18.8-32.49l.35.09 57.14 15.31a136.775 136.775 0 0 1-34.24 59.15l-41.78-41.79Z"/>
-        <path d="m224.09 277.45-.09-.35a77.231 77.231 0 0 0 32.49-18.8l42.06 42.06a136.775 136.775 0 0 1-59.15 34.24l-15.31-57.15Z"/>
-        <path d="m183.93 278.11.09-.35a77.154 77.154 0 0 0 37.56 0l.09.35 15.31 57.14a137.215 137.215 0 0 1-68.36 0l15.31-57.14Z"/>
-        <path d="m128.25 224.09.35-.09a77.258 77.258 0 0 0 18.8 32.49l-42.06 42.06A136.775 136.775 0 0 1 71.1 239.4l57.15-15.31Z"/>
-        <path d="m148.85 258.57.27-.27a77.258 77.258 0 0 0 32.49 18.8l-.09.35-15.31 57.14a136.775 136.775 0 0 1-59.15-34.24l41.79-41.78Z"/>
-        <path d="m62.14 345.33 43.21-43.21a139.282 139.282 0 0 0 60.26 34.89l-15.82 59a200.432 200.432 0 0 1-87.65-50.68Z"/>
-        <path d="m9.65 255.91 59-15.82a139.28 139.28 0 0 0 34.89 60.27l-43.2 43.2a200.44 200.44 0 0 1-50.69-87.65Z"/>
-        <path d="M2.5 202.85a199.975 199.975 0 0 1 6.49-50.65l59 15.82a139.702 139.702 0 0 0 0 69.66l-59 15.82a199.975 199.975 0 0 1-6.49-50.65Z"/>
-        <path d="m60.37 62.14 43.2 43.2a139.282 139.282 0 0 0-34.89 60.26l-59-15.82a200.425 200.425 0 0 1 50.69-87.64Z"/>
-        <path d="m149.79 9.65 15.82 59a139.282 139.282 0 0 0-60.26 34.89l-43.2-43.2a200.425 200.425 0 0 1 87.64-50.69Z"/>
-        <path d="M202.85 2.5a199.975 199.975 0 0 1 50.65 6.49l-15.82 59a139.702 139.702 0 0 0-69.66 0l-15.82-59a199.975 199.975 0 0 1 50.65-6.49Z"/>
-        <path d="m343.56 60.37-43.2 43.2a139.28 139.28 0 0 0-60.27-34.89l15.82-59a200.44 200.44 0 0 1 87.65 50.69Z"/>
-        <path d="m396.05 149.79-59 15.82a139.282 139.282 0 0 0-34.89-60.26l43.2-43.2a200.425 200.425 0 0 1 50.69 87.64Z"/>
-        <path d="M337.66 237.67a139.702 139.702 0 0 0 0-69.66l59-15.82a200.852 200.852 0 0 1 0 101.3l-59-15.82Z"/>
-        <path d="m345.33 343.56-43.21-43.21a139.28 139.28 0 0 0 34.89-60.27l59 15.82a200.43 200.43 0 0 1-50.68 87.66Z"/>
-        <path d="m255.91 396.05-15.82-59a139.28 139.28 0 0 0 60.27-34.89l43.2 43.2a200.44 200.44 0 0 1-87.65 50.69Z"/>
-        <path d="M202.85 403.2a199.975 199.975 0 0 1-50.65-6.49l15.82-59a139.702 139.702 0 0 0 69.66 0l15.82 59a199.975 199.975 0 0 1-50.65 6.49Z"/>
-      </svg> -->
-      
-      <form id="pass" class="coming-soon" onsubmit="const r = password.innerText === ''; pass.hidden=r; return false">
+    <!-- Password protection -->
+    <form id="pass" class="coming-soon" onsubmit="const r = password.innerText === ''; pass.hidden=r; return false">
         <label for="password">
             Enter password to continue
             <input id="password" type="text" name="password" placeholder="Enter password to continue">
         </label>
         <button class="cta" type="submit">Continue</button>
-      </form>
+    </form>
 
 </body>
 
