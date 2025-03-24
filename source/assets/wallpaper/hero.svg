@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 9000 2160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(0.826002,0,0,0.706413,3716.56,-159.004)">
+        <path d="M1743.09,299.417C1743.09,258.393 1714.6,225.086 1679.52,225.086L217.419,225.086C182.334,225.086 153.849,258.393 153.849,299.417L153.849,3208.46C153.849,3249.48 182.334,3282.79 217.419,3282.79L1679.52,3282.79C1714.6,3282.79 1743.09,3249.48 1743.09,3208.46L1743.09,299.417Z" style="fill:rgb(237,231,221);"/>
+    </g>
+    <g id="interface.cropped.svg" transform="matrix(13.1271,0,0,13.1904,4500,1078.87)">
+        <g transform="matrix(1,0,0,1,-50,-50)">
+            <path d="M94.173,29.051C94.173,27.741 93.11,26.678 91.799,26.678L8.201,26.678C6.89,26.678 5.827,27.741 5.827,29.051C5.827,53.431 25.62,73.224 50,73.224C74.38,73.224 94.173,53.431 94.173,29.051ZM53.472,39.849C53.166,39.29 52.845,37.466 52.84,37.134C52.839,37.101 52.839,37.068 52.839,37.034C52.839,34.192 54.58,31.701 56.991,31.701C57.013,31.701 57.034,31.701 57.055,31.702C62.111,31.808 69.469,41.299 69.469,49.311C69.469,59.737 60.745,68.201 50,68.201C39.255,68.201 30.531,59.737 30.531,49.311C30.531,41.299 36.436,31.839 42.945,31.702C42.966,31.701 42.987,31.701 43.009,31.701C45.42,31.701 47.161,34.192 47.161,37.034C47.161,37.067 47.161,37.1 47.16,37.134C47.155,37.467 46.834,39.29 46.529,39.849C45.818,41.151 44.62,42.648 44.601,42.668C43.458,43.885 42.186,45.043 41.191,46.343C39.901,48.028 39.032,49.929 39.032,52.291C39.032,58.491 43.947,63.524 50,63.524C56.053,63.524 60.967,58.491 60.967,52.291C60.967,49.895 60.11,48.075 58.814,46.421C57.854,45.196 56.608,44.074 55.442,42.737C55.367,42.648 54.318,41.4 53.472,39.849Z" style="fill:rgb(211,18,69);"/>
+        </g>
+    </g>
+    <g id="Eyes---wink" serif:id="Eyes + wink" transform="matrix(0.694645,0,0,0.697993,3647.26,-145.364)">
+        <g transform="matrix(1,0,0,1,113.041,42.7483)">
+            <ellipse cx="851.651" cy="833.592" rx="132.017" ry="318.098" style="fill:rgb(211,18,69);"/>
+        </g>
+        <g id="wink" transform="matrix(1,0,0,1,-407.922,8.77361)">
+            <g transform="matrix(1,0,0,1,-12.5728,0)">
+                <path d="M1821.03,876.34L2064.95,711.633" style="fill:none;stroke:rgb(211,18,69);stroke-width:131.64px;"/>
+            </g>
+            <g transform="matrix(0.437908,0.89902,-0.89902,0.437908,1798.86,-1144.56)">
+                <path d="M1821.03,876.34L2064.95,711.633" style="fill:none;stroke:rgb(211,18,69);stroke-width:131.4px;"/>
+            </g>
+            <g transform="matrix(0.828749,0.55962,-0.55962,0.828749,789.697,-869.012)">
+                <path d="M1821.03,876.34L2064.95,711.633" style="fill:none;stroke:rgb(211,18,69);stroke-width:131.35px;"/>
+            </g>
+        </g>
+    </g>
+    <g id="Triangles-RIGHTSIDED" serif:id="Triangles RIGHTSIDED" transform="matrix(1,0,0,1,2580,0)">
+        <g transform="matrix(1,0,0,1.472,-10.4805,-3.24523)">
+            <path d="M2617.38,394.299L2868.73,2.205L2618.03,2.205L2618.04,0L3840,0L2616.84,718.293L2617.38,394.299Z" style="fill:rgb(237,231,221);"/>
+        </g>
+        <g transform="matrix(-1,0,0,1.472,3850.48,-3.24523)">
+            <path d="M2617.32,431.678L2616.84,718.293L3840,0L2618.04,0L2618.03,2.205L2892.63,2.205L2617.32,431.678Z" style="fill:rgb(237,231,221);"/>
+        </g>
+        <g transform="matrix(-1,0,0,-1,3850.48,2160)">
+            <path d="M2617.16,524.887L2937.14,0L3840,0L2616.84,718.293L2617.16,524.887Z" style="fill:rgb(237,231,221);"/>
+        </g>
+        <g transform="matrix(1,0,0,-1,-10.4805,2160)">
+            <path d="M2617.16,524.887L2937.14,0L3840,0L2616.84,718.293L2617.16,524.887Z" style="fill:rgb(237,231,221);"/>
+        </g>
+        <g transform="matrix(2.97835,0,0,1.22375,-2409.37,-206.576)">
+            <path d="M0,1699.83L0,598.155L1223.16,1147.23L0,1699.83Z" style="fill:rgb(237,231,221);"/>
+        </g>
+        <g transform="matrix(-2.97327,0,0,1.22375,6243.15,-206.576)">
+            <path d="M0,1699.83L0,598.155L1223.16,1147.23L0,1699.83Z" style="fill:rgb(237,231,221);"/>
+        </g>
+    </g>
+    <g id="textr" transform="matrix(1,0,0,1,2580,-14)">
+        <g transform="matrix(0.241449,0,0,0.242612,1830.49,-449.167)">
+            <g transform="matrix(491.988,0,0,491.988,2936.77,2870.19)">
+            </g>
+            <text x="690.356px" y="2870.18px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:491.988px;fill:rgb(211,18,69);">MUSICAL</text>
+        </g>
+        <g transform="matrix(0.780787,0,0,0.78455,773.499,-1144.29)">
+            <g transform="matrix(0.952099,0.305791,-0.305791,0.952099,1103.52,-160.041)">
+                <text x="1062.59px" y="3442.28px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:231.98px;fill:rgb(211,18,69);">S</text>
+            </g>
+            <g transform="matrix(0.987993,0.154499,-0.154499,0.987993,553.846,-145.829)">
+                <text x="1215.14px" y="3490.36px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:231.98px;fill:rgb(211,18,69);">U</text>
+            </g>
+            <g transform="matrix(0.99998,-0.00626871,0.00626871,0.99998,-22.0178,8.83303)">
+                <text x="1398.04px" y="3516.72px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:231.98px;fill:rgb(211,18,69);">P</text>
+            </g>
+            <g transform="matrix(0.987933,-0.154883,0.154883,0.987933,-525.35,285.484)">
+                <text x="1569.43px" y="3514.19px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:231.98px;fill:rgb(211,18,69);">E</text>
+            </g>
+            <g transform="matrix(0.952799,-0.3036,0.3036,0.952799,-977.305,690.115)">
+                <text x="1730.81px" y="3488.14px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:231.98px;fill:rgb(211,18,69);">R</text>
+            </g>
+        </g>
+        <g transform="matrix(0.780787,0,0,0.78455,398.689,-1346.27)">
+            <g transform="matrix(0.938342,0.34571,-0.34571,0.938342,1416.54,-179.994)">
+                <text x="1212.87px" y="3881.18px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:344.146px;fill:rgb(211,18,69);">P</text>
+            </g>
+            <g transform="matrix(0.976942,0.213504,-0.213504,0.976942,879.192,-215.02)">
+                <text x="1435.09px" y="3962.93px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:344.146px;fill:rgb(211,18,69);">O</text>
+            </g>
+            <g transform="matrix(0.99877,0.0495745,-0.0495745,0.99877,201.402,-78.8721)">
+                <text x="1690.71px" y="4020.68px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:344.146px;fill:rgb(211,18,69);">W</text>
+            </g>
+            <g transform="matrix(0.994433,-0.105373,0.105373,0.994433,-413.555,237.073)">
+                <text x="2036.82px" y="4032.31px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:344.146px;fill:rgb(211,18,69);">E</text>
+            </g>
+            <g transform="matrix(0.972731,-0.231934,0.231934,0.972731,-868.143,633.64)">
+                <text x="2260.66px" y="4008.85px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:344.146px;fill:rgb(211,18,69);">R</text>
+            </g>
+            <g transform="matrix(0.935485,-0.353367,0.353367,0.935485,-1235.46,1136.5)">
+                <text x="2494.72px" y="3951.73px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:344.146px;fill:rgb(211,18,69);">S</text>
+            </g>
+        </g>
+        <g transform="matrix(0.780787,0,0,0.78455,136.168,-1499.69)">
+            <g transform="matrix(0.947653,0.319301,-0.319301,0.947653,1481.52,-258.935)">
+                <text x="1530.48px" y="4388.98px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">F</text>
+            </g>
+            <g transform="matrix(0.957154,0.28958,-0.28958,0.957154,1345.03,-271.711)">
+                <text x="1590.71px" y="4409.41px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">O</text>
+            </g>
+            <g transform="matrix(0.966613,0.256241,-0.256241,0.966613,1191.13,-278.491)">
+                <text x="1664.25px" y="4431.62px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">R</text>
+            </g>
+            <g transform="matrix(0.976567,0.215215,-0.215215,0.976567,1000.2,-274.021)">
+                <text x="1758.43px" y="4455.98px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">Y</text>
+            </g>
+            <g transform="matrix(0.982984,0.18369,-0.18369,0.982984,852.215,-258.965)">
+                <text x="1823.91px" y="4470.47px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">O</text>
+            </g>
+            <g transform="matrix(0.988614,0.150472,-0.150472,0.988614,696.424,-234.74)">
+                <text x="1899.36px" y="4484.54px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">U</text>
+            </g>
+            <g transform="matrix(0.994294,0.10667,-0.10667,0.994294,491.358,-187.748)">
+                <text x="2000.74px" y="4499.31px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">A</text>
+            </g>
+            <g transform="matrix(0.997278,0.0737308,-0.0737308,0.997278,337.952,-140.559)">
+                <text x="2072.77px" y="4507.08px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">N</text>
+            </g>
+            <g transform="matrix(0.999198,0.0400537,-0.0400537,0.999198,182.487,-82.6007)">
+                <text x="2152.67px" y="4512.94px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">D</text>
+            </g>
+            <g transform="matrix(1,-0.000985394,0.000985394,1,-4.44931,2.22328)">
+                <text x="2254.01px" y="4516.37px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">Y</text>
+            </g>
+            <g transform="matrix(0.9995,-0.0316042,0.0316042,0.9995,-141.577,75.6134)">
+                <text x="2321.12px" y="4516.36px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">O</text>
+            </g>
+            <g transform="matrix(0.997935,-0.0642331,0.0642331,0.997935,-284.991,163.348)">
+                <text x="2397.93px" y="4513.91px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">U</text>
+            </g>
+            <g transform="matrix(0.995321,-0.0966271,0.0966271,0.995321,-424.121,260.094)">
+                <text x="2473.38px" y="4509.03px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">R</text>
+            </g>
+            <g transform="matrix(0.990495,-0.13755,0.13755,0.990495,-594.425,396.273)">
+                <text x="2570.03px" y="4499.11px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">F</text>
+            </g>
+            <g transform="matrix(0.986036,-0.166533,0.166533,0.986036,-711.038,501.216)">
+                <text x="2633.18px" y="4490.44px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">R</text>
+            </g>
+            <g transform="matrix(0.982097,-0.188376,0.188376,0.982097,-795.268,589.263)">
+                <text x="2702.49px" y="4478.55px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">I</text>
+            </g>
+            <g transform="matrix(0.977497,-0.210951,0.210951,0.977497,-881.875,677.784)">
+                <text x="2735.91px" y="4472.33px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">E</text>
+            </g>
+            <g transform="matrix(0.970213,-0.242253,0.242253,0.970213,-996.686,811.19)">
+                <text x="2800.32px" y="4458.56px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">N</text>
+            </g>
+            <g transform="matrix(0.960952,-0.276716,0.276716,0.960952,-1116.01,969.701)">
+                <text x="2877.89px" y="4439.15px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">D</text>
+            </g>
+            <g transform="matrix(0.951763,-0.306835,0.306835,0.951763,-1213.42,1118.22)">
+                <text x="2949.76px" y="4418.37px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">S</text>
+            </g>
+            <g transform="matrix(0.944746,-0.327802,0.327802,0.944746,-1275.49,1229.95)">
+                <text x="3010.71px" y="4398.51px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:107.068px;fill:rgb(211,18,69);">!</text>
+            </g>
+        </g>
+        <g id="Smile-Powered-Synthesizer" serif:id="Smile Powered Synthesizer" transform="matrix(0.780787,0,0,0.78455,17.4999,-1036.83)">
+            <g transform="matrix(0.965331,0.26103,-0.26103,0.965331,1082.32,-288.398)">
+                <text x="1626.85px" y="3930.25px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">•</text>
+            </g>
+            <g transform="matrix(0.971882,0.235467,-0.235467,0.971882,976.71,-286.399)">
+                <text x="1687.56px" y="3946.45px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">S</text>
+            </g>
+            <g transform="matrix(0.977727,0.20988,-0.20988,0.977727,870.146,-278.126)">
+                <text x="1745.48px" y="3960.68px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">M</text>
+            </g>
+            <g transform="matrix(0.981925,0.189268,-0.189268,0.981925,786.325,-275.226)">
+                <text x="1834.18px" y="3979.39px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">I</text>
+            </g>
+            <g transform="matrix(0.984796,0.173713,-0.173713,0.984796,720.695,-263.442)">
+                <text x="1865.36px" y="3985.51px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">L</text>
+            </g>
+            <g transform="matrix(0.987955,0.154741,-0.154741,0.987955,641.367,-249.047)">
+                <text x="1920.43px" y="3995.29px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">E</text>
+            </g>
+            <g transform="matrix(0.992028,0.126016,-0.126016,0.992028,521.104,-220.811)">
+                <text x="2005.82px" y="4008.35px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">P</text>
+            </g>
+            <g transform="matrix(0.994529,0.104457,-0.104457,0.994529,430.882,-194.262)">
+                <text x="2070.09px" y="4016.55px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">O</text>
+            </g>
+            <g transform="matrix(0.996988,0.0775522,-0.0775522,0.996988,318.536,-153.959)">
+                <text x="2141.51px" y="4024.21px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">W</text>
+            </g>
+            <g transform="matrix(0.998643,0.0520866,-0.0520866,0.998643,213.023,-111.087)">
+                <text x="2237.8px" y="4031.48px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">E</text>
+            </g>
+            <g transform="matrix(0.999486,0.0320545,-0.0320545,0.999486,130.512,-71.621)">
+                <text x="2299.03px" y="4034.72px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">R</text>
+            </g>
+            <g transform="matrix(0.999923,0.012377,-0.012377,0.999923,50.1451,-28.9606)">
+                <text x="2364.85px" y="4036.83px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">E</text>
+            </g>
+            <g transform="matrix(0.99997,-0.00775607,0.00775607,0.99997,-31.2433,18.9403)">
+                <text x="2426.33px" y="4037.65px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">D</text>
+            </g>
+            <g transform="matrix(0.999375,-0.03535,0.03535,0.999375,-141.115,91.6414)">
+                <text x="2521.03px" y="4036.51px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">S</text>
+            </g>
+            <g transform="matrix(0.998511,-0.0545423,0.0545423,0.998511,-216.204,146.767)">
+                <text x="2580.77px" y="4034.4px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">Y</text>
+            </g>
+            <g transform="matrix(0.997088,-0.0762592,0.0762592,0.997088,-299.707,213.312)">
+                <text x="2643.27px" y="4031.04px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">N</text>
+            </g>
+            <g transform="matrix(0.995175,-0.0981166,0.0981166,0.995175,-381.83,286.091)">
+                <text x="2717.88px" y="4025.25px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">T</text>
+            </g>
+            <g transform="matrix(0.992814,-0.119669,0.119669,0.992814,-460.996,361.53)">
+                <text x="2779.74px" y="4019.2px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">H</text>
+            </g>
+            <g transform="matrix(0.989891,-0.14183,0.14183,0.989891,-539.997,444.9)">
+                <text x="2851px" y="4010.56px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">E</text>
+            </g>
+            <g transform="matrix(0.986916,-0.161234,0.161234,0.986916,-607.135,521.858)">
+                <text x="2911.9px" y="4001.83px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">S</text>
+            </g>
+            <g transform="matrix(0.984322,-0.176379,0.176379,0.984322,-657.546,586.582)">
+                <text x="2970.84px" y="3992.09px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">I</text>
+            </g>
+            <g transform="matrix(0.981394,-0.192005,0.192005,0.981394,-709.585,650.607)">
+                <text x="3002.18px" y="3986.59px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">Z</text>
+            </g>
+            <g transform="matrix(0.976977,-0.213343,0.213343,0.976977,-777.458,744.962)">
+                <text x="3062.93px" y="3974.7px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">E</text>
+            </g>
+            <g transform="matrix(0.971962,-0.235139,0.235139,0.971962,-843.991,845.371)">
+                <text x="3122.8px" y="3961.69px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">R</text>
+            </g>
+            <g transform="matrix(0.965331,-0.26103,0.26103,0.965331,-917.101,974.737)">
+                <text x="3210.91px" y="3939.86px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:100px;fill:rgb(211,18,69);">•</text>
+            </g>
+        </g>
+        <g transform="matrix(0.753938,-0.202991,0.202148,0.758063,853.722,-4.25758)">
+            <g transform="matrix(0.61517,-0.788395,0.788395,0.61517,-249.355,761.526)">
+                <text x="655.385px" y="636.188px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:170.833px;fill:rgb(211,18,69);">I</text>
+            </g>
+            <g transform="matrix(0.781758,-0.623582,0.623582,0.781758,-226.385,552.799)">
+                <text x="676.563px" y="599.824px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:170.833px;fill:rgb(211,18,69);">N</text>
+            </g>
+            <g transform="matrix(0.938561,-0.345113,0.345113,0.938561,-135.244,296.947)">
+                <text x="766.379px" y="528.319px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:170.833px;fill:rgb(211,18,69);">S</text>
+            </g>
+            <g transform="matrix(0.998406,-0.0564484,0.0564484,0.998406,-26.6224,48.7526)">
+                <text x="849.666px" y="495.624px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:170.833px;fill:rgb(211,18,69);">T</text>
+            </g>
+            <g transform="matrix(0.966278,0.2575,-0.2575,0.966278,157.43,-226.456)">
+                <text x="943.326px" y="487.841px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:170.833px;fill:rgb(211,18,69);">A</text>
+            </g>
+            <g transform="matrix(0.82125,0.570568,-0.570568,0.82125,478.653,-504.18)">
+                <text x="1044px" y="511.839px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:170.833px;fill:rgb(211,18,69);">N</text>
+            </g>
+            <g transform="matrix(0.604641,0.796498,-0.796498,0.604641,909.848,-678.323)">
+                <text x="1138.2px" y="577.337px" style="font-family:'Oxanium-Bold', 'Oxanium';font-weight:700;font-size:170.833px;fill:rgb(211,18,69);">T</text>
+            </g>
+        </g>
+    </g>
+    <g id="Logos" transform="matrix(0.67713,0,0,0.67713,3813.49,709.467)">
+        <g id="designerzen_current-color.svg" transform="matrix(0.0278558,0,0,0.0278558,3535.29,1843.16)">
+            <g id="Logos1" serif:id="Logos">
+                <g id="designerzen_current-color.svg1" serif:id="designerzen_current-color.svg" transform="matrix(1,0,0,1,-512,-512)">
+                    <clipPath id="_clip1">
+                        <rect x="0" y="0" width="1024" height="1024"/>
+                    </clipPath>
+                    <g clip-path="url(#_clip1)">
+                        <path d="M891.27,380.782L645.133,380.782L645.133,475.46C645.133,527.732 602.744,570.138 550.457,570.16C498.167,570.16 455.795,527.755 455.795,475.482C455.795,423.194 498.167,380.804 550.457,380.804L645.133,380.804L645.133,95.127L644.315,94.859C602.667,81.665 559.93,75.075 513.917,75.075C272.604,75.1 77,270.7 77,512C77,753.3 272.6,948.9 513.9,948.9C735.505,948.9 918.572,783.932 946.994,570.113L701.93,570.113L891.27,380.782Z" style="fill:white;fill-rule:nonzero;stroke:rgb(142,53,37);stroke-width:49px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;"/>
+                    </g>
+                </g>
+                <g id="designerzen_current-color.svg2" serif:id="designerzen_current-color.svg">
+                </g>
+            </g>
+        </g>
+    </g>
+    <g id="rays">
+    </g>
+    <g id="Layer3">
+    </g>
+</svg>
