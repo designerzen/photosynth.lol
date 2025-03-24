@@ -364,8 +364,13 @@ const start =  () => {
     // for (const p of searchParams) {
     //     console.info("searchParams",p, searchParams)
     // }
+
+    // 
+    const showingPassword = pass && pass.hidden
+
+    // NB. if this is password protected we ignore visits until the user has logged in
     const timesVisited = parseInt(searchParams.get("visited") ?? 0)
-    searchParams.set("visited", timesVisited + 1)
+    searchParams.set("visited", showingPassword ? 0 : timesVisited + 1 )
     pass.hidden = timesVisited > 0
    
     addAccessibilityFunctionality()
