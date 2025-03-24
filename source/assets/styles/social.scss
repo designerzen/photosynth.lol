@@ -85,8 +85,11 @@ $glassdoor: #0caa41;
 
     ul{
         display: flex;
+        flex-wrap: wrap;
         list-style: none;
         gap:calc(var(--pad) / 2);
+        align-items: center;
+        justify-content: space-around;
         margin:0;
         padding:0;
     }

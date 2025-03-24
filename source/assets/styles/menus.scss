@@ -113,12 +113,17 @@
 //     mix-blend-mode: normal;
 //   }
   
+@media screen and (min-width:800px){
+    #menu-accessibility{ 
+        position: sticky;
+        top:0;
+        left:0;
+    }
+}
 
 #menu-accessibility{
     order:-1;
-    position: sticky;
-    top:0;
-    left:0;
+   
     width: 100%;
     margin:0;
     padding:0;
@@ -130,26 +135,11 @@
     flex-wrap: wrap;
     gap:0 calc( var(--pad)  );
     grid-area: 1/1/-1/-1;
-    align-items: center;
 
+    // as sometimes the radio buttons are taller that the other buttons...
+    // align-items: center;
+    align-items: stretch;
 
-    .skip-to-content{
-        width: 44px;
-        height: 44px;
-        display: block;
-        overflow: hidden;
-        color: transparent;
-        background-image: url(../icons/down-chevron.svg);
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-        transform: translateY(-1);
-        order:-99;
-
-        &:hover{
-            background-color: var(--col-accent);
-        }
-    }
 
     .skip-to-content-link{
         order:-1;
@@ -162,6 +152,9 @@
     }
     .text-size-link{
        
+    }
+    .font-link{
+
     }
     legend{
         align-self: center;
@@ -246,5 +239,16 @@
 }
 
 #palette-colourful{
+    background-image: url(/source/assets/icons/color_lens-24px.svg);
+}
+
+#font-default{
+    background-image: url(/source/assets/icons/color_lens-24px.svg);
+}
+
+#font-readable{
+    background-image: url(/source/assets/icons/color_lens-24px.svg);
+}
+#font-dsylexic{
     background-image: url(/source/assets/icons/color_lens-24px.svg);
 }

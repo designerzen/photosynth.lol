@@ -17,6 +17,7 @@ html {
     //     place-content: center;
     // }
 }
+
 .coming-soon{
     position: fixed;
     top:0;
@@ -25,17 +26,22 @@ html {
     height: 100%;
     background-color: var(--col-red);
     color:var(--col-white);
-    z-index: 909;
     display: flex;
     flex-wrap: wrap;
     place-content: center;
+
+    label{
+        display: flex;
+        flex-direction: column;
+        gap:var(--pad);
+    }
 }
 
 body{
     display: grid;
     grid-template-areas: 
-        "header",
-        "main",
+        "header" 
+        "main" 
         "footer"
         ;
     // gap:var(--pad);
@@ -100,8 +106,8 @@ circle-of-fifths-harmonies
     // TODO minus some bottom space for the "fold"
     min-height:calc(100vh - var(--peek));
     min-height:calc(100dvh - var(--peek));
-    max-height:calc(100vh - var(--peek));
-    max-height:calc(100dvh - var(--peek));
+    // max-height:calc(100vh - var(--peek));
+    // max-height:calc(100dvh - var(--peek));
     width: 100%;
 
     // display: flex;
@@ -119,7 +125,11 @@ circle-of-fifths-harmonies
     ;
 
     position: relative;
-    z-index: 2;
+    
+    z-index: 909;
+
+    touch-action: none;
+    pointer-events: none;
 
     hgroup{
         pointer-events: none;
@@ -142,6 +152,7 @@ circle-of-fifths-harmonies
         z-index: 202;
         grid-area: nav;
         justify-self: end;
+        pointer-events: auto;
 
         ul{
             margin:var(--pad) calc( 2 * var(--pad) );
@@ -157,14 +168,9 @@ circle-of-fifths-harmonies
         }
     }
 
+  
     canvas{
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        top:0;
-        left:0;
         grid-area:2/1/-1/-1;
-        z-index: -1;    // behind everything
     }
 
     .piano{
@@ -189,6 +195,7 @@ circle-of-fifths-harmonies
     menu{
         grid-area: menu;
         justify-self: center;
+        pointer-events: auto;
     }
 }
 
@@ -200,13 +207,14 @@ circle-of-fifths-harmonies
 
 // see menu in menu.scss
 
-main,
+main > *,
 body > footer,
-.piano{
+.piano,
+.coming-soon{
     // padding:var(--pad);
     box-sizing: border-box;
     // padding:var(--pad) calc( 2 * var(--pad) );
-    z-index: 1;
+    z-index: 808;
 }
 
 main > :is(section, blockquote){
@@ -222,12 +230,12 @@ main > :is(section, blockquote){
     padding:calc( 2 * var( --pad ));
     box-sizing: border-box;  
     // display: block;
-    border-radius: 9px 9px 0 0;
+    // border-radius: 9px 9px 0 0;
   
     background-color: var(--col-bg);
     width:100%;
     position: relative;
-
+    display: grid;
 
     // https://smoothshadows.com/#djEsMSw1LDAuMDgsMjQsMCwwLCMzMzMxMzIsI2U4ZTZkZiwjZmZmZmZmLDI%3D 
     // box-shadow: 
@@ -246,6 +254,11 @@ main > :is(section, blockquote){
         0px 0px 57px rgba(51, 49, 50, 0.04);
 }
 
+section p{
+    background-color: var(--col-bg);
+    padding-top:var(--pad);
+    padding-bottom:var(--pad);
+}
 
 p.flood{
     padding-top:calc( var(--pad) / 2 );
@@ -255,18 +268,22 @@ p.flood{
 }
 
 main > section + section{
-    margin-top:calc( 2 * var(--pad) );
+    padding-top:calc( 6 * var(--pad) - 2px);
+    border-top: 2px solid var(--col-plum);
 }
 main > section.sticky + section{
     margin-top:calc( 4 * var(--pad) );
 }
 
-figure{
-
+img{
+    position: relative;
+    z-index: 1;
 }
 
+
 body > footer{
-    color:var(--col-text);
+    color:var(--col-bg);
+    // color:var(--col-text);
     // background-color:var(--col-text);
     background-image: url("/source/assets/logos/royal_society-crest.svg");
     background-position: bottom calc( 1ch + var(--pad) * 2) right var(--pad);
@@ -280,35 +297,58 @@ footer{
 }
 
 
+#wallpaper{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 0;    // behind everything
+    background-color: var(--col-bg);
+}
 
 #affiliates{
     ul{
         list-style: none;
         display: grid;
-        gap:var(--pad);
-        grid-template-columns: repeat(auto-fill, minmax( min(180px, 33%), 1fr));
-        justify-content: end;
+        gap:calc( 2 * var(--pad) );
+        grid-template-columns: repeat(auto-fit, minmax( min(180px, 33%), 1fr));
+        justify-items: center;
+        justify-content: center;
         align-items: center;
+        align-content: center;
+        position: relative;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+         // this is a seperator x between the images
+         &::before{
+            content:"×";
+            // text-align: center;
+            font-size: 300%;
+            // width: 100%;
+            // height: 100%;
+         
+            position: absolute;
+           
+            // right: 0;
+            // bottom: 0;
+            left: 42.5%;    // at < 320 px
+            left: 44.5%;
+            left: 47%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+          
+            // display: inline-block;
+            // vertical-align: middle;
+            // margin-top: 13%;
+            z-index: -1;
+        }
     }
 
-    
-    
     li + li{
-        img{
-            height:196px;
-            width: auto;
-            max-width: none;
-        }
-        &::before{
-            content:"×";
-            font-size: 300%;
-            float: left;
-            padding: var(--pad);
-            height: 100%;
-            display: inline-block;
-            vertical-align: middle;
-            margin-top: 13%;
-        }
+        
+      
     }
 }
 
@@ -317,27 +357,6 @@ footer{
         display: flex;
         list-style-position: inside;
         gap:var(--pad);
-    }
-}
-
-img.framed,
-figure.framed {
-    // corner size
-    --corner-size: calc( 8 * var(--pad) ); 
-    --depth:calc( var(--pad) / 2 );
-    --col:var(--col-plum);
-    // gap 
-    padding: var(--pad);
-    border: var(--depth) solid var(--col);
-    margin-top: var(--pad);
-    margin-bottom: var(--pad);
-    mask:
-        conic-gradient(at var(--corner-size) var(--corner-size),#0000 75%,#000 0)
-        0 0/calc(100% - var(--corner-size)) calc(100% - var(--corner-size)),
-        conic-gradient(#000 0 0) content-box;
-
-    figcaption{
-        margin-top: var(--pad);
     }
 }
 
@@ -373,15 +392,16 @@ figure.framed {
 // RS button styles
 button.cta,
 a.cta{
-
+    
 }
 
 
 dl.data-address{
     display: grid;
-    grid-template-columns: minmax(80px, 1fr) minmax(120px, 10fr);
+    grid-template-columns: auto minmax(120px, 10fr);
     gap:calc(var(--pad) / 2);
     align-items: baseline;
+
 }
 
 dd{
@@ -453,4 +473,14 @@ a[href$="designerzen.com"]{
 .link-map{
     align-self: flex-end;
     margin-bottom:var(--pad);
+}
+
+.logo-royal-society{
+
+}
+
+
+
+.license{
+    
 }

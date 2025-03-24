@@ -62,6 +62,12 @@
     max-width: 100%;
 }
 
+.full-height{
+    min-height: 100vh;
+    min-height: 100dvh;
+	background: inherit;
+}
+
 // split into collumns
 .split,
 .split-2{
@@ -81,11 +87,34 @@
 
 // allow these elements to break out of the columns to cover the whole width
 // NB. this resets the column lengths :)
+
 h1, h2, h3, h4, h5, blockquote, hr, details, aside, figure, form, blockquote, .flood {
     column-span: all; 
+}
+
+figure {
+    break-after: column;
 }
 
 
 [hidden]{
 	display:none !important;
+}
+
+[data-inert]{
+	pointer-events: none;
+}
+
+.float{
+	float: left;
+}
+
+.outside-leaning-polygon{
+	shape-outside: polygon(-6.00% 106.19%, 95% 4.21%, 97% 38.31%, 34px 104.87%);
+	margin-right:var(--pad);
+}
+
+.glyph-grid-list-char{
+	user-select: all;
+	color:inherit;
 }

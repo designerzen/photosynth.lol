@@ -1,10 +1,20 @@
 // DIV wrapper for SVG and FORM
 .instrument-circular{
     display: grid;
+    display: block;
     align-items: end;
     margin-top: var(--pad);
     margin-bottom: var(--pad);
+    grid-template-areas:
+        "caption"
+        "interactive"
+        "toggles";
    
+    grid-template-rows: 
+        1fr
+        auto
+        auto;
+
     > *{
         grid-area: 1/1/-1/-1;
         pointer-events: none;
@@ -12,53 +22,140 @@
     label,input{
         pointer-events: auto;
     }
-    
-    .octave-selector{
-        label:first-of-type{
-            transform: translateY(0px);
-        }
-        label:nth-of-type(2){
-            transform: translateY(70px);
-        }
-        label:nth-of-type(3){
-            transform: translateY(115px);
-        }       
+    figcaption{
+        grid-area: caption;
+    }
+    svg{
+        grid-area: interactive;
+        border-radius: 100%;
+        position: relative;
+        z-index: 1;
     }
 
-    .emotion-selector{
-        label:first-of-type{
-            transform: translateY(70px);
-        }
-        label:nth-of-type(2){
-            transform: translateY(10px);
-        }
-
-    }
-
-    fieldset{
-        border: 0;
-    }
     form{
+        grid-area: toggles;
         display: flex; 
         justify-content: space-between;
+        gap: var(--pad);
+    }
+    
+    fieldset{
+        border: 0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        // flex-direction: column;
+        gap:var(--pad);
+        justify-content: center;
+    }
+
+    legend{
+        order:99;
+        margin: 0 auto;
+    }
+
+}
+
+#emotion{
+    fieldset{
+        align-items: center;
+    }
+}
+
+ // try to align these to the right
+.emotion-selector{
+    
+    justify-content: flex-end;
+
+    fieldset{
+        // display: grid;
+        // grid-template-columns: repeat(auto-fill, minmax(66px, 1fr));
+        
+        gap:var(--pad);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        justify-self: center;
+        align-items: start;
+        
+        label::first-of-type,
+        output{
+            grid-area:1/1/-1/0;
+        }
+
+        label{
+            // <3 Ana Tudor : https://codepen.io/thebabydino/pen/OPJOepJ?editors=1100
+
+            // for 3 equal columns, out of 100%, 
+            // we subtract the 2 (= 3 - 1) grid gaps and divide by 3 
+            flex: 1 1 calc((100% - 2 * var(--pad) ) / 3);
+
+            // for 2 equal columns, out of 100%, 
+            // we subtract the 1 (= 2 - 1) grid gaps and divide by 2  
+            &:nth-child(3n):nth-last-child(2), 
+            &:nth-child(3n + 1):last-child {
+                flex-basis: calc(50% - .5 * var(--pad) ); 
+            }
+        }
+    }
+}
+
+// When wider, we overlay certain elements
+@media screen and (min-width:800px){
+    .instrument-circular{
+        fieldset{
+            border: 0;
+            display: flex;
+            flex-direction: row;
+        }
+        svg{
+            float: left;
+            shape-outside: circle(100%);
+        }
+        .octave-selector{
+            label:first-of-type{
+                transform: translateY(0px);
+            }
+            label:nth-of-type(2){
+                transform: translateY(70px);
+            }
+            label:nth-of-type(3){
+                transform: translateY(115px);
+            }       
+        }
+
+        // 
+        .emotion-selector{
+            label:first-of-type{
+                transform: translateY(70px);
+            }
+            label:nth-of-type(2){
+                transform: translateY(10px);
+            }
+
+            
+        }
     }
 }
 
 .octave-selector{
-    margin: 0;
-    padding: 0;
+   
 }
 
 .circle-of-fifths {
     
     max-height : 100vh;
+    max-height : 100dvh;
     margin: auto;
 
     path{
-        transition: fill 90ms linear;
+        transition: fill var(--time-quick, 90ms) linear;
         fill:var(--col-accent);
         cursor: pointer;
         pointer-events: auto;
+        // try to improve GPU performance
+        will-change: fill;
     }
 
     // .circle-of-fifths-harmonies{
@@ -91,23 +188,9 @@
         user-select: none;
         touch-action: none;
         border-radius: 99%;
+        fill:var(--col-warm-grey-light);
     }
     text{
         color:currentColor;
-    }
-}
-
-
-@keyframes Peak {
-    0%{
-        fill:var(--col-white);
-        
-    }
-
-}
-
-@keyframes Throb {
-    0%{
-        fill:var(--col-white);
     }
 }

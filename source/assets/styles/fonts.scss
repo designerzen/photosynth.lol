@@ -1,8 +1,25 @@
 // ROYAL SOCIETY -------------------------------------------
 @use "./fonts/metropolis.scss";
+
+// Emoticons & musical artifacts
 @use "./fonts/noto.scss";
 
 // DSYLEXIA ------------------------------------------------
-
+@use "./fonts/open-dyslexic.scss";
 
 // DISPAXIA ------------------------------------------------
+@use "./fonts/readex-pro.scss";
+
+// Custom fonts for accessibility --------------------------
+[data-font="default"] {
+    font-family: 'Proxima Nova', var(--font-family-metropolis), Georgia, sans-serif;
+}
+
+[data-font="dsylexic"]{
+    font-family: 'OpenDyslexic', 'Proxima Nova', var(--font-family-metropolis), Georgia, sans-serif;
+}
+
+[data-font="readable"]{
+    font-family: 'ReadexPro', 'Proxima Nova', Georgia, sans-serif;
+    font-weight: normal;
+}

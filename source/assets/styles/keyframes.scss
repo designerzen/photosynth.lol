@@ -1,0 +1,139 @@
+@keyframes Peak {
+    0%{
+        fill:var(--col-warm-grey-light, var(--col-white));
+    }
+}
+
+@keyframes Throb {
+    0%{
+        fill:var(--col-warm-grey-light, var(--col-white));
+    }
+}
+
+
+
+
+@keyframes BackToTop {
+    50%{
+        transform: translateY(-66%);
+        opacity: 0;
+    }
+    51%{
+        transform: translateY(66%);
+    }
+    // 52%{
+        
+    // }
+    0%, 100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+
+@keyframes identifier {
+    
+}
+
+
+// ♩ ♪ ♫ ♬
+@keyframes Notation {
+    0%{
+        // content:"𝆔";
+        content:"𝅘𝅥𝅯";
+    }
+    20%{
+        content:"𝅘𝅥𝅯";
+    }
+    40%{
+         content:"𝅘𝅥𝅮";
+    }
+    60%{
+        content:"𝅘𝅥";
+    }
+    80%{
+        content:"𝅗𝅥";
+    }
+    100%{   
+        content:"𝅗𝅥";
+        scale:2;
+    }
+}
+
+  
+@keyframes OffsetPathChangeLeft {
+    0%,20%{
+        offset-path: var(--path-arc-left);
+    }
+    20.1%,40%{
+        offset-path: var(--path-double-wave-left);
+    }
+    40.1%,60%{
+        offset-path: var(--path-float-left);
+    }
+    60.1%,80%{
+        offset-path: var(--path-ripple-left);
+    }
+    80.1%,100%{
+        offset-path: var(--path-wav-left);
+    }
+}
+
+@keyframes OffsetPathChangeRight {
+    0%,20%{
+        offset-path: var(--path-arc);
+    }
+    20.1%,40%{
+        offset-path: var(--path-double-wave);
+    }
+    40.1%,60%{
+        offset-path: var(--path-float);
+    }
+    60.1%,80%{
+        offset-path: var(--path-ripple);
+    }
+    80.1%,100%{
+        offset-path: var(--path-wave);
+    }
+}
+
+
+@keyframes TravelAlongPathRight {
+    0% {
+        offset-distance: 0%;
+    }
+    100% {
+        offset-distance: 100%;
+    }
+}
+
+@keyframes TravelAlongPathLeft {
+    0% {
+         offset-distance: 0%;
+    }
+    100% {
+        offset-distance: 100%;
+    }
+}
+  
+// @keyframes TravelAlongPath {
+//     0% {
+//       offset-distance: 0%;
+//     }
+//     100% {
+//       offset-distance: 100%;
+//     }
+// }
+  
+@keyframes FadeEnd {
+    0%{
+        opacity: 0;
+    }
+    3%, 90% {
+      opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

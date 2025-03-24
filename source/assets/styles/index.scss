@@ -1,15 +1,29 @@
 @use "./_ease.scss";
+
 @use "./settings.scss";
+
 @use "./base.scss";
-@use "./hero.scss";
+
+@use "./royal-society.scss";
+
 @use "./fonts.scss";
 @use "./typography.scss";
-@use "./main.scss";
+
+
 @use "./menus.scss";
 @use "./buttons.scss";
-@use "./themes.scss";
+@use "./figure.scss";
 @use "./social.scss";
 @use "./utils.scss";
+
+
+@use "./hero.scss";
+@use "./main.scss";
+
 @use "./circle-of-fifths.scss";
 @use "./keyboard.scss";
-@use "./royal-society.scss"
+
+@use "./keyframes.scss";
+
+// finally we apply any themes
+@use "./themes.scss";

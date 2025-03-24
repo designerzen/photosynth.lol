@@ -177,7 +177,6 @@ breakdowns specified here.
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(9, 1fr);
-
 }
 
 a, 
@@ -209,15 +208,19 @@ input[type=button].cta{
     // line-height: 1;
     text-align: center;
     text-decoration: none;
+    transition:var(--time-quick,90ms) background-color linear;
+    font-weight: bold;
+    
+    &:hover,&:focus{
+        background-color: var(--col-plum);
+    }
 }
 
 a.button, 
 button.button, 
 input[type=button].button{
-
     background-color: #ba0c2f;
     color: #fff;
-
     padding: 10px 20px;
     text-decoration: none;
 }
@@ -310,8 +313,4 @@ hr{
     border: 0;
     margin: 0 0 22px 0;
     height: 1px;
-}
-
-figure {
-    break-after: column;
 }

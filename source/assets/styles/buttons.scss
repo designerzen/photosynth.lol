@@ -1,4 +1,24 @@
 button,
+a.cta{
+    z-index: 909;
+    position: relative;
+    align-self: flex-end;
+    justify-self: end;
+}
+
+// we need space around the button
+.cta{
+    margin-top:var(--pad);
+    margin-bottom:var(--pad);
+    transition: var(--time-quick, 90ms) transform linear;
+    &:active{
+        transform: 
+            translateY(5%)
+            scale( 0.98 );
+    }
+}
+
+button,
 input[type=checkbox],
 input[type=radio]{
     --size:44px;
@@ -14,11 +34,15 @@ input[type=radio]{
     outline: 0;
     min-width: var(--size);
     min-height: var(--size);
+    pointer-events: auto;
 
+    transition: 
+        var(--time-quick, 90ms) background-color linear,
+        var(--time-quick, 90ms) border-color linear;
 
     &:hover{
         cursor: pointer;
-        background-color: var(--col-accent);
+        // background-color: var(--col-accent);
     }
 
     &:focus-visible{
@@ -26,15 +50,12 @@ input[type=radio]{
     }
 }
 
-
-
 fieldset label{
     display:inline-grid;
     grid-template-areas:
         "icon" 
         "text"
     ;
-
     
     gap:calc( var(--pad) / 4 );
     grid-template-columns: 1fr;
@@ -54,13 +75,15 @@ fieldset label{
     > span{
         grid-area: icon;
     }
-    &::after{
-        content:'';
-        padding-bottom:100%;
-        grid-area:1/1/-1/-1;
-        height:0;
-        overflow: hidden;
-    }
+
+    // FIX: for aspect ratio to remain the same irregardless of width...
+    // &::after{
+    //     content:'';
+    //     padding-bottom:100%;
+    //     grid-area:1/1/-1/-1;
+    //     height:0;
+    //     overflow: hidden;
+    // }
 }
 
 input[type=checkbox]{
@@ -85,8 +108,8 @@ input[type=radio]{
     $easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     
     transition: 
-        opacity 90ms linear,
-        border-width 90ms #{$easeInBack}; 
+        opacity var(--time-quick, 90ms) linear,
+        border-width var(--time-quick, 90ms) #{$easeInBack}; 
 
     &:checked{
         background-color: var(--col-plum);
@@ -116,6 +139,7 @@ label{
     }
     span{
         pointer-events: none;
+        position: relative;
     }
 }
 
@@ -136,18 +160,92 @@ label{
 
 }
 
-.back-to-top{
+
+a.back-to-top{
     position: fixed;
-    top:1px;
+    top:0;//1px;
+    right:var(--pad);
     justify-self: end;
-    margin-right:var(--pad);
+    // margin-top:1px;
     margin-bottom:1px;
+}
+
+a.back-to-top,
+a.skip-to-content{
     z-index: 1;
+    display: grid;
+    grid-template-columns: 0 1fr;
+    font-size: 0;
+    padding:calc(var(--pad) / 4);
+    overflow: hidden;
+    overflow: clip;
+    color: transparent;
+
     &::after{
+        content:'';
+        order:-99;
         min-width: 44px;
+        min-height: 44px;
         display: inline-block;
         vertical-align: middle;
+        background-image: url(/source/assets/icons/up-chevron.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        filter: invert(100%) contrast(92%);
+        // transition: 
+        //     var(--time-quick, 90ms) opacity ease-in-out,
+        //     var(--time-quick, 90ms) transform ease-in-out;
     }
+
+    &:hover::after,
+    &:active::after{
+        // transform: translateY(-100%);
+        animation: BackToTop 0.42s ease-in-out;
+    }   
+}
+
+a.skip-to-content{
+    background-color: var(--col-accent);
+    min-height: 100%;
+    box-sizing: content-box;
+    padding-top:0;
+    padding-bottom:0;
+        
+    &::after{
+        background-image: url(/source/assets/icons/down-chevron.svg);
+    }
+
+    &:hover{
+       
+    }
+
+    &:hover::after,
+    &:active::after{
+        animation: BackToTop 0.66s ease-in-out reverse;
+    }
+}
+
+
+@media screen and (min-width:900px) {
+    
+    a.back-to-top{
+        grid-template-columns: auto 1fr;
+        font-size: inherit;
+        padding:var(--pad);
+        &::after{
+            display: none;
+        }
+    }
+}
+
+#toggle-midi{
+    background-image:url("../logos/midi-association.svg");
+    z-index: 1;
+    position: absolute;
+    bottom:var(--pad);
+    left:var(--pad);
+    width: fit-content;
 }
 
 #button-text-size-decrease{

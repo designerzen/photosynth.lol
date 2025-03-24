@@ -1,0 +1,41 @@
+
+figure{
+    --depth:calc( var(--pad) / 4 );
+    --col:var(--col-accent);
+    
+    background: inherit;
+ 
+    // there may be nested icons in figcaption for attributions etc
+    > img{
+        min-width:100%;
+    }
+
+    figcaption{
+        margin-top: var(--pad);
+        margin-bottom: var(--pad);
+        text-align: center;
+        color:var(--col-plum);
+    }
+}
+
+.bumpers{
+    border-top: var(--depth) solid var(--col);
+    border-bottom: var(--depth) solid var(--col);
+}
+
+.corner-bumpers { 
+    // corner size
+    --corner-size: calc( 8 * var(--pad) ); 
+    --depth:calc( var(--pad) / 2 );
+    --col:var(--col-plum);
+    // gap 
+    padding: var(--pad);
+    border: var(--depth) solid var(--col);
+    margin-top: var(--pad);
+    margin-bottom: var(--pad);
+
+    mask:
+        conic-gradient(at var(--corner-size) var(--corner-size),#0000 75%,#000 0)
+        0 0/calc(100% - var(--corner-size)) calc(100% - var(--corner-size)),
+        conic-gradient(#000 0 0) content-box;
+}

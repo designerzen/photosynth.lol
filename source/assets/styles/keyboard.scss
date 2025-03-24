@@ -1,9 +1,18 @@
 .piano-key{
-	transition: fill 90ms linear;
+	transition: fill var(--time-quick, 90ms) linear;
     border-radius: 10%;
+
+	.piano-key-name{
+		visibility: hidden;
+	}
 
 	&:hover{
 		fill:var(--col-warm-grey);
+		
+		.piano-key-name{
+			visibility: visible;
+		}
+		
 	}	
     
 
@@ -27,7 +36,7 @@
 }
 
 .piano-note-indicator{
-	transition: opacity 90ms linear;
+	transition: opacity var(--time-quick, 90ms) linear;
 	stroke:white;
 	stroke-width:0.3;
 	fill:yellow;

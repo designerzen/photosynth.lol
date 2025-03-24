@@ -37,7 +37,7 @@
 
     overflow: auto;
     // only allow vertical scrolling
-    overflow-x: hidden;
+    // overflow-x: hidden;
     // prevent "overscrolling"
     overscroll-behavior-y: none;
 
@@ -125,23 +125,9 @@ abbr{
     cursor: help;
 }
 
-
-// FIGURE ----------------------------------------------
-
-:where(figure){	
-    img{
-        min-width:100%;
-    }
-}
-
-:where(figcaption){
-    text-align: center;
-}
-
 :where(blockquote){
     margin: 0;
 }
-
 
 // Take SVG filters out of the flow
 svg[aria-hidden='true'] { 
@@ -239,7 +225,7 @@ svg[aria-hidden='true'] {
         background: black !important;
         
         // border-radius: 2px;
-        transition: 95ms all ease-in;
+        transition: var(--time-quick, 90ms) all ease-in;
     
         &:hover, &:focus{
             color:var(--shade-cream);
@@ -265,17 +251,22 @@ svg[aria-hidden='true'] {
     padding:calc( var(--pad) * 1 ) calc( var(--pad) * 2 );
 }
 
+:where(label){
+    color:inherit;
+}
+
 :where(input){
-    text-align: center;
    
     // For iOS < 15 you need to remove the background
     background-color: var(--col-white, white);
     padding:0;
     margin:0;
-
     font: inherit;
-
     color: currentColor;
+}
+
+:where( input, textarea, [contenteditable]) {
+    caret-color: var(--col-accent);
 }
 
 :where(	
@@ -285,13 +276,21 @@ svg[aria-hidden='true'] {
     button
 ){
     cursor: pointer;
+    text-align: center;
 }
 
 fieldset{
     border-radius: 12px;
+    padding: calc( var(--pad) );
+    // padding: calc( var(--pad) / 2 ) calc( var(--pad) );
+    
+    // to balance out the legend we have extra lower padding
+    padding-bottom: calc( var(--pad) * 2 );
 
     legend{
         text-align: center;
+        padding-left:calc( var(--pad) / 2 );
+        padding-right:calc( var(--pad) / 2 );
     }
 }
 
