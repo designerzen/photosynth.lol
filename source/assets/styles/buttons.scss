@@ -239,13 +239,22 @@ a.skip-to-content{
     }
 }
 
-#toggle-midi{
+label[for="toggle-midi"]{
+// #toggle-midi{
     background-image:url("../logos/midi-association.svg");
+    background-repeat: no-repeat;
+    background-position: center;
     z-index: 1;
     position: absolute;
+    padding:0;
     bottom:var(--pad);
     left:var(--pad);
+    color: transparent;
     width: fit-content;
+    display: grid;
+}
+#toggle-midi{
+    grid-area: 1/1/-1/-1;
 }
 
 #button-text-size-decrease{

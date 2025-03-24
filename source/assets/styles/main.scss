@@ -29,6 +29,7 @@ html {
     display: flex;
     flex-wrap: wrap;
     place-content: center;
+    z-index: 1080;  // top of the pops
 
     label{
         display: flex;
@@ -209,8 +210,7 @@ circle-of-fifths-harmonies
 
 main > *,
 body > footer,
-.piano,
-.coming-soon{
+.piano{
     // padding:var(--pad);
     box-sizing: border-box;
     // padding:var(--pad) calc( 2 * var(--pad) );
