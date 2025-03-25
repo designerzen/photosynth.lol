@@ -254,10 +254,11 @@ main > :is(section, blockquote){
         0px 0px 57px rgba(51, 49, 50, 0.04);
 }
 
+
 section p{
     background-color: var(--col-bg);
-    padding-top:var(--pad);
-    padding-bottom:var(--pad);
+    padding-top:calc( var(--pad) / 2 );
+    padding-bottom:calc( var(--pad) / 2 );
 }
 
 p.flood{
