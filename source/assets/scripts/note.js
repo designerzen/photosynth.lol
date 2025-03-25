@@ -59,6 +59,9 @@ export const noteNumberToOctave = noteNumber => Math.floor(noteNumber / QUANTITY
 export const isSharp = noteNumber => SHARPS[noteNumber % QUANTITY_NOTES] 
 export const isFlat = noteNumber => isSharp(noteNumber)
 
+// convert a letter and an octave to a noteNumber
+export const keyAndOctaveAsNoteNumber = (key, octave=4, isAccidental=false) => KEY_NAMES.indexOf(key) + (octave * 12) + (isAccidental ? 1 : 0)
+
 export default class Note{
 
     // noteName

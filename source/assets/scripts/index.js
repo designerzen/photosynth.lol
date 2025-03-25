@@ -13,12 +13,17 @@ import CircleSynth from "./components/circle-synth"
 
 // DOM
 import Hero from "./components/hero"
-import NoteVisualiser from "./components/noteVisualiser"
+
+import NoteVisualiser from "./components/note-visualiser"
+import AudioVisualiser from "./components/audio-visualiser"
+
 import SVGKeyboard from "./components/keyboard-svg"
 
 // data
 import Note from "./note"
-import Visualiser from "./components/visualiser"
+import { PALETTE } from "./settings"
+import { ASTLEY } from "./songs"
+import Song from "./song"
 
 // read any saved themes from the URL ONLY (not from cookies so no overlay required :)
 const searchParams = new URLSearchParams(location.search)
@@ -186,6 +191,12 @@ const noteOn = (noteModel, velocity=1, id=0 ) => {
  */
 const noteOff = (noteModel, velocity=1, id=0 ) => {
 
+    if (!noteModel)
+    {
+        console.warn("No noteModel provided to noteOff")
+        return
+    }
+
     // const chord = isHappy ? 
     //     createMajorChord( ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode ) :
     //     createMinorChord( ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode )
@@ -204,6 +215,54 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
     }
 
     console.info("noteOff", {noteModel, chord, mode})
+}
+
+
+const loadSong = (track=ASTLEY) => {
+    // Load in our rick roll...
+    const song = new Song(track)
+    // const note = song.getNextNote()
+    // console.info("note", note, {song} )
+    return song
+}
+
+/**
+ * 
+ * @param {AudioContext} audioContext 
+ * @param {AudioNode} source 
+ */
+const createAudioVisualiser = (audioContext, source, song) => {
+
+    const visualiserOptions = {
+        backgroundColour:PALETTE.stoneLight,
+        lineColour:PALETTE.plum,
+        lineWidth:3
+    }
+    const visualiserCanvas = document.getElementById("visualiser")
+    const visualiserContext = visualiserCanvas.getContext('2d')
+    shapeVisualiser = new AudioVisualiser( visualiserContext, audioContext, source, visualiserOptions )
+   
+    const updateVis = () => {
+        shapeVisualiser.drawWaveform()
+        requestAnimationFrame(updateVis)
+    }
+    updateVis()
+
+    let playingNote = null
+    // allow the user to click the visualiser to play a song...
+    visualiserCanvas.addEventListener("click", e => {
+
+        const note = song.getNextNote()
+        console.info("note", note, {song, playingNote} )
+        if (playingNote)
+        {
+            noteOff( playingNote )
+        }
+
+        noteOn( note )
+        playingNote = note
+        //setTimbre( OSCILLATORS[] )
+    })
 }
 
 /**
@@ -226,14 +285,13 @@ const createAudioContext = (event) => {
     mixer.gain.value = 1
 
     limiter.connect(mixer)
-    mixer.connect(audioContext.destination)
-
-    // if we want to show this on the screen...
+    mixer.connect( audioContext.destination )
     
-    const visualiserCanvas = document.getElementById("visualiser")
-    const visualiserContext = visualiserCanvas.getContext('2d')
-    shapeVisualiser = new Visualiser( visualiserContext, audioContext, limiter )
-   
+    const song = loadSong()
+
+    createAudioVisualiser( audioContext, mixer, song )
+    // createAudioVisualiser( audioContext, limiter)
+
 
     // now register any instruments that depend on the audiocontext
     registerMultiTouchSynth(audioContext, ALL_KEYBOARD_NOTES, noteOn, noteOff)
@@ -508,7 +566,7 @@ const start =  () => {
 
     // NB. if this is password protected we ignore visits until the user has logged in
     const timesVisited = parseInt(searchParams.get("visited") ?? 0)
-    searchParams.set("visited", showingPasswordScreen ? 0 : timesVisited + 1 )
+    searchParams.set("visited", showingPasswordScreen ? -1 : timesVisited + 1 )
     pass.hidden = timesVisited > 0
     // console.error({pass:pass, hidden:pass.hidden, showingPasswordScreen, timesVisited})
 
