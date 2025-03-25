@@ -848,10 +848,10 @@
     <canvas id="wallpaper"></canvas>    
 
     <!-- Funky audio analyser -->
-    <canvas id="visualiser"></canvas>    
+    <canvas id="visualiser" width=800 height=200></canvas>    
 
     <!-- Password protection -->
-    <form id="pass" class="coming-soon" onsubmit="const r = password.innerText === 'dm'; pass.hidden=r; return false">
+    <form id="pass" class="coming-soon" onsubmit="const t=(password.value === 'dm');pass.hidden=t; console.info('Password correct '+t, password, password.value);return false">
         <label for="password">
             Enter password to continue
             <input id="password" type="text" name="password" placeholder="Enter password to continue">
