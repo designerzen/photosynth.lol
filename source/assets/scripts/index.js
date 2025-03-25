@@ -18,6 +18,7 @@ import SVGKeyboard from "./components/keyboard-svg"
 
 // data
 import Note from "./note"
+import Visualiser from "./components/visualiser"
 
 // read any saved themes from the URL ONLY (not from cookies so no overlay required :)
 const searchParams = new URLSearchParams(location.search)
@@ -35,7 +36,8 @@ let keyboard
 
 // Shared DOM elements
 let hero
-let viz
+let noteVisualiser
+let shapeVisualiser
 let circles
 
 const keyboardKeys = ( new Array(128) ).fill("")
@@ -170,7 +172,7 @@ const noteOn = (noteModel, velocity=1, id=0 ) => {
         // Now highlight the keys on the keyboard!                                                                                                           
         keyboard.setKeyAsActive( note.noteNumber )
         hero && hero.noteOn( note )
-        viz && viz.noteOn( note, velocity )
+        noteVisualiser && noteVisualiser.noteOn( note, velocity )
     }
     // hero && hero.noteOn( chord[0] )
     console.info("noteOn", ALL_KEYBOARD_NOTES.length, {noteModel, mode, chord, ALL_KEYBOARD_NOTES})
@@ -198,7 +200,7 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
         // Now unhighlight the keys on the keyboard
         keyboard.setKeyAsInactive( note.noteNumber )
         hero && hero.noteOff( note )
-        viz && viz.noteOff( note, velocity )
+        noteVisualiser && noteVisualiser.noteOff( note, velocity )
     }
 
     console.info("noteOff", {noteModel, chord, mode})
@@ -225,6 +227,13 @@ const createAudioContext = (event) => {
 
     limiter.connect(mixer)
     mixer.connect(audioContext.destination)
+
+    // if we want to show this on the screen...
+    
+    const visualiserCanvas = document.getElementById("visualiser")
+    const visualiserContext = visualiserCanvas.getContext('2d')
+    shapeVisualiser = new Visualiser( visualiserContext, audioContext, limiter )
+   
 
     // now register any instruments that depend on the audiocontext
     registerMultiTouchSynth(audioContext, ALL_KEYBOARD_NOTES, noteOn, noteOff)
@@ -425,8 +434,10 @@ const showMIDIToggle = () => {
     buttonMIDIToggle.parentNode.hidden = false
 }
 
-
-// replace the current year with the current year
+/**
+ * replace the current year with the current year
+ * @returns {Boolean} if the year was updated
+ */
 const setCurrentYear = () => {
    const currentYear = new Date().getFullYear()
    const yearElement = document.querySelector(".current-year")
@@ -438,6 +449,9 @@ const setCurrentYear = () => {
    return false
 }
 
+/**
+ * Circle of Fifths Synthesizer
+ */
 const showCircularSynth = () => {
 
     // const FIFTHS_LYDIAN = [0,1,1,1,1,1]
@@ -480,7 +494,9 @@ const showCircularSynth = () => {
     // now chords foor the fifths
 }
 
-
+/**
+ * DOM is ready...
+ */
 const start =  () => {
    
     // for (const p of searchParams) {
@@ -488,15 +504,14 @@ const start =  () => {
     // }
 
     // Passowrd Protection ------------------------------------------------
-    const showingPasswordScreen = pass && pass.hidden
+    const showingPasswordScreen = pass && !pass.hidden
 
     // NB. if this is password protected we ignore visits until the user has logged in
     const timesVisited = parseInt(searchParams.get("visited") ?? 0)
     searchParams.set("visited", showingPasswordScreen ? 0 : timesVisited + 1 )
     pass.hidden = timesVisited > 0
+    // console.error({pass:pass, hidden:pass.hidden, showingPasswordScreen, timesVisited})
 
-
-   
     addAccessibilityFunctionality()
     setCurrentYear()
 
@@ -505,22 +520,23 @@ const start =  () => {
         showMIDIToggle()
     }
    
-
+    // top interactive graphic
     hero = new Hero(ALL_KEYBOARD_NOTES, noteOn, noteOff)
-
-    // const headerElement = document.getElementById("headline")    
+  
+    // bottom interactive piano
     keyboard = new SVGKeyboard(KEYBOARD_NOTES, noteOn, noteOff )
     
+    // const headerElement = document.getElementById("headline")  
     // headerElement.appendChild(keyboard.asElement)
-
     // const keyboard2 = new SVGKeyboard(KEYBOARD_NOTES, noteOn, noteOff )
+
     const keyboardElement = document.body.appendChild( keyboard.asElement )
     keyboardElement.addEventListener("dblclick", e => isHappy = !isHappy)
-    // document.body.appendChild(keyboard2.asElement)
+   
 
-    const canvas = document.getElementById("wallpaper")
-    viz = new NoteVisualiser( KEYBOARD_NOTES, canvas, false, 0 ) // ALL_KEYBOARD_NOTES
-
+    const wallpaperCanvas = document.getElementById("wallpaper")
+    noteVisualiser = new NoteVisualiser( KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
+ 
     // reinstate the state recalled from the previous session
     // fetchStateFromRadioButtons() 
    
