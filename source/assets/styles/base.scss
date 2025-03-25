@@ -258,7 +258,7 @@ svg[aria-hidden='true'] {
 :where(input){
    
     // For iOS < 15 you need to remove the background
-    background-color: var(--col-white, white);
+    background-color: var(--col-bg, white);
     padding:0;
     margin:0;
     font: inherit;

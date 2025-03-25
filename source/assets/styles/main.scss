@@ -1,6 +1,7 @@
 html {
     display: grid;
     min-height: 100%;
+    color: var(--col-text);  
     background-color: var(--col-bg);  
 
     // &::before{
@@ -306,6 +307,11 @@ footer{
     left:0;
     z-index: 0;    // behind everything
     background-color: var(--col-bg);
+}
+
+#visualiser{
+    z-index: 1;
+    width: 100%;
 }
 
 #affiliates{
