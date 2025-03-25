@@ -21,6 +21,9 @@ figure{
 .bumpers{
     border-top: var(--depth) solid var(--col);
     border-bottom: var(--depth) solid var(--col);
+
+    margin-top: var(--pad);
+    margin-bottom: var(--pad);
 }
 
 .corner-bumpers { 
