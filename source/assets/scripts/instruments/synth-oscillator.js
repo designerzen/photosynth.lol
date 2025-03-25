@@ -5,6 +5,8 @@ const OSCILLATORS = [ "sine", "square", "sawtooth", "triangle" ]
 
 export default class SynthOscillator{
 
+    static waveTables = new Map()
+
     options = {
         gain:0.5,
         attack:0.3,
@@ -130,6 +132,9 @@ export default class SynthOscillator{
         this.filterNode.connect(this.gainNode)
         // this.gainNode.connect(audioContext.destination)
 
+        // check to see if a wavetable name is specified...
+
+
         this.isNoteDown = false
     }
 
@@ -229,5 +234,30 @@ export default class SynthOscillator{
        
         this.isNoteDown = false        
         this.startedAt = -1
+    }
+
+    async loadWaveTable(waveTableName=TB303_Square){
+        // TODO Cache in static Map
+
+        if (SynthOscillator.waveTables.has(waveTableName) ){
+
+            const table = SynthOscillator.waveTables.get(waveTableName)
+            this.setWaveTable(table)  
+
+        }else{
+
+            const request = await fetch(`/wave-tables/${waveTableName}`)
+            const response = await request.json()
+            this.setWaveTable(response)  
+            SynthOscillator.waveTables.set(waveTableName, response)
+        }
+    }
+
+    setWaveTable(waveTable){
+        this.waveTable = waveTable
+        const real = waveTable.real
+        const imag = waveTable.imag
+        const wave = this.audioContext.createPeriodicWave(real, imag, { disableNormalization: true })
+        this.oscillator.setPeriodicWave(wave)
     }
 }

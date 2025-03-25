@@ -71,8 +71,10 @@ let volume = parseInt(searchParams.get("volume") ?? 1)
 
 const getSynthForFinger = (finger=0)=>{
     if (!fingerSynths.has(finger)){
-        const fingerSynth = new SynthOscillator(audioContext, {shape})
-        fingerSynth.addA
+    const fingerSynth = new SynthOscillator(audioContext, {shape})
+        fingerSynth.loadWaveTable("TB303")
+        fingerSynth.loadWaveTable("tb303.json")
+        fingerSynth.loadWaveTable("Piano")
         fingerSynth.output.connect(limiter)
         fingerSynths.set( finger, fingerSynth )
     }

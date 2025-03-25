@@ -15,7 +15,7 @@ export default class Song {
         // now convert that into a series of Note object
         this.notes = this.createNotes(data)
         this.notes.forEach( (note, index)  => {
-            console.info(index, "NOTE", note, data[index] )
+            console.info(index, note.noteKey === data[index], "NOTE", note, data[index] )
         })
     }
 
@@ -24,11 +24,11 @@ export default class Song {
     // convert a letter and an octave to a noteNumber
     // A4, G4 -> 69
     convertNoteLetterToNoteNumber(noteLetter, octave=4){
-        const key = noteLetter.charAt(0)
+        const key = noteLetter.charAt(0).toUpperCase()
         const isAccidental = noteLetter.charCodeAt(1) === 35 // #
         const noteName = noteLetter.toUpperCase() + octave
         const noteNumber = keyAndOctaveAsNoteNumber( key, octave, isAccidental )
-        // console.info("note", noteNumber, {isAccidental, key, noteLetter, octave, noteName })
+        console.info("note", noteNumber, {isAccidental, key, noteLetter, octave, noteName })
         return noteNumber
     }
 
