@@ -11,6 +11,7 @@
 @use "./fonts/readex-pro.scss";
 
 // Custom fonts for accessibility --------------------------
+html,
 [data-font="default"] {
     font-family: 'Proxima Nova', var(--font-family-metropolis), Georgia, sans-serif;
 }
