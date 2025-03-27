@@ -58,11 +58,14 @@ export default class Hero extends AbstractInteractive{
         // this.figure.classList.remove("active")
         const noteElement = this.keyElements[this.noteIndex - 1]
       
+        if (noteElement)
+        {
         // change note to the correct colour
-        noteElement.style.setProperty( "--col-accent", "var("+this.notes[note.noteNumber].asCSSVar+")" )
-        // noteElement.style.setProperty( "--path", "var("+this.notes[note.noteNumber].asCSSVar+")" )
-        // this.hero.style.setProperty( "--col-accent", "var("+this.notes[note.noteNumber].asCSSVar+")" )
+            noteElement.style.setProperty( "--col-accent", "var("+this.notes[note.noteNumber].asCSSVar+")" )
+            // noteElement.style.setProperty( "--path", "var("+this.notes[note.noteNumber].asCSSVar+")" )
+            // this.hero.style.setProperty( "--col-accent", "var("+this.notes[note.noteNumber].asCSSVar+")" )
 
-        noteElement.classList.toggle( "inactive", true )
+            noteElement.classList.toggle( "inactive", true )
+        }
     }
 }
