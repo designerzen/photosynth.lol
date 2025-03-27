@@ -1,11 +1,10 @@
 //const OSCILLATORS = [ "sine", "triangle"]
 import {MAJOR_CHORD_INTERVALS} from "../chords.js"
 import {noteNumberToFrequency} from "../note.js"
+import { loadWaveTable } from "./wave-tables.js"
 const OSCILLATORS = [ "sine", "square", "sawtooth", "triangle" ]
 
 export default class SynthOscillator{
-
-    static waveTables = new Map()
 
     options = {
         gain:0.5,
@@ -26,6 +25,7 @@ export default class SynthOscillator{
     }
     
     // arpeggioIntervals = []
+    customWave = null
 
     get now(){
         return this.audioContext.currentTime
@@ -37,12 +37,12 @@ export default class SynthOscillator{
 
     set gain(value){
         this.options.gain = value
-       
     }
 
     get volume(){
         return this.gainNode.gain.value
     }
+
     set volume(value){
         this.gainNode.gain.cancelScheduledValues(this.now)
         // this.gainNode.gain.value = value
@@ -64,12 +64,34 @@ export default class SynthOscillator{
     }
 
 	set shape(value){
-		this.oscillator.type = value
+        // there are 2 different sources of shapes
+        // 1. the oscillator type
+        if (OSCILLATORS.includes(value))
+        {
+            console.info("SynthOscillator::STANDARD"+ this.options, value)
+            if ( this.oscillator)
+            {
+                this.oscillator.type = value
+            }
+            this.customWave = null
+
+        }else{
+          
+            // 2. the customWave creates a periodic wave
+            this.loadWaveTable(value).then( waves => {
+                this.setWaveTable( waves )
+                if ( this.oscillator)
+                {
+                    this.oscillator.setPeriodicWave(this.customWave)
+                }
+                console.info("SynthOscillator::CUSTOM"+this.options, value, {waves} )
+            } )  
+        }
         this.options.shape = value
 	}
 
 	get shape(){
-		return this.oscillator.type
+		return this.options.shape
 	}
 
     set Q(value){
@@ -111,7 +133,7 @@ export default class SynthOscillator{
     // }
 
     get output(){
-        return this.gainNode
+        return this.filterNode
     }
 
     constructor(audioContext, options={}){
@@ -129,12 +151,17 @@ export default class SynthOscillator{
         this.gainNode = audioContext.createGain()
         this.gainNode.gain.value = 0  // start silently
 
-        this.filterNode.connect(this.gainNode)
+        this.gainNode.connect(this.filterNode)
+        // this.filterNode.connect(this.gainNode)
         // this.gainNode.connect(audioContext.destination)
-
+        
+        if (options.shape)
+        {
+            console.info("SynthOscillator::",{options})
+            this.shape = options.shape
+        }
+        
         // check to see if a wavetable name is specified...
-
-
         this.isNoteDown = false
     }
 
@@ -150,9 +177,20 @@ export default class SynthOscillator{
             this.destroyOscillator(this.oscillator)
         }
         this.oscillator = this.audioContext.createOscillator()
-        this.oscillator.type = this.options.shape // OSCILLATORS[Math.floor(Math.random() * OSCILLATORS.length)]
+
+        if (this.customWave)
+        {
+            // this.oscillator.setPeriodicWave(this.customWave)
+            // console.info("Setting periodic wave", this.customWave )
+        }else{
+              // console.info("Setting oscilliator type", this.shape )
+        }
+
+        this.shape = this.options.shape // OSCILLATORS[Math.floor(Math.random() * OSCILLATORS.length)]
+          
+        
         this.oscillator.frequency.value = frequency
-        this.oscillator.connect(this.filterNode)
+        this.oscillator.connect(this.gainNode)
         this.oscillator.start()
         this.active = true
     }
@@ -187,9 +225,10 @@ export default class SynthOscillator{
         // console.log("noteOn", frequency)
         
         // fade in envelope
+        const amplitude = velocity * this.options.gain
         this.gainNode.gain.cancelScheduledValues(now)
         this.gainNode.gain.setValueAtTime( 0, now )
-		this.gainNode.gain.linearRampToValueAtTime( velocity * this.options.gain + this.options.attack, now + this.options.fadeDuration )
+		this.gainNode.gain.linearRampToValueAtTime( amplitude, now + this.options.attack )
 
 		// Shape the note
 		this.filterNode.frequency.cancelScheduledValues(now)
@@ -237,27 +276,11 @@ export default class SynthOscillator{
     }
 
     async loadWaveTable(waveTableName=TB303_Square){
-        // TODO Cache in static Map
-
-        if (SynthOscillator.waveTables.has(waveTableName) ){
-
-            const table = SynthOscillator.waveTables.get(waveTableName)
-            this.setWaveTable(table)  
-
-        }else{
-
-            const request = await fetch(`/wave-tables/${waveTableName}`)
-            const response = await request.json()
-            this.setWaveTable(response)  
-            SynthOscillator.waveTables.set(waveTableName, response)
-        }
+        return await loadWaveTable(waveTableName)
     }
 
     setWaveTable(waveTable){
-        this.waveTable = waveTable
-        const real = waveTable.real
-        const imag = waveTable.imag
-        const wave = this.audioContext.createPeriodicWave(real, imag, { disableNormalization: true })
-        this.oscillator.setPeriodicWave(wave)
+        const {real, imag} = waveTable
+        this.customWave = this.audioContext.createPeriodicWave(real, imag, { disableNormalization: true })
     }
 }
