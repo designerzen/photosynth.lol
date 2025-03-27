@@ -258,8 +258,8 @@ main > :is(section, blockquote){
 
 section p{
     background-color: var(--col-bg);
-    padding-top:calc( var(--pad) / 2 );
-    padding-bottom:calc( var(--pad) / 2 );
+    padding-top:calc( var(--pad)  );
+    // padding-bottom:calc( var(--pad) / 2 );
 }
 
 p.flood{
@@ -270,7 +270,7 @@ p.flood{
 }
 
 main > section + section{
-    padding-top:calc( 6 * var(--pad) - 2px);
+padding-top:calc( 6 * var(--pad) - 2px);
     border-top: 2px solid var(--col-plum);
 }
 main > section.sticky + section{
@@ -307,6 +307,10 @@ footer{
     left:0;
     z-index: 0;    // behind everything
     background-color: var(--col-bg);
+}
+
+#waveform-visualiser{
+    position: relative;
 }
 
 #visualiser{
@@ -426,26 +430,6 @@ dt{
     .notation{
         display: grid;
         grid-template-columns: repeat( auto-fill, minmax(64px, 1fr));
-    }
-}
-
-// #emotion
-.emotion-selector fieldset{
-    // display: grid;
-    // grid-template-columns: repeat(auto-fill, minmax(66px, 1fr));
-
-    
-    gap:var(--pad);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    justify-self: center;
-    align-items: start;
-    padding: calc( var(--pad) /2 ) calc( var(--pad) );
-
-    label::first-of-type,
-    output{
-        grid-area:1/1/-1/0;
     }
 }
 
