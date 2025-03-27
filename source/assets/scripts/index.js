@@ -24,6 +24,8 @@ import Note from "./note"
 import { PALETTE } from "./settings"
 import { ASTLEY } from "./songs"
 import Song from "./song"
+import { getRandomWaveTableName } from "./instruments/wave-tables"
+import { monitorIntersections } from "./intersection-observer"
 
 // read any saved themes from the URL ONLY (not from cookies so no overlay required :)
 const searchParams = new URLSearchParams(location.search)
@@ -58,23 +60,53 @@ const CHORDS = [
     createFifthsChord
 ]
 
+const SCALES = [
+    "Major",
+    "Minor"
+]
+
 // is Major or Minor?
 let isHappy = true
+let scale = SCALES[0]
 // scale mode (eg. Dorian, Mixolydian, etc)
 let mode = 0
 // oscillator shape (eg. sine, square, sawtooth, triangle)
-let shape = 0
+let shape = "sine"
 // default volume
 let volume = parseInt(searchParams.get("volume") ?? 1)
 
 // console.info({ALL_KEYBOARD_NOTES, KEYBOARD_NOTES})
 
+// UI ==============================================================
+
+const updateUI = (query, value) => {
+    document.querySelectorAll(query).forEach( element => element.textContent = value )
+}
+
+// update text field on UI
+const updateTimbreUI = (timbre) => {
+    updateUI("[data-timbre]", timbre )
+}
+
+const updateScaleUI = (scale) => {
+    // remove old scale and add new one...
+    updateUI("[data-scale]", scale )
+}
+
+// AUDIO ==============================================================
+
 const getSynthForFinger = (finger=0)=>{
     if (!fingerSynths.has(finger)){
-    const fingerSynth = new SynthOscillator(audioContext, {shape})
-        fingerSynth.loadWaveTable("TB303")
-        fingerSynth.loadWaveTable("tb303.json")
-        fingerSynth.loadWaveTable("Piano")
+        // const shape = getRandomWaveTableName()
+        const fingerSynth = new SynthOscillator(audioContext, {shape})
+       
+        // fingerSynth.loadWaveTable("TB303")
+        // fingerSynth.loadWaveTable("TB303")
+        // fingerSynth.loadWaveTable("tb303.json")
+        // fingerSynth.loadWaveTable(shape)
+        // fingerSynth.shape = "Piano"
+        // console.info("shape loading",shape, "into", fingerSynth)
+
         fingerSynth.output.connect(limiter)
         fingerSynths.set( finger, fingerSynth )
     }
@@ -161,6 +193,13 @@ const addAccessibilityFunctionality = ()=> {
  * @param {Number} id 
  */
 const noteOn = (noteModel, velocity=1, id=0 ) => {
+
+    if (!noteModel)
+    {
+        console.warn("No noteModel provided to noteOn", noteModel)
+        return
+    }
+    
     // const chord = isHappy ? 
     //     createMajorChord( ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode ) :
     //     createMinorChord( ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode )
@@ -195,7 +234,7 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
 
     if (!noteModel)
     {
-        console.warn("No noteModel provided to noteOff")
+        console.warn("No noteModel provided to noteOff", noteModel)
         return
     }
 
@@ -265,6 +304,18 @@ const createAudioVisualiser = (audioContext, source, song) => {
         playingNote = note
         //setTimbre( OSCILLATORS[] )
     })
+
+    
+    // const randomWaveButton = document.querySelector('#timbre-random')
+    const randomWaveButtons = document.querySelectorAll('input[value="random"]')
+    randomWaveButtons.forEach( randomWaveButton => {
+        randomWaveButton.addEventListener("click", e => {
+            const randomWave = getRandomWaveTableName() 
+            //console.info("randomWaveButton", randomWave)
+            setTimbre( randomWave )
+        })
+    })
+
 }
 
 /**
@@ -299,14 +350,40 @@ const createAudioContext = (event) => {
     registerMultiTouchSynth(audioContext, ALL_KEYBOARD_NOTES, noteOn, noteOff)
 }
 
-// for (let i = 0; i < 640; i++){
-//     console.info(i,"NOTE", toNote(i))
-//     console.info(i,"CHORD", toChord(i))
-//     console.info(i,"CHORD", mapped( toNote(i), toChord(i), 0 ))
-// }
+/**
+ * Set the scale to Major / Minor
+ * @param {Boolean|String|Number} scaleType 
+ */
+const setScale = (scaleType) => {
+    // if it is a boolean or a number we act accordingly
+    switch( typeof(scaleType) )
+    {
+        case "boolean":
+            scaleType = SCALES[scaleType ? 0 : 1]
+            isHappy = scaleType
+            break
 
-const emotionPanel = document.getElementById("emotion")
+        case "number":
+            scaleType = SCALES[scaleType%SCALES.length]
+            break
+    }
 
+    
+    if( typeof(scaleType) === "string" )
+    {
+        isHappy = scaleType === SCALES[0]
+    }
+
+    updateScaleUI( scaleType )
+    scale = scaleType
+    console.info("Scale set to", scaleType )
+}
+
+/**
+ * 
+ * @param {Number|String} musicalMode 
+ * @returns {Number}
+ */
 const setMode = (musicalMode) => {
 
     // TUNING_MODE_NAMES
@@ -350,8 +427,10 @@ const setMode = (musicalMode) => {
  * @param {String|Number} timbre 
  */
 const setTimbre = (timbre) => {
+    const timbreSanitised = " " + timbre.replaceAll("_","") 
     fingerSynths.forEach( synth => synth.shape = timbre )
     shape = timbre
+    updateTimbreUI( timbreSanitised )
 }
 
 /**
@@ -380,61 +459,6 @@ const toggleMute = (value, volumeSlider=null) => {
     }
 }
 
-
-const DEFAULT_OBSERVATION_OPTIONS = {
-    // root: document.body,
-    root: null,
-    rootMargin: '0px',
-    threshold: 0
-}
-
-const monitorIntersections = ( query="[data-observe]", intersectionOptions = DEFAULT_OBSERVATION_OPTIONS) => {
-
-    const elementsToObserve = document.querySelectorAll(query)
-    const intersectionObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-           
-            const ratio = entry.intersectionRatio
-            const boundingRect = entry.boundingClientRect
-            const intersectionRect = entry.intersectionRect
-          
-            if (ratio === 0) {
-                // OUTSIDE
-
-            }else if (ratio >= 1) {
-                // INSIDE
-                console.info("intersection INSIDE", entry)  
-            } else if (boundingRect.top < intersectionRect.top) {
-                // ABOVE
-        
-            } else {
-                // BELOW
-        
-            }
-
-            if (entry.isIntersecting) {
-                // const inert = entry.target.hasAttribute("data-inert")
-                const fullSizeKeyboard = entry.target.hasAttribute("data-full-keyboard")
-                // const shortKeyboard = entry.target.hasAttribute("data-short-keyboard")
-                // const hideKeyboard = entry.target.hasAttribute("data-hide-keyboard")
-                console.info("intersection", {entry, ratio, boundingRect, intersectionRect, fullSizeKeyboard})  
-
-                if (fullSizeKeyboard)
-                {
-                    
-                }
-
-                // document.body.classList.toggle("inert", inert)
-                document.body.classList.toggle("show-full-keyboard", fullSizeKeyboard)
-            }
-        })
-    }, intersectionOptions)
-    // observe all elements that match that query
-    elementsToObserve.forEach(element => intersectionObserver.observe(element))
-
-    // console.info("elementsToObserve", {elementsToObserve }) 
-}
-
 const fetchStateFromRadioButtons = () => {
 
     const queries = [
@@ -449,7 +473,6 @@ const fetchStateFromRadioButtons = () => {
     })
 
     const flat = Array.from(  new Set(...o) )
-  
 
     flat.forEach(radioButton => {
         console.info("checked", radioButton)
@@ -459,7 +482,7 @@ const fetchStateFromRadioButtons = () => {
                 setMode( radioButton.value )
                 break
             case "octave":
-                setOctave( radioButton.value )
+                circles.octave = parseInt( radioButton.value )
                 break
             case "timbre":
                 setTimbre( radioButton.value )
@@ -471,7 +494,7 @@ const fetchStateFromRadioButtons = () => {
                 console.warn("No case for", radioButton.name)
         }
     })
-    
+
     // now set each state by calling the relevant selection function
     
 }
@@ -559,6 +582,8 @@ const showCircularSynth = () => {
  */
 const start =  () => {
    
+   const emotionPanel = document.getElementById("emotion")
+
     // for (const p of searchParams) {
     //     console.info("searchParams",p, searchParams)
     // }
@@ -591,9 +616,8 @@ const start =  () => {
     // const keyboard2 = new SVGKeyboard(KEYBOARD_NOTES, noteOn, noteOff )
 
     const keyboardElement = document.body.appendChild( keyboard.asElement )
-    keyboardElement.addEventListener("dblclick", e => isHappy = !isHappy)
+    keyboardElement.addEventListener("dblclick", e => setScale( !isHappy ) )
    
-
     const wallpaperCanvas = document.getElementById("wallpaper")
     noteVisualiser = new NoteVisualiser( KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
  
@@ -606,38 +630,48 @@ const start =  () => {
 
     // UI ------------------------------------------------
 
-    const emotionRadioButtons = emotionPanel.querySelectorAll("input[type=radio]") 
+    const emotionRadioButtons = document.querySelectorAll( "input[name='emotion'], input[name='octave'], input[name='chord'], input[name='timbre']" ) 
+    
+    // const emotionRadioButtons = emotionPanel.querySelectorAll("input[type=radio name='emotion'], input[type=radio name='octave']") 
     emotionRadioButtons.forEach(radioButton => {
         radioButton.addEventListener("change", e => {
             
             const input = e.target.value
-            switch(input)
-            {
-                case "Major":
-                    // circles.happiness = 1
-                    isHappy = true
+            const name = e.target.name
+
+            switch(name){
+                case "timbre":
+                    setTimbre( input.toLowerCase() )
                     break
 
-                case "Minor":
-                    // circles.happiness = 0
-                    isHappy = false
+                case "octave":
+                    circles.octave = parseInt(input) 
                     break
 
-                default: 
+                case "emotion":
                     setMode( input )
                     // circles.happiness = mode / 7
                     circles.mode = mode
                     console.log("radioButton", radioButton, input)
+                    break
             }
-            emotionPanel.querySelector("output").textContent = input
-        })
-    })
 
-    const shapeButtons = Array.from( document.body.querySelectorAll('input[name="timbre"]') ) 
-    shapeButtons.forEach( (radioButton, index) => {
-        radioButton.addEventListener("change", e => {
-            const input = e.target.value
-            setTimbre( input )
+            switch( input.toLowerCase() )
+            {
+                case "happy":
+                case "major":
+                    // circles.happiness = 1
+                    setScale( true )
+                    break
+
+                case "sad":
+                case "minor":
+                    // circles.happiness = 0
+                    setScale( false )
+                    break
+            }
+            console.info("ARGH", {name, input} )
+            // emotionPanel.querySelector("output").textContent = input
         })
     })
 }
