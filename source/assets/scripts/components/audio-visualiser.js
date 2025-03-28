@@ -18,7 +18,7 @@ export default class AudioVisualiser{
     dataArray 
 
     constructor( canvasContext, audioContext, inputAudioNode, options=DEFAULT_OPTIONS ){
-
+        
         this.options = { ...DEFAULT_OPTIONS,...options }
         this.ctx = canvasContext
         this.canvas = canvasContext.canvas
@@ -67,6 +67,7 @@ export default class AudioVisualiser{
      * Call every frame to show an animated waveform!
      */
     drawWaveform(){
+
         const sliceWidth = this.width / this.bufferLength
         const h = (this.height / 2)
 
@@ -104,6 +105,7 @@ export default class AudioVisualiser{
         // choose colour and size
         this.ctx.lineWidth = this.options.lineWidth
         this.ctx.strokeStyle = this.options.lineColour
+        // this.ctx.strokeStyle = this.options.lineColour
         this.ctx.stroke(this.path)
     }
 

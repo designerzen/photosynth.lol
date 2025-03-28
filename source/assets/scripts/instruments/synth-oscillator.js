@@ -7,7 +7,7 @@ const OSCILLATORS = [ "sine", "square", "sawtooth", "triangle" ]
 export default class SynthOscillator{
 
     options = {
-        gain:0.5,
+        gain:0.3,
         attack:0.3,
         shape:OSCILLATORS[0],
         minDuration:1,
@@ -214,9 +214,17 @@ export default class SynthOscillator{
         }
     }
 
-    noteOn( note, velocity=1, arp=null ){
+    /**
+     * 
+     * @param {Note} note - Model data
+     * @param {Number} velocity - strength of the note
+     * @param {Array<Number>} arp - intervals
+     * @param {Number} delay - number to pause before playing
+     */
+    noteOn( note, velocity=1, arp=null, delay=0 ){
+       
         const frequency = note.frequency
-        const now = this.now
+        const startTime = this.now + delay
 		const filterPeak = this.options.filterCutOff * this.options.filterOverdrive
         const filterSustain = this.options.filterCutOff + (filterPeak - this.options.filterCutOff) * this.options.filterSustain
        
@@ -226,15 +234,15 @@ export default class SynthOscillator{
         
         // fade in envelope
         const amplitude = velocity * this.options.gain
-        this.gainNode.gain.cancelScheduledValues(now)
-        this.gainNode.gain.setValueAtTime( 0, now )
-		this.gainNode.gain.linearRampToValueAtTime( amplitude, now + this.options.attack )
+        this.gainNode.gain.cancelScheduledValues(startTime)
+        this.gainNode.gain.setValueAtTime( 0, startTime )
+		this.gainNode.gain.linearRampToValueAtTime( amplitude, startTime + this.options.attack )
 
 		// Shape the note
-		this.filterNode.frequency.cancelScheduledValues(now)
-		this.filterNode.frequency.setValueAtTime(this.options.filterCutOff, now)
-        this.filterNode.frequency.linearRampToValueAtTime(filterPeak, now + this.options.filterAttack)
-        this.filterNode.frequency.linearRampToValueAtTime(filterSustain, now + this.options.filterAttack + this.options.filterDecay )
+		this.filterNode.frequency.cancelScheduledValues(startTime)
+		this.filterNode.frequency.setValueAtTime(this.options.filterCutOff, startTime)
+        this.filterNode.frequency.linearRampToValueAtTime(filterPeak, startTime + this.options.filterAttack)
+        this.filterNode.frequency.linearRampToValueAtTime(filterSustain, startTime + this.options.filterAttack + this.options.filterDecay )
 
         if (!this.isNoteDown)
         {
@@ -250,9 +258,13 @@ export default class SynthOscillator{
         }
        
         this.isNoteDown = true
-        this.startedAt = now
+        this.startedAt = startTime
     }
     
+    /**
+     * 
+     * @returns 
+     */
     noteOff(){
         if (!this.isNoteDown ){
             console.warn("noteOff IGNORED")

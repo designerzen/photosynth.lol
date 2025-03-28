@@ -5,7 +5,7 @@ import { setFont } from "./fonts"
 
 // audio
 import { enableMIDI, mapped, toChord, toNote } from "./audio"
-import { createChord, createFifthsChord, createMajorChord, createMinorChord, getModeAsIntegerOffset, getModeFromIntegerOffset, TUNING_MODE_NAMES } from "./chords"
+import { createChord, createFifthsChord, createMajorChord, createMinorChord, getModeAsIntegerOffset, getModeFromIntegerOffset, MAJOR_CHORD_INTERVALS, TUNING_MODE_NAMES } from "./chords"
 import { registerMultiTouchSynth } from "./components/multi-touch-synth"
 
 import SynthOscillator from "./instruments/synth-oscillator"
@@ -78,35 +78,43 @@ let volume = parseInt(searchParams.get("volume") ?? 1)
 // console.info({ALL_KEYBOARD_NOTES, KEYBOARD_NOTES})
 
 // UI ==============================================================
-
-const updateUI = (query, value) => {
+const toTitleCase = word => (word.charAt(0).toUpperCase() + word.slice(1))
+const changeUIText = (query, value) => {
     document.querySelectorAll(query).forEach( element => element.textContent = value )
 }
 
 // update text field on UI
 const updateTimbreUI = (timbre) => {
-    updateUI("[data-timbre]", timbre )
+    changeUIText("[data-timbre]", toTitleCase(timbre) )
 }
 
 const updateScaleUI = (scale) => {
     // remove old scale and add new one...
-    updateUI("[data-scale]", scale )
+    changeUIText("[data-scale]", scale )
+    // ensure the input radio is selected
+    document.querySelectorAll(`input[value="${scale}"]`).forEach( element => {
+        if (!element.checked){ 
+            element.checked = true 
+        } 
+    })
+    // change data-attribute
+    document.documentElement.setAttribute("data-scale", scale.toLowerCase() )
 }
 
 // AUDIO ==============================================================
 
+/**
+ * Lazy load a SynthOscillator instrument for the specified index
+ * @param {Number} finger 
+ * @returns 
+ */
 const getSynthForFinger = (finger=0)=>{
     if (!fingerSynths.has(finger)){
         // const shape = getRandomWaveTableName()
         const fingerSynth = new SynthOscillator(audioContext, {shape})
-       
-        // fingerSynth.loadWaveTable("TB303")
-        // fingerSynth.loadWaveTable("TB303")
-        // fingerSynth.loadWaveTable("tb303.json")
         // fingerSynth.loadWaveTable(shape)
         // fingerSynth.shape = "Piano"
         // console.info("shape loading",shape, "into", fingerSynth)
-
         fingerSynth.output.connect(limiter)
         fingerSynths.set( finger, fingerSynth )
     }
@@ -199,7 +207,16 @@ const noteOn = (noteModel, velocity=1, id=0 ) => {
         console.warn("No noteModel provided to noteOn", noteModel)
         return
     }
-    
+
+    const synth = getSynthForFinger(id)
+    synth.noteOn( noteModel, velocity )     
+    // Now highlight the keys on the keyboard!                                                                                                           
+    keyboard.setKeyAsActive( noteModel.noteNumber )
+    hero && hero.noteOn( noteModel )
+    noteVisualiser && noteVisualiser.noteOn( noteModel, velocity )
+
+    return
+    /*
     // const chord = isHappy ? 
     //     createMajorChord( ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode ) :
     //     createMinorChord( ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode )
@@ -220,6 +237,7 @@ const noteOn = (noteModel, velocity=1, id=0 ) => {
         hero && hero.noteOn( note )
         noteVisualiser && noteVisualiser.noteOn( note, velocity )
     }
+        */
     // hero && hero.noteOn( chord[0] )
     console.info("noteOn", ALL_KEYBOARD_NOTES.length, {noteModel, mode, chord, ALL_KEYBOARD_NOTES})
 }
@@ -238,6 +256,16 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
         return
     }
 
+    const synth = getSynthForFinger(id)
+    synth.noteOff( noteModel, velocity )
+    // Now unhighlight the keys on the keyboard
+    keyboard.setKeyAsInactive( noteModel.noteNumber )
+    hero && hero.noteOff( noteModel )
+    noteVisualiser && noteVisualiser.noteOff( noteModel, velocity )
+
+    return
+
+    /*
     // const chord = isHappy ? 
     //     createMajorChord( ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode ) :
     //     createMinorChord( ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode )
@@ -254,8 +282,34 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
         hero && hero.noteOff( note )
         noteVisualiser && noteVisualiser.noteOff( note, velocity )
     }
-
+    */
     console.info("noteOff", {noteModel, chord, mode})
+}
+
+const chordOn = (noteModel, velocity=1, intervals=MAJOR_CHORD_INTERVALS, mode=0, idOffset=0) => {
+    const chordGenerator = CHORDS[isHappy ?0:1]
+    const chord = intervals ?? chordGenerator(ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode)
+    const velocityReduction = velocity / chord.length * 0.8
+    const length = chord.length+idOffset
+    for (let i=idOffset; i<length; i++){
+       
+        const note = chord[i]
+        // synth.gain = 1 / chord.length
+        velocity = velocityReduction
+        noteOn( note, velocity, i )
+    }
+}
+
+const chordOff = (noteModel, velocity=1, intervals=MAJOR_CHORD_INTERVALS, mode=0, idOffset=0) => {
+    
+    const chordGenerator = CHORDS[isHappy ?0:1]
+    const chord = intervals ?? chordGenerator(ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode)
+   
+    for (let i=0; i<chord.length; i++)
+    {
+        const note = chord[i]
+        noteOff( note, velocity, i )
+    }
 }
 
 
@@ -297,10 +351,10 @@ const createAudioVisualiser = (audioContext, source, song) => {
         console.info("note", note, {song, playingNote} )
         if (playingNote)
         {
-            noteOff( playingNote )
+            chordOff( playingNote, 1, MAJOR_CHORD_INTERVALS, mode )
         }
 
-        noteOn( note )
+        chordOn( note, 1, MAJOR_CHORD_INTERVALS, mode )
         playingNote = note
         //setTimbre( OSCILLATORS[] )
     })
@@ -315,7 +369,6 @@ const createAudioVisualiser = (audioContext, source, song) => {
             setTimbre( randomWave )
         })
     })
-
 }
 
 /**
@@ -368,7 +421,6 @@ const setScale = (scaleType) => {
             break
     }
 
-    
     if( typeof(scaleType) === "string" )
     {
         isHappy = scaleType === SCALES[0]
@@ -409,7 +461,10 @@ const setMode = (musicalMode) => {
     if (radioButtons && radioButtons.length)
     {
         radioButtons.forEach(radioButton => {
-            radioButton.checked = true
+            if (!radioButton.checked)
+            {
+                radioButton.checked = true
+            }
             console.info("setMode", {mode, musicalMode})
         }) 
         
@@ -623,7 +678,9 @@ const start =  () => {
  
     // reinstate the state recalled from the previous session
     // fetchStateFromRadioButtons() 
-   
+    // FIXME:
+    setScale( true )
+
     showCircularSynth()
     monitorIntersections()
     updateURL()
