@@ -157,17 +157,33 @@ circle-of-fifths-harmonies
         pointer-events: auto;
 
         ul{
+            --gap:clamp( 11px, 5vw, calc( 1 * var(--pad) ) );
             margin:var(--pad) calc( 2 * var(--pad) );
             // margin-top:auto;
             background-color:var(--col-white);
-            padding:var(--pad) calc( 2 * var(--pad) );
+            padding:0 calc( 1.5 * var(--pad) );
             border-radius: 99px;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: center;
-            gap:var(--pad);
+            gap:0 var(--gap);
+            list-style: none;
+            overflow: hidden;
+
+            li a{
+                padding:var(--pad) 4px;
+                display: block;
+
+                &:hover{
+                    background-color:var(--col-plum);
+                    color:var(--col-white);
+                    border-radius: 9px;
+                    text-decoration: none;
+                }
+            }
         }
+
     }
 
   
