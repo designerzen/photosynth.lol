@@ -1,5 +1,6 @@
 import { WAVE_FORM_NAMES_GENERAL_MIDI, WAVE_TABLE_LOCATIONS_GENERAL_MIDI } from "./tables/wave-table-general-midi"
 import { WAVE_FORM_NAMES_GOOGLE, WAVE_TABLE_LOCATIONS_GOOGLE } from "./tables/wave-table-google"
+import { generateImageFromWaveTable, loadWaveTableFromImage } from "./wave-table-utils"
 
 const waveTables = new Map()
 const waveTableNames = new Map()
@@ -20,12 +21,6 @@ const assignWaveTables = ( locations, waves, waveMap ) => {
     }) 
 }
 
-// Google Wave tables from :
-// https://github.com/GoogleChromeLabs/web-audio-samples/blob/main/src/demos/wavetable-synth/index.html
-assignWaveTables(WAVE_TABLE_LOCATIONS_GOOGLE, WAVE_FORM_NAMES_GOOGLE, waveTableNames)
-assignWaveTables(WAVE_TABLE_LOCATIONS_GENERAL_MIDI, WAVE_FORM_NAMES_GENERAL_MIDI, waveTableNames)
-console.info("waveTableNames", {waveTableNames, ALL_WAVE_FORM_NAMES} ) 
-
 /**
  * Pick from the options above
  * @param {String} waveTableName 
@@ -38,28 +33,54 @@ export const loadWaveTableFromFile = async (waveTableName=TB303) => {
     // const request = await fetch(`/wave-tables/${waveTableName}`)
     const response = await request.text()
     // firstly remove all new lines and carriage returns
-    const data = response.replaceAll( /\n|\r/g, '')
+    // and swap out the double quotes with single quotes
+    const data = response
+                    .replaceAll( /(\s|\n|\r)/g, '')
+                    .replaceAll( /"/g, "'")
+  
+    // const data = response
+    //                 .replaceAll( /\s/g, '')
+    //                 .replaceAll( /\n|\r/g, '')
+    //                 .replaceAll( /"/g, "'")
+  
     // const data = response // .replaceAll( /\n|\r|\s+/g, '')
     // const data = response.replaceAll(/\s+/g, '')
     // delimiters use 2nd first then split first...
-    const delimA = `{'real': [`
-    const delimB = `,],'imag': [`
-    const delimC = ",],}"
+    const delimA = /\{('|")real('|"):\[/
+    const delimB = /(,)?\],('|")imag('|"):\[/
+    // const delimB = /(,)\],('|")imag('|"):\[/
+    const delimC = /(,)?\](,)?\}/ // ]}
+    // const delimA = /\{'real':(\s+)\[/
+    // const delimB = /,\],'imag'(:\s+)\[/
+    // const delimC = /,\],\}/
 
     const parts = data.split(delimB)
 
     // now both real and imag are arrays of string numbers :(
-    const part1 = parts[0].split(delimA)[1].trim().split(",")
-    const part2 = parts[1].replace(delimC, "").trim().split(",")
+    const part1 = parts[0].replace(delimA, "").split(",")
+    // const part1 = parts[0].split(delimA)[1].trim().split(",")
+    const part2 = parts[parts.length-1].replace(delimC, "").split(",")
 
+    // convert all these strings into numbers
     const real = part1.map(Number)
     const imag = part2.map(Number)
+
+    // create the object
     const waves = { real, imag }
     
-    // console.error( "DATA", waves )
-    // console.error( "DATA", data.indexOf(delimB) , {data, real, imag}, {parts, part1, part2, delimA, delimB, delimC } )
-    // const response = await request.json()
-    // this.setWaveTable(response)  
+    // GAH, ensure that both arrays have the same length...
+    if (real.length !== imag.length)
+    {
+        console.error(waveTableName + " Length mismatch real:" + real.length + " imaginary:" + imag.length, {waves, parts, part1, part2, data, real, imag} ) 
+        // throw Error(waveTableName + " Length mismatch real:" + real.length + " imaginary:" + imag.length)
+        // HACK: just make the arrays the same length
+        real.length = imag.length
+    }
+
+
+
+    console.info("Wave table available", waves)
+
     waveTables.set(waveTableName, waves)
     return waves
 }
@@ -93,3 +114,38 @@ export const getRandomWaveTableName = () => {
 export const loadRandomWaveTable = async () => { 
     return loadWaveTable(getRandomWaveTableName())
 }
+
+
+export const preloadAllWaveTables = async ( simultaneous=3 ) => { 
+    
+    for (let i = 0, l=ALL_WAVE_FORM_NAMES.length; i < l; i++) {
+        const group = []
+        for (let p = 0; p < simultaneous; p++) {
+            const name = ALL_WAVE_FORM_NAMES[i]
+            if (!name) {break}
+            group.push( loadWaveTable( name ) )
+            i++
+            console.info("prelaodwave", name, p, i, )
+        }
+        await Promise.allSettled(group)
+    }
+}
+
+
+
+// Google Wave tables from :
+// https://github.com/GoogleChromeLabs/web-audio-samples/blob/main/src/demos/wavetable-synth/index.html
+assignWaveTables(WAVE_TABLE_LOCATIONS_GOOGLE, WAVE_FORM_NAMES_GOOGLE, waveTableNames)
+assignWaveTables(WAVE_TABLE_LOCATIONS_GENERAL_MIDI, WAVE_FORM_NAMES_GENERAL_MIDI, waveTableNames)
+console.info("waveTableNames", {waveTableNames, ALL_WAVE_FORM_NAMES} ) 
+
+const attemptToConvertWaveTableIntoImage = async( waveTableName, mimeType="image/png" ) => {
+    const waveTable = await loadWaveTable( waveTableName )
+    const canvas = await generateImageFromWaveTable( waveTable )
+    return canvas.toDataURL(mimeType)
+}
+
+attemptToConvertWaveTableIntoImage(ALL_WAVE_FORM_NAMES[20] ).then( png => {
+    console.info("png", png)
+})
+// attemptToConvertWaveTableIntoImage(ALL_WAVE_FORM_NAMES[0] )
