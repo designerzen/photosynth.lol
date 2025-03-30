@@ -33,13 +33,20 @@ export default class CircleSynth extends AbstractInteractive{
 
     constructor( notes, noteOn, noteOff, setMode ){
 		super()
+
+        const chordOn = (noteModel, velocity=1, id=0, idOffset=0) => {
+            noteOn( noteModel, velocity, id, null, this.mode, idOffset )
+        }
+        const chordOff = (noteModel, velocity=1, id=0, idOffset=0) => {
+            noteOff( noteModel, velocity, id, null, this.mode, idOffset )
+        }
         this.notes = notes
         this.element = document.querySelector(".circle-of-fifths")
         this.title = this.element.querySelector("title")
         this.emoji = this.element.querySelector(".fifths-emotion-text")
         this.keyElements = this.createKeys(notes, ".circle-of-fifths-tonics path", 3)
         this.keyElements.push(...this.createKeys(notes, ".circle-of-fifths-harmonies path" ))
-        this.addInteractivity( this.keyElements, noteOn, noteOff )  
+        this.addInteractivity( this.keyElements, chordOn, chordOff )  
         this.addControls( setMode )
 	}
 

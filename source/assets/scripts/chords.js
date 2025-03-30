@@ -107,7 +107,7 @@ export const CHORD_INTERVALS = [
 export const createChord = (notes, scaleFormula=MAJOR_SCALE, offset=0, mode=0, cutOff=true, accumulate=false) => {
 	const quantityOfNotes = notes.length
 	const quantityInScale = scaleFormula.length
-	let accumulator = accumulate ? offset : 0
+	let accumulator = offset // : 0
 	let output = []
 
 	for (let index=0; index<quantityInScale; ++index)

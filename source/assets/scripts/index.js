@@ -4,32 +4,33 @@ import { addThemeSelectionOptions, setTheme, THEMES } from "./theme"
 import { setFont } from "./fonts"
 
 // audio
+import { AudioContext, OfflineAudioContext } from 'standardized-audio-context'
 import { enableMIDI, mapped, toChord, toNote } from "./audio"
 import { createChord, createFifthsChord, createMajorChord, createMinorChord, getModeAsIntegerOffset, getModeFromIntegerOffset, MAJOR_CHORD_INTERVALS, TUNING_MODE_NAMES } from "./chords"
 import { registerMultiTouchSynth } from "./components/multi-touch-synth"
+import CircleSynth from "./components/circle-synth"
 
 import SynthOscillator from "./instruments/synth-oscillator"
-import CircleSynth from "./components/circle-synth"
+import { getRandomWaveTableName, preloadAllWaveTables } from "./instruments/wave-tables"
+
+import Note from "./note"
+import Song from "./song"
+
+import { ASTLEY } from "./songs"
 
 // DOM
 import Hero from "./components/hero"
-
 import NoteVisualiser from "./components/note-visualiser"
 import AudioVisualiser from "./components/audio-visualiser"
-
 import SVGKeyboard from "./components/keyboard-svg"
 
 // data
-import Note from "./note"
-import { PALETTE } from "./settings"
-import { ASTLEY } from "./songs"
-import Song from "./song"
-import { getRandomWaveTableName } from "./instruments/wave-tables"
+import { CICRLE_INTERVALS, DEFAULT_PASSWORD, PALETTE, VISUALISER_OPTIONS } from "./settings"
 import { monitorIntersections } from "./intersection-observer"
+import { changeUIText, handlePasswordProtection, selectRadioButton, setCurrentYear, updateScaleUI, updateTimbreUI } from "./ui"
 
 // read any saved themes from the URL ONLY (not from cookies so no overlay required :)
 const searchParams = new URLSearchParams(location.search)
-let theme = searchParams.get("theme") ?? THEMES[0]
 
 // create a synth for every finger!
 // lazily create a new one is requested
@@ -39,20 +40,20 @@ const fingerSynths = new Map()
 let audioContext = null
 let limiter = null
 let mixer = null
-let keyboard 
 
 // Shared DOM elements
 let hero
 let noteVisualiser
 let shapeVisualiser
 let circles
+let keyboard 
 
 const keyboardKeys = ( new Array(128) ).fill("")
+// Full keyboard with all notes including those we do not want the user to play
 const ALL_KEYBOARD_NOTES = keyboardKeys.map((keyboardKeys,index)=> new Note( index ))
-// KEYBOARD_NOTES.forEach( (n,index) => console.info( n.toString(), index ) )
-
 // Grab a good sounding part (not too bassy, not to trebly)
 const KEYBOARD_NOTES = ALL_KEYBOARD_NOTES.slice( 41, 94 )
+// KEYBOARD_NOTES.forEach( (n,index) => console.info( n.toString(), index ) )
 
 const CHORDS = [
     createMajorChord, 
@@ -65,40 +66,24 @@ const SCALES = [
     "Minor"
 ]
 
-// is Major or Minor?
-let isHappy = true
-let scale = SCALES[0]
-// scale mode (eg. Dorian, Mixolydian, etc)
-let mode = 0
-// oscillator shape (eg. sine, square, sawtooth, triangle)
-let shape = "sine"
-// default volume
-let volume = parseInt(searchParams.get("volume") ?? 1)
+let isHappy = true          // is Major or Minor?
+let scale = SCALES[0]       // scale (eg. Major, Minor... etc)
+let mode = 0                // scale mode (eg. Dorian, Mixolydian... etc)
+let shape = "sine"          // oscillator shape (eg. sine, square, sawtooth, triangle)
 
 // console.info({ALL_KEYBOARD_NOTES, KEYBOARD_NOTES})
 
 // UI ==============================================================
-const toTitleCase = word => (word.charAt(0).toUpperCase() + word.slice(1))
-const changeUIText = (query, value) => {
-    document.querySelectorAll(query).forEach( element => element.textContent = value )
-}
 
-// update text field on UI
-const updateTimbreUI = (timbre) => {
-    changeUIText("[data-timbre]", toTitleCase(timbre) )
-}
 
-const updateScaleUI = (scale) => {
-    // remove old scale and add new one...
-    changeUIText("[data-scale]", scale )
-    // ensure the input radio is selected
-    document.querySelectorAll(`input[value="${scale}"]`).forEach( element => {
-        if (!element.checked){ 
-            element.checked = true 
-        } 
-    })
-    // change data-attribute
-    document.documentElement.setAttribute("data-scale", scale.toLowerCase() )
+/**
+ * Replace the existing URL with a specific one without refreshing the page
+ * This query string can then be used to restore the state of the page
+ * on reload
+ */
+const updateURL = ()=>{
+    const newURL = `${window.location.pathname}?${searchParams.toString()}`
+    window.history.pushState({ path: newURL }, '', newURL)
 }
 
 // AUDIO ==============================================================
@@ -122,16 +107,6 @@ const getSynthForFinger = (finger=0)=>{
 }
 
 /**
- * Replace the existing URL with a specific one without refreshing the page
- * This query string can then be used to restore the state of the page
- * on reload
- */
-const updateURL = ()=>{
-    const newURL = `${window.location.pathname}?${searchParams.toString()}`
-    window.history.pushState({ path: newURL }, '', newURL)
-}
-
-/**
  * Adds a menu specifically for accessibility
  * that includes text sizing / font selection
  * audio controls and theme selection
@@ -145,9 +120,9 @@ const addAccessibilityFunctionality = ()=> {
     // THEME ------------------------------------------------
 
     // set theme from query string if provided
-    if (theme !== "default")
+    if (searchParams.has("theme"))
     {
-        setTheme(theme)
+        setTheme(searchParams.get("theme"))
     }
     
     addThemeSelectionOptions((themeName) =>{
@@ -189,9 +164,11 @@ const addAccessibilityFunctionality = ()=> {
         })
     })
 
-    // Set user font preference
-    const font =  searchParams.get("font") ?? "default"
-    setFont(font)
+    // Set user font preference from previous session
+    if (searchParams.has("font")) 
+    {
+        setFont(searchParams.get("font"))
+    }
 }
 
 /**
@@ -209,37 +186,10 @@ const noteOn = (noteModel, velocity=1, id=0 ) => {
     }
 
     const synth = getSynthForFinger(id)
-    synth.noteOn( noteModel, velocity )     
-    // Now highlight the keys on the keyboard!                                                                                                           
-    keyboard.setKeyAsActive( noteModel.noteNumber )
+    synth.noteOn( noteModel, velocity )                                                                                                            
+    keyboard.setKeyAsActive( noteModel.noteNumber )    // highlight the keys on the keyboard!    
     hero && hero.noteOn( noteModel )
     noteVisualiser && noteVisualiser.noteOn( noteModel, velocity )
-
-    return
-    /*
-    // const chord = isHappy ? 
-    //     createMajorChord( ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode ) :
-    //     createMinorChord( ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode )
-    const chordGenerator = CHORDS[isHappy ?0:1]
-    const chord = chordGenerator(ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode)
-    const velocityReduction = velocity / chord.length * 0.8
-    
-    // viz && viz.advance()
-    
-    for (let i=0; i<chord.length; i++){
-        const synth = getSynthForFinger(i)
-        const note = chord[i]
-        // synth.gain = 1 / chord.length
-        velocity = velocityReduction
-        synth.noteOn( note, velocity )     
-        // Now highlight the keys on the keyboard!                                                                                                           
-        keyboard.setKeyAsActive( note.noteNumber )
-        hero && hero.noteOn( note )
-        noteVisualiser && noteVisualiser.noteOn( note, velocity )
-    }
-        */
-    // hero && hero.noteOn( chord[0] )
-    console.info("noteOn", ALL_KEYBOARD_NOTES.length, {noteModel, mode, chord, ALL_KEYBOARD_NOTES})
 }
    
 /**
@@ -258,81 +208,67 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
 
     const synth = getSynthForFinger(id)
     synth.noteOff( noteModel, velocity )
-    // Now unhighlight the keys on the keyboard
-    keyboard.setKeyAsInactive( noteModel.noteNumber )
+    keyboard.setKeyAsInactive( noteModel.noteNumber )   // unhighlight the keys on the keyboard
     hero && hero.noteOff( noteModel )
     noteVisualiser && noteVisualiser.noteOff( noteModel, velocity )
-
-    return
-
-    /*
-    // const chord = isHappy ? 
-    //     createMajorChord( ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode ) :
-    //     createMinorChord( ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode )
-    const chordGenerator = CHORDS[isHappy ?0:1]
-    const chord = chordGenerator(ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode)
-   
-    for (let i=0; i<chord.length; i++)
-    {
-        const synth = getSynthForFinger(i)
-        const note = chord[i]
-        synth.noteOff( note, velocity )
-        // Now unhighlight the keys on the keyboard
-        keyboard.setKeyAsInactive( note.noteNumber )
-        hero && hero.noteOff( note )
-        noteVisualiser && noteVisualiser.noteOff( note, velocity )
-    }
-    */
-    console.info("noteOff", {noteModel, chord, mode})
 }
 
-const chordOn = (noteModel, velocity=1, intervals=MAJOR_CHORD_INTERVALS, mode=0, idOffset=0) => {
-    const chordGenerator = CHORDS[isHappy ?0:1]
-    const chord = intervals ?? chordGenerator(ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode)
+/**
+ * Play a chord with the specified intervals
+ * @param {Note} noteModel 
+ * @param {Number} velocity 
+ * @param {Array<Number>} intervals 
+ * @param {Number} mode 
+ * @param {Number|String} idOffset 
+ */
+const chordOn = (noteModel, velocity=1, id=0, intervals=null, mode=0, idOffset=0) => {
+    const chord = createChord(ALL_KEYBOARD_NOTES, intervals ?? MAJOR_CHORD_INTERVALS, noteModel.noteNumber, mode, true, true )
     const velocityReduction = velocity / chord.length * 0.8
     const length = chord.length+idOffset
+    console.info("chordOn", chord, velocityReduction  )
     for (let i=idOffset; i<length; i++){
-       
-        const note = chord[i]
-        // synth.gain = 1 / chord.length
-        velocity = velocityReduction
-        noteOn( note, velocity, i )
+        noteOn( chord[i], velocityReduction, id+i )
     }
 }
 
-const chordOff = (noteModel, velocity=1, intervals=MAJOR_CHORD_INTERVALS, mode=0, idOffset=0) => {
-    
-    const chordGenerator = CHORDS[isHappy ?0:1]
-    const chord = intervals ?? chordGenerator(ALL_KEYBOARD_NOTES, noteModel.noteNumber, mode)
-   
-    for (let i=0; i<chord.length; i++)
-    {
-        const note = chord[i]
-        noteOff( note, velocity, i )
+/**
+ * Turn off a series of chords
+ * @param {Note} noteModel 
+ * @param {Number} velocity 
+ * @param {Array<Number>} intervals 
+ * @param {Number} mode 
+ */
+const chordOff = (noteModel, velocity=1, id=0, intervals=null, mode=0 ) => {
+    if (!noteModel ){
+        console.warn("No noteModel provided to chordOff", noteModel)
+        return
+    }
+    const chord = createChord(ALL_KEYBOARD_NOTES, intervals ?? MAJOR_CHORD_INTERVALS, noteModel.noteNumber, mode, true, true )
+    for (let i=0; i<chord.length; i++){
+        noteOff( chord[i], velocity, id+i )
     }
 }
 
-
+/**
+ * Load in our rick roll...
+ * @param {String} track as text
+ * @returns 
+ */
 const loadSong = (track=ASTLEY) => {
-    // Load in our rick roll...
     const song = new Song(track)
     // const note = song.getNextNote()
     // console.info("note", note, {song} )
     return song
 }
 
+
 /**
  * 
  * @param {AudioContext} audioContext 
  * @param {AudioNode} source 
  */
-const createAudioVisualiser = (audioContext, source, song) => {
+const createAudioVisualiser = (audioContext, source, song, visualiserOptions=VISUALISER_OPTIONS ) => {
 
-    const visualiserOptions = {
-        backgroundColour:PALETTE.stoneLight,
-        lineColour:PALETTE.plum,
-        lineWidth:3
-    }
     const visualiserCanvas = document.getElementById("visualiser")
     const visualiserContext = visualiserCanvas.getContext('2d')
     shapeVisualiser = new AudioVisualiser( visualiserContext, audioContext, source, visualiserOptions )
@@ -345,20 +281,26 @@ const createAudioVisualiser = (audioContext, source, song) => {
 
     let playingNote = null
     // allow the user to click the visualiser to play a song...
-    visualiserCanvas.addEventListener("click", e => {
+    visualiserCanvas.addEventListener("mousedown", e => {
 
         const note = song.getNextNote()
-        console.info("note", note, {song, playingNote} )
+        console.info("Playing note", note, {song, playingNote} )
         if (playingNote)
         {
             chordOff( playingNote, 1, MAJOR_CHORD_INTERVALS, mode )
         }
 
-        chordOn( note, 1, MAJOR_CHORD_INTERVALS, mode )
+        chordOn( note, 1, 0, MAJOR_CHORD_INTERVALS, mode )
         playingNote = note
         //setTimbre( OSCILLATORS[] )
     })
 
+    visualiserCanvas.addEventListener("mouseup", e => {
+        if (playingNote)
+        {
+            chordOff( playingNote, 1, 0, MAJOR_CHORD_INTERVALS, mode )
+        }
+    })
     
     // const randomWaveButton = document.querySelector('#timbre-random')
     const randomWaveButtons = document.querySelectorAll('input[value="random"]')
@@ -371,6 +313,8 @@ const createAudioVisualiser = (audioContext, source, song) => {
     })
 }
 
+// AUDIO ==============================================================
+
 /**
  * Requires a user-gesture before initiation...
  */
@@ -381,6 +325,7 @@ const createAudioContext = (event) => {
         return audioContext
     }
     
+    // polyfilled see : https://github.com/chrisguttandin/standardized-audio-context
     audioContext = new AudioContext()
 
     limiter = audioContext.createDynamicsCompressor();
@@ -388,7 +333,7 @@ const createAudioContext = (event) => {
     limiter.ratio.value = 2 // 20
     
     mixer = audioContext.createGain()
-    mixer.gain.value = 1
+    mixer.gain.value = parseInt(searchParams.get("volume") ?? 1)
 
     limiter.connect(mixer)
     mixer.connect( audioContext.destination )
@@ -396,15 +341,15 @@ const createAudioContext = (event) => {
     const song = loadSong()
 
     createAudioVisualiser( audioContext, mixer, song )
-    // createAudioVisualiser( audioContext, limiter)
 
+    registerMultiTouchSynth( ALL_KEYBOARD_NOTES, chordOn, chordOff)
 
-    // now register any instruments that depend on the audiocontext
-    registerMultiTouchSynth(audioContext, ALL_KEYBOARD_NOTES, noteOn, noteOff)
+    // try and load in some instrument data sets in the background...
+    preloadAllWaveTables()
 }
 
 /**
- * Set the scale to Major / Minor
+ * Set the musical scale to Major / Minor
  * @param {Boolean|String|Number} scaleType 
  */
 const setScale = (scaleType) => {
@@ -432,7 +377,7 @@ const setScale = (scaleType) => {
 }
 
 /**
- * 
+ * Set the musical mode for the scale (eg. Dorian, Mixolydian, etc)
  * @param {Number|String} musicalMode 
  * @returns {Number}
  */
@@ -457,23 +402,8 @@ const setMode = (musicalMode) => {
         throw new Error("No modeName found for mode "+musicalMode)
     }
 
-    const radioButtons = document.querySelectorAll('input[value="'+modeName+'"]')
-    if (radioButtons && radioButtons.length)
-    {
-        radioButtons.forEach(radioButton => {
-            if (!radioButton.checked)
-            {
-                radioButton.checked = true
-            }
-            console.info("setMode", {mode, musicalMode})
-        }) 
-        
-        // emotionPanel.querySelector("output").textContent = modeName
-           
-    }else{
-        throw new Error("No radio buttons found to select! input[value="+modeName+"]")
-    }
-
+    selectRadioButton(modeName)
+  
     return mode
 }
 
@@ -484,8 +414,8 @@ const setMode = (musicalMode) => {
 const setTimbre = (timbre) => {
     const timbreSanitised = " " + timbre.replaceAll("_","") 
     fingerSynths.forEach( synth => synth.shape = timbre )
-    shape = timbre
     updateTimbreUI( timbreSanitised )
+    shape = timbre
 }
 
 /**
@@ -513,6 +443,8 @@ const toggleMute = (value, volumeSlider=null) => {
         volumeSlider.removeAttribute( "disabled" )
     }
 }
+
+// STATE ==============================================================
 
 const fetchStateFromRadioButtons = () => {
 
@@ -550,10 +482,11 @@ const fetchStateFromRadioButtons = () => {
         }
     })
 
-    // now set each state by calling the relevant selection function
-    
+    // now set each state by calling the relevant selection function   
 }
 
+// USER INTERFACE ==============================================================
+ 
 /**
  * Show the MIDI toggle button (ensure that MIDI is enabled first!)
  */
@@ -572,41 +505,13 @@ const showMIDIToggle = () => {
     buttonMIDIToggle.parentNode.hidden = false
 }
 
-/**
- * replace the current year with the current year
- * @returns {Boolean} if the year was updated
- */
-const setCurrentYear = () => {
-   const currentYear = new Date().getFullYear()
-   const yearElement = document.querySelector(".current-year")
-   if (yearElement)
-   {
-        yearElement.textContent = currentYear
-        return true
-   }
-   return false
-}
 
 /**
  * Circle of Fifths Synthesizer
  */
 const showCircularSynth = () => {
 
-    // const FIFTHS_LYDIAN = [0,1,1,1,1,1]
-    // const FIFTHS_IONIAN = [0,1,1,1,1,5]
-
-    const circleIntervals = {
-        major:[0,1,3],
-        minor:[0,1,8],
-        major7:[0,1,3,4],
-        minor7:[0,1,8,9],
-        dominant7:[0,1,3,6],
-        minor7flat5:[1,1,2,6],
-        tritoneSubstitution:[4,2,1,3],
-        diminishedTriad:[0,6,3],
-        diminishedSeventh:[0,3,3,3],
-        augmented:[0,4,4]
-    }
+    const circleIntervals = CICRLE_INTERVALS
 
     // Charles Goes Dancing At Every Big Fun Celebration.
     // From G D A E B...
@@ -625,35 +530,69 @@ const showCircularSynth = () => {
     //     return path
     // })
 
-    circles = new CircleSynth(fifthData, noteOn, noteOff, setMode )
+    circles = new CircleSynth(fifthData, chordOn, chordOff, setMode )
     const f5 = createChord( fifthData, circleIntervals.major, 0, mode, false, true )
 
-    console.info("COF", {f5, fifthData, fifthIndexes }) 
-    // now chords foor the fifths
+    //console.info("COF", {f5, fifthData, fifthIndexes }) 
 }
+
+const setupRadioButtons = () => {
+    const emotionRadioButtons = document.querySelectorAll( "input[name='emotion'], input[name='octave'], input[name='chord'], input[name='timbre']" ) 
+    emotionRadioButtons.forEach(radioButton => {
+        radioButton.addEventListener("change", e => {
+            
+            const input = e.target.value
+            const name = e.target.name
+
+            switch(name){
+                case "timbre":
+                    setTimbre( input.toLowerCase() )
+                    break
+
+                case "octave":
+                    circles.octave = parseInt(input) 
+                    break
+
+                case "emotion":
+                    setMode( input )
+                    // circles.happiness = mode / 7
+                    circles.mode = mode
+                    break
+            }
+
+            switch( input.toLowerCase() )
+            {
+                case "happy":
+                case "major":
+                    setScale( true )
+                    break
+
+                case "sad":
+                case "minor":
+                    setScale( false )
+                    break
+            }
+            console.info("RadioButton", {name, input} )
+            // emotionPanel.querySelector("output").textContent = input
+        })
+    })
+}
+
+// LOGIC ==============================================================
 
 /**
  * DOM is ready...
  */
 const start =  () => {
-   
-   const emotionPanel = document.getElementById("emotion")
 
     // for (const p of searchParams) {
     //     console.info("searchParams",p, searchParams)
     // }
 
-    // Passowrd Protection ------------------------------------------------
-    const showingPasswordScreen = pass && !pass.hidden
-
-    // NB. if this is password protected we ignore visits until the user has logged in
-    const timesVisited = parseInt(searchParams.get("visited") ?? 0)
-    searchParams.set("visited", showingPasswordScreen ? -1 : timesVisited + 1 )
-    pass.hidden = timesVisited > 0
-    // console.error({pass:pass, hidden:pass.hidden, showingPasswordScreen, timesVisited})
-
-    addAccessibilityFunctionality()
+    handlePasswordProtection( searchParams, DEFAULT_PASSWORD, updateURL )
+    
     setCurrentYear()
+    addAccessibilityFunctionality()
 
     if (navigator.requestMIDIAccess)
     {
@@ -674,63 +613,24 @@ const start =  () => {
     keyboardElement.addEventListener("dblclick", e => setScale( !isHappy ) )
    
     const wallpaperCanvas = document.getElementById("wallpaper")
-    noteVisualiser = new NoteVisualiser( KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
+    
+    noteVisualiser = new NoteVisualiser( ALL_KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
  
     // reinstate the state recalled from the previous session
     // fetchStateFromRadioButtons() 
     // FIXME:
     setScale( true )
 
-    showCircularSynth()
-    monitorIntersections()
-    updateURL()
-
     // UI ------------------------------------------------
+    showCircularSynth()
 
-    const emotionRadioButtons = document.querySelectorAll( "input[name='emotion'], input[name='octave'], input[name='chord'], input[name='timbre']" ) 
-    
-    // const emotionRadioButtons = emotionPanel.querySelectorAll("input[type=radio name='emotion'], input[type=radio name='octave']") 
-    emotionRadioButtons.forEach(radioButton => {
-        radioButton.addEventListener("change", e => {
-            
-            const input = e.target.value
-            const name = e.target.name
-
-            switch(name){
-                case "timbre":
-                    setTimbre( input.toLowerCase() )
-                    break
-
-                case "octave":
-                    circles.octave = parseInt(input) 
-                    break
-
-                case "emotion":
-                    setMode( input )
-                    // circles.happiness = mode / 7
-                    circles.mode = mode
-                    console.log("radioButton", radioButton, input)
-                    break
-            }
-
-            switch( input.toLowerCase() )
-            {
-                case "happy":
-                case "major":
-                    // circles.happiness = 1
-                    setScale( true )
-                    break
-
-                case "sad":
-                case "minor":
-                    // circles.happiness = 0
-                    setScale( false )
-                    break
-            }
-            console.info("ARGH", {name, input} )
-            // emotionPanel.querySelector("output").textContent = input
-        })
-    })
+    setupRadioButtons()
+  
+    // watch for when an element arrives in the window
+    monitorIntersections()
+  
+    // finally update the URL with the state
+    updateURL()
 }
 
 /**

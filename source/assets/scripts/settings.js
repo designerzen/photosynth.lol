@@ -92,3 +92,26 @@ export const PALETTE = {
     // blue:#5284c5,
 }
 
+
+export const VISUALISER_OPTIONS = {
+    lineColour:PALETTE.red,
+    lineWidth:3
+}
+
+export const DEFAULT_PASSWORD = "dm"
+
+// const FIFTHS_LYDIAN = [0,1,1,1,1,1]
+// const FIFTHS_IONIAN = [0,1,1,1,1,5]
+
+export const CICRLE_INTERVALS = {
+    major:[0,1,3],
+    minor:[0,1,8],
+    major7:[0,1,3,4],
+    minor7:[0,1,8,9],
+    dominant7:[0,1,3,6],
+    minor7flat5:[1,1,2,6],
+    tritoneSubstitution:[4,2,1,3],
+    diminishedTriad:[0,6,3],
+    diminishedSeventh:[0,3,3,3],
+    augmented:[0,4,4]
+}
