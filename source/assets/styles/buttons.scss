@@ -160,16 +160,6 @@ label{
 
 }
 
-
-a.back-to-top{
-    position: fixed;
-    top:0;//1px;
-    right:var(--pad);
-    justify-self: end;
-    // margin-top:1px;
-    margin-bottom:1px;
-}
-
 a.back-to-top,
 a.skip-to-content{
     z-index: 1;
@@ -205,6 +195,16 @@ a.skip-to-content{
     }   
 }
 
+a.back-to-top{
+    position: fixed;
+    top:0;//1px;
+    right:var(--pad);
+    justify-self: end;
+    // margin-top:1px;
+    margin-bottom:1px;
+    z-index: 868;
+}
+
 a.skip-to-content{
     background-color: var(--col-accent);
     min-height: 100%;
@@ -232,6 +232,7 @@ a.skip-to-content{
     a.back-to-top{
         grid-template-columns: auto 1fr;
         font-size: inherit;
+        color:var(--col-white);
         padding:var(--pad);
         &::after{
             display: none;

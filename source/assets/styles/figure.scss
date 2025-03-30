@@ -7,7 +7,12 @@ figure{
  
     // there may be nested icons in figcaption for attributions etc
     > img{
-        min-width:100%;
+        width:auto;
+        // min-width: 100%;
+        max-height: 100vh;
+        max-height: 100dvh;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     figcaption{
@@ -24,6 +29,10 @@ figure{
 
     margin-top: var(--pad);
     margin-bottom: var(--pad);
+
+    > img{
+       background-color: var(--col);
+    }
 }
 
 .corner-bumpers { 

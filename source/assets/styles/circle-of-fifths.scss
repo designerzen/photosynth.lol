@@ -1,5 +1,8 @@
 // DIV wrapper for SVG and FORM
 .instrument-circular{
+    scroll-snap-type: proximity;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
     display: grid;
     display: block;
     align-items: end;
@@ -109,10 +112,7 @@
             display: flex;
             flex-direction: row;
         }
-        svg{
-            float: left;
-            shape-outside: circle(100%);
-        }
+       
         .octave-selector{
             label:first-of-type{
                 transform: translateY(0px);
@@ -136,8 +136,21 @@
 
             
         }
+        
+        // if we have support for circular masking...
+        // we can use the curve of the SVG to smoothly
+        // wrap the text around the circle
+        @supports ( shape-outside: circle(50%)){
+            svg{
+                float: left;
+                shape-outside: circle(50%);
+                margin:var(--pad);
+            }
+        }
+        
     }
 }
+
 
 .octave-selector{
    
