@@ -1,16 +1,15 @@
 export default class AbstractInteractive{
 
-    constructor(){
-
-    }
+    constructor(){}
 
 	/**
 	 * Add interactivity to the keyboard and wire these
 	 * to the noteOn and noteOff functions provided
-	 * @param {Function} noteOn 
-	 * @param {Function} noteOff 
+	 * @param {Function} noteOn - method to call to play a note
+	 * @param {Function} noteOff - method to call to stop the playing note
+	 * @param {Boolean} passive - use passive listeners 
 	 */
-	addInteractivity( keys, noteOn, noteOff ){
+	addInteractivity( keys, noteOn, noteOff, passive=true ){
 		
 		if(!keys)
 		{
@@ -25,7 +24,7 @@ export default class AbstractInteractive{
 		
 			const onPianoInteractionStarting = (event) => {
 
-				if (event.preventDefault)
+				if (!passive && event.preventDefault)
 				{
 					event.preventDefault()
 				}
@@ -62,7 +61,7 @@ export default class AbstractInteractive{
 			}
 		
 			const onInterationComplete = (event) => {
-				if (event.preventDefault)
+				if (!passive && event.preventDefault)
 				{
 					event.preventDefault()
 				}
@@ -80,16 +79,16 @@ export default class AbstractInteractive{
 				// document.querySelector(`.indicator[data-attribute-note="${noteName}"]`)?.classList?.toggle("active", false)
 			}
 		
-			button.addEventListener("touchstart", onPianoInteractionStarting, {signal: controller.signal,passive: true}) 
-			button.addEventListener("mousedown", onPianoInteractionStarting, {signal: controller.signal,passive: true})
+			button.addEventListener("touchstart", onPianoInteractionStarting, {signal: controller.signal,passive}) 
+			button.addEventListener("mousedown", onPianoInteractionStarting, {signal: controller.signal,passive})
 			
 			// if the user has finger down but they change keys...
 			button.addEventListener("mouseenter", event => {
-				if (event.preventDefault)
+				if (!passive && event.preventDefault)
 				{
 					event.preventDefault()
 				}
-		
+
 				if (this.isTouching)
 				{	
 					const note = this.getNoteFromKey(button)
@@ -103,14 +102,15 @@ export default class AbstractInteractive{
 				}else{
 					// console.warn("REQUEST CHANGE IGNORED")
 				}
-			}, {signal: controller.signal,passive: true})
+			}, {signal: controller.signal, passive})
 		
 			button.addEventListener("mouseleave", event => {
-				if (event.preventDefault)
+				if (!passive && event.preventDefault)
 				{
 					event.preventDefault()
 				}
-                if (previousNote)
+                
+				if (previousNote)
                 {
                     noteOff(previousNote,1,this)
 					previousNote = null
@@ -118,7 +118,7 @@ export default class AbstractInteractive{
 
 				// this.isTouching = false
 				// document.querySelector(`.indicator[data-attribute-note="${noteName}"]`)?.classList?.toggle("active", false)
-			}, {signal: controller.signal, passive: true})
+			}, {signal: controller.signal, passive })
 		
 			// button.addEventListener("mouseup", event => {
 			// 	console.error(button, event)
