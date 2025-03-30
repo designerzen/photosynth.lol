@@ -1,3 +1,7 @@
+/**
+ * Scrolling note on / off visualisation
+ */
+
 import HTML_CANVAS_WORKER from "url:./offscreen-canvas.js"
 
 export default class NoteVisualiser{
@@ -20,17 +24,17 @@ export default class NoteVisualiser{
         this.wave = wave
         this.vertical = vertical
 
-        this.noteSize = vertical ? canvas.width / notes.length : canvas.height / notes.length
-       
         this.worker = new Worker(HTML_CANVAS_WORKER)
         const canvasWorker = this.canvas.transferControlToOffscreen()
         this.worker.postMessage({ canvas: canvasWorker, notes }, [canvasWorker])
         
-        // this.onResize = this.onResize.bind(this) 
-        // const resizeObserver = new ResizeObserver(this.onResize)
-        // resizeObserver.observe(canvas, {box: 'content-box'})
+        this.onResize = this.onResize.bind(this) 
+        const resizeObserver = new ResizeObserver(this.onResize)
+        resizeObserver.observe(canvas, {box: 'content-box'})
 
-        this.advance = this.advance.bind(this) 
+        // this.advance = this.advance.bind(this) 
+        // start!
+        // this.advance()
     }
 
     /**
@@ -39,37 +43,25 @@ export default class NoteVisualiser{
      * @param {number} velocity 
      */
     noteOn( note, velocity=1 ){
-       const size = 3
-        const truncatedNoteNumber = note.noteNumber - this.notes[0].noteNumber
-        // this.context.fillStyle = note.colour
-        // if (this.vertical)
-        // {
-        //     this.context.fillRect( truncatedNoteNumber * this.noteSize, this.height - size, this.noteSize, size )
-        // }else{
-        //     this.context.fillRect( 0, truncatedNoteNumber * this.noteSize, size, this.noteSize ) 
-        // }
-        // console.info("noteOn", note, velocity )
-        this.worker.postMessage({ type:"noteOn", note:truncatedNoteNumber, colour:note.colour, velocity, vertical:this.vertical })  
+        const truncatedNoteNumber = note.noteNumber //- this.notes[0].noteNumber
+        const payload = { type:"noteOn", note:truncatedNoteNumber, colour:note.colour, velocity, vertical:this.vertical }
+        console.info("NOTEVIZ noteOn", {note, velocity, payload} )
+        this.worker.postMessage(payload)  
     }
 
     /**
      * 
-     * @param {*} note 
-     * @param {*} velocity 
+     * @param {Note} note 
+     * @param {Number} velocity 
      */
     noteOff( note, velocity=1 ){
-        const gap = 3
-        const truncatedNoteNumber = note.noteNumber - this.notes[0].noteNumber
-        console.info("noteOff", truncatedNoteNumber )
-        // if (this.vertical)
-        // {
-        //     this.context.clearRect( truncatedNoteNumber * this.noteSize, this.height - gap, this.noteSize, gap )
-        // }else{
-        //     this.context.clearRect( 0, truncatedNoteNumber * this.noteSize, gap, this.noteSize ) 
-        // }
+        const truncatedNoteNumber = note.noteNumber //- this.notes[0].noteNumber
         this.worker.postMessage({ type:"noteOff", note:truncatedNoteNumber, velocity, vertical:this.vertical })
     }
 
+    /**
+     * PUBLIC
+     */
     advance(){
 
         const gap = 3
@@ -93,43 +85,39 @@ export default class NoteVisualiser{
             this.context.drawImage( offscreen, 0, 0, this.width-gap, this.height, gap, lurch, this.width-gap, this.height  )
             //this.context.clearRect( 0, 0, zone, this.height )
         }
+
+        // loop
         requestAnimationFrame( this.advance )
     }
     
     resizeCanvasToDisplaySize(displayWidth, displayHeight ){
 
+        // console.error(this, "mirror",{ displayWidth, displayHeight })
         // Get the size the browser is displaying the canvas in device pixels.
         // Check if the canvas is not the same size.
         const needResize = this.canvas.width !== displayWidth || this.canvas.height !== displayHeight
 
-        if (needResize) {
-            
-            if (this.started)
-            {
-                this.started = false
-            }
-
+        if (needResize) 
+        {
             this.started = true
 
-            // Make the canvas the same size
-            // this.canvas.width  = displayWidth
-            // this.canvas.height = displayHeight
+         
+            console.error("mirror",{ needResize, displayWidth, displayHeight })
 
+            this.width = displayWidth
+            this.height = displayHeight
+
+            // NB. Make the canvas the same size via OffscreenCanvas
+            //      this.canvas.width  = displayWidth
+            //      this.canvas.height = displayHeight
             this.worker.postMessage({ type:"resize", displayWidth, displayHeight, vertical:this.vertical })
-
-            this.noteSize = this.vertical ? 
-                this.canvas.width / this.notes.length : 
-                this.canvas.height / this.notes.length
-      
-            this.width = this.canvas.width
-            this.height = this.canvas.height
-
         }
 
         return needResize
     }
     
     onResize(entries) {
+       
         for (const entry of entries) 
         {
             let width
@@ -170,7 +158,8 @@ export default class NoteVisualiser{
             const displayHeight = Math.round(height * dpr)
             
             this.resizeCanvasToDisplaySize(displayWidth, displayHeight)
+           
+            console.info(this.wave, "advance", {canvas:this.canvas}, 0, 0, this.width, this.height ) 
         }
     }
-    
 }
