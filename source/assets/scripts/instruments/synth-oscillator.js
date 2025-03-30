@@ -1,5 +1,5 @@
 //const OSCILLATORS = [ "sine", "triangle"]
-import {MAJOR_CHORD_INTERVALS} from "../chords.js"
+import { BiquadFilterNode } from "standardized-audio-context"
 import {noteNumberToFrequency} from "../note.js"
 import { loadWaveTable } from "./wave-tables.js"
 const OSCILLATORS = [ "sine", "square", "sawtooth", "triangle" ]
@@ -12,13 +12,13 @@ export default class SynthOscillator{
         shape:OSCILLATORS[0],
         minDuration:1,
         arpeggioDuration:0.2,
-        slideDuration: 0.1,
+        slideDuration: 0.06,
         fadeDuration:0.2,
         filterGain :0.7,
         filterCutOff :2200,
         filterOverdrive:2.5,
         filterResonance :1.8,
-        filterAttack :0.002,
+        filterAttack :0.2,
         filterDecay :0.08,
         filterSustain :0.0,
         filterRelease :0.1
