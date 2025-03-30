@@ -1,7 +1,4 @@
-import { mapped, noteNumberToFrequency, toChord, toNote } from "../audio"
-import SynthOscillator from "../instruments/synth-oscillator"
-
-export const registerMultiTouchSynth = (audioContext, notes=[], noteOnCallback=null, noteOffCallback=null) => {
+export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffCallback=null) => {
 
     const controller = new AbortController()
     const canvas = document.getElementById("wallpaper")
@@ -24,7 +21,7 @@ export const registerMultiTouchSynth = (audioContext, notes=[], noteOnCallback=n
         // from Octave 3->7
         const octave = 3 + Math.round( percentageX * 4) 
         const note = Math.round(percentageY * 12 + octave * 12 )
-    return notes[note%notes.length]
+        return notes[note%notes.length]
     }
 
     /**
@@ -122,16 +119,16 @@ export const registerMultiTouchSynth = (audioContext, notes=[], noteOnCallback=n
         console.info( id, "mouse up", {e, note, activeNotes})
     }
 
-    // canvas.addEventListener("mousedown", onInteractionBegin, { signal: controller.signal, passive: true })
-    // canvas.addEventListener("mousemove", onInteractionMoving, { signal: controller.signal, passive: true })
-    // canvas.addEventListener("mouseup", onInteractionEnd, { signal: controller.signal, passive: true })
-    // window.addEventListener("mouseenter", onInteractionContinue, { signal: controller.signal, passive: true })
-    // window.addEventListener("mouseout", onInteractionEnd, { signal: controller.signal, passive: true })
+    canvas.addEventListener("mousedown", onInteractionBegin, { signal: controller.signal, passive: true })
+    canvas.addEventListener("mousemove", onInteractionMoving, { signal: controller.signal, passive: true })
+    canvas.addEventListener("mouseup", onInteractionEnd, { signal: controller.signal, passive: true })
+    window.addEventListener("mouseenter", onInteractionContinue, { signal: controller.signal, passive: true })
+    window.addEventListener("mouseout", onInteractionEnd, { signal: controller.signal, passive: true })
 
-    // canvas.addEventListener("touchdown", onInteractionBegin, { signal: controller.signal, passive: true})
-    // canvas.addEventListener("touchup", onInteractionEnd, { signal: controller.signal, passive: true })
-    // canvas.addEventListener("touchcancel", onInteractionEnd, { signal: controller.signal, passive: true })
-    // canvas.addEventListener("touchmove", onInteractionMoving, { signal: controller.signal, passive: true })
+    canvas.addEventListener("touchdown", onInteractionBegin, { signal: controller.signal, passive: true})
+    canvas.addEventListener("touchup", onInteractionEnd, { signal: controller.signal, passive: true })
+    canvas.addEventListener("touchcancel", onInteractionEnd, { signal: controller.signal, passive: true })
+    canvas.addEventListener("touchmove", onInteractionMoving, { signal: controller.signal, passive: true })
  
     // Clean up and kill all objects
     return ()=>{
