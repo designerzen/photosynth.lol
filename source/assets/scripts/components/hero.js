@@ -60,8 +60,10 @@ export default class Hero extends AbstractInteractive{
       
         if (noteElement)
         {
-        // change note to the correct colour
-            noteElement.style.setProperty( "--col-accent", "var("+this.notes[note.noteNumber].asCSSVar+")" )
+            const n = this.notes[note.noteNumber]
+        
+            // change note to the correct colour
+            n && noteElement.style.setProperty( "--col-accent", "var("+n.asCSSVar+")" )
             // noteElement.style.setProperty( "--path", "var("+this.notes[note.noteNumber].asCSSVar+")" )
             // this.hero.style.setProperty( "--col-accent", "var("+this.notes[note.noteNumber].asCSSVar+")" )
 
