@@ -8,6 +8,7 @@
 	],
 	"transformers": {
 		"wam:*": [],
+		"zip:*": ["@parcel/transformer-raw"],
 		"raw:*": ["@parcel/transformer-raw"],
 		"*.obj": ["@parcel/transformer-raw"],
 		"*.fbx": ["@parcel/transformer-raw"],
