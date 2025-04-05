@@ -1,6 +1,9 @@
 
 export const toTitleCase = word => (word.charAt(0).toUpperCase() + word.slice(1))
 
+// change data- on the HTML element
+export const setGlobalAttribute = ( attribute, value ) => document.documentElement.setAttribute(attribute, value)
+
 export const changeUIText = (query, value) => {
     document.querySelectorAll(query).forEach( element => element.textContent = value )
 }
@@ -19,6 +22,8 @@ export const selectRadioButton = (value) => {
  */
 export const updateTimbreUI = (timbre) => {
     changeUIText("[data-timbre]", toTitleCase(timbre) )
+    const d = document.getElementById("song-timbre-select")
+    d.value = timbre
 }
 
 /**
@@ -27,11 +32,11 @@ export const updateTimbreUI = (timbre) => {
  */
 export const updateScaleUI = (scaleType) => {
     // remove old scale and add new one...
-    changeUIText("[data-scale]", scaleType )
+    setGlobalAttribute("data-scale", scaleType.toLowerCase()  ) 
     // ensure the input radio is selected
     selectRadioButton(scaleType)
-    // change data-attribute on the HTML element
-    document.documentElement.setAttribute("data-scale", scaleType.toLowerCase() )
+
+    changeUIText("[data-musical-scale]", scaleType)
 }
 
 

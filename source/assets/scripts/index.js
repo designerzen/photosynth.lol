@@ -1,3 +1,4 @@
+
 // accessibility
 import { addTextScalingFacilities } from "./accessibility"
 import { addThemeSelectionOptions, setTheme, THEMES } from "./theme"
@@ -11,12 +12,15 @@ import { registerMultiTouchSynth } from "./components/multi-touch-synth"
 import CircleSynth from "./components/circle-synth"
 
 import SynthOscillator from "./instruments/synth-oscillator"
-import { getRandomWaveTableName, preloadAllWaveTables } from "./instruments/wave-tables"
+import { getAllWaveTables, getRandomWaveTableName, loadWaveTableFromArchive, preloadAllWaveTables } from "./instruments/wave-tables"
 
 import Note from "./note"
 import Song from "./song"
 
 import { ASTLEY } from "./songs"
+
+import WAVE_ARCHIVE_GENERAL_MIDI from "url:/static/wave-tables/general-midi.zip"
+import WAVE_ARCHIVE_GOOGLE from "url:/static/wave-tables/google.zip"
 
 // DOM
 import Hero from "./components/hero"
@@ -65,6 +69,18 @@ const SCALES = [
     "Major",
     "Minor"
 ]
+
+const preloadWaveTablesFromZip = (zipURL) => {
+    const meter = document.getElementById("load-progress")
+    console.info("WAVE_TABLES", zipURL)
+    loadWaveTableFromArchive(zipURL, (progress, fileName, file)=>{
+        console.info("zip", {progress, fileName, file })
+        meter.value = progress
+    }).then( data => {
+        console.info("ZIP WAVE data", data)
+    })
+}
+
 
 let isHappy = true          // is Major or Minor?
 let scale = SCALES[0]       // scale (eg. Major, Minor... etc)
@@ -190,6 +206,9 @@ const noteOn = (noteModel, velocity=1, id=0 ) => {
     keyboard.setKeyAsActive( noteModel.noteNumber )    // highlight the keys on the keyboard!    
     hero && hero.noteOn( noteModel )
     noteVisualiser && noteVisualiser.noteOn( noteModel, velocity )
+    
+    // this should change the visualiser line colour
+    circles.colour = noteModel.colour
 }
    
 /**
@@ -340,7 +359,7 @@ const createAudioContext = (event) => {
     
     const song = loadSong()
 
-    createAudioVisualiser( audioContext, mixer, song )
+    createAudioVisualiser( audioContext, mixer, song, { ...VISUALISER_OPTIONS, backgroundColour:false } )
 
     registerMultiTouchSynth( ALL_KEYBOARD_NOTES, chordOn, chordOff)
 
@@ -373,6 +392,7 @@ const setScale = (scaleType) => {
 
     updateScaleUI( scaleType )
     scale = scaleType
+    circles.scale = scaleType
     console.info("Scale set to", scaleType )
 }
 
@@ -394,7 +414,6 @@ const setMode = (musicalMode) => {
         case -1:
             break
         default:
-
     }
 
     if (!modeName)
@@ -413,7 +432,8 @@ const setMode = (musicalMode) => {
  */
 const setTimbre = (timbre) => {
     const timbreSanitised = " " + timbre.replaceAll("_","") 
-    fingerSynths.forEach( synth => synth.shape = timbre )
+    const lowerCaseTimbre = timbre.toLowerCase()
+    fingerSynths.forEach( synth => synth.shape = lowerCaseTimbre )
     updateTimbreUI( timbreSanitised )
     shape = timbre
 }
@@ -448,40 +468,47 @@ const toggleMute = (value, volumeSlider=null) => {
 
 const fetchStateFromRadioButtons = () => {
 
+    const CHECKED_RADIO_BUTTON = 'input[type="radio"]:checked'
     const queries = [
-        '.emotion-selector input[type="radio"]:checked',
-        '#emotion input[type="radio"]:checked'
+        '.emotion-selector '+CHECKED_RADIO_BUTTON,
+        '#emotion '+CHECKED_RADIO_BUTTON
     ]
 
-    const o = queries.map(query => {
+    const checkedInputRadioButtons = []
+    
+    queries.forEach(query => {
         const radioButtons = document.querySelectorAll(query)
         console.info("radioButtons", radioButtons)
-        return radioButtons
+        radioButtons.forEach(radioButton => checkedInputRadioButtons.push(radioButton))
     })
 
-    const flat = Array.from(  new Set(...o) )
-
-    flat.forEach(radioButton => {
-        console.info("checked", radioButton)
+    console.info("checked", { checkedInputRadioButtons} )
+    
+    checkedInputRadioButtons.forEach(radioButton => {
+        console.info("checked radio button", radioButton)
         switch (radioButton.name)
         {
             case "emotion":
+                console.warn("emotion", radioButton.value)
                 setMode( radioButton.value )
                 break
             case "octave":
+                console.warn("octave", radioButton.value)
                 circles.octave = parseInt( radioButton.value )
                 break
             case "timbre":
+                console.warn("timbre", radioButton.value)
                 setTimbre( radioButton.value )
                 break
             case "chord":
-                console.warn("No case for", radioButton.name)
+                console.warn("chord", radioButton.value)
+                setScale( radioButton.value )
                 break
             default:
-                console.warn("No case for", radioButton.name)
+                console.warn("No case for", radioButton.value)
         }
     })
-
+    
     // now set each state by calling the relevant selection function   
 }
 
@@ -491,6 +518,7 @@ const fetchStateFromRadioButtons = () => {
  * Show the MIDI toggle button (ensure that MIDI is enabled first!)
  */
 const showMIDIToggle = () => {
+    const sectionMIDIToggle = document.getElementById("midi-equipment")
     const buttonMIDIToggle = document.getElementById("toggle-midi")
     buttonMIDIToggle.addEventListener("click", async(e) => {
         const midi = await enableMIDI()
@@ -502,19 +530,17 @@ const showMIDIToggle = () => {
         console.info(midi.inputs)
         console.info(midi.outputs)
     })
+    sectionMIDIToggle.hidden = false
     buttonMIDIToggle.parentNode.hidden = false
 }
 
-
 /**
- * Circle of Fifths Synthesizer
+ * Add to DOM the Circle of Fifths Synthesizer
  */
-const showCircularSynth = () => {
+const createCircularSynth = () => {
 
     const circleIntervals = CICRLE_INTERVALS
 
-    // Charles Goes Dancing At Every Big Fun Celebration.
-    // From G D A E B...
     const circle = createFifthsChord(ALL_KEYBOARD_NOTES, 41, mode).reverse()
     const fifthIndexes = circle.map((note, index)=> note.sequenceIndex )
     const fifthData = ALL_KEYBOARD_NOTES.map( (key,i)=>{
@@ -524,18 +550,21 @@ const showCircularSynth = () => {
 
     // const svgCircle = Array.from(document.querySelectorAll(".circle-of-fifths-tonics > path"))
     // const keys = svgCircle.map((path, i)=>{
-    //     path.setAttribute("data-attribute-key", fifthData[i].noteKey)
-    //     path.setAttribute("data-attribute-number", fifthData[i].noteNumber)
-    //     path.setAttribute("data-attribute-name", fifthData[i].noteName)
+    //     path.setAttribute("data-key", fifthData[i].noteKey)
+    //     path.setAttribute("data-number", fifthData[i].noteNumber)
+    //     path.setAttribute("data-name", fifthData[i].noteName)
     //     return path
     // })
 
-    circles = new CircleSynth(fifthData, chordOn, chordOff, setMode )
+    const circularSynth = new CircleSynth(fifthData, chordOn, chordOff, setMode )
     const f5 = createChord( fifthData, circleIntervals.major, 0, mode, false, true )
-
     //console.info("COF", {f5, fifthData, fifthIndexes }) 
+    return circularSynth
 }
 
+/**
+ * Setup the radio toggle buttons and give their actions commands
+ */
 const setupRadioButtons = () => {
     const emotionRadioButtons = document.querySelectorAll( "input[name='emotion'], input[name='octave'], input[name='chord'], input[name='timbre']" ) 
     emotionRadioButtons.forEach(radioButton => {
@@ -546,7 +575,7 @@ const setupRadioButtons = () => {
 
             switch(name){
                 case "timbre":
-                    setTimbre( input.toLowerCase() )
+                    setTimbre( input )
                     break
 
                 case "octave":
@@ -585,6 +614,9 @@ const setupRadioButtons = () => {
  */
 const start =  () => {
 
+    // all possible data files for instrument sounds
+    const instrumentNames = getAllWaveTables()
+
     // for (const p of searchParams) {
     //     console.info("searchParams",p, searchParams)
     // }
@@ -594,14 +626,31 @@ const start =  () => {
     setCurrentYear()
     addAccessibilityFunctionality()
 
+    const timbreSelect = document.getElementById("song-timbre-select")
+    instrumentNames.forEach( name => {
+        timbreSelect.add(new Option(name, name))
+    })
+    timbreSelect.addEventListener("change", e => {
+        const timbre = e.target.value
+        console.info("timbre", timbre)
+        setTimbre( timbre )
+    })
+    
+
     if (navigator.requestMIDIAccess)
     {
         showMIDIToggle()
     }
    
-    // top interactive graphic
+    // top interactive smiling graphic
     hero = new Hero(ALL_KEYBOARD_NOTES, noteOn, noteOff)
-  
+     
+    // sequencer style note visualiser (2 varieties)
+    const wallpaperCanvas = document.getElementById("wallpaper")
+    noteVisualiser = new NoteVisualiser( ALL_KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
+    // noteVisualiser = new NoteVisualiser( KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
+ 
+
     // bottom interactive piano
     keyboard = new SVGKeyboard(KEYBOARD_NOTES, noteOn, noteOff )
     
@@ -612,18 +661,12 @@ const start =  () => {
     const keyboardElement = document.body.appendChild( keyboard.asElement )
     keyboardElement.addEventListener("dblclick", e => setScale( !isHappy ) )
    
-    const wallpaperCanvas = document.getElementById("wallpaper")
-    
-    noteVisualiser = new NoteVisualiser( ALL_KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
+
+    circles = createCircularSynth()
  
     // reinstate the state recalled from the previous session
-    // fetchStateFromRadioButtons() 
-    // FIXME:
-    setScale( true )
-
-    // UI ------------------------------------------------
-    showCircularSynth()
-
+    fetchStateFromRadioButtons() 
+    
     setupRadioButtons()
   
     // watch for when an element arrives in the window
@@ -631,6 +674,10 @@ const start =  () => {
   
     // finally update the URL with the state
     updateURL()
+
+    // preload all of the wave tables
+    requestAnimationFrame(()=>preloadWaveTablesFromZip(WAVE_ARCHIVE_GENERAL_MIDI))
+    requestAnimationFrame(()=>preloadWaveTablesFromZip(WAVE_ARCHIVE_GOOGLE))
 }
 
 /**
