@@ -24,7 +24,7 @@ export const monitorIntersections = ( query="[data-observe]", intersectionOption
 
             }else if (ratio >= 1) {
                 // INSIDE
-                console.info("intersection INSIDE", entry)  
+                // console.info("intersection INSIDE", entry)  
             } else if (boundingRect.top < intersectionRect.top) {
                 // ABOVE
         
@@ -38,15 +38,30 @@ export const monitorIntersections = ( query="[data-observe]", intersectionOption
                 const fullSizeKeyboard = entry.target.hasAttribute("data-full-keyboard")
                 // const shortKeyboard = entry.target.hasAttribute("data-short-keyboard")
                 // const hideKeyboard = entry.target.hasAttribute("data-hide-keyboard")
-                console.info("intersection", {entry, ratio, boundingRect, intersectionRect, fullSizeKeyboard})  
+                // console.info("intersection", {entry, ratio, boundingRect, intersectionRect, fullSizeKeyboard})  
 
                 if (fullSizeKeyboard)
                 {
                     
                 }
 
+                if (entry.classList)
+                {
+                    entry.classList.toggle("in-viewport", true)
+                }else{
+                    console.error("IN intersection without entry", entry, entry.classList )
+                }
+
                 // document.body.classList.toggle("inert", inert)
                 document.body.classList.toggle("show-full-keyboard", fullSizeKeyboard)
+              
+            }else{
+                if (entry.classList)
+                {
+                    entry.classList.toggle("in-viewport", false)
+                }else{
+                    console.error("OUT intersection without entry", entry, entry.classList )
+                }
             }
         })
     }, intersectionOptions)
