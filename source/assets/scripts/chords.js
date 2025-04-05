@@ -5,6 +5,12 @@
  * there are different scales with custom tunings
  * out there but these are the classics
  */
+
+const rotateArray = (a, n) => {
+    n = n % a.length
+    return a.slice(n, a.length).concat(a.slice(0, n))
+}
+
 export const TUNING_MODE_IONIAN = 'Ionian'
 export const TUNING_MODE_DORIAN = 'Dorian'
 export const TUNING_MODE_PHRYGIAN = 'Phrygian'
@@ -26,7 +32,6 @@ export const TUNING_MODE_NAMES = [
 export const getModeAsIntegerOffset = (mode) => isNaN(parseInt(mode)) ? TUNING_MODE_NAMES.indexOf(mode) : mode%TUNING_MODE_NAMES.length
 export const getModeFromIntegerOffset = (mode) => isNaN(parseInt(mode)) ? mode : TUNING_MODE_NAMES[mode%TUNING_MODE_NAMES.length]
   
-
 // Shifted intervals...
 // To go from any specific note to any other specific note
 const INTERVAL_SHIFTS = {
@@ -92,7 +97,6 @@ export const CHORD_INTERVALS = [
 	FIFTHS_CHORD_INTERVALS
 ]
 
-
 /**
  * Export a chord from a root note and a scale
  * 
@@ -135,3 +139,15 @@ export const createMajorChord =( notes, offset=0, mode=0 )=> createChord( notes,
 export const createMinorChord =( notes, offset=0, mode=0 )=> createChord( notes, MINOR_CHORD_INTERVALS, offset, mode, true, true )
 // export const createJazzChord =( notes, offset=0, mode=0 )=> createChord( notes, MELODIC_MINOR_SCALE, offset, mode, true, false )
 export const createFifthsChord =( notes, offset=0, mode=0 )=> createChord( notes, FIFTHS_CHORD_INTERVALS, offset, mode, false, true )
+
+/**
+ * The chord rotates the array
+ * so an A D G becomes D G A
+ * 
+ * @param {Array} chord 
+ * @param {Number} inversion 
+ * @returns 
+ */
+export const invertChord = (chord, inversion=0) => {
+	return rotateArray( chord, inversion )
+}
