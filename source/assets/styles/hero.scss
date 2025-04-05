@@ -1,12 +1,6 @@
 #hero{
-    padding:0;
     // z-index: 101;
     // margin-top: var(--pad);
-    overflow: hidden;
-    overflow: clip;
-
-    background-color: transparent;
-
     --duration:9000ms;
     
     --offset-variatons:1;
@@ -46,23 +40,8 @@
     --emoji-rotate: auto;
     --emoji-anchor: auto;
 
-    #hero-figure{
-        img{
-            height: calc( 100% - var(--footer-height,0));
-            width: auto;
-            max-width:2122px;
-            max-height: 100%;
-            position: absolute;
-            left: 50%;
-            top:0;
-            transform: translateX(-50%);
-            display: block;
-        }
-    }
-
     // Some nice looking notes added via JS
     .note-animated{
-        
         --size:44px;
         position:absolute;
         top: 33%;
@@ -145,6 +124,23 @@
 }
 
 
+#hero,
+#hero-mask{
+    padding:0;
+    background-color: transparent;
+    overflow: hidden;
+    overflow: clip;
+    // pointer-events: none;
+    z-index: 505;
+    img{
+        max-width:2122px;
+    }    
+}
+#hero{
+    order:-2;
+    z-index: 303;
+}
+
 #hero.active{
 
     &::before,
@@ -172,6 +168,9 @@
     }
 }
 
+#hero-figure{
+       
+}
 
 .note-animated{
     transition: opacity var(--time-quick, 90ms) linear;

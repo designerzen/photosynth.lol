@@ -6,11 +6,12 @@
 }
 
 
-// High Contrast theme
+// High Contrast DARK theme
 [data-theme="contrast"]{
     --col-bg:var(--col-black, black);
     --col-text:var(--col-white, white);
 
+    h3:first-child::before,
     .icon,
     button,
     input[type="button"],

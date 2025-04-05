@@ -10,14 +10,7 @@
 //   ::view-transition-group(item) {
 //     mix-blend-mode: normal;
 //   }
-  
-@media screen and (min-width:800px){
-    #menu-accessibility{ 
-        position: sticky;
-        top:0;
-        left:0;
-    }
-}
+
 
 #menu-accessibility{
     order:-1;
@@ -28,6 +21,9 @@
     z-index: 303;
     color: var(--col-text);
     background-color: var(--col-bg);
+    // add a small bottom clean border
+    border-bottom: 4px solid var(--col-bg);
+
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -89,7 +85,15 @@
         }
     }
 }
-
+  
+@media screen and (min-width:800px){
+    #menu-accessibility{ 
+        position: sticky;
+        top:0;
+        left:0;
+        border-width: 1px;
+    }
+}
 
 #mute{
     grid-area: mute;
@@ -129,11 +133,11 @@
 }
 
 #palette-contrast{
-    background-image:url(/source/assets/icons/flourescent-24px.svg);
+    background-image: url(/source/assets/icons/dark_mode-24px.svg);
 }
 
 #palette-monochrome{
-    background-image: url(/source/assets/icons/light_mode-24px.svg);
+    background-image:url(/source/assets/icons/flourescent-24px.svg);
 }
 
 #palette-colourful{
@@ -141,12 +145,12 @@
 }
 
 #font-default{
-    background-image: url(/source/assets/icons/color_lens-24px.svg);
+    background-image: url(/source/assets/icons/auto_awesome-24px.svg);
 }
 
 #font-readable{
-    background-image: url(/source/assets/icons/color_lens-24px.svg);
+    background-image: url(/source/assets/icons/light_mode-24px.svg);
 }
 #font-dsylexic{
-    background-image: url(/source/assets/icons/color_lens-24px.svg);
+    background-image: url(/source/assets/icons/emoji_emotions-24px.svg);
 }

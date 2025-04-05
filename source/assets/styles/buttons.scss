@@ -35,6 +35,7 @@ input[type=radio]{
     min-width: var(--size);
     min-height: var(--size);
     pointer-events: auto;
+    box-sizing: border-box;
 
     transition: 
         var(--time-quick, 90ms) background-color linear,
@@ -242,14 +243,15 @@ a.skip-to-content{
 
 label[for="toggle-midi"]{
 // #toggle-midi{
-    background-image:url("../logos/midi-association.svg");
+    background-image:url("/source/assets/icons/midi-copyright-free.svg");
+    // background-image:url("../logos/midi-association.svg");
     background-repeat: no-repeat;
     background-position: center;
     z-index: 1;
-    position: absolute;
+    // position: absolute;
     padding:0;
-    bottom:var(--pad);
-    left:var(--pad);
+    // bottom:var(--pad);
+    // left:var(--pad);
     color: transparent;
     width: fit-content;
     display: grid;

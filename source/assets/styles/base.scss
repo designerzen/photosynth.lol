@@ -168,21 +168,39 @@ svg[aria-hidden='true'] {
 }
 
 
-// Select gqadget with options ----------------------------------------------
+// Select gadget with options ----------------------------------------------
 :where(
     input[type=select],
     select
 ){
     appearance: none;
-    // color:transparent;
-
-    text-align: center;
+    //text-align: center;
     padding:var(--pad) ;
-    background-color: transparent;
-    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+
+    // simple down triangle
+    // background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    // background-repeat: no-repeat;
+    // background-position-x: 100%;
+    // background-position-y: 50%;
+
+    // icon for the arrow
+    background-image: url("/source/assets/icons/down-chevron.svg");
     background-repeat: no-repeat;
-    background-position-x: 100%;
+    background-position-x: calc(100% - var(--pad) / 2);
     background-position-y: 50%;
+    background-size: 14%;
+    // background-color: transparent;
+    background-color: var(--col-bg);
+    color:var(--col-text);
+
+    display: grid;
+    grid-template-areas: "select icon";
+    grid-template-columns: auto 1fr;
+
+    &[open],
+    &:focus {
+        background-image: url("/source/assets/icons/up-chevron.svg");
+    }
 
     // selected
     &:focus:active{
@@ -191,12 +209,13 @@ svg[aria-hidden='true'] {
     
     &::marker{
         color:white;
+        grid-area: icon;
     }
 
     // Custom arrow
-    // &:not(.select-multiple)::after {
+    // &:not([multiple])::after {
     // 	content: "";
-    // 	justify-self: end;
+    //     grid-area: icon;
     // 	width: 0.8em;
     // 	height: 0.5em;
     // 	background-color: var(--select-arrow, var(--col-accent, black) );
@@ -205,13 +224,8 @@ svg[aria-hidden='true'] {
 
     // hide arrow on Microsoft IE
     &::-ms-expand {
+        grid-area: icon;
         display: none;
-    }
-
-    > * {
-        padding:var(--pad);
-        color:var(--shade-white);
-        background-color: var(--shade-dark);
     }
 
     optgroup{
@@ -222,20 +236,23 @@ svg[aria-hidden='true'] {
     }
 
     option{
+        padding:var(--pad);
+        color:var(--col-text);
+        background-color: var(--col-bg);
+
         text-transform:initial;
         text-align: left;
-        color: var(--shade-white,white);
-        background: black !important;
-        
+        font-weight: 800;
         // border-radius: 2px;
         transition: var(--time-quick, 90ms) all ease-in;
     
         &:hover, &:focus{
-            color:var(--shade-cream);
+            color:var(--col-white);
+            background-color:var(--col-accent);
         }
         &:checked {
-            background: linear-gradient(hsl(242, 61%, 76%), hsl(242, 61%, 71%));
-            // color: black !important;
+            color:var(--col-white);
+            background-color:var(--col-accent);
         }
     }
 
@@ -245,27 +262,18 @@ svg[aria-hidden='true'] {
     }
 }
 
-// Marked text ----------------------------------------------
-::selection,
-:where(mark){
-    // background-color: Highlight;
-    // color: HighlightText;
-    background-color:var(--col-orange);
-    padding:calc( var(--pad) * 1 ) calc( var(--pad) * 2 );
-}
-
 :where(label){
     color:inherit;
 }
 
 :where(input){
-   
     // For iOS < 15 you need to remove the background
     background-color: var(--col-bg, white);
-    padding:0;
+    padding:calc(var(--pad) / 2) calc(var(--pad) / 2);
     margin:0;
     font: inherit;
-    color: currentColor;
+    // color: currentColor;
+    color: var(--col-text);
 }
 
 :where( input, textarea, [contenteditable]) {
@@ -283,10 +291,9 @@ svg[aria-hidden='true'] {
 }
 
 fieldset{
-    border-radius: 12px;
     padding: calc( var(--pad) );
     // padding: calc( var(--pad) / 2 ) calc( var(--pad) );
-    
+    border-radius: var(--curve, 4px);
     // to balance out the legend we have extra lower padding
     padding-bottom: calc( var(--pad) * 2 );
 
@@ -297,10 +304,17 @@ fieldset{
     }
 }
 
-
-
 output{
     display: block;
+}
+
+// Marked text ----------------------------------------------
+::selection,
+:where(mark){
+    // background-color: Highlight;
+    // color: HighlightText;
+    background-color:var(--col-orange);
+    padding:calc( var(--pad) * 1 ) calc( var(--pad) * 2 );
 }
 
 hr{

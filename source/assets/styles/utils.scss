@@ -60,12 +60,29 @@
 
 .full-width{
     max-width: 100%;
+	padding-left:0;
+	padding-right:0;
 }
 
 .full-height{
     min-height: 100vh;
     min-height: 100dvh;
 	background: inherit;
+}
+
+.viewport-height {
+    height: 100%;
+}
+
+
+img.flood{
+	height: calc( 100% - var(--footer-height,0));
+	width: auto;
+	max-height: 100%;
+	position: absolute;
+	left: 50%;
+	top:0;
+	transform: translateX(-50%);
 }
 
 // split into collumns
@@ -117,4 +134,32 @@ figure {
 .glyph-grid-list-char{
 	user-select: all;
 	color:inherit;
+}
+
+.icon-plus {
+    // thickness
+    --b: 10px;
+    --col: #0000 90deg,#000 0; 
+    --size:50px;
+    width: var(--size);
+    height: var(--size);
+    aspect-ratio: 1;
+    background:
+        conic-gradient(from 90deg at var(--b) var(--b),var(--col)) 
+        calc(100% + var(--b)/2) calc(100% + var(--b)/2)/
+        calc(50%  + var(--b))   calc(50%  + var(--b));
+}
+
+.overflow-scroll {
+    --g: radial-gradient(55% 20px, #0009, #0000);  
+
+    overflow: auto;
+    background: 
+        linear-gradient(#fff 10px, #0000 40px calc(100% - 40px),#fff calc(100% - 10px)) local, 
+        var(--g) top   /100% 200%,    
+        var(--g) bottom/100% 200%;
+}
+
+.outline{
+
 }

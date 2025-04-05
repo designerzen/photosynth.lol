@@ -242,7 +242,7 @@ details{
         padding: var(--pad) calc(var(--pad)/2);
         font-weight:bold;
         margin-bottom: var(--pad);
-        border-radius: 4px;
+        border-radius: var(--curve, 4px);
         
         &::after{
             content:'';

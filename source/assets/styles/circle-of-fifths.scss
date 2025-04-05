@@ -3,6 +3,10 @@
     scroll-snap-type: proximity;
     scroll-snap-align: start;
     scroll-snap-stop: always;
+    
+    position: sticky;
+    top:0;
+
     display: grid;
     display: block;
     align-items: end;
@@ -114,6 +118,10 @@
         }
        
         .octave-selector{
+            display: flex;
+            //flex-direction: row-reverse;
+            flex-wrap: wrap;//-reverse;
+
             label:first-of-type{
                 transform: translateY(0px);
             }
