@@ -150,40 +150,55 @@
         </menu>
        
         <img class="logo-royal-society-crest" width="100" height="100" src="/source/assets/logos/royal_society-crest.svg" alt="">
-      
+        
+        <meter id="load-progress" min="0" max="1" value="0" hidden></meter>
     </header>
 
 
 
     <main id="main-content">
 
-        <section id="hero" class="sticky full-width" data-observe data-full-keyboard data-inert>
-            <figure id="hero-figure">
+        <section id="hero" class="sticky full-width" data-observe data-full-keyboard>
+            
+            <figure id="hero-figure" data-inert>
                 <img 
+                    class="flood"
                     width="9000" height="2160"
-                    src="./assets/wallpaper/hero.svg" 
+                    src="./assets/figures/hero-royal-society-smile-powered.svg" 
                     alt="The Photosynth, smile powered music.">
-            <figcaption class="sr-only">Converting happiness into music</figcaption>
+                <figcaption class="sr-only">Converting happiness into music</figcaption>
             </figure>
             
-            <label for="toggle-midi" hidden>
-                MIDI
-                <input type="checkbox" id="toggle-midi" value="midi">
-            </label>
+            <!-- Interactive wallpaper -->
+            <canvas id="wallpaper"></canvas>    
 
         </section>
 
+       
+
+        <!-- Background mask & warnings -->
+        <div id="hero-mask" class="sticky full-width">
+        
+            <img class="flood"
+                width="9000" height="2160"
+                src="./assets/figures/hero-mask-wavy-top-only.svg" 
+                alt="">
+
+        </div>
+
+        <aside class="warning">
+            <h4>Warning</h4>
+            <p>Please be very careful using this website if you are photosensitive</p>
+        </aside> 
 
         <section id="teaser" class="" data-observe>
             <h3 class="underline">Drake Music presents, the <cite>Photo<wbr>SYNTH</cite>, the happiest way to make music!</h3>
 
+            <p>This smile powered synthesizer grants you and your friends radical new musical superpowers!</p>
+            <p>Rather than playing a musical instrument, the PhotoSYNTH plays you!</p>
+            <p>By tracking your movements and emotions in real-time, this magic mirror converts them into beautiful music - making it one of the easiest and most fun synthesizers to play, alone or collaboratively with friends.</p>
+            <p>Working alongside Drake Music Charity who specialize in accessible technology, and under the guidance of hundreds of differently abled people, this multiplayer, collaborative mixed-reality pop music machine finally gives your reflection a purpose; empowering the broadest diversity of people to create expressive music... Instantly! =D</p>
             
-
-
-
-
-
-
             <p>
                 Science, research, innovation and development allow us to augment people's abilities in radical new ways thanks to advancements in neural networking, machine learning and artificial intelligence that have made it possible to elegantly interface with machines in natural and intuitive new ways.
             </p>
@@ -215,6 +230,26 @@
             <p>Come and have a play with some of the newest instruments from the <a href="#amic">Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></a></p>
         </section>
 
+        <!-- MIDI Equipment ------------------------------------------- -->
+        <section id="midi-equipment" class="full-height" data-observe hidden>
+
+            <h3>This site is MIDI Enabled</h3> 
+            <p> If you have any MIDI equipment, connect them now and press the enable MIDI button below.</p>
+            
+            <label for="toggle-midi" hidden>
+                Enable MIDI connection
+                <input type="checkbox" id="toggle-midi" value="midi" class="cta">
+            </label>
+
+            <aside>
+                <h4>MIDI</h4>
+                <p> The universal language of synths, controllers, and electronic instruments, MIDI (Musical Instrument Digital Interface) is a standard for communication between electronic musical devices using either a MIDI cable or, if your instruments supports it, USB cables.</p>
+            </aside>
+
+        </section>
+
+
+
         <section id="about" class="split" data-observe>
 
             <h3>About</h3>
@@ -243,6 +278,8 @@
                 <p class="quote">Music is an unconscious exercise in metaphysics in which the mind is unaware that it is philosophizing.</p>
                 <p class="citation">Arthur Schopenhauer, <cite>The World as Will and Representation</cite></p>
             </blockquote>
+
+            <img src="/source/assets/figures/instant-musical-superpowers-red-square.svg" alt="Instant Musical Superpowers!">
             
             <blockquote class="sticky full-height">
                 <p class="quote">Music is an unconscious exercise in communication in which the mind is unaware that it is being guided.</p>
@@ -269,8 +306,34 @@
 
         </section>
 
+        <!-- Funky audio analyser -->
+        <div id="waveform-visualiser" class="full-height full-width sticky">
+            <canvas id="visualiser" width=800 height=400></canvas>
+            <h3 data-timbre>The Shape of Sound</h3>
+            
+            <form>  
 
+                <label for="song-timbre-random">
+                    <input id="song-timbre-random" class="cta" type="button" value="random">
+                    Random Wave
+                </label>
+                
+                <label for="song-timbre-select">
+                    <select id="song-timbre-select" class="">
+                        <option value="sine">Sine</option>
+                        <option value="square">Square</option>
+                        <option value="sawtooth">Sawtooth</option>
+                        <option value="triangle">Triangle</option>
+                        <option value="noise">Noise</option>
+                    </select>
+                    Select a shape
+                </label>
 
+            </form>
+        </div>
+
+        <!-- Research ------------------------------------------- -->
+      
         <section id="research" class="split" data-observe data-full-keyboard>
             <h3>Research</h3>
 
@@ -311,17 +374,18 @@
             <p>Curiosity killed the cat, but also helped create world changing research.</p>
     
             
-            <figure class="instrument-circular">
-                <figcaption>Circle of Fifths</figcaption>
+            <h4 id="link-chords">Chords & Patterns</h4>
+
+            <figure id="circular-synthesizer" class="instrument-circular">
                 <svg class="circle-of-fifths" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="0 0 406 406">
                     <title>Emotional Circle of Fifths Synthesizer</title>
                    
-                    <!-- Emoji & hit area -->
+                    <!-- Emoji & hit area-->
                     <path 
                         class="fifths-emotion" 
                         d="M277.53,202.85C277.53,243.846 243.796,277.58 202.8,277.58C161.804,277.58 128.07,243.846 128.07,202.85C128.07,161.854 161.804,128.12 202.8,128.12L202.85,128.12C243.827,128.169 277.531,161.873 277.58,202.85L277.53,202.85Z" 
-                    />
-
+                    /> 
+                    <!-- <circle class="fifths-emotion" fill="transparent" cx="204" r="75" cy="203"></circle> -->
                     <text class="fifths-emotion-text" font-family="&quot;noto-emoji&quot;,&quot;Segoe UI Emoji&quot;,sans-serif" font-size="135.757" y="248.79" x="116.5">😌</text>
 
                     <!-- outer circle -->
@@ -360,8 +424,8 @@
                     <path class="fifths-frame" d="M202.85 0C314.7 0 405.7 91 405.7 202.85s-91 202.85-202.85 202.85S0 314.7 0 202.85 91 0 202.85 0ZM62.14 345.33a200.432 200.432 0 0 0 87.65 50.68l15.82-59a139.282 139.282 0 0 1-60.26-34.89l-43.21 43.21Zm275.52-107.66 59 15.82a200.852 200.852 0 0 0 0-101.3l-59 15.82a139.702 139.702 0 0 1 0 69.66ZM202.85 2.5a199.975 199.975 0 0 0-50.65 6.49l15.82 59a139.702 139.702 0 0 1 69.66 0l15.82-59a199.975 199.975 0 0 0-50.65-6.49ZM2.5 202.85a199.975 199.975 0 0 0 6.49 50.65l59-15.82a139.702 139.702 0 0 1 0-69.66l-59-15.82a199.975 199.975 0 0 0-6.49 50.65Zm342.83 140.71a200.43 200.43 0 0 0 50.68-87.66l-59-15.82a139.28 139.28 0 0 1-34.89 60.27l43.21 43.21ZM9.65 255.91a200.44 200.44 0 0 0 50.69 87.65l43.2-43.2a139.28 139.28 0 0 1-34.89-60.27l-59 15.82Zm247.283-108.897 41.785-41.855a137.2 137.2 0 0 0-59.201-34.18l-15.268 57.165-.097.348a77.17 77.17 0 0 1 32.528 18.78l.253-.258ZM202.85 403.2a199.975 199.975 0 0 0 50.65-6.49l-15.82-59a139.702 139.702 0 0 1-69.66 0l-15.82 59a199.975 199.975 0 0 0 50.65 6.49ZM149.79 9.65a200.425 200.425 0 0 0-87.64 50.69l43.2 43.2a139.282 139.282 0 0 1 60.26-34.89l-15.82-59Zm106.12 386.4a200.44 200.44 0 0 0 87.65-50.69l-43.2-43.2a139.28 139.28 0 0 1-60.27 34.89l15.82 59ZM60.37 62.14a200.425 200.425 0 0 0-50.69 87.64l59 15.82a139.282 139.282 0 0 1 34.89-60.26l-43.2-43.2Zm216.68 119.52.4-.09 57.1-15.31a136.775 136.775 0 0 0-34.24-59.15l-42.06 42.06a77.258 77.258 0 0 1 18.8 32.49Zm-149.46 2.27-57.14-15.26a137.215 137.215 0 0 0 0 68.36l57.14-15.36.35-.09a77.154 77.154 0 0 1 0-37.56l-.35-.09Zm150.52 37.84 57.14 15.31a137.215 137.215 0 0 0 0-68.36l-57.14 15.31-.35.09a77.154 77.154 0 0 1 0 37.56l.35.09Zm117.94-71.98a200.425 200.425 0 0 0-50.69-87.64l-43.2 43.2a139.282 139.282 0 0 1 34.89 60.26l59-15.82Zm-174.28-22.2 15.26-57.14a137.215 137.215 0 0 0-68.36 0l15.36 57.14.09.35a77.154 77.154 0 0 1 37.56 0l.09-.35Zm-37.84 150.52-15.31 57.14a137.215 137.215 0 0 0 68.36 0l-15.31-57.14-.09-.35a77.154 77.154 0 0 1-37.56 0l-.09.35Zm40.16-.66 15.31 57.15a136.775 136.775 0 0 0 59.15-34.24l-42.06-42.06A77.231 77.231 0 0 1 224 277.1l.09.35Zm-95.84-53.36L71.1 239.4a136.775 136.775 0 0 0 34.24 59.15l42.06-42.06A77.258 77.258 0 0 1 128.6 224l-.35.09Zm149.28-21.24h.05c-.049-40.977-33.753-74.681-74.73-74.73h-.05c-40.996 0-74.73 33.734-74.73 74.73s33.734 74.73 74.73 74.73 74.73-33.734 74.73-74.73Zm66.03-142.48a200.44 200.44 0 0 0-87.65-50.69l-15.82 59a139.28 139.28 0 0 1 60.27 34.89l43.2-43.2Zm-194.71 198.2-41.79 41.78a136.775 136.775 0 0 0 59.15 34.24l15.31-57.14.09-.35a77.258 77.258 0 0 1-32.49-18.8l-.27.27Zm109.72-1.72 41.78 41.79a136.775 136.775 0 0 0 34.24-59.15l-57.14-15.31-.35-.09a77.231 77.231 0 0 1-18.8 32.49l.27.27Zm-76.96-128.6L166.3 71.1a136.775 136.775 0 0 0-59.15 34.24l42.06 42.06a77.231 77.231 0 0 1 32.49-18.8l-.09-.35Zm-34.48 20.6-41.78-41.74a136.775 136.775 0 0 0-34.24 59.15l57.14 15.26.35.09a77.231 77.231 0 0 1 18.8-32.49l-.27-.27Z"/>
                 </svg>
 
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit nulla labore non mollitia architecto necessitatibus dolor voluptates atque dicta voluptas dolorem, laborum corrupti incidunt aspernatur nihil. Tenetur alias in quis?</p>
-
+                <figcaption>Circle of Fifths</figcaption>
+              
                 <form id="emotion">
                 
                     <fieldset class="octave-selector">
@@ -474,6 +538,7 @@
                     <label for="emotion-ionian">
                         <input id="emotion-ionian" type="radio" name="emotion" value="Ionian">
                         <span class="emoji major" aria-hidden="true">😐</span>
+                        <span class="emoji minor" aria-hidden="true">😐</span>
                         <span class="emotion sr-only major">Surprise</span> 
                         Ionian
                     </label>
@@ -481,6 +546,7 @@
                     <label for="emotion-dorian">
                         <input id="emotion-dorian" type="radio" name="emotion" value="Dorian">
                         <span class="emoji major" aria-hidden="true">🥹</span>
+                        <span class="emoji minor" aria-hidden="true">🥺</span>
                         <span class="emotion sr-only major">Surprise</span> 
                         Dorian
                     </label>
@@ -488,20 +554,23 @@
                     <label for="emotion-phrygian">
                         <input id="emotion-phrygian" type="radio" name="emotion" value="Phrygian">
                         <span class="emoji major" aria-hidden="true">🫤</span>
+                        <span class="emoji minor" aria-hidden="true">😕</span>
                         <span class="emotion sr-only major">Surprise</span> 
                         Phrygian
                     </label>
 
                     <label for="emotion-lydian">
                         <input id="emotion-lydian" type="radio" name="emotion" value="Lydian">
-                        <span class="emoji major" aria-hidden="true">🧐</span>
+                        <span class="emoji major" aria-hidden="true">😗</span>
+                        <span class="emoji minor" aria-hidden="true">😳</span>
                         <span class="emotion sr-only major">Surprise</span> 
                         Lydian
                     </label>
 
                     <label for="emotion-mixolydian">
                         <input id="emotion-mixolydian" type="radio" name="emotion" value="Mixolydian">
-                        <span class="emoji major" aria-hidden="true">😁</span>
+                        <span class="emoji major" aria-hidden="true">😊</span>
+                        <span class="emoji minor" aria-hidden="true">😖</span>
                         <span class="emotion sr-only major">Jolly</span> 
                         Mixolydian
                     </label>
@@ -509,13 +578,15 @@
                     <label for="emotion-aeolian">
                         <input id="emotion-aeolian" type="radio" name="emotion" value="Aeolian">
                         <span class="emoji major" aria-hidden="true">😲</span>
+                        <span class="emoji minor" aria-hidden="true">😱</span>
                         <span class="emotion sr-only major">Surprise</span> 
                         Aeolian
                     </label>
 
                     <label for="emotion-locrian">
                         <input id="emotion-locrian" type="radio" name="emotion" value="Locrian">
-                        <span class="emoji major" aria-hidden="true">😬</span>
+                        <span class="emoji major" aria-hidden="true">😛</span>
+                        <span class="emoji minor" aria-hidden="true">😬</span>
                         <span class="emotion sr-only major">Fearful</span> 
                         Locrian
                     </label>
@@ -534,9 +605,12 @@
                 </output>
 
             </form>
-        
+            <a href="#link-chords" class="cta">Return to the circular synthesizer</a>
+            <!-- <a href="#circular-synthesizer" class="cta">Return to the circular synthesizer</a> -->
         </section>
-
+        
+        <!-- Technology ------------------------------------------- -->
+      
         <section id="technology" class="split" data-observe>
             <h3>Technology</h3>
             <p>Computers are very good at recognising patterns. 
@@ -558,6 +632,8 @@
             </p>
         </section>
 
+        <!-- AMIC ------------------------------------------- -->
+      
         <section id="amic"  class="split" data-observe>
 
             <h3>Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h3>
@@ -565,7 +641,12 @@
             <p>Over 14 years, working directly with disabled artists and people with no musical abilities, DMLab has been researching ways to grant musical superpowers through research and technology.</p>
           
             <figure class="sticky bumpers">
-                <img src="/source/assets/photos/amic-photosyntn-holographic.jpg" alt="The Holographic PhotoSYNTH being presented at the AMIC, Accessible Musical Instrument Collection.">
+                <picture>
+                    <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=avif&width=1080" type="image/avif" />
+                    <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=webp&width=1080" type="image/webp" />
+                    <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" type="image/jpeg" />
+                    <img src="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" alt="The Holographic PhotoSYNTH being presented at the AMIC, Accessible Musical Instrument Collection." />
+                </picture>
                 <figcaption>AMIC. Holographic PhotoSYNTH.</figcaption>
             </figure>
           
@@ -605,7 +686,8 @@
             </p>
         </section>
 
-        
+        <!-- DMLab ------------------------------------------- -->
+      
         <section  id="laboratory" data-observe>
             
             <article class="sticky">
@@ -680,12 +762,9 @@
             </aside>
         </section>
 
-
-        <section id="faq">
-            <h3>History</h3>
-            <p>Created by</p>
-        </section>
-
+   
+        <!-- History ------------------------------------------- -->
+      
 
         <section id="history" data-observe>
             <h3>History</h3>
@@ -702,10 +781,8 @@
                     <source srcset="/source/assets/photos/emf-photosynth4d.jpg?as=avif&width=1080" type="image/avif" />
                     <source srcset="/source/assets/photos/emf-photosynth4d.jpg?as=webp&width=1080" type="image/webp" />
                     <source srcset="/source/assets/photos/emf-photosynth4d.jpg?width=1080" type="image/jpeg" />
-                    <img src="/source/assets/photos/emf-photosynth4d.jpg?width=1080" alt="test image" />
-                  </picture>
-
-                <img src="/source/assets/photos/emf-photosynth4d.jpg" alt="The Holographic PhotoSYNTH 4D being played at Electromagnetic Fields.">
+                    <img src="/source/assets/photos/emf-photosynth4d.jpg?width=1080" alt="The Holographic PhotoSYNTH 4D being played at Electromagnetic Fields." />
+                </picture>
                 <figcaption>Holographic PhotoSYNTH 4D being played at Electromagnetic Fields</figcaption>
             </figure>
 
@@ -739,7 +816,8 @@
             </details>
         </section>
 
-
+        <!-- Event ------------------------------------------- -->
+      
         <section id="event" class="sticky">
 
             <h3>Come and join us for a fun musical celebration of diversity, inclusive technology and science!</h3>
@@ -796,6 +874,14 @@
                 </dl>
             </aside>
         </section>
+
+
+    <!-- Frequently Asked Questions ------------------------------------------- -->
+        <section id="faq">
+            <h3>FAQ</h3>
+            <p></p>
+        </section>
+
 
     </main>
 
@@ -865,20 +951,6 @@
 
     <a href="#" class="back-to-top button">Back to Top</a>
 
-    <!-- Interactive wallpaper -->
-    <canvas id="wallpaper"></canvas>    
-
-    <!-- Funky audio analyser -->
-    <div id="waveform-visualiser">
-        <h5 data-timbre></h5>
-        <label for="song-timbre-random">
-            <input id="song-timbre-random" class="cta" type="button" value="random">
-            Random Wave
-        </label>
-
-        <canvas id="visualiser" width=800 height=200></canvas>
-    </div>
-   
     <!-- Password protection -->
     <form id="pass" class="coming-soon">
         <label for="password">
