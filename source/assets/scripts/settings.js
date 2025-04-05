@@ -94,12 +94,17 @@ export const PALETTE = {
 
 
 export const VISUALISER_OPTIONS = {
+    backgroundColour:PALETTE.stoneLight,
     lineColour:PALETTE.red,
     lineWidth:3
 }
 
 export const DEFAULT_PASSWORD = "dm"
 
+
+ // Charles Goes Dancing At Every Big Fun Celebration.
+// From G D A E B...
+   
 // const FIFTHS_LYDIAN = [0,1,1,1,1,1]
 // const FIFTHS_IONIAN = [0,1,1,1,1,5]
 
