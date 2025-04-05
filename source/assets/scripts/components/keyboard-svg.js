@@ -52,7 +52,7 @@ export default class SVGKeyboard extends AbstractInteractive{
 	}
 
     getNoteFromKey( button){
-        const noteNumber = parseInt( button.getAttribute("data-attribute-number") )
+        const noteNumber = parseInt( button.getAttribute("data-number") )
         const note = this.notes[noteNumber - this.firstNoteNumber]
         console.info("noteNumber", noteNumber, note, this.notes )
         return note
@@ -71,12 +71,12 @@ export default class SVGKeyboard extends AbstractInteractive{
 					class="piano-key piano-key-black" 
 					width="${width}" height="${height}" 
 					title="${key.noteName}" 
-                    data-attribute-key="${key.noteKey}" 
-					data-attribute-note="${key.noteName}" 
-					data-attribute-number="${key.noteNumber}" 
-					data-attribute-frequency="${key.frequency}"
-					data-attribute-key="${key.noteKey}"
-					data-attribute-octave="${key.octave}"
+                    data-key="${key.noteKey}" 
+					data-note="${key.noteName}" 
+					data-number="${key.noteNumber}" 
+					data-frequency="${key.frequency}"
+					data-key="${key.noteKey}"
+					data-octave="${key.octave}"
 					>
 				</rect>`
 	}
@@ -89,11 +89,11 @@ export default class SVGKeyboard extends AbstractInteractive{
 					class="piano-key piano-key-white" 
 					width="${width}" height="${height}" 
 					title="${key.noteName}" 
-					data-attribute-key="${key.noteKey}" 
-					data-attribute-note="${key.noteName}" 
-					data-attribute-number="${key.noteNumber}" 
-					data-attribute-frequency="${key.frequency}"
-					data-attribute-octave="${key.octave}"
+					data-key="${key.noteKey}" 
+					data-note="${key.noteName}" 
+					data-number="${key.noteNumber}" 
+					data-frequency="${key.frequency}"
+					data-octave="${key.octave}"
 					>
 				</rect>`
 	}
@@ -112,10 +112,10 @@ export default class SVGKeyboard extends AbstractInteractive{
 					cy="${y}" 
 					r="${r}" 
 					class="piano-note-indicator" 
-					data-attribute-note="${key.noteName}" 
-					data-attribute-number="${key.noteNumber}" 
-					data-attribute-frequency="${key.frequency}"
-					data-attribute-octave="${key.octave}"
+					data-note="${key.noteName}" 
+					data-number="${key.noteNumber}" 
+					data-frequency="${key.frequency}"
+					data-octave="${key.octave}"
 					>
 				</circle>`
 	}
@@ -214,7 +214,7 @@ export default class SVGKeyboard extends AbstractInteractive{
 	 * @param {Number} noteNumber 
 	 */
 	setKeyAsActive( noteNumber ){
-		const key = this.htmlElement.querySelector('[data-attribute-number="'+noteNumber+'"]')
+		const key = this.htmlElement.querySelector('[data-number="'+noteNumber+'"]')
 		// const key = this.keyElements[noteNumber - this.firstNoteNumber]
 		if (key)
 		{
@@ -229,7 +229,7 @@ export default class SVGKeyboard extends AbstractInteractive{
 	 * @param {Number} noteNumber 
 	 */
 	setKeyAsInactive( noteNumber ){
-		const key = this.htmlElement.querySelector('[data-attribute-number="'+noteNumber+'"]')
+		const key = this.htmlElement.querySelector('[data-number="'+noteNumber+'"]')
 		// const key = this.keyElements[noteNumber - this.firstNoteNumber]
 		if (key)
 		{

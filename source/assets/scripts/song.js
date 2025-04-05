@@ -20,7 +20,7 @@ export default class Song {
     }
 
     // convert the note name to the midi number
-    // 60  is note 60
+    // 69 is middle G4
     // convert a letter and an octave to a noteNumber
     // A4, G4 -> 69
     convertNoteLetterToNoteNumber(noteLetter, octave=4){
