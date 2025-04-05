@@ -1,12 +1,13 @@
 const DEFAULT_OPTIONS = {
     backgroundColour:false,
-    lineColour:"rgb(255, 0, 0)",
+    lineColour:false, //"rgb(255, 0, 0)",
     lineWidth:3,
     fftSize: 512    // 2048
 }
 
 export default class AudioVisualiser{
 
+    options
     ctx
     canvas
     width
@@ -16,6 +17,14 @@ export default class AudioVisualiser{
 
     bufferLength
     dataArray 
+
+    count = 0
+
+    set colour(value){
+        this.options.lineColour = value
+        this.count = 0
+        console.info("vis col", value, this.options)
+    }
 
     constructor( canvasContext, audioContext, inputAudioNode, options=DEFAULT_OPTIONS ){
         
@@ -85,7 +94,7 @@ export default class AudioVisualiser{
     drawWaveform(){
 
         const sliceWidth = this.width / this.bufferLength
-        const h = (this.height / 2)
+        // const h = (this.height / 2)
 
         // this.fetchFrequencyData()
         this.fetchByteTimeDomainData()
@@ -95,14 +104,16 @@ export default class AudioVisualiser{
 
         let x = 0
 
+        this.count = (this.count + 1) % 4096
+
         // console.info("updating visualiser", this.dataArray)
         for (let i=0; i<this.bufferLength; ++i)
         {
             const band = this.dataArray[i]
 
             // Remap 0 -> 128 to 0 -> 1
-            const v = band / 128
-            const y = v * this.verticalCentre   // this is just a factor to reduce for clipping
+            const ratio = band / 128
+            const y = ratio * this.verticalCentre   // this is just a factor to reduce for clipping
           
             if (i === 0) {
                 this.path.moveTo(x, y)
@@ -117,10 +128,17 @@ export default class AudioVisualiser{
 
         // paint
         this.clear( this.options.backgroundColour )
-        
+         
         // choose colour and size
         this.ctx.lineWidth = this.options.lineWidth
-        this.ctx.strokeStyle = this.options.lineColour
+
+        if (this.options.lineColour && this.count > 1028 )
+        {
+            // cycle colours
+            this.ctx.strokeStyle = `hsla(${this.count%256}, 90%, 20%, 0.9)`
+        }else{
+            this.ctx.strokeStyle = this.options.lineColour
+        }
         
         this.ctx.stroke(this.path)
     }
