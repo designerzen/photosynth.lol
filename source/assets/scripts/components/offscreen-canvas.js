@@ -1,31 +1,39 @@
+import { VISUALISER_OPTIONS } from "../settings"
+
 let notes
 let firstNoteNumber
-
-let canvas
-let context
-
-let mirror
-let mirrorContext
 
 let loop = false
 let vertical = false
 let wave = 0
 
+// Canvases
+let canvas
+let context
+let mirror
+let mirrorContext
+
 // size of the inital note that is smeared
 let noteSize
+const noteDepth = 10
 
-// size of the cloner
-const size = 10
+const overlap = 1
 
-// size to overlap
-const gap = 50 //6
+// size to overlap smear
+const gap = noteDepth - overlap
 
+// timer
 let counter = 0
 
+
+/**
+ * SCROLL / Smear horizontally
+ * @param {Number} time 
+ */
 function renderVertical(time) {
     const lurch = wave === 0 ? 
-    0 : 
-    this.wave * (Math.sin(this.counter++ * 0.05))
+        0 : 
+        this.wave * (Math.sin(this.counter++ * 0.05))
 
     // copy the canvas to the mirror
     mirrorContext.drawImage( canvas, 0, 0, mirror.width, mirror.height, 0, 0, mirror.width, mirror.height ) 
@@ -35,6 +43,10 @@ function renderVertical(time) {
     // context.drawImage( mirror, 0, 0, mirror.width, mirror.height, lurch, gap, mirror.width, mirror.height )
 }
 
+/**
+ * SCROLL / Smear horizontally
+ * @param {Number} time 
+ */
 function renderHorizontal(time) {
     const lurch = 0
 
@@ -47,16 +59,17 @@ function renderHorizontal(time) {
     // redraw the context from the mirror
 
     // context.drawImage( canvas, 0, gap, canvas.width, canvas.height-gap, lurch, 0, canvas.width, canvas.height-gap )
-    console.info("renderHorizontal",0, 0, mirror.width, mirror.height, 0, 0, mirror.width, mirror.height )
+    // console.info("renderHorizontal",0, 0, mirror.width, mirror.height, 0, 0, mirror.width, mirror.height )
     // console.info("renderHorizontal", mirror.width, mirror.height, canvas.width, canvas.height )
 }
 
 function render() {
-    vertical ? renderVertical(counter) : renderHorizontal(counter)
+    vertical ? 
+        renderVertical(counter) : 
+        renderHorizontal(counter)
  
     counter = counter+1 % 999
-    // console.info("render", counter)
-
+  
     // context.fillStyle = "#ff0000"
     // context.fillRect( 
     //     Math.random() * 400, 
@@ -70,15 +83,21 @@ function render() {
     }
 }
 
-const determineNoteSize = () => {
-    noteSize = vertical ? 
+const determineNoteSize = (isVertical) => {
+    return isVertical ? 
         Math.floor(canvas.width / notes.length) : 
         Math.floor(canvas.height / notes.length)
 }
 
+const determineMirrorSize = (isVertical) => {
+    return isVertical ?
+        { width:canvas.width, height:canvas.height - gap} :
+        { width:canvas.width - gap, height:canvas.height} 
+}
+
 onmessage = (evt) => {
 
-    console.error("NOTEVIZ worker message", evt)
+    // console.error("NOTEVIZ worker message", evt)
 
     if (evt.data.canvas)
     {
@@ -89,19 +108,19 @@ onmessage = (evt) => {
         firstNoteNumber = notes[0].number
         // console.info("firstNoteNumber", firstNoteNumber, notes[0], {notes})
 
+        const mirrorDimensions = determineMirrorSize(vertical)
+      
         // clone the canvas
-        mirror = vertical ? 
-            new OffscreenCanvas(canvas.width, canvas.height - gap) :
-            new OffscreenCanvas(canvas.width - gap, canvas.height)
+        mirror = new OffscreenCanvas( mirrorDimensions.width, mirrorDimensions.height )
 
         mirrorContext = mirror.getContext('2d')
     
-        determineNoteSize()
+        noteSize = determineNoteSize(vertical)
 
         loop = true
         render()
         
-        console.info("mirror created", canvas.width, canvas.height , notes.length, {firstNoteNumber, mirror, canvas, context, mirrorContext, noteSize, notes })
+        // console.info("mirror created", canvas.width, canvas.height , notes.length, {firstNoteNumber, mirror, canvas, context, mirrorContext, noteSize, notes })
 
         return
     }
@@ -116,31 +135,39 @@ onmessage = (evt) => {
             context.fillStyle = evt.data.colour
             if (vertical)
             {
-                context.fillRect( transposedNoteNumber * noteSize, canvas.height - size, noteSize, size )
+                context.fillRect( transposedNoteNumber * noteSize, canvas.height - noteDepth, noteSize, noteDepth )
             }else{
-                context.fillRect( 0, transposedNoteNumber * noteSize, size, noteSize ) 
+                context.fillRect( 0, transposedNoteNumber * noteSize, noteDepth, noteSize ) 
             }
-            console.info("VIZ:noteOn", evt.data.note, {firstNoteNumber, transposedNoteNumber}, notes[0], {notes} ) 
-            // console.info("VIZ:noteOn", evt.data, evt.data.colour, {transposedNoteNumber, noteSize, size, vertical},  transposedNoteNumber * noteSize, canvas.height - size, noteSize, size, ':',  0, transposedNoteNumber * noteSize, size, noteSize )
+            // console.info("VIZ:noteOn", evt.data.note, {firstNoteNumber, transposedNoteNumber}, notes[0], {notes} ) 
             break
 
         case "noteOff":
+            context.fillStyle = VISUALISER_OPTIONS.backgroundColour
             if (vertical)
             {
-                context.clearRect( transposedNoteNumber * noteSize, canvas.height - gap, noteSize, gap )
+                // context.clearRect( transposedNoteNumber * noteSize, canvas.height - gap, noteSize, gap )
+                context.fillRect( transposedNoteNumber * noteSize, canvas.height - gap, noteSize, gap )
             }else{
-                context.clearRect( 0, transposedNoteNumber * noteSize, gap, noteSize ) 
-            }
-            console.info("VIZ:noteOff", evt.data, transposedNoteNumber )
+                // context.clearRect( 0, transposedNoteNumber * noteSize, gap, noteSize ) 
+                context.fillRect( 0, transposedNoteNumber * noteSize, gap, noteSize ) 
+             }
+            //console.info("VIZ:noteOff", evt.data, transposedNoteNumber )
             break
 
         case "resize":
+            // FIXME: If we are on a 4k screen this may be a huge width
+            // so we should have a divison factor to scale the canvas for
+            // higher than 2048 then divide the size by 2 and use CSS to scale it
             canvas.width = evt.data.displayWidth
             canvas.height = evt.data.displayHeight
-            mirror.width = evt.data.displayWidth
-            mirror.height = evt.data.displayHeight
-            determineNoteSize()
-            console.error("mirror", noteSize, evt.data.displayWidth, evt.data.displayHeight, canvas.width, canvas.height )
+            
+            const mirrorDimensions = determineMirrorSize(vertical)
+            mirror.width = mirrorDimensions.width
+            mirror.height = mirrorDimensions.height
+            
+            noteSize = determineNoteSize(vertical)
+            //console.error("mirror", noteSize, evt.data.displayWidth, evt.data.displayHeight, canvas.width, canvas.height )
             break
     }
 }
