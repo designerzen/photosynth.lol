@@ -1,5 +1,5 @@
 import { TUNING_MODE_NAMES } from "../chords"
-import { EMOJI_SEQUENCE, TUNING_MODE_EMOJIS } from "../emoji"
+import { EMOJI_SEQUENCE, getEmojiForScaleAndMode, TUNING_MODE_EMOJIS_MAJOR } from "../emoji"
 import { addThemeSelectionOptions } from "../theme"
 import AbstractInteractive from "./abstract-interactive"
 
@@ -10,6 +10,7 @@ export default class CircleSynth extends AbstractInteractive{
     octave = 4
 
     modeIndex = 0
+    scaleType = null
 
     set happiness(value){
         const emoji = EMOJI_SEQUENCE[ Math.round(value * EMOJI_SEQUENCE.length )]
@@ -19,8 +20,7 @@ export default class CircleSynth extends AbstractInteractive{
 
     set mode( value){
         this.modeIndex = value
-        this.emoji.textContent = TUNING_MODE_EMOJIS[value%TUNING_MODE_EMOJIS.length]
-        console.log("EMOJI", value, TUNING_MODE_EMOJIS[value%TUNING_MODE_EMOJIS.length])
+        this.setEmoji()
     }
 
     get mode(){
@@ -29,6 +29,19 @@ export default class CircleSynth extends AbstractInteractive{
 
     get modeName(){
         return TUNING_MODE_NAMES[this.modeIndex]
+    }
+
+    /**
+     * Musical Scale such as Major or Minor
+     */
+    set scale( musicalScale) {
+        this.scaleType = musicalScale
+        console.info("Scale", musicalScale )
+        this.setEmoji()
+    }
+
+    get scale() {
+        return this.scaleType
     }
 
     constructor( notes, noteOn, noteOff, setMode ){
@@ -49,6 +62,12 @@ export default class CircleSynth extends AbstractInteractive{
         this.addInteractivity( this.keyElements, chordOn, chordOff )  
         this.addControls( setMode )
 	}
+
+    setEmoji(){
+        const emoji = getEmojiForScaleAndMode( this.scaleType, this.modeIndex )
+        this.emoji.textContent = emoji
+        console.log("Emoji", emoji)
+    }
 
     addControls( setMode ){
         this.octaveSelector = this.element.querySelectorAll("input[name=octave]")
@@ -85,7 +104,7 @@ export default class CircleSynth extends AbstractInteractive{
     }
 
     getNoteFromKey( button){
-        const noteNumber = parseInt( button.getAttribute("data-attribute-number") )
+        const noteNumber = parseInt( button.getAttribute("data-number") )
         const octaveOffset = this.octave * 12
         const note = this.notes[noteNumber + octaveOffset]
         // console.info("noteNumber", noteNumber, note, this.notes )
@@ -97,10 +116,10 @@ export default class CircleSynth extends AbstractInteractive{
         const keys = htmlElementKeys.map((path, i)=>{
             i = (i+offset)%notes.length
             const note = notes[i]
-            path.setAttribute("data-attribute-key", note.noteKey)
-            path.setAttribute("data-attribute-number", i) // note.noteNumber
-            path.setAttribute("data-attribute-note", note.noteNumber )
-            path.setAttribute("data-attribute-name", note.noteName)
+            path.setAttribute("data-key", note.noteKey)
+            path.setAttribute("data-number", i) // note.noteNumber
+            path.setAttribute("data-note", note.noteNumber )
+            path.setAttribute("data-name", note.noteName)
             this.noteLibrary.set( path, notes[i] )
             return path
         })

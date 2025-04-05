@@ -40,7 +40,7 @@ export default class AbstractInteractive{
 
         		const note = this.getNoteFromKey(button)
 		
-				// noteName = button.getAttribute("data-attribute-note")
+				// noteName = button.getAttribute("data-note")
 				// convert name into MIDI note number
 				// const note = convertNoteNameToMIDINoteNumber(noteName)
 				
@@ -51,7 +51,7 @@ export default class AbstractInteractive{
                 
                 this.isTouching = true
 				
-				// starting & document.querySelector(`.indicator[data-attribute-note="${noteName}"]`)?.classList?.toggle("active", true)
+				// starting & document.querySelector(`.indicator[data-note="${noteName}"]`)?.classList?.toggle("active", true)
 			
 				document.addEventListener("mouseleave", onInterationComplete, {signal: controller.signal, passive: true})
 				document.addEventListener("mouseup", onInterationComplete, {signal: controller.signal, passive: true})
@@ -76,7 +76,7 @@ export default class AbstractInteractive{
 				this.isTouching = false
 				previousNote = null
 				
-				// document.querySelector(`.indicator[data-attribute-note="${noteName}"]`)?.classList?.toggle("active", false)
+				// document.querySelector(`.indicator[data-note="${noteName}"]`)?.classList?.toggle("active", false)
 			}
 		
 			button.addEventListener("touchstart", onPianoInteractionStarting, {signal: controller.signal,passive}) 
@@ -92,8 +92,8 @@ export default class AbstractInteractive{
 				if (this.isTouching)
 				{	
 					const note = this.getNoteFromKey(button)
-					// document.querySelector(`.indicator[data-attribute-note="${previousNote}"]`)?.classList?.toggle("active", false)
-					// document.querySelector(`.indicator[data-attribute-note="${noteName}"]`)?.classList?.toggle("active", true)
+					// document.querySelector(`.indicator[data-note="${previousNote}"]`)?.classList?.toggle("active", false)
+					// document.querySelector(`.indicator[data-note="${noteName}"]`)?.classList?.toggle("active", true)
 										
 					// console.info("REQUEST CHANGE", {note, noteName,GENERAL_MIDI_INSTRUMENTS})
 					// pitch bend!
@@ -117,7 +117,7 @@ export default class AbstractInteractive{
                 }
 
 				// this.isTouching = false
-				// document.querySelector(`.indicator[data-attribute-note="${noteName}"]`)?.classList?.toggle("active", false)
+				// document.querySelector(`.indicator[data-note="${noteName}"]`)?.classList?.toggle("active", false)
 			}, {signal: controller.signal, passive })
 		
 			// button.addEventListener("mouseup", event => {
