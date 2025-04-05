@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 3840 2160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="Background-flares" serif:id="Background flares">
+        <g transform="matrix(-1,0,0,1.472,3840,-3.24523)">
+            <path d="M2617.32,431.678L2616.84,718.293L3840,0L2618.04,0L2618.03,2.205L2892.63,2.205L2617.32,431.678Z" style="fill:rgb(235,235,235);"/>
+        </g>
+        <g transform="matrix(1,0,0,1.472,11.9616,10.2775)">
+            <path d="M2617.32,431.678L2616.84,718.293L3840,0L2618.04,0L2618.03,2.205L2892.63,2.205L2617.32,431.678Z" style="fill:rgb(235,235,235);"/>
+        </g>
+        <g transform="matrix(1,0,0,-1,11.9616,2160)">
+            <path d="M2619.11,0L2618.04,0L2616.84,718.293L3840,0L2907.24,0L2618.83,473.1L2619.11,0Z" style="fill:rgb(235,235,235);"/>
+        </g>
+        <g transform="matrix(-1,0,0,-1,3840,2160)">
+            <path d="M2617.16,524.887L2937.14,0L3840,0L2616.84,718.293L2617.16,524.887Z" style="fill:rgb(235,235,235);"/>
+        </g>
+        <g transform="matrix(0.869067,0,0,0.428581,0,707.068)">
+            <path d="M0,1699.83L0,598.155L1223.16,1147.23L0,1699.83Z" style="fill:rgb(235,235,235);"/>
+        </g>
+        <g transform="matrix(-0.869067,0,0,0.428581,3846.22,707.068)">
+            <path d="M0,1699.83L0,598.155L1223.16,1147.23L0,1699.83Z" style="fill:rgb(235,235,235);"/>
+        </g>
+    </g>
+</svg>
