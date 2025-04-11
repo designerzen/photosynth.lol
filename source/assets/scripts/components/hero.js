@@ -11,25 +11,43 @@ export default class Hero extends AbstractInteractive{
         
         this.hero = document.getElementById("hero")
         this.figure = document.getElementById("hero-figure")
+        // this.mask = document.getElementById("introduction")
+        this.mask = document.getElementById("main-content")
 
         this.notes = notes
-        this.keyElements = this.addNotesToDOM(noteQuantity)
+        this.keyElements = this.addNotesToDOM(this.mask, noteQuantity)
 		
         this.addInteractivity( this.keyElements, noteOn, noteOff )  
     }
 
-    addNotesToDOM( quantity ){
+    // Add 10 notes to the DOM in the specific element
+    addNotesToDOM( parent, quantity ){
         const elements = []
+        const fragment = document.createDocumentFragment()
+        const group = document.createElement("div")
         for (let index=0; index<quantity; ++index){
             const i = document.createElement("i")
             i.className = "note-animated"
             i.setAttribute("aria-hidden", "true")
-            this.figure.appendChild(i)
+            group.appendChild(i)
             elements.push(i)
         }
+
+        group.className = "overlaid-notes"
+        group.setAttribute("aria-hidden", true)
+        group.setAttribute("inert", true)
+        fragment.appendChild(group)
+        parent.appendChild(fragment)
+
         return elements
     }
 
+    /**
+     * 
+     * @param {Note} note 
+     * @param {Number} velocity 
+     * @param {String} id 
+     */
     noteOn( note, velocity=1, id=0 ){
 
         const noteElement = this.keyElements[this.noteIndex]
@@ -53,6 +71,12 @@ export default class Hero extends AbstractInteractive{
         })
     }
 
+    /**
+     * 
+     * @param {Note} note 
+     * @param {Number} velocity 
+     * @param {String} id 
+     */
     noteOff( note, velocity=1, id=0 ){
         // this.hero.classList.remove("active")
         // this.figure.classList.remove("active")

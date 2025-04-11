@@ -1,4 +1,4 @@
-export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffCallback=null) => {
+export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffCallback=null, onNoteChange=null) => {
 
     const controller = new AbortController()
     const canvas = document.getElementById("wallpaper")
@@ -77,12 +77,14 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
      */
     const onInteractionMoving = e => {
 
+        const id = e.pointerId ?? 0
+        
         if (activeNotes.size === 0){
+            const note = convertPositionToNote(e)
+            onNoteChange && onNoteChange(note, id)
             return
             console.info("ignoring mouse move", { e,  synth })
         }
-
-        const id = e.pointerId ?? 0
 
         // Note: if the user makes more than one "simultaneous" touches, most browsers
         // fire at least one touchmove event and some will fire several touch moves.

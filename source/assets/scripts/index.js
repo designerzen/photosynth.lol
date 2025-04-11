@@ -7,7 +7,7 @@ import { setFont } from "./fonts"
 // audio
 import { AudioContext, OfflineAudioContext } from 'standardized-audio-context'
 import { enableMIDI, mapped, toChord, toNote } from "./audio"
-import { createChord, createFifthsChord, createMajorChord, createMinorChord, getModeAsIntegerOffset, getModeFromIntegerOffset, MAJOR_CHORD_INTERVALS, TUNING_MODE_NAMES } from "./chords"
+import { createChord, createFifthsChord, createMajorChord, createMinorChord, getModeAsIntegerOffset, getModeFromIntegerOffset, MAJOR_CHORD_INTERVALS, MINOR_CHORD_INTERVALS, TUNING_MODE_NAMES } from "./chords"
 import { registerMultiTouchSynth } from "./components/multi-touch-synth"
 import CircleSynth from "./components/circle-synth"
 
@@ -17,21 +17,20 @@ import { getAllWaveTables, getRandomWaveTableName, loadWaveTableFromArchive, pre
 import Note from "./note"
 import Song from "./song"
 
-import { ASTLEY } from "./songs"
-
-import WAVE_ARCHIVE_GENERAL_MIDI from "url:/static/wave-tables/general-midi.zip"
-import WAVE_ARCHIVE_GOOGLE from "url:/static/wave-tables/google.zip"
-
 // DOM
 import Hero from "./components/hero"
 import NoteVisualiser from "./components/note-visualiser"
 import AudioVisualiser from "./components/audio-visualiser"
 import SVGKeyboard from "./components/keyboard-svg"
+import { monitorIntersections } from "./intersection-observer"
+import { handlePasswordProtection, selectRadioButton, setCurrentYear, updateScaleUI, updateTimbreUI } from "./ui"
 
 // data
 import { CICRLE_INTERVALS, DEFAULT_PASSWORD, PALETTE, VISUALISER_OPTIONS } from "./settings"
-import { monitorIntersections } from "./intersection-observer"
-import { changeUIText, handlePasswordProtection, selectRadioButton, setCurrentYear, updateScaleUI, updateTimbreUI } from "./ui"
+import { ASTLEY, getRandomSong } from "./songs"
+import WAVE_ARCHIVE_GENERAL_MIDI from "url:/static/wave-tables/general-midi.zip"
+import WAVE_ARCHIVE_GOOGLE from "url:/static/wave-tables/google.zip"
+import { MouseVisualiser } from "./components/mouse-visualiser"
 
 // read any saved themes from the URL ONLY (not from cookies so no overlay required :)
 const searchParams = new URLSearchParams(location.search)
@@ -45,10 +44,15 @@ let audioContext = null
 let limiter = null
 let mixer = null
 
+let song = null
+let playingNote = null
+let playingChord = null
+
 // Shared DOM elements
 let hero
 let noteVisualiser
 let shapeVisualiser
+let mouseVisualiser
 let circles
 let keyboard 
 
@@ -70,15 +74,14 @@ const SCALES = [
     "Minor"
 ]
 
-const preloadWaveTablesFromZip = (zipURL) => {
+
+const preloadWaveTablesFromZip = async (zipURL) => {
     const meter = document.getElementById("load-progress")
-    console.info("WAVE_TABLES", zipURL)
-    loadWaveTableFromArchive(zipURL, (progress, fileName, file)=>{
+    const data = await loadWaveTableFromArchive(zipURL, (progress, fileName, file)=>{
         console.info("zip", {progress, fileName, file })
         meter.value = progress
-    }).then( data => {
-        console.info("ZIP WAVE data", data)
     })
+    console.info("ZIP WAVE data", data)
 }
 
 
@@ -206,9 +209,10 @@ const noteOn = (noteModel, velocity=1, id=0 ) => {
     keyboard.setKeyAsActive( noteModel.noteNumber )    // highlight the keys on the keyboard!    
     hero && hero.noteOn( noteModel )
     noteVisualiser && noteVisualiser.noteOn( noteModel, velocity )
+    mouseVisualiser && mouseVisualiser.noteOn( noteModel, velocity )
     
     // this should change the visualiser line colour
-    circles.colour = noteModel.colour
+    shapeVisualiser.colour = noteModel.colour
 }
    
 /**
@@ -230,6 +234,8 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
     keyboard.setKeyAsInactive( noteModel.noteNumber )   // unhighlight the keys on the keyboard
     hero && hero.noteOff( noteModel )
     noteVisualiser && noteVisualiser.noteOff( noteModel, velocity )
+    mouseVisualiser && mouseVisualiser.noteOff( noteModel, velocity )
+    shapeVisualiser.colour = false
 }
 
 /**
@@ -280,6 +286,48 @@ const loadSong = (track=ASTLEY) => {
     return song
 }
 
+/**
+ * As we already loaded in a song, we can
+ * use this method to fetch the next note
+ * in the sequence
+ * 
+ * @param {Array<Note>} songSequence 
+ * @param {Array<Number>} chordIntervals 
+ * @param {Number} scaleMode 
+ */
+const playNextNoteInSong = (songSequence, chordIntervals=MAJOR_CHORD_INTERVALS, scaleMode=0) => {
+    const note = songSequence.getNextNote()
+   
+    if (playingNote)
+    {
+        console.info("Killing note", note, {songSequence, playingNote} )
+        chordOff( playingNote, 1, playingChord ?? chordIntervals, scaleMode )
+    }else{
+        console.info("Starting note", note, {songSequence, playingNote} )
+    }
+
+    chordOn( note, 1, 0, chordIntervals, scaleMode )
+    playingNote = note
+    playingChord = chordIntervals
+}
+
+/**
+ * 
+ * @param {HTMLElement} button 
+ * @param {Array<Number>} chord 
+ * @param {Number} musicalMode 
+ */
+const addMusicalMouseEventsToElement = (button, chord=MAJOR_CHORD_INTERVALS, musicalMode=0 ) => {
+    button.addEventListener("mousedown", e => {
+        playNextNoteInSong(song, chord, musicalMode)
+        document.addEventListener("mouseup", e => {
+            if (playingNote)
+            {
+                chordOff( playingNote, 1, 0, playingChord, musicalMode )
+            }
+        }, {once:true})
+    })
+}
 
 /**
  * 
@@ -298,28 +346,8 @@ const createAudioVisualiser = (audioContext, source, song, visualiserOptions=VIS
     }
     updateVis()
 
-    let playingNote = null
     // allow the user to click the visualiser to play a song...
-    visualiserCanvas.addEventListener("mousedown", e => {
-
-        const note = song.getNextNote()
-        console.info("Playing note", note, {song, playingNote} )
-        if (playingNote)
-        {
-            chordOff( playingNote, 1, MAJOR_CHORD_INTERVALS, mode )
-        }
-
-        chordOn( note, 1, 0, MAJOR_CHORD_INTERVALS, mode )
-        playingNote = note
-        //setTimbre( OSCILLATORS[] )
-    })
-
-    visualiserCanvas.addEventListener("mouseup", e => {
-        if (playingNote)
-        {
-            chordOff( playingNote, 1, 0, MAJOR_CHORD_INTERVALS, mode )
-        }
-    })
+    addMusicalMouseEventsToElement(visualiserCanvas)
     
     // const randomWaveButton = document.querySelector('#timbre-random')
     const randomWaveButtons = document.querySelectorAll('input[value="random"]')
@@ -357,14 +385,12 @@ const createAudioContext = (event) => {
     limiter.connect(mixer)
     mixer.connect( audioContext.destination )
     
-    const song = loadSong()
-
     createAudioVisualiser( audioContext, mixer, song, { ...VISUALISER_OPTIONS, backgroundColour:false } )
 
-    registerMultiTouchSynth( ALL_KEYBOARD_NOTES, chordOn, chordOff)
-
-    // try and load in some instrument data sets in the background...
-    preloadAllWaveTables()
+    registerMultiTouchSynth( ALL_KEYBOARD_NOTES, chordOn, chordOff, (noteModel,p) => {
+        // show the mouse visualiser primed to play note
+        mouseVisualiser && mouseVisualiser.noteOn( noteModel, 1 )
+    })
 }
 
 /**
@@ -434,8 +460,15 @@ const setTimbre = (timbre) => {
     const timbreSanitised = " " + timbre.replaceAll("_","") 
     const lowerCaseTimbre = timbre.toLowerCase()
     fingerSynths.forEach( synth => synth.shape = lowerCaseTimbre )
-    updateTimbreUI( timbreSanitised )
+    // updateTimbreUI( timbreSanitised )
+    updateTimbreUI( timbre )
     shape = timbre
+}
+
+const getTimbre = (timbres, timbre, offset=0) => {
+    const index = timbres.indexOf(timbre)
+    console.error("getTimbre", timbres, timbre, offset)
+    return timbres[ (index + offset) % timbres.length ]
 }
 
 /**
@@ -557,7 +590,7 @@ const createCircularSynth = () => {
     // })
 
     const circularSynth = new CircleSynth(fifthData, chordOn, chordOff, setMode )
-    const f5 = createChord( fifthData, circleIntervals.major, 0, mode, false, true )
+    // const f5 = createChord( fifthData, circleIntervals.major, 0, mode, false, true )
     //console.info("COF", {f5, fifthData, fifthIndexes }) 
     return circularSynth
 }
@@ -607,26 +640,18 @@ const setupRadioButtons = () => {
     })
 }
 
-// LOGIC ==============================================================
-
 /**
- * DOM is ready...
+ * 
+ * @param {Array<String>} instrumentNames 
  */
-const start =  () => {
-
-    // all possible data files for instrument sounds
-    const instrumentNames = getAllWaveTables()
-
-    // for (const p of searchParams) {
-    //     console.info("searchParams",p, searchParams)
-    // }
-
-    handlePasswordProtection( searchParams, DEFAULT_PASSWORD, updateURL )
-    
-    setCurrentYear()
-    addAccessibilityFunctionality()
-
+const setupShapeVisualiser = (instrumentNames) => {
     const timbreSelect = document.getElementById("song-timbre-select")
+    const timbrePrevious = document.getElementById("song-timbre-previous")
+    const timbreNext = document.getElementById("song-timbre-next")
+    
+    const chordHappy = document.getElementById("button-happy")
+    const chordSad = document.getElementById("button-sad")
+    
     instrumentNames.forEach( name => {
         timbreSelect.add(new Option(name, name))
     })
@@ -635,7 +660,40 @@ const start =  () => {
         console.info("timbre", timbre)
         setTimbre( timbre )
     })
+    timbrePrevious.addEventListener("click", e => {
+        setTimbre( getTimbre(instrumentNames, shape, -1 ) )
+    })
+    timbreNext.addEventListener("click", e => {
+        setTimbre( getTimbre(instrumentNames, shape, 1 ) )
+    })
+
+    addMusicalMouseEventsToElement(chordHappy, MAJOR_CHORD_INTERVALS, mode)
+    addMusicalMouseEventsToElement(chordSad, MINOR_CHORD_INTERVALS, mode)
+}
+
+// LOGIC ==============================================================
+
+/**
+ * DOM is ready...
+ */
+const start =  async () => {
+
+    // for (const p of searchParams) {
+    //     console.info("searchParams",p, searchParams)
+    // }
+
+    // NB. This is the full list that may not be loaded yet?
+    // all possible data files for instrument sounds
+    const instrumentNames = getAllWaveTables()
+
+    // load in our note sequences
+    song = loadSong( getRandomSong() )
+
+    handlePasswordProtection( searchParams, DEFAULT_PASSWORD, updateURL )
     
+    setCurrentYear()
+    
+    addAccessibilityFunctionality()
 
     if (navigator.requestMIDIAccess)
     {
@@ -649,7 +707,6 @@ const start =  () => {
     const wallpaperCanvas = document.getElementById("wallpaper")
     noteVisualiser = new NoteVisualiser( ALL_KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
     // noteVisualiser = new NoteVisualiser( KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
- 
 
     // bottom interactive piano
     keyboard = new SVGKeyboard(KEYBOARD_NOTES, noteOn, noteOff )
@@ -661,12 +718,20 @@ const start =  () => {
     const keyboardElement = document.body.appendChild( keyboard.asElement )
     keyboardElement.addEventListener("dblclick", e => setScale( !isHappy ) )
    
-
-    circles = createCircularSynth()
+    // we can 
+    const mouseCanvas = document.getElementById("mouse-visualiser")
+    mouseVisualiser = new MouseVisualiser(mouseCanvas)
  
+    // this is waveform visualiser
+    setupShapeVisualiser(instrumentNames)
+
+    // circular synth
+    circles = createCircularSynth()
+
     // reinstate the state recalled from the previous session
     fetchStateFromRadioButtons() 
     
+    // now wire up the radio buttons
     setupRadioButtons()
   
     // watch for when an element arrives in the window
@@ -675,9 +740,11 @@ const start =  () => {
     // finally update the URL with the state
     updateURL()
 
+    // try and load in some instrument data sets in the background...
     // preload all of the wave tables
     requestAnimationFrame(()=>preloadWaveTablesFromZip(WAVE_ARCHIVE_GENERAL_MIDI))
     requestAnimationFrame(()=>preloadWaveTablesFromZip(WAVE_ARCHIVE_GOOGLE))
+    // requestAnimationFrame(()=>preloadAllWaveTables())
 }
 
 /**
