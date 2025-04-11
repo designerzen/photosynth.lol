@@ -1,3 +1,7 @@
+/**
+ * Classic audio waveform visualiser
+ */
+
 const DEFAULT_OPTIONS = {
     backgroundColour:false,
     lineColour:false, //"rgb(255, 0, 0)",
@@ -20,10 +24,11 @@ export default class AudioVisualiser{
 
     count = 0
 
+    isTimeDomain = false
+
     set colour(value){
         this.options.lineColour = value
         this.count = 0
-        console.info("vis col", value, this.options)
     }
 
     constructor( canvasContext, audioContext, inputAudioNode, options=DEFAULT_OPTIONS ){
@@ -58,7 +63,7 @@ export default class AudioVisualiser{
 
     /**
      * For bar charts
-     * @returns 
+     * @returns Array<UInt8>
      */
     fetchFrequencyData(){
         this.analyser.getByteFrequencyData( this.dataArray )
@@ -67,7 +72,7 @@ export default class AudioVisualiser{
 
     /**
      * For waveforms
-     * @param {*} backgroundColour 
+     * @returns Array<UInt8>
      */
     fetchByteTimeDomainData(){
         this.analyser.getByteTimeDomainData( this.dataArray )
@@ -94,15 +99,13 @@ export default class AudioVisualiser{
     drawWaveform(){
 
         const sliceWidth = this.width / this.bufferLength
-        // const h = (this.height / 2)
-
-        // this.fetchFrequencyData()
-        this.fetchByteTimeDomainData()
-
-        // reset position
+       
         this.path = new Path2D()
 
         let x = 0
+        
+        // const h = (this.height / 2)
+        this.fetchByteTimeDomainData()
 
         this.count = (this.count + 1) % 4096
 
@@ -143,8 +146,22 @@ export default class AudioVisualiser{
         this.ctx.stroke(this.path)
     }
 
-    // TODO:
+    /**
+     * 
+     */
     drawBarChart(){
+        this.fetchFrequencyData()
+    }
 
+    /**
+     * Handy public method
+     */
+    draw(){
+        if (this.isTimeDomain)
+        {
+            this.drawBarChart()
+        }else{
+            this.drawWaveform()
+        }
     }
 }
