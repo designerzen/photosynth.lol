@@ -107,9 +107,15 @@ export const loadWaveTableFromJSON = (waveTableURI, waveTableString) => {
     real[0] = 0
     imag[0] = 0
 
-    waveTables.set(waveTableURI, { real, imag })
+    const waveTable = {
+        "name": waveTableString.name,
+        "midi_number": waveTableString.gm_number ?? -1,
+        "description": waveTableString.description,
+        real, imag
+    }
 
-    return { real, imag }
+    waveTables.set(waveTableURI, waveTable)
+    return waveTable
 }
 
 export const loadWaveTableFromJSONFile = async (waveTableURI) => {
@@ -178,7 +184,7 @@ export const preloadAllWaveTables = async (simultaneous = 3) => {
 
 // Google Wave tables from :
 // https://github.com/GoogleChromeLabs/web-audio-samples/blob/main/src/demos/wavetable-synth/index.html
-assignWaveTables(WAVE_TABLE_LOCATIONS_GOOGLE, WAVE_FORM_NAMES_GOOGLE, waveTableNames)
+// assignWaveTables(WAVE_TABLE_LOCATIONS_GOOGLE, WAVE_FORM_NAMES_GOOGLE, waveTableNames)
 // assignWaveTables(WAVE_TABLE_LOCATIONS_GENERAL_MIDI, WAVE_FORM_NAMES_GENERAL_MIDI, waveTableNames)
 // console.info("waveTableNames", {waveTableNames, ALL_WAVE_FORM_NAMES} ) 
 
@@ -240,15 +246,19 @@ export const loadWaveTableFromManifest = (manifest) => {
 // })
 // // attemptToConvertWaveTableIntoImage(ALL_WAVE_FORM_NAMES[0] )
 
-export const loadWaveTableFromArchive = async (waveTableArchiveURI, onProgress) => {
+export const loadWaveTableFromArchive = (waveTableArchiveURI, onProgress) => new Promise( async (resolve, reject) => {
     const fileBuffer = await fetch(waveTableArchiveURI)
     const arrayBuffer = await fileBuffer.arrayBuffer()
     const arrayBufferAsUint8Array = new Uint8Array(arrayBuffer)
     unzip(arrayBufferAsUint8Array, (err, unzipped) => {
+        
+        if (err)
+        {
+            reject(err)
+            return
+        }
+        
         const fileNames = Object.keys(unzipped)
-        //console.log("unzipped", {fileNames, unzipped} )
-
-        // convert each file into a json object
         const waveTables = fileNames.map( (fileName, index) => {
             // Conversion to string and then JSON
             const progress = index / fileNames.length
@@ -258,6 +268,6 @@ export const loadWaveTableFromArchive = async (waveTableArchiveURI, onProgress) 
             onProgress && onProgress(progress, fileName, waveTable )
             return waveTableData
         })
-        return waveTables
+        resolve( waveTables )
     })
-}
+})

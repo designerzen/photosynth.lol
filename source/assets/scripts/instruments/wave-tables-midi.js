@@ -188,35 +188,6 @@ assignWaveTables(WAVE_TABLE_LOCATIONS, WAVE_FORM_NAMES, waveTableNames)
 
 console.info("waveTableNames", waveTableNames)
 
-export const loadWaveTableFromFile = async (waveTableName) => { 
-    const url = waveTableNames.get(waveTableName)
-    const request = await fetch(url)
-    const response = await request.text()
-    const data = response.replaceAll( /\n|\r/g, '')
-    const delimA = "{'real': ["
-    const delimB = ",],'imag': ["
-    const delimC = ",]}"
-
-    const parts = data.split(delimB)
-
-    const part1 = parts[0].split(delimA)[1].trim().split(",")
-    const part2 = parts[1].replace(delimC, "").trim().split(",")
-
-    const real = part1.map(Number)
-    const imag = part2.map(Number)
-    const waves = { real, imag }
-    
-    waveTables.set(waveTableName, waves)
-    return waves
-}
-
-export const loadWaveTable = async (waveTableName) => { 
-    if (waveTables.has(waveTableName) ){
-        return waveTables.get(waveTableName)
-    }else{
-        return loadWaveTableFromFile(waveTableName)
-    }
-}
 
 export const getRandomWaveTableName = () => { 
     return WAVE_FORM_NAMES[Math.floor(Math.random() * WAVE_FORM_NAMES.length)]
