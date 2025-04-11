@@ -176,6 +176,7 @@ svg[aria-hidden='true'] {
     appearance: none;
     //text-align: center;
     padding:var(--pad) ;
+    padding-right:calc( var(--pad) * 2 );
 
     // simple down triangle
     // background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
@@ -184,11 +185,12 @@ svg[aria-hidden='true'] {
     // background-position-y: 50%;
 
     // icon for the arrow
-    background-image: url("/source/assets/icons/down-chevron.svg");
+    background-image: url("/source/assets/icons/down-chevron-white.svg");
     background-repeat: no-repeat;
     background-position-x: calc(100% - var(--pad) / 2);
     background-position-y: 50%;
     background-size: 14%;
+
     // background-color: transparent;
     background-color: var(--col-bg);
     color:var(--col-text);
@@ -197,9 +199,16 @@ svg[aria-hidden='true'] {
     grid-template-areas: "select icon";
     grid-template-columns: auto 1fr;
 
-    &[open],
-    &:focus {
-        background-image: url("/source/assets/icons/up-chevron.svg");
+    cursor: pointer;
+
+    // :focus,
+    &:is(
+        :open,
+        :focus-visible,
+        :focus-within
+    )
+    {
+        background-image: url("/source/assets/icons/up-chevron-white.svg");
     }
 
     // selected
@@ -259,6 +268,49 @@ svg[aria-hidden='true'] {
     // safari allows styling of options!
     &:not(:disabled) option {
         
+    }
+
+    // New select styling for latest browsers --------------
+    &, &::picker(select) {
+        appearance: base-select;
+    }
+    &::picker(select) {
+        transition:
+            opacity .2s ease,
+            transform .2s linear,
+            display .2s allow-discrete,
+            overlay .2s allow-discrete;
+    }
+
+    &::picker-icon {
+        display: none;
+    }
+
+    // set the off stage styles
+    &:not(:open)::picker(select) {
+        opacity: 0;
+        transform: scale(.95);
+    }
+
+    // set the on stage styles
+    &:open::picker(select) {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    // transition the selected option changing
+    selectedcontent>* {
+        transition:
+            transform 1s linear,
+            display 1s allow-discrete,
+            opacity 1s;
+
+        @starting-style {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        opacity: 1;
     }
 }
 

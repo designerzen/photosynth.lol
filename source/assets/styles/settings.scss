@@ -54,10 +54,23 @@
     --font-size-h6: calc(16px * var(--font-scale,1));
     --font-size-h6-mobile: calc(14px * var(--font-scale,1));
 
-
     --time-quick:95ms;
+    --time-medium:295ms;
     --time-long:495ms;
 
     // we always want the smallest size for the footer
     --footer-height:clamp(33px, 10vw, 100px);
+
+    --shadow-button: inset 0 -4px #930015;
+    --button-active:translateY(5%)  scale( 0.98 );
+}
+
+
+@media screen and (reduced-motion: reduce) {
+    :root{
+        --time-quick:1ms;
+        --time-medium:1ms;
+        --time-long:1ms;
+    }
+    
 }

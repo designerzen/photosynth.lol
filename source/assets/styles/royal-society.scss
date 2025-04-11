@@ -70,6 +70,9 @@ breakdowns specified here.
     // and event card date fields.
     --col-plum: #6F263D; // #860038;
 
+
+    --col-button-red: #ba0c2f;
+
     // The Royal Society stone
     // Pantone® 7527
     // c4 m4 y12 k8
@@ -150,6 +153,12 @@ breakdowns specified here.
     // --col-blue:#5284c5;
 }
 
+
+html{
+    background-color: var(--col-stone-light);
+}
+
+
 // The minimum size for the stacked
 // logo is 20mm or 75 pixels.
 .royal-society-logo-stacked{
@@ -172,12 +181,6 @@ breakdowns specified here.
     background-position: center;
 }
 
-// 6 x 9 grid but we subdivide it for style
-.grid{
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(9, 1fr);
-}
 
 a, 
 button, 
@@ -197,12 +200,16 @@ a.cta,
 button.cta, 
 input[type=button].cta{
     
-    background-color: #ba0c2f;
+    background-color:var(--col-button-red);
+    box-shadow:var(--shadow-button);
     color: #fff;
 
     border-radius: 5px;
-    box-shadow: inset 0 -4px #930015;
-    padding: 13px 30px;
+    
+    // padding: 13px 30px;// original from royal society website
+
+    padding: var(--pad) calc(var(--pad) * 2);
+
     min-width: 175px;
     // font-size: 1.8em;
     // line-height: 1;
@@ -225,11 +232,8 @@ input[type=button].button{
     text-decoration: none;
 }
 
-html{
-    background-color: var(--col-stone-light);
-}
-
 details{
+    margin-bottom: var(--pad);
 
     summary{
         display: grid;
@@ -241,9 +245,11 @@ details{
         color:var(--col-red);
         padding: var(--pad) calc(var(--pad)/2);
         font-weight:bold;
-        margin-bottom: var(--pad);
+   
         border-radius: var(--curve, 4px);
         
+        border:2px solid var(--col-accent);
+
         &::after{
             content:'';
             background-image: url(../icons/up-chevron.svg);
@@ -253,9 +259,9 @@ details{
             display: inline-block;
             vertical-align: middle;
             transition:
-                transform var(--time-quick, 90ms) ease-in-out,
-                color var(--time-quick, 90ms) ease-in-out,
-                background-color var(--time-quick, 90ms) ease-in-out;
+                transform var(--time-medium, 90ms) ease-in-out,
+                color var(--time-long, 90ms) ease-in-out,
+                background-color var(--time-long, 90ms) ease-in-out;
             width:44px;
             height:44px;
             grid-area: icon;
@@ -269,13 +275,24 @@ details{
     ::-webkit-details-marker { 
         display:none; 
     }
+
+    p{
+        padding: var(--pad);
+        padding-top: 0;
+        background-color: inherit;
+    }
 }
 
 details[open]{
 
+    // border:2px solid var(--col-accent);
+    // border-radius: var(--curve, 4px);
+
     summary{
         background-color: var(--col-red);
         color:var(--col-stone-light);
+        border-width: 0;
+        margin-bottom: var(--pad);
 
         &::after{    
             transform: rotate(180deg);

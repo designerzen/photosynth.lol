@@ -8,8 +8,9 @@
 
 // High Contrast DARK theme
 [data-theme="contrast"]{
-    --col-bg:var(--col-black, black);
-    --col-text:var(--col-white, white);
+//     --col-bg:var(--col-black, black);
+//     --col-text:var(--col-white, white);
+    filter: invert(100%) contrast(92%);
 
     h3:first-child::before,
     .icon,
@@ -19,7 +20,7 @@
     input[type="submit"],
     input[type="radio"],
     #menu-accessibility .skip-to-content{
-        filter: invert(100%) contrast(92%);
+        // filter: invert(100%) contrast(92%);
     }
     // change all icons to white
     // filter: invert(70%) sepia(55%) saturate(697%) hue-rotate(334deg) brightness(109%) contrast(92%);

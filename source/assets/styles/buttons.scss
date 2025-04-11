@@ -4,6 +4,7 @@ a.cta{
     position: relative;
     align-self: flex-end;
     justify-self: end;
+    touch-action: manipulation;
 }
 
 // we need space around the button
@@ -12,21 +13,24 @@ a.cta{
     margin-bottom:var(--pad);
     transition: var(--time-quick, 90ms) transform linear;
     &:active{
-        transform: 
-            translateY(5%)
-            scale( 0.98 );
+        transform: var(--button-active);
     }
+}
+
+a[target="_blank"]{
+    text-decoration: dashed;
 }
 
 button,
 input[type=checkbox],
 input[type=radio]{
-    --size:44px;
+    --size:var(--button-size, 44px);
     // Add if not using autoprefixer
     -webkit-appearance: none;
     // Remove most all native input styles 
     appearance: none;
     border:0;
+    border-radius: var(--curve, 4px);
     background-color: transparent;
     background-repeat: no-repeat;
     background-position: center;
@@ -64,9 +68,12 @@ fieldset label{
         1fr 
         auto;
 
-    align-items: center;        
+    // align-items: stretch;
+    align-items: center;
     justify-items: center;
+
     text-align: center;
+    
     line-height: 1.1;
     padding: 0;
 
@@ -92,7 +99,7 @@ input[type=checkbox]{
 }
 
 input[type=radio]{
-    --size:80px;//44px;
+    --size:var(--button-size, 80px);//44px;
   
     border:calc( var(--size) / 8 ) solid var(--col-stone);
     // border: 0.15em solid currentColor;
@@ -267,7 +274,96 @@ label[for="toggle-midi"]{
 #button-text-size-increase{
     background-image:url("../icons/font_increase_filled.svg");
 }
+#song-timbre-next,
+#song-timbre-previous,
+#song-timbre-random{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--curve, 4px);
+    margin:0;
+    &::before{
+        content:'';
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        width:var(--icon-size, 44px);
+        height:var(--icon-size, 44px);
+        display: inline-block;
+        vertical-align: middle;
+        filter:brightness(0) invert(1);
+    }
+}
 
+#song-timbre-previous{
+    &::before{
+        background-image: url('/source/assets/icons/fast_rewind_black_24dp.svg');   
+    }
+}
+
+#song-timbre-next{
+    &::before{
+        background-image: url('/source/assets/icons/fast_forward_black_24dp.svg');
+    }
+}
+#song-timbre-random{
+    &::before{
+        background-image: url('/source/assets/icons/fast_forward_black_24dp.svg');  
+    }
+}
+
+
+#song-timbre-select{
+    border-radius: var(--curve, 4px);
+    background-color: var(--col-button-red);
+    color: var(--col-white);
+    box-shadow:var(--shadow-button);
+}
+
+
+button.button-image{
+    --size:var(--button-size, 144px);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: var(--size);
+    height: var(--size);
+    padding: 0;
+    border:0;
+    color: transparent;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+label[for="button-happy"]{
+    
+}
+
+#button-happy{
+    grid-area:happy;
+    align-self: start;
+    background-image: url(/source/assets/figures/happy.svg);
+    transition: var(--time-quick, 90ms) transform linear;
+    &:active{
+        transform: var(--button-active);
+    }
+}
+
+label[for="button-sad"]{
+
+}
+
+#button-sad{
+    grid-area:sad;
+    background-image: url(/source/assets/figures/sad.svg);
+    transition: var(--time-quick, 90ms) transform linear;
+    &:active{
+        transform: var(--button-active);
+    }
+}
 
 label[for="timbre-sine"]{
     &::before{

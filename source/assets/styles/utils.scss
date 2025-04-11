@@ -74,6 +74,17 @@
     height: 100%;
 }
 
+.bg-clear{
+	background-color: transparent;
+}
+// 6 x 9 grid but we subdivide it for style
+.grid{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+}
+
+
 
 img.flood{
 	height: calc( 100% - var(--footer-height,0));
@@ -118,7 +129,7 @@ figure {
 	display:none !important;
 }
 
-[data-inert]{
+[inert]{
 	pointer-events: none;
 }
 

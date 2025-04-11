@@ -52,63 +52,6 @@ body{
     accent-color: var(--col-accent);
 }
 
-// Major minor etc
-[data-scale="major"]{
-    .minor{
-        display: none;
-    }
-}
-
-[data-scale="minor"]{
-    .major{
-        display: none;
-    }
-}
-
-[data-number="0"],
-[data-key="A"]{
-    --col-accent: var(--col-orange);
-}
-[data-key="A#"]{
-    --col-accent: var(--col-orange);
-}
-[data-number="1"],
-[data-key="B"]{
-    --col-accent: var(--col-red);
-}
-[data-number="2"],
-[data-key="C"]{
-    --col-accent: var(--col-plum);
-}
-[data-key="C#"]{
-    --col-accent: var(--col-plum);
-}
-[data-number="3"],
-[data-key="D"]{
-    --col-accent: var(--col-pink);
-}
-[data-key="D#"]{
-    --col-accent: var(--col-pink);
-}
-[data-number="4"],
-[data-key="E"]{
-    --col-accent: var(--col-purple);
-}
-[data-number="5"],
-[data-key="F"]{
-    --col-accent: var(--col-blue);
-}
-[data-key="F#"]{
-    --col-accent: var(--col-blue);
-}
-[data-number="6"],
-[data-key="G"]{
-    --col-accent: var(--col-green);
-}
-[data-key="G#"]{
-    --col-accent: var(--col-green);
-}
-
 // header{
 #headline{
 
@@ -300,16 +243,39 @@ body{
     }
 }
 
-#hero{
-    background-color: var(--col-bg);  
-    background-image: url(/source/assets/wallpaper/hero-bg.svg);
-    background-repeat: no-repeat;
-    background-position: top center;
-    background-size: cover;
-    background-size: 2122px 100%; 
+#main-content{
 
+    display: grid;
+    grid-auto-flow: row;
+
+    &::before{
+        content:"";
+        position: fixed;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100%;
+        // background-color: red;
+        background-image: url(/source/assets/figures/hero-royal-society-smile-only.svg);
+        z-index: 1;
+    }
 }
 
+
+
+#hero{
+    // background-color: var(--col-bg);  
+    background-image: url(/source/assets/wallpaper/hero-bg.svg);
+}
+
+// ensure all hero images are the same scale and size
+#main-content::before,
+#hero{
+background-repeat: no-repeat;
+        background-position: top center;
+        background-size: cover;
+        background-size: 2122px 100%; 
+}
 // see menu in menu.scss
 
 main > *,
@@ -329,16 +295,23 @@ main > :is(
     container-type: inline-size;
     margin-left:auto;
     margin-right:auto;
+    box-sizing: border-box; 
+    position: relative;
+    display: grid;
+    width:100%;
+}
+
+.page{
+    padding:calc( 2 * var( --pad ));
+    width:100%;
     max-width: var(--max-section-width);
     min-height:100vh;
     min-height:100dvh;
-    padding:calc( 2 * var( --pad ));
-    box-sizing: border-box;  
-    // display: block;
-    width:100%;
-    position: relative;
-    display: grid;
+    box-sizing: border-box; 
+    background-color: var(--col-bg);
 }
+
+
 
 main > :is(
     section, 
@@ -364,7 +337,7 @@ main > :is(
 }
 
 section p{
-    background-color: var(--col-bg);
+    // background-color: var(--col-bg);
     padding-top:calc( var(--pad)  );
     // padding-bottom:calc( var(--pad) / 2 );
 }
@@ -389,6 +362,41 @@ img{
     z-index: 1;
 }
 
+#teaser{
+  
+    // wavy background and edges
+    &::before{
+        content:'';
+        // margin-top:-10vh;
+ 
+        position: absolute;
+        top:-10vh;
+        left:0;
+        width: 100%;
+        height: 100%;
+        background-image: url(/source/assets/wallpaper/wavey.svg);
+        background-repeat: repeat-x;
+        background-position: top left;
+        pointer-events: none;
+        // opacity: 0.94;
+        filter:brightness(909);
+        overflow: hidden;
+        overflow: clip;
+    }
+}
+
+// thanks to the 
+#introduction{
+    margin-top:-100vh;
+    margin-top:-100dvh;
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-areas: 
+     "hero"
+     "warning"
+     "mask";
+}
+
 .warning{
     margin-left:auto;
     margin-right:auto;
@@ -397,9 +405,12 @@ img{
     box-sizing: border-box;  
     // position: relative;
     z-index: 808;
-    order: -1;
+   
     position: sticky;
-  
+    // position: absolute;
+    // top:0;
+    // left:0;
+    // grid-area:1/1/-1/-1;
     // top:calc( var(--pad) );
     top:var(--pad);
     // bottom:var(--pad);
@@ -412,16 +423,17 @@ img{
     background-color: var(--col-plum);
     border:2px solid var(--col-white);
     border-radius: var(--curve, 4px);
-    // position: absolute;
-    // top:0;
-    // left:0;
-    grid-area:1/1/-1/-1;
+  
+    order: -1;
+
     height: fit-content;
     pointer-events: none;
     // display: grid;
     // grid-template-areas: "icon warning";
     // grid-template-columns: auto 1fr;
     padding-left:calc( var(--pad) * 4);
+
+    grid-area: warning;
 
     &::before{
         content:'!';
@@ -443,6 +455,30 @@ img{
     }
 }
 
+
+#midi-equipment{
+    display: grid;
+    grid-template-areas: 
+        "h1 h1"
+        "h2 h2"
+        "details toggle"
+        ;
+
+    grid-template-rows: 
+        auto
+        auto
+        1fr;
+    h3{
+        grid-area: h1;
+    }
+    h4{
+        grid-area: h2;
+    }
+    details{
+        grid-area: details;
+    }
+}
+
 // form that overlays the fifths circle
 .emotion-selector{
     border-radius: var(--curve, 4px);
@@ -450,17 +486,19 @@ img{
     position: relative;
     padding: var(--pad);
     padding-top: calc( var(--pad) * 2 );
-    &::before{
-        content: '';
-        background-color: var(--col-bg);
-        inset:0;
-        position: absolute;
-        opacity: 0.9;
-        z-index: 0;
-    }
+    // &::before{
+    //     content: '';
+    //     background-color: var(--col-bg);
+    //     inset:0;
+    //     position: absolute;
+    //     opacity: 0.9;
+    //     z-index: 0;
+    // }
     fieldset{
         position: relative;
         z-index: 1;
+        background-color: var(--col-bg);
+        background-color: color-mix( in oklch, var(--col-bg) 75%, transparent );
         // border-radius: 0;
     }
 }
@@ -469,10 +507,103 @@ img{
 #emotion{
     position: sticky;
     bottom:0;
+    z-index: 202;
 }
 
 .synth-shape{
     padding-bottom:var(--pad);
+}
+
+.timbre-selector{
+    --icon-size:44px;
+    display: grid;
+    // smallest first
+    grid-template-areas: 
+        "select select" 
+        "prev next" 
+        "random random";
+
+    grid-template-columns: repeat( auto-fit, minmax(88px, 1fr) );
+    gap: 0 var(--pad);
+    align-items: stretch;
+    // grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+    // gap:var(--pad);
+
+    label{
+        align-items: stretch;
+    }
+    label[for="song-timbre-previous"]{
+        grid-area: prev;
+    }
+    label[for="song-timbre-next"]{
+        grid-area: next;
+    }
+    label[for="song-timbre-select"]{
+        grid-area: select;
+        select{
+            border:0;
+            margin:0;
+            // height: 100%;
+            width: 100%;
+            padding-top:calc( (var(--icon-size) )/ 2 + var(--pad));
+            padding-bottom:calc( (var(--icon-size))/ 2 + var(--pad));
+        }
+    }
+    label[for="song-timbre-random"]{
+        grid-area: random;
+    }
+    button{
+        width:100%;
+    }
+}
+
+
+@media screen and (min-width:620px){
+        
+    .timbre-selector{
+        --icon-size:44px;
+        grid-template-areas: 
+            "prev select next" 
+            ". random .";
+    }
+}
+
+@media screen and (min-width:800px){
+        
+    .timbre-selector{
+        --icon-size:44px;
+        
+        grid-template-areas: "prev select next random";
+    }
+}
+
+// Happy / Sad sequencer
+.emotional-chord-player{
+
+    --button-size:clamp(144px, 80vh, 50vw);
+    --half-size:calc( var(--button-size) / 2 );
+
+    display: grid;
+    grid-template-columns: var(--half-size) var(--half-size);
+    grid-template-areas: "happy sad";
+    gap:var(--pad) 0;
+    justify-content: center;
+    align-items: center;
+
+    label{
+        display: flex;
+        flex-direction: column;
+        gap:var(--pad);
+        text-align: center;
+        overflow: hidden;
+        button{
+            order:-1;
+        }
+    }
+    // seperator
+    label:first-of-type{
+        border-right:4px dotted var(--col-stone-light, white );
+    }
 }
 
 body > footer{
@@ -489,21 +620,9 @@ body > footer{
     h3:first-child{
         display: inline-block;
         width: fit-content;
-        vertical-align: baseline;
+        // vertical-align: bottom;
         // padding:var(--pad);
         // background-color:var(--col-yellow);
-
-        &::before{
-            --size:1.25rem;
-            --icon:url(/source/assets/icons/attribution_black_24dp.svg);
-            content:'';
-            display: inline-block;
-            width:var(--size);
-            height:var(--size);
-            background:var(--icon) center no-repeat;
-            background-size: contain;
-            margin-right: calc( var(--pad) / 4 );
-        }
     }
 }
 
@@ -513,13 +632,20 @@ footer{
 }
 
 
+// Canvases & animations -------------------------------------------
+
+#mouse-visualiser{
+    z-index: 999;
+}
+
+
 #wallpaper{
     width: 100%;
     height: 100%;
     position: fixed;
     top:0;
     left:0;
-    z-index: 0;    // behind everything
+    z-index: 1;    // behind everything except...
     background-color: var(--col-bg);
 }
 
@@ -539,26 +665,46 @@ footer{
     form{
         grid-area: form;
         display: flex;
-        flex-direction: row;
         flex-wrap: wrap;
+        flex-direction: column-reverse;
         align-content: baseline;
         position: relative;
         z-index:1;
         pointer-events: none;
-        > *{
+        fieldset{
+            // width:100%;
+            margin-left:auto;
+            margin-right:auto;
+            padding-bottom: var(--pad);
+        }
+        fieldset > *{
             pointer-events: auto;
         }
     }
 }
 
 #visualiser{
-    z-index: 1;
+    // z-index: 1;
+    z-index: 505;
     width: 100%;
     height: 100%;
     display: block;
     margin:auto;
-    grid-area:1/1/-1/-1;
+    // grid-area:1/1/-1/-1;
 }
+
+// at the front
+#mouse-visualiser{
+    position: fixed;
+    z-index: 909;
+    pointer-events: none;
+    top:0;
+    left:0;
+    height: 100%;
+    width:100%
+}
+
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 #affiliates{
     ul{
@@ -619,6 +765,7 @@ a.cta{
     
 }
 
+// Data & Tables
 
 dl.data-address{
     display: grid;
@@ -632,10 +779,12 @@ dd{
     margin:0;
 }
 
+th,
 dt{
     text-align: right;
     color:var(--col-warm-grey, grey);
 }
+
 
 
 #emotion{

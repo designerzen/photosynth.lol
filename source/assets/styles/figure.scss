@@ -15,11 +15,15 @@ figure{
         margin-right: auto;
     }
 
+    
     figcaption{
-        margin-top: var(--pad);
-        margin-bottom: var(--pad);
         text-align: center;
         color:var(--col-plum);
+    }
+
+    img + figcaption{
+        margin-top: var(--pad);
+        margin-bottom: var(--pad);
     }
 }
 
