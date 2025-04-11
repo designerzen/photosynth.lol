@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="default" data-scale="major">
 
 <head>
     <meta charset="utf-8">
@@ -155,549 +155,672 @@
     </header>
 
 
-
     <main id="main-content">
 
-        <section id="hero" class="sticky full-width" data-observe data-full-keyboard>
+        <!-- Introduction -->
+        <section id="introduction" inert data-observe data-full-keyboard>
             
-            <figure id="hero-figure" data-inert>
-                <img 
-                    class="flood"
+            <article id="hero" class="sticky full-width page">
+                
+                <h3 class="sr-only">Smile Powered Music!</h3>
+                <figure id="hero-figure" inert>
+                    <img 
+                        class="flood"
+                        width="9000" height="2160"
+                        src="./assets/figures/hero-royal-society-smile-powered.svg" 
+                        alt="The Photosynth, smile powered music.">
+                    <figcaption class="sr-only">Converting happiness into music</figcaption>
+                </figure>
+                
+            </article>
+
+            <!-- Background wavy mask -->
+            <div id="hero-mask" class="sticky full-width page">
+                <img class="flood"
                     width="9000" height="2160"
-                    src="./assets/figures/hero-royal-society-smile-powered.svg" 
-                    alt="The Photosynth, smile powered music.">
-                <figcaption class="sr-only">Converting happiness into music</figcaption>
-            </figure>
-            
-            <!-- Interactive wallpaper -->
-            <canvas id="wallpaper"></canvas>    
+                    src="./assets/figures/hero-mask-wavy-top-only.svg" 
+                    alt="">
+            </div>
+
+            <!-- Warnings & Tips for use --> 
+            <aside class="warning">
+                <h4>Warning</h4>
+                <p>Please be very careful using this website if you are photosensitive</p>
+            </aside> 
 
         </section>
 
-       
-
-        <!-- Background mask & warnings -->
-        <div id="hero-mask" class="sticky full-width">
         
-            <img class="flood"
-                width="9000" height="2160"
-                src="./assets/figures/hero-mask-wavy-top-only.svg" 
-                alt="">
+        <!-- Interactive wallpapers -->
+        <canvas id="mouse-visualiser" inert></canvas>
+        <canvas id="wallpaper"></canvas>
 
-        </div>
 
-        <aside class="warning">
-            <h4>Warning</h4>
-            <p>Please be very careful using this website if you are photosensitive</p>
-        </aside> 
-
+        <!--  -->
         <section id="teaser" class="" data-observe>
-            <h3 class="underline">Drake Music presents, the <cite>Photo<wbr>SYNTH</cite>, the happiest way to make music!</h3>
+           <article class="split page">
+                <h3 class="underline">Drake Music presents, the <cite>Photo<wbr>SYNTH</cite>, the happiest way to make music!</h3>
 
-            <p>This smile powered synthesizer grants you and your friends radical new musical superpowers!</p>
-            <p>Rather than playing a musical instrument, the PhotoSYNTH plays you!</p>
-            <p>By tracking your movements and emotions in real-time, this magic mirror converts them into beautiful music - making it one of the easiest and most fun synthesizers to play, alone or collaboratively with friends.</p>
-            <p>Working alongside Drake Music Charity who specialize in accessible technology, and under the guidance of hundreds of differently abled people, this multiplayer, collaborative mixed-reality pop music machine finally gives your reflection a purpose; empowering the broadest diversity of people to create expressive music... Instantly! =D</p>
+                <p>This smile powered synthesizer grants you and your friends radical new musical superpowers!</p>
+                <p>Rather than playing a musical instrument, the PhotoSYNTH plays you!</p>
+                <p>By tracking your movements and emotions in real-time, this magic mirror converts them into beautiful music - making it one of the easiest and most fun synthesizers to play, alone or collaboratively with friends.</p>
+                <p>Working alongside Drake Music Charity who specialize in accessible technology, and under the guidance of hundreds of differently abled people, this multiplayer, collaborative mixed-reality pop music machine finally gives your reflection a purpose; empowering the broadest diversity of people to create expressive music... Instantly! =D</p>
+                
+                <p>
+                    Science, research, innovation and development allow us to augment people's abilities in radical new ways thanks to advancements in neural networking, machine learning and artificial intelligence that have made it possible to elegantly interface with machines in natural and intuitive new ways.
+                </p>
+
+                <h4>If you've ever dreamed of being more musical, you're not alone!</h4>
+                <p>Have you ever dreamed of being more musical, well alright... Hold tight!</p>
             
-            <p>
-                Science, research, innovation and development allow us to augment people's abilities in radical new ways thanks to advancements in neural networking, machine learning and artificial intelligence that have made it possible to elegantly interface with machines in natural and intuitive new ways.
-            </p>
+                <blockquote>
+                    <p>Wouldn't it be nice if there was a musical magic-spell?</p>
+                </blockquote>
 
-            <h4>If you've ever dreamed of being more musical, you're not alone!</h4>
-            <p>Have you ever dreamed of being more musical, well alright... Hold tight!</p>
+                <p>We all know music can make you feel happy, but what if your happiness could make music?</p>
+                <p>Imagine if you could just make music without having to learn a new instrument!</p>
+
+                <p>Makes learning how to play music simple ... easy, like a Sunday morning.</p>
+            
+            
+                <p>Imagine a world where rather than having to learn a musical instrument, the musical instrument could learn how to play you...</p>
+            
+
         
-            <blockquote>
-                <p>Wouldn't it be nice if there was a musical magic-spell?</p>
-            </blockquote>
-
-            <p>We all know music can make you feel happy, but what if your happiness could make music?</p>
-            <p>Imagine if you could just make music without having to learn a new instrument!</p>
-
-            <p>Makes learning how to play music simple ... easy, like a Sunday morning.</p>
-           
-        
-            <p>Imagine a world where rather than having to learn a musical instrument, the musical instrument could learn how to play you...</p>
+                <blockquote class="sticky full-height">
+                    <p class="quote">Any sufficiently advanced technology is indistinguishable from magic.</p>
+                    <p class="citation">Arthur C Clarke<cite></cite></p>
+                </blockquote>
         
 
-    
-            <blockquote class="sticky full-height">
-                <p class="quote">Any sufficiently advanced technology is indistinguishable from magic.</p>
-                <p class="citation">Arthur C Clarke<cite></cite></p>
-            </blockquote>
-    
 
-
-            <p>Come and have a play with some of the newest instruments from the <a href="#amic">Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></a></p>
+                <p>Come and have a play with some of the newest instruments from the <a href="#amic">Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></a></p>
+            </article>
         </section>
+
 
         <!-- MIDI Equipment ------------------------------------------- -->
         <section id="midi-equipment" class="full-height" data-observe hidden>
 
-            <h3>This site is MIDI Enabled</h3> 
-            <p> If you have any MIDI equipment, connect them now and press the enable MIDI button below.</p>
+            <article class="page">
+                <h3>This site is MIDI Enabled</h3> 
+                <h4>For your listening experience</h4>
+                <details>
+                    <summary>MIDI</summary>
+                    <p>If you have any MIDI equipment, connect them now and press the enable MIDI button above.</p>
             
-            <label for="toggle-midi" hidden>
-                Enable MIDI connection
-                <input type="checkbox" id="toggle-midi" value="midi" class="cta">
-            </label>
-
-            <aside>
-                <h4>MIDI</h4>
-                <p> The universal language of synths, controllers, and electronic instruments, MIDI (Musical Instrument Digital Interface) is a standard for communication between electronic musical devices using either a MIDI cable or, if your instruments supports it, USB cables.</p>
-            </aside>
-
-        </section>
-
-
-
-        <section id="about" class="split" data-observe>
-
-            <h3>About</h3>
-
-            <p>The Summer Science Exhibition is a free six-day festival showcasing the science shaping our future and
-                will be held at the Royal Society in London from July 1st, 2025 to July 6th, 2025.</p>
-
-            <p><dfn id="definition-photosynth">The <cite>Photo<wbr>SYNTH</cite></dfn> is a 
-                <dfn id="definition-mixed-reality">mixed-reality</dfn> audio synthesizer that uses real-time motion capture with
-                facial-landmark tracking to enhance your movements, and the movements of your friends, with radical new musical
-                superpowers, instantly controlling aspects of each instrument and sound... 
-            </p>
-            
-            <p>
-                <em>Finally, a purpose for your reflection!</em>
-            </p>
-
-
-            
-            <blockquote class="sticky full-height">
-                <p class="quote">Music is an unconscious exercise in mathematics in which the mind is unaware that it is calculating.</p>
-                <p class="citation">Gottfried Wilhelm Leibniz <cite></cite></p>
-            </blockquote>
-    
-            <blockquote class="sticky full-height">
-                <p class="quote">Music is an unconscious exercise in metaphysics in which the mind is unaware that it is philosophizing.</p>
-                <p class="citation">Arthur Schopenhauer, <cite>The World as Will and Representation</cite></p>
-            </blockquote>
-
-            <img src="/source/assets/figures/instant-musical-superpowers-red-square.svg" alt="Instant Musical Superpowers!">
-            
-            <blockquote class="sticky full-height">
-                <p class="quote">Music is an unconscious exercise in communication in which the mind is unaware that it is being guided.</p>
-                <p class="citation">Zenon Olenski <cite></cite></p>
-            </blockquote>
-         
-            <p>Developed from the ground up to be accessible and inclusive, with the support and feedback from Drake
-                Music and hundreds of disabled and differently-abled people met through #DMLabs throughout the years.
-            </p>
-
-            <p>By tracking your motions and emotions in real-time, this magic mirror converts your everyday movements
-                into beautiful music - making it one of the easiest and most fun synthesizers to play, yet remains
-                highly expressive and capable of high fidelity.</p>
-            <p>Rather than playing a musical instrument, the <cite>Photo<wbr>SYNTH</cite> plays you!</p>
-            <p>Without any training you can instantly make great music using movements familiar to you.</p>
-
-            <p>By using motion capture and augmented reality, the whole face is converted into a musical instrument
-                where smiles are converted into musical notes, movements into melodies and facial expressions into audio
-                filters and controls.</p>
-
-            <p>Every articulation can become an audio revelation… Instant musical superpowers!</p>
-
-            <a href="https://royalsociety.org/science-events-and-lectures/summer-science-exhibition/" class="cta">Learn more</a>
-
-        </section>
-
-        <!-- Funky audio analyser -->
-        <div id="waveform-visualiser" class="full-height full-width sticky">
-            <canvas id="visualiser" width=800 height=400></canvas>
-            <h3 data-timbre>The Shape of Sound</h3>
-            
-            <form>  
-
-                <label for="song-timbre-random">
-                    <input id="song-timbre-random" class="cta" type="button" value="random">
-                    Random Wave
-                </label>
                 
-                <label for="song-timbre-select">
-                    <select id="song-timbre-select" class="">
-                        <option value="sine">Sine</option>
-                        <option value="square">Square</option>
-                        <option value="sawtooth">Sawtooth</option>
-                        <option value="triangle">Triangle</option>
-                        <option value="noise">Noise</option>
-                    </select>
-                    Select a shape
+                    <aside>
+                        <h4>MIDI</h4>
+                        <p> The universal language of synths, controllers, and electronic instruments, MIDI (Musical Instrument Digital Interface) is a standard for communication between electronic musical devices using either a MIDI cable or, if your instruments supports it, USB cables.</p>
+                    </aside>
+                </details>
+                <label for="toggle-midi" hidden>
+                    Enable MIDI connection
+                    <input type="checkbox" id="toggle-midi" value="midi" class="cta">
                 </label>
+            </article>
 
-            </form>
-        </div>
+        </section>
+
+
+        <!-- About the event -->
+        <section id="about" data-observe>
+
+            <article class="split page">
+
+                <h3>About</h3>
+
+                <p>The Summer Science Exhibition is a free six-day festival showcasing the science shaping our future and
+                    will be held at the Royal Society in London from July 1st, 2025 to July 6th, 2025.</p>
+
+                <p><dfn id="definition-photosynth">The <cite>Photo<wbr>SYNTH</cite></dfn> is a 
+                    <dfn id="definition-mixed-reality">mixed-reality</dfn> audio synthesizer that uses real-time motion capture with
+                    facial-landmark tracking to enhance your movements, and the movements of your friends, with radical new musical
+                    superpowers, instantly controlling aspects of each instrument and sound... 
+                </p>
+                
+                <p>
+                    <em>Finally, a purpose for your reflection!</em>
+                </p>
+
+                <blockquote class="sticky full-height">
+                    <p class="quote">Music is an unconscious exercise in mathematics in which the mind is unaware that it is calculating.</p>
+                    <p class="citation">Gottfried Wilhelm Leibniz <cite></cite></p>
+                </blockquote>
+        
+                <blockquote class="sticky full-height">
+                    <p class="quote">Music is an unconscious exercise in metaphysics in which the mind is unaware that it is philosophizing.</p>
+                    <p class="citation">Arthur Schopenhauer, <cite>The World as Will and Representation</cite></p>
+                </blockquote>
+
+                <img src="/source/assets/figures/instant-musical-superpowers-red-square.svg" alt="Instant Musical Superpowers!">
+                
+                <blockquote class="sticky full-height">
+                    <p class="quote">Music is an unconscious exercise in communication in which the mind is unaware that it is being guided.</p>
+                    <p class="citation">Zenon Olenski <cite></cite></p>
+                </blockquote>
+
+            </article>
+            
+            <!-- Diagrams -->
+            <article class="page">
+                    
+                <figure id="diagram-face-scan" class="sticky full-width bg-clear">
+                    <img 
+                        class=""
+                        width="9000" height="2160"
+                        src="/source/assets/diagrams/face-winking.svg" 
+                        alt="The Photosynth, smile powered music.">
+                    <figcaption>Face is observed</figcaption>
+                </figure>
+
+                <!-- Background mask & warnings -->
+                <figure id="diagram-face-scan-overlay" class="sticky full-width bg-clear">
+                
+                    <img class=""
+                        width="9000" height="2160"
+                        src="/source/assets/diagrams/face-scanning.svg" 
+                        alt="">
+                    <figcaption>Facial landmarks are detected and tracked</figcaption>
+                </figure>
+
+                <figure id="diagram-face-landmarks-overlay" class="sticky full-width bg-clear">
+                
+                    <img class=""
+                        width="9000" height="2160"
+                        src="/source/assets/diagrams/face-scanning.svg" 
+                        alt="">
+                    <figcaption>Facial landmarks are detected and tracked</figcaption>
+                </figure>
+                
+                <p>Developed from the ground up to be accessible and inclusive, with the support and feedback from Drake
+                    Music and hundreds of disabled and differently-abled people met through #DMLabs throughout the years.
+                </p>
+
+                <p>By tracking your motions and emotions in real-time, this magic mirror converts your everyday movements
+                    into beautiful music - making it one of the easiest and most fun synthesizers to play, yet remains
+                    highly expressive and capable of high fidelity.</p>
+                <p>Rather than playing a musical instrument, the <cite>Photo<wbr>SYNTH</cite> plays you!</p>
+                <p>Without any training you can instantly make great music using movements familiar to you.</p>
+
+                <p>By using motion capture and augmented reality, the whole face is converted into a musical instrument
+                    where smiles are converted into musical notes, movements into melodies and facial expressions into audio
+                    filters and controls.</p>
+
+                <p>Every articulation can become an audio revelation… Instant musical superpowers!</p>
+
+                <a href="https://royalsociety.org/science-events-and-lectures/summer-science-exhibition/" class="cta">Learn more</a>
+
+            </article>
+
+        </section>
+
+            
+
+        <!-- Funky audio analyser overlay -->
+        <canvas id="visualiser" class="sticky full-height full-width" width=800 height=400></canvas>
+        
+        <section id="waveform-visualiser" class="bg-clear" data-full-keyboard data-observe>
+            <article class="page">
+                <h3 data-timbre>The Shape of Sound</h3>
+                
+                <form action="/">  
+                    <fieldset class="timbre-selector">
+                        <legend>Shape (Timbre)</legend>
+                        <label for="song-timbre-random">
+                            <!-- <input id="song-timbre-random" class="cta" type="button" value="random"> -->
+                            <button class="cta" id="song-timbre-random" type="button">Random</button>
+                            Random Wave
+                        </label>
+                        
+                        <label for="song-timbre-previous">
+                            Previous Shape
+                            <button class="cta" id="song-timbre-previous" type="button">Previous</button>
+                        </label>
+                        
+                        <label for="song-timbre-next">
+                            Next Shape
+                            <button class="cta" id="song-timbre-next" type="button">Next</button>
+                        </label>
+                        
+                        <label for="song-timbre-select">
+                            <select id="song-timbre-select" class="">
+                                <option value="sine">Sine</option>
+                                <option value="square">Square</option>
+                                <option value="sawtooth">Sawtooth</option>
+                                <option value="triangle">Triangle</option>
+                                <option value="noise">Noise</option>
+                            </select>
+                            Select a shape
+                        </label>
+                    </fieldset>
+
+                    <fieldset class="emotional-chord-player">
+                        <legend>Emotional Shapes</legend>
+                        <label for="button-happy">
+                            Happy sound
+                            <button class="button-image" id="button-happy" type="button">Happy</button>
+                        </label>
+
+                        <label for="button-sad">
+                            Happy sound
+                            <button class="button-image" id="button-sad" type="button">Sad</button>
+                        </label>
+                    </fieldset>
+
+                </form>
+            </article>
+        </section>
 
         <!-- Research ------------------------------------------- -->
       
-        <section id="research" class="split" data-observe data-full-keyboard>
-            <h3>Research</h3>
+        <section id="research" class="split" data-observe>
+            <article class="page">
+                <hgroup>
+                    <h3 class="heading-icon">Research</h3>
+                    <h4>"Some People"<h4>
+                </hgroup>
+                    
+                <p>
+                    Everybody is different and unique. 
+                    Some people have incredible memories and can vividly remember past events, whilst some people forget where they put their house keys every day. 
+                    Some people are laser focussed whilst others' brains begin to womble off.
+                </p>
+                <p>
+                    <em>Everybody has their own talents and their limitations.</em>
+                </p>
+                <p><strong>Everybody is differently abled.</strong>
+                    This diversity in human abilities has allowed humans to approach the same problem from different perspectives finding creative new ways of solving them.
+                </p>
+                <p>
+                    Diversity is a human strength, and differences are powerful.
+                </p>
+                <p>
+                    If everybody did the same things in the same way, nothing new would ever happen.
+                    Creativity lies at the intersection of inspiration and expression, and innovations form to facilitate them.
+                </p>
+                <p>
+                    Some people have a natural talent for music whilst others struggle to play a note.
+                </p>
+                <p><em>What a wonderful world it would be if we all celebrated our differences through the universal language of music!</em>
+                </p>
 
-            <h4>"Some People"<h4>
-            <p>
-                Everybody is different and unique. 
-                Some people have incredible memories and can vividly remember past events, whilst some people forget where they put their house keys every day. 
-                Some people are laser focussed whilst others' brains begin to womble off.
-            </p>
-            <p>
-                <em>Everybody has their own talents and their limitations.</em>
-            </p>
-            <p><strong>Everybody is differently abled.</strong>
-                This diversity in human abilities has allowed humans to approach the same problem from different perspectives finding creative new ways of solving them.
-            </p>
-            <p>
-                Diversity is a human strength, and differences are powerful.
-            </p>
-            <p>
-                If everybody did the same things in the same way, nothing new would ever happen.
-                Creativity lies at the intersection of inspiration and expression, and innovations form to facilitate them.
-            </p>
-            <p>
-                Some people have a natural talent for music whilst others struggle to play a note.
-            </p>
-            <p><em>What a wonderful world it would be if we all celebrated our differences through the universal language of music!</em>
-            </p>
+                <blockquote class="sticky full-height">
+                    <p class="quote">Magic Mirror on the wall, 
+                        <br>who's the fairest of them all?</p>
+                    <p class="citation">Snow White<cite></cite></p>
+                </blockquote>
+        
+                <h4>Audio is powerful</h4>
 
-            <blockquote class="sticky full-height">
-                <p class="quote">Magic Mirror on the wall, 
-                    <br>who's the fairest of them all?</p>
-                <p class="citation">Snow White<cite></cite></p>
-            </blockquote>
-    
-            <h4>Audio is powerful</h4>
+                <p>DMLab </p>
+                <p>Curiosity killed the cat, but also helped create world changing research.</p>
+            </article>
 
-            <p>DMLab </p>
-            <p>Curiosity killed the cat, but also helped create world changing research.</p>
-    
-            
-            <h4 id="link-chords">Chords & Patterns</h4>
+        </section>
 
-            <figure id="circular-synthesizer" class="instrument-circular">
-                <svg class="circle-of-fifths" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="0 0 406 406">
-                    <title>Emotional Circle of Fifths Synthesizer</title>
-                   
-                    <!-- Emoji & hit area-->
-                    <path 
-                        class="fifths-emotion" 
-                        d="M277.53,202.85C277.53,243.846 243.796,277.58 202.8,277.58C161.804,277.58 128.07,243.846 128.07,202.85C128.07,161.854 161.804,128.12 202.8,128.12L202.85,128.12C243.827,128.169 277.531,161.873 277.58,202.85L277.53,202.85Z" 
-                    /> 
-                    <!-- <circle class="fifths-emotion" fill="transparent" cx="204" r="75" cy="203"></circle> -->
-                    <text class="fifths-emotion-text" font-family="&quot;noto-emoji&quot;,&quot;Segoe UI Emoji&quot;,sans-serif" font-size="135.757" y="248.79" x="116.5">😌</text>
+        <!-- Chords & Patterns ------------------------------------------- -->
+        <section id="chords" class="bg-clear" data-observe>
+            <article class="page">
+                <hgroup>
+                    <h3 class="heading-icon">Shapes &amp; Patterns</h3>
+                    <!-- This ID is used to scroll back to above the synth byt he link below it -->
+                    <h4 id="link-chords">Chords & Patterns</h4>
+                </hgroup>
 
-                    <!-- outer circle -->
-                    <g class="circle-of-fifths-harmonies">
-                        <path d="M202.85 2.5a199.975 199.975 0 0 1 50.65 6.49l-15.82 59a139.702 139.702 0 0 0-69.66 0l-15.82-59a199.975 199.975 0 0 1 50.65-6.49Z"/>
-                        <path d="m343.56 60.37-43.2 43.2a139.28 139.28 0 0 0-60.27-34.89l15.82-59a200.44 200.44 0 0 1 87.65 50.69Z"/>
-                        <path d="m396.05 149.79-59 15.82a139.282 139.282 0 0 0-34.89-60.26l43.2-43.2a200.425 200.425 0 0 1 50.69 87.64Z"/>
-                        <path d="M337.66 237.67a139.702 139.702 0 0 0 0-69.66l59-15.82a200.852 200.852 0 0 1 0 101.3l-59-15.82Z"/>
-                        <path d="m345.33 343.56-43.21-43.21a139.28 139.28 0 0 0 34.89-60.27l59 15.82a200.43 200.43 0 0 1-50.68 87.66Z"/>
-                        <path d="m255.91 396.05-15.82-59a139.28 139.28 0 0 0 60.27-34.89l43.2 43.2a200.44 200.44 0 0 1-87.65 50.69Z"/>
-                        <path d="M202.85 403.2a199.975 199.975 0 0 1-50.65-6.49l15.82-59a139.702 139.702 0 0 0 69.66 0l15.82 59a199.975 199.975 0 0 1-50.65 6.49Z"/>
-                        <path d="m62.14 345.33 43.21-43.21a139.282 139.282 0 0 0 60.26 34.89l-15.82 59a200.432 200.432 0 0 1-87.65-50.68Z"/>
-                        <path d="m9.65 255.91 59-15.82a139.28 139.28 0 0 0 34.89 60.27l-43.2 43.2a200.44 200.44 0 0 1-50.69-87.65Z"/>
-                        <path d="M2.5 202.85a199.975 199.975 0 0 1 6.49-50.65l59 15.82a139.702 139.702 0 0 0 0 69.66l-59 15.82a199.975 199.975 0 0 1-6.49-50.65Z"/>
-                        <path d="m60.37 62.14 43.2 43.2a139.282 139.282 0 0 0-34.89 60.26l-59-15.82a200.425 200.425 0 0 1 50.69-87.64Z"/>
-                        <path d="m149.79 9.65 15.82 59a139.282 139.282 0 0 0-60.26 34.89l-43.2-43.2a200.425 200.425 0 0 1 87.64-50.69Z"/>
-                    </g>
-            
-                    <!-- inner circle -->
-                    <g class="circle-of-fifths-tonics">
-                        <path d="m221.77 127.59-.09.35a77.154 77.154 0 0 0-37.56 0l-.09-.35-15.36-57.14a137.215 137.215 0 0 1 68.36 0l-15.26 57.14Z"/>
-                        <path d="m256.932 147.013-.253.258a77.154 77.154 0 0 0-32.527-18.78l.097-.348 15.267-57.165a137.215 137.215 0 0 1 59.202 34.18l-41.786 41.855Z"/> 
-                        <path d="M277.05 181.66a77.258 77.258 0 0 0-18.8-32.49l42.06-42.06a136.775 136.775 0 0 1 34.24 59.15l-57.1 15.31-.4.09Z"/>
-                        <path d="m278.11 221.77-.35-.09a77.154 77.154 0 0 0 0-37.56l.35-.09 57.14-15.31a137.215 137.215 0 0 1 0 68.36l-57.14-15.31Z"/>
-                        <path d="m258.57 256.85-.27-.27a77.231 77.231 0 0 0 18.8-32.49l.35.09 57.14 15.31a136.775 136.775 0 0 1-34.24 59.15l-41.78-41.79Z"/>
-                        <path d="m224.09 277.45-.09-.35a77.231 77.231 0 0 0 32.49-18.8l42.06 42.06a136.775 136.775 0 0 1-59.15 34.24l-15.31-57.15Z"/>
-                        <path d="m183.93 278.11.09-.35a77.154 77.154 0 0 0 37.56 0l.09.35 15.31 57.14a137.215 137.215 0 0 1-68.36 0l15.31-57.14Z"/>
-                        <path d="m148.85 258.57.27-.27a77.258 77.258 0 0 0 32.49 18.8l-.09.35-15.31 57.14a136.775 136.775 0 0 1-59.15-34.24l41.79-41.78Z"/>
-                        <path d="m128.25 224.09.35-.09a77.258 77.258 0 0 0 18.8 32.49l-42.06 42.06A136.775 136.775 0 0 1 71.1 239.4l57.15-15.31Z"/>
-                        <path d="m127.59 183.93.35.09a77.154 77.154 0 0 0 0 37.56l-.35.09-57.14 15.36a137.215 137.215 0 0 1 0-68.36l57.14 15.26Z"/>
-                        <path d="m147.13 148.85.27.27a77.231 77.231 0 0 0-18.8 32.49l-.35-.09-57.14-15.26a136.775 136.775 0 0 1 34.24-59.15l41.78 41.74Z"/>
-                        <path d="m181.61 128.25.09.35a77.231 77.231 0 0 0-32.49 18.8l-42.06-42.06A136.775 136.775 0 0 1 166.3 71.1l15.31 57.15Z"/>
-                    </g>
+                <figure id="circular-synthesizer" class="instrument-circular">
+                    <svg class="circle-of-fifths" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="-24 -24 454 454">
+                        <title>Emotional Circle of Fifths Synthesizer</title>
+                    
+                        <defs>
+                            <path id="circular-synthesizer-text-curve" 
+                                d="M-6,204 
+                                    a208,208 0 1,1 416,0 
+                                    a208,208 0 1,1 -416,0">
+                            </path>
+                        </defs>
 
-                    <!-- Frame -->
-                    <path class="fifths-frame" d="M202.85 0C314.7 0 405.7 91 405.7 202.85s-91 202.85-202.85 202.85S0 314.7 0 202.85 91 0 202.85 0ZM62.14 345.33a200.432 200.432 0 0 0 87.65 50.68l15.82-59a139.282 139.282 0 0 1-60.26-34.89l-43.21 43.21Zm275.52-107.66 59 15.82a200.852 200.852 0 0 0 0-101.3l-59 15.82a139.702 139.702 0 0 1 0 69.66ZM202.85 2.5a199.975 199.975 0 0 0-50.65 6.49l15.82 59a139.702 139.702 0 0 1 69.66 0l15.82-59a199.975 199.975 0 0 0-50.65-6.49ZM2.5 202.85a199.975 199.975 0 0 0 6.49 50.65l59-15.82a139.702 139.702 0 0 1 0-69.66l-59-15.82a199.975 199.975 0 0 0-6.49 50.65Zm342.83 140.71a200.43 200.43 0 0 0 50.68-87.66l-59-15.82a139.28 139.28 0 0 1-34.89 60.27l43.21 43.21ZM9.65 255.91a200.44 200.44 0 0 0 50.69 87.65l43.2-43.2a139.28 139.28 0 0 1-34.89-60.27l-59 15.82Zm247.283-108.897 41.785-41.855a137.2 137.2 0 0 0-59.201-34.18l-15.268 57.165-.097.348a77.17 77.17 0 0 1 32.528 18.78l.253-.258ZM202.85 403.2a199.975 199.975 0 0 0 50.65-6.49l-15.82-59a139.702 139.702 0 0 1-69.66 0l-15.82 59a199.975 199.975 0 0 0 50.65 6.49ZM149.79 9.65a200.425 200.425 0 0 0-87.64 50.69l43.2 43.2a139.282 139.282 0 0 1 60.26-34.89l-15.82-59Zm106.12 386.4a200.44 200.44 0 0 0 87.65-50.69l-43.2-43.2a139.28 139.28 0 0 1-60.27 34.89l15.82 59ZM60.37 62.14a200.425 200.425 0 0 0-50.69 87.64l59 15.82a139.282 139.282 0 0 1 34.89-60.26l-43.2-43.2Zm216.68 119.52.4-.09 57.1-15.31a136.775 136.775 0 0 0-34.24-59.15l-42.06 42.06a77.258 77.258 0 0 1 18.8 32.49Zm-149.46 2.27-57.14-15.26a137.215 137.215 0 0 0 0 68.36l57.14-15.36.35-.09a77.154 77.154 0 0 1 0-37.56l-.35-.09Zm150.52 37.84 57.14 15.31a137.215 137.215 0 0 0 0-68.36l-57.14 15.31-.35.09a77.154 77.154 0 0 1 0 37.56l.35.09Zm117.94-71.98a200.425 200.425 0 0 0-50.69-87.64l-43.2 43.2a139.282 139.282 0 0 1 34.89 60.26l59-15.82Zm-174.28-22.2 15.26-57.14a137.215 137.215 0 0 0-68.36 0l15.36 57.14.09.35a77.154 77.154 0 0 1 37.56 0l.09-.35Zm-37.84 150.52-15.31 57.14a137.215 137.215 0 0 0 68.36 0l-15.31-57.14-.09-.35a77.154 77.154 0 0 1-37.56 0l-.09.35Zm40.16-.66 15.31 57.15a136.775 136.775 0 0 0 59.15-34.24l-42.06-42.06A77.231 77.231 0 0 1 224 277.1l.09.35Zm-95.84-53.36L71.1 239.4a136.775 136.775 0 0 0 34.24 59.15l42.06-42.06A77.258 77.258 0 0 1 128.6 224l-.35.09Zm149.28-21.24h.05c-.049-40.977-33.753-74.681-74.73-74.73h-.05c-40.996 0-74.73 33.734-74.73 74.73s33.734 74.73 74.73 74.73 74.73-33.734 74.73-74.73Zm66.03-142.48a200.44 200.44 0 0 0-87.65-50.69l-15.82 59a139.28 139.28 0 0 1 60.27 34.89l43.2-43.2Zm-194.71 198.2-41.79 41.78a136.775 136.775 0 0 0 59.15 34.24l15.31-57.14.09-.35a77.258 77.258 0 0 1-32.49-18.8l-.27.27Zm109.72-1.72 41.78 41.79a136.775 136.775 0 0 0 34.24-59.15l-57.14-15.31-.35-.09a77.231 77.231 0 0 1-18.8 32.49l.27.27Zm-76.96-128.6L166.3 71.1a136.775 136.775 0 0 0-59.15 34.24l42.06 42.06a77.231 77.231 0 0 1 32.49-18.8l-.09-.35Zm-34.48 20.6-41.78-41.74a136.775 136.775 0 0 0-34.24 59.15l57.14 15.26.35.09a77.231 77.231 0 0 1 18.8-32.49l-.27-.27Z"/>
-                </svg>
+                        <!-- Emoji & hit area-->
+                        <path 
+                            class="fifths-emotion" 
+                            d="M277.53,202.85C277.53,243.846 243.796,277.58 202.8,277.58C161.804,277.58 128.07,243.846 128.07,202.85C128.07,161.854 161.804,128.12 202.8,128.12L202.85,128.12C243.827,128.169 277.531,161.873 277.58,202.85L277.53,202.85Z" 
+                        /> 
+                        <!-- <circle class="fifths-emotion" fill="transparent" cx="204" r="75" cy="203"></circle> -->
+                        <text class="fifths-emotion-text" font-family="&quot;noto-emoji&quot;,&quot;Segoe UI Emoji&quot;,sans-serif" font-size="135.757" y="248.79" x="116.5">😌</text>
 
-                <figcaption>Circle of Fifths</figcaption>
-              
-                <form id="emotion">
+                        <!-- outer circle -->
+                        <g class="circle-of-fifths-harmonies">
+                            <path d="M202.85 2.5a199.975 199.975 0 0 1 50.65 6.49l-15.82 59a139.702 139.702 0 0 0-69.66 0l-15.82-59a199.975 199.975 0 0 1 50.65-6.49Z"/>
+                            <path d="m343.56 60.37-43.2 43.2a139.28 139.28 0 0 0-60.27-34.89l15.82-59a200.44 200.44 0 0 1 87.65 50.69Z"/>
+                            <path d="m396.05 149.79-59 15.82a139.282 139.282 0 0 0-34.89-60.26l43.2-43.2a200.425 200.425 0 0 1 50.69 87.64Z"/>
+                            <path d="M337.66 237.67a139.702 139.702 0 0 0 0-69.66l59-15.82a200.852 200.852 0 0 1 0 101.3l-59-15.82Z"/>
+                            <path d="m345.33 343.56-43.21-43.21a139.28 139.28 0 0 0 34.89-60.27l59 15.82a200.43 200.43 0 0 1-50.68 87.66Z"/>
+                            <path d="m255.91 396.05-15.82-59a139.28 139.28 0 0 0 60.27-34.89l43.2 43.2a200.44 200.44 0 0 1-87.65 50.69Z"/>
+                            <path d="M202.85 403.2a199.975 199.975 0 0 1-50.65-6.49l15.82-59a139.702 139.702 0 0 0 69.66 0l15.82 59a199.975 199.975 0 0 1-50.65 6.49Z"/>
+                            <path d="m62.14 345.33 43.21-43.21a139.282 139.282 0 0 0 60.26 34.89l-15.82 59a200.432 200.432 0 0 1-87.65-50.68Z"/>
+                            <path d="m9.65 255.91 59-15.82a139.28 139.28 0 0 0 34.89 60.27l-43.2 43.2a200.44 200.44 0 0 1-50.69-87.65Z"/>
+                            <path d="M2.5 202.85a199.975 199.975 0 0 1 6.49-50.65l59 15.82a139.702 139.702 0 0 0 0 69.66l-59 15.82a199.975 199.975 0 0 1-6.49-50.65Z"/>
+                            <path d="m60.37 62.14 43.2 43.2a139.282 139.282 0 0 0-34.89 60.26l-59-15.82a200.425 200.425 0 0 1 50.69-87.64Z"/>
+                            <path d="m149.79 9.65 15.82 59a139.282 139.282 0 0 0-60.26 34.89l-43.2-43.2a200.425 200.425 0 0 1 87.64-50.69Z"/>
+                        </g>
                 
-                    <fieldset class="octave-selector">
-                        
-                        <legend>Frequency</legend>
+                        <!-- inner circle -->
+                        <g class="circle-of-fifths-tonics">
+                            <path d="m221.77 127.59-.09.35a77.154 77.154 0 0 0-37.56 0l-.09-.35-15.36-57.14a137.215 137.215 0 0 1 68.36 0l-15.26 57.14Z"/>
+                            <path d="m256.932 147.013-.253.258a77.154 77.154 0 0 0-32.527-18.78l.097-.348 15.267-57.165a137.215 137.215 0 0 1 59.202 34.18l-41.786 41.855Z"/> 
+                            <path d="M277.05 181.66a77.258 77.258 0 0 0-18.8-32.49l42.06-42.06a136.775 136.775 0 0 1 34.24 59.15l-57.1 15.31-.4.09Z"/>
+                            <path d="m278.11 221.77-.35-.09a77.154 77.154 0 0 0 0-37.56l.35-.09 57.14-15.31a137.215 137.215 0 0 1 0 68.36l-57.14-15.31Z"/>
+                            <path d="m258.57 256.85-.27-.27a77.231 77.231 0 0 0 18.8-32.49l.35.09 57.14 15.31a136.775 136.775 0 0 1-34.24 59.15l-41.78-41.79Z"/>
+                            <path d="m224.09 277.45-.09-.35a77.231 77.231 0 0 0 32.49-18.8l42.06 42.06a136.775 136.775 0 0 1-59.15 34.24l-15.31-57.15Z"/>
+                            <path d="m183.93 278.11.09-.35a77.154 77.154 0 0 0 37.56 0l.09.35 15.31 57.14a137.215 137.215 0 0 1-68.36 0l15.31-57.14Z"/>
+                            <path d="m148.85 258.57.27-.27a77.258 77.258 0 0 0 32.49 18.8l-.09.35-15.31 57.14a136.775 136.775 0 0 1-59.15-34.24l41.79-41.78Z"/>
+                            <path d="m128.25 224.09.35-.09a77.258 77.258 0 0 0 18.8 32.49l-42.06 42.06A136.775 136.775 0 0 1 71.1 239.4l57.15-15.31Z"/>
+                            <path d="m127.59 183.93.35.09a77.154 77.154 0 0 0 0 37.56l-.35.09-57.14 15.36a137.215 137.215 0 0 1 0-68.36l57.14 15.26Z"/>
+                            <path d="m147.13 148.85.27.27a77.231 77.231 0 0 0-18.8 32.49l-.35-.09-57.14-15.26a136.775 136.775 0 0 1 34.24-59.15l41.78 41.74Z"/>
+                            <path d="m181.61 128.25.09.35a77.231 77.231 0 0 0-32.49 18.8l-42.06-42.06A136.775 136.775 0 0 1 166.3 71.1l15.31 57.15Z"/>
+                        </g>
 
-                        <label for="octave-bass">
-                            <input id="octave-bass" name="octave" type="radio" value="3">
-                            <span class="notation">𝄢</span>
-                            Bass
+                        <!-- Frame -->
+                        <path class="fifths-frame" d="M202.85 0C314.7 0 405.7 91 405.7 202.85s-91 202.85-202.85 202.85S0 314.7 0 202.85 91 0 202.85 0ZM62.14 345.33a200.432 200.432 0 0 0 87.65 50.68l15.82-59a139.282 139.282 0 0 1-60.26-34.89l-43.21 43.21Zm275.52-107.66 59 15.82a200.852 200.852 0 0 0 0-101.3l-59 15.82a139.702 139.702 0 0 1 0 69.66ZM202.85 2.5a199.975 199.975 0 0 0-50.65 6.49l15.82 59a139.702 139.702 0 0 1 69.66 0l15.82-59a199.975 199.975 0 0 0-50.65-6.49ZM2.5 202.85a199.975 199.975 0 0 0 6.49 50.65l59-15.82a139.702 139.702 0 0 1 0-69.66l-59-15.82a199.975 199.975 0 0 0-6.49 50.65Zm342.83 140.71a200.43 200.43 0 0 0 50.68-87.66l-59-15.82a139.28 139.28 0 0 1-34.89 60.27l43.21 43.21ZM9.65 255.91a200.44 200.44 0 0 0 50.69 87.65l43.2-43.2a139.28 139.28 0 0 1-34.89-60.27l-59 15.82Zm247.283-108.897 41.785-41.855a137.2 137.2 0 0 0-59.201-34.18l-15.268 57.165-.097.348a77.17 77.17 0 0 1 32.528 18.78l.253-.258ZM202.85 403.2a199.975 199.975 0 0 0 50.65-6.49l-15.82-59a139.702 139.702 0 0 1-69.66 0l-15.82 59a199.975 199.975 0 0 0 50.65 6.49ZM149.79 9.65a200.425 200.425 0 0 0-87.64 50.69l43.2 43.2a139.282 139.282 0 0 1 60.26-34.89l-15.82-59Zm106.12 386.4a200.44 200.44 0 0 0 87.65-50.69l-43.2-43.2a139.28 139.28 0 0 1-60.27 34.89l15.82 59ZM60.37 62.14a200.425 200.425 0 0 0-50.69 87.64l59 15.82a139.282 139.282 0 0 1 34.89-60.26l-43.2-43.2Zm216.68 119.52.4-.09 57.1-15.31a136.775 136.775 0 0 0-34.24-59.15l-42.06 42.06a77.258 77.258 0 0 1 18.8 32.49Zm-149.46 2.27-57.14-15.26a137.215 137.215 0 0 0 0 68.36l57.14-15.36.35-.09a77.154 77.154 0 0 1 0-37.56l-.35-.09Zm150.52 37.84 57.14 15.31a137.215 137.215 0 0 0 0-68.36l-57.14 15.31-.35.09a77.154 77.154 0 0 1 0 37.56l.35.09Zm117.94-71.98a200.425 200.425 0 0 0-50.69-87.64l-43.2 43.2a139.282 139.282 0 0 1 34.89 60.26l59-15.82Zm-174.28-22.2 15.26-57.14a137.215 137.215 0 0 0-68.36 0l15.36 57.14.09.35a77.154 77.154 0 0 1 37.56 0l.09-.35Zm-37.84 150.52-15.31 57.14a137.215 137.215 0 0 0 68.36 0l-15.31-57.14-.09-.35a77.154 77.154 0 0 1-37.56 0l-.09.35Zm40.16-.66 15.31 57.15a136.775 136.775 0 0 0 59.15-34.24l-42.06-42.06A77.231 77.231 0 0 1 224 277.1l.09.35Zm-95.84-53.36L71.1 239.4a136.775 136.775 0 0 0 34.24 59.15l42.06-42.06A77.258 77.258 0 0 1 128.6 224l-.35.09Zm149.28-21.24h.05c-.049-40.977-33.753-74.681-74.73-74.73h-.05c-40.996 0-74.73 33.734-74.73 74.73s33.734 74.73 74.73 74.73 74.73-33.734 74.73-74.73Zm66.03-142.48a200.44 200.44 0 0 0-87.65-50.69l-15.82 59a139.28 139.28 0 0 1 60.27 34.89l43.2-43.2Zm-194.71 198.2-41.79 41.78a136.775 136.775 0 0 0 59.15 34.24l15.31-57.14.09-.35a77.258 77.258 0 0 1-32.49-18.8l-.27.27Zm109.72-1.72 41.78 41.79a136.775 136.775 0 0 0 34.24-59.15l-57.14-15.31-.35-.09a77.231 77.231 0 0 1-18.8 32.49l.27.27Zm-76.96-128.6L166.3 71.1a136.775 136.775 0 0 0-59.15 34.24l42.06 42.06a77.231 77.231 0 0 1 32.49-18.8l-.09-.35Zm-34.48 20.6-41.78-41.74a136.775 136.775 0 0 0-34.24 59.15l57.14 15.26.35.09a77.231 77.231 0 0 1 18.8-32.49l-.27-.27Z"/>
+                
+                        <!-- Curved text -->
+                        <text>
+                            <textPath font-size="22" alignment-baseline="top" startOffset="22%" xlink:href="#circular-synthesizer-text-curve">
+                                Tone
+                            </textPath>
+                        </text>
+
+                        <text>
+                            <textPath font-size="22" alignment-baseline="top" startOffset="69%" xlink:href="#circular-synthesizer-text-curve">
+                                Frequency
+                            </textPath>
+                        </text>
+
+                        <text>
+                            <textPath font-size="22" alignment-baseline="top" startOffset="-4%" xlink:href="#circular-synthesizer-text-curve">
+                                Timbre
+                            </textPath>
+                        </text>
+                    </svg>
+
+                    <figcaption class="sr-only">Circle of Fifths</figcaption>
+                
+                    <form id="emotion">
+                    
+                        <fieldset class="octave-selector">
+                            
+                            <legend>Frequency</legend>
+
+                            <label for="octave-bass">
+                                <input id="octave-bass" name="octave" type="radio" value="3">
+                                <span class="notation">𝄢</span>
+                                Bass
+                            </label>
+                            
+                            <label for="octave-lead">
+                                <input id="octave-lead" name="octave" type="radio" value="4" checked>
+                                <span class="notation">𝄡</span>
+                                Lead
+                            </label>
+
+                            <label for="octave-treble">
+                                <input id="octave-treble" name="octave" type="radio" value="5">
+                                <span class="notation">𝄞</span>
+                                Treble
+                            </label>
+                            
+                        </fieldset>
+
+                        <fieldset class="emotion-selector">
+                            <legend>Emotion</legend>
+                            <label for="emotion-major">
+                                <input id="emotion-major" type="radio" name="chord" value="Major">
+                                <span class="emoji">🙂</span>
+                                Happy
+                            </label>
+                            
+                            <label for="emotion-minor">
+                                <input id="emotion-minor" type="radio" name="chord" value="Minor">
+                                <span class="emoji">☹︎</span>
+                                Sad
+                            </label>
+                        </fieldset>
+            <!--                
+
+                        <label for="emotion-ionian"><span class="emoji">😐</span>Ionian</label>
+                        <input id="emotion-ionian" type="radio" name="emotion" value="ionian">
+                    
+                        <label for="emotion-dorian"><span class="emoji">🥹</span>Dorian</label>
+                        <input id="emotion-dorian" type="radio" name="emotion" value="dorian">
+
+                        <label for="emotion-phrygian"><span class="emoji">🫤</span>Phrygian</label>
+                        <input id="emotion-phrygian" type="radio" name="emotion" value="phrygian"> -->
+                    </form>
+                </figure>
+
+                <form class="emotion-selector" action="/">
+                    <fieldset class="synth-shape">
+
+                        <legend>Shape <em>(Timbre)</em> <span data-timbre></span></legend>
+                        
+                        <label for="timbre-sine">
+                            <input id="timbre-sine" type="radio" name="timbre" value="Sine" checked>
+                            Sine
                         </label>
                         
-                        <label for="octave-lead">
-                            <input id="octave-lead" name="octave" type="radio" value="4" checked>
-                            <span class="notation">𝄡</span>
-                            Lead
+                        <label for="timbre-square">
+                            <input id="timbre-square" type="radio" name="timbre" value="square" checked>
+                            Square
                         </label>
 
-                        <label for="octave-treble">
-                            <input id="octave-treble" name="octave" type="radio" value="5">
-                            <span class="notation">𝄞</span>
-                            Treble
+                        <label for="timbre-triangle">
+                            <input id="timbre-triangle" type="radio" name="timbre" value="triangle">
+                            Triangle
+                        </label>
+
+                        <label for="timbre-sawtooth">
+                            <input id="timbre-sawtooth" type="radio" name="timbre" value="sawtooth">
+                            Sawtooth
                         </label>
                         
+
+                        <label for="timbre-random">
+                            <input id="timbre-random" class="cta" type="button" value="random">
+                            Random Wave
+                        </label>
+
+
                     </fieldset>
 
-                    <fieldset class="emotion-selector">
-                        <legend>Emotion</legend>
-                        <label for="emotion-major">
-                            <input id="emotion-major" type="radio" name="chord" value="Major">
-                            <span class="emoji">🙂</span>
+                    <fieldset class="">
+
+                        <legend>Mood</legend>
+                        
+                        <label for="emotion-happy">
+                            <input id="emotion-happy" type="radio" name="chord" value="Major">
+                            <span class="emoji" aria-hidden="true">🙂</span>
                             Happy
                         </label>
-                        
-                        <label for="emotion-minor">
-                            <input id="emotion-minor" type="radio" name="chord" value="Minor">
-                            <span class="emoji">☹︎</span>
+
+                        <label for="emotion-sad">
+                            <input id="emotion-sad" type="radio" name="chord" value="Minor">
+                            <span class="emoji" aria-hidden="true">☹︎</span>
                             Sad
                         </label>
+
                     </fieldset>
-        <!--                
 
-                    <label for="emotion-ionian"><span class="emoji">😐</span>Ionian</label>
-                    <input id="emotion-ionian" type="radio" name="emotion" value="ionian">
-                
-                    <label for="emotion-dorian"><span class="emoji">🥹</span>Dorian</label>
-                    <input id="emotion-dorian" type="radio" name="emotion" value="dorian">
+                    <fieldset class="happy">
 
-                    <label for="emotion-phrygian"><span class="emoji">🫤</span>Phrygian</label>
-                    <input id="emotion-phrygian" type="radio" name="emotion" value="phrygian"> -->
+                        <legend><span class="sr-only">Choose an </span>Emotion</legend>   
+
+                        <label for="emotion-ionian">
+                            <input id="emotion-ionian" type="radio" name="emotion" value="Ionian">
+                            <span class="emoji major" aria-hidden="true">😐</span>
+                            <span class="emoji minor" aria-hidden="true">😐</span>
+                            <span class="emotion sr-only major">Surprise</span> 
+                            Ionian
+                        </label>
+
+                        <label for="emotion-dorian">
+                            <input id="emotion-dorian" type="radio" name="emotion" value="Dorian">
+                            <span class="emoji major" aria-hidden="true">🥹</span>
+                            <span class="emoji minor" aria-hidden="true">🥺</span>
+                            <span class="emotion sr-only major">Surprise</span> 
+                            Dorian
+                        </label>
+
+                        <label for="emotion-phrygian">
+                            <input id="emotion-phrygian" type="radio" name="emotion" value="Phrygian">
+                            <span class="emoji major" aria-hidden="true">🫤</span>
+                            <span class="emoji minor" aria-hidden="true">😕</span>
+                            <span class="emotion sr-only major">Surprise</span> 
+                            Phrygian
+                        </label>
+
+                        <label for="emotion-lydian">
+                            <input id="emotion-lydian" type="radio" name="emotion" value="Lydian">
+                            <span class="emoji major" aria-hidden="true">😗</span>
+                            <span class="emoji minor" aria-hidden="true">😳</span>
+                            <span class="emotion sr-only major">Surprise</span> 
+                            Lydian
+                        </label>
+
+                        <label for="emotion-mixolydian">
+                            <input id="emotion-mixolydian" type="radio" name="emotion" value="Mixolydian">
+                            <span class="emoji major" aria-hidden="true">😊</span>
+                            <span class="emoji minor" aria-hidden="true">😖</span>
+                            <span class="emotion sr-only major">Jolly</span> 
+                            Mixolydian
+                        </label>
+
+                        <label for="emotion-aeolian">
+                            <input id="emotion-aeolian" type="radio" name="emotion" value="Aeolian">
+                            <span class="emoji major" aria-hidden="true">😲</span>
+                            <span class="emoji minor" aria-hidden="true">😱</span>
+                            <span class="emotion sr-only major">Surprise</span> 
+                            Aeolian
+                        </label>
+
+                        <label for="emotion-locrian">
+                            <input id="emotion-locrian" type="radio" name="emotion" value="Locrian">
+                            <span class="emoji major" aria-hidden="true">😛</span>
+                            <span class="emoji minor" aria-hidden="true">😬</span>
+                            <span class="emotion sr-only major">Fearful</span> 
+                            Locrian
+                        </label>
+
+
+                        <!-- <label for="emotion-angry"><span class="emoji major">😠</span> | Angry</label>
+                        <input id="emotion-angry" type="radio" name="emotion" value="angry">
+                    
+                        <label for="emotion-fearful">Fearful</label>
+                        <input id="emotion-fearful" type="radio" name="emotion" value="fearful"> -->
+
+                    </fieldset>
+                    
+                    <output>
+
+                    </output>
+
                 </form>
-            </figure>
+                <a href="#link-chords" class="cta">Return to the circular synthesizer</a>
+                <!-- <a href="#circular-synthesizer" class="cta">Return to the circular synthesizer</a> -->
+            </article>
 
-            <form class="emotion-selector" action="/">
-                <fieldset class="synth-shape">
-
-                    <legend>Shape <em>(Timbre)</em><span data-timbre></span></legend>
-                    
-                    <label for="timbre-sine">
-                        <input id="timbre-sine" type="radio" name="timbre" value="Sine" checked>
-                        Sine
-                    </label>
-                    
-                    <label for="timbre-square">
-                        <input id="timbre-square" type="radio" name="timbre" value="square" checked>
-                        Square
-                    </label>
-
-                    <label for="timbre-triangle">
-                        <input id="timbre-triangle" type="radio" name="timbre" value="triangle">
-                        Triangle
-                    </label>
-
-                    <label for="timbre-sawtooth">
-                        <input id="timbre-sawtooth" type="radio" name="timbre" value="sawtooth">
-                        Sawtooth
-                    </label>
-                    
-
-                    <label for="timbre-random">
-                        <input id="timbre-random" class="cta" type="button" value="random">
-                        Random Wave
-                    </label>
-
-
-                </fieldset>
-
-                <fieldset class="">
-
-                    <legend>Mood</legend>
-                    
-                    <label for="emotion-happy">
-                        <input id="emotion-happy" type="radio" name="chord" value="Major">
-                        <span class="emoji" aria-hidden="true">🙂</span>
-                        Happy
-                    </label>
-
-                    <label for="emotion-sad">
-                        <input id="emotion-sad" type="radio" name="chord" value="Minor">
-                        <span class="emoji" aria-hidden="true">☹︎</span>
-                        Sad
-                    </label>
-
-                </fieldset>
-
-                <fieldset class="happy">
-
-                    <legend><span class="sr-only">Choose an </span>Emotion</legend>   
-
-                    <label for="emotion-ionian">
-                        <input id="emotion-ionian" type="radio" name="emotion" value="Ionian">
-                        <span class="emoji major" aria-hidden="true">😐</span>
-                        <span class="emoji minor" aria-hidden="true">😐</span>
-                        <span class="emotion sr-only major">Surprise</span> 
-                        Ionian
-                    </label>
-
-                    <label for="emotion-dorian">
-                        <input id="emotion-dorian" type="radio" name="emotion" value="Dorian">
-                        <span class="emoji major" aria-hidden="true">🥹</span>
-                        <span class="emoji minor" aria-hidden="true">🥺</span>
-                        <span class="emotion sr-only major">Surprise</span> 
-                        Dorian
-                    </label>
-
-                    <label for="emotion-phrygian">
-                        <input id="emotion-phrygian" type="radio" name="emotion" value="Phrygian">
-                        <span class="emoji major" aria-hidden="true">🫤</span>
-                        <span class="emoji minor" aria-hidden="true">😕</span>
-                        <span class="emotion sr-only major">Surprise</span> 
-                        Phrygian
-                    </label>
-
-                    <label for="emotion-lydian">
-                        <input id="emotion-lydian" type="radio" name="emotion" value="Lydian">
-                        <span class="emoji major" aria-hidden="true">😗</span>
-                        <span class="emoji minor" aria-hidden="true">😳</span>
-                        <span class="emotion sr-only major">Surprise</span> 
-                        Lydian
-                    </label>
-
-                    <label for="emotion-mixolydian">
-                        <input id="emotion-mixolydian" type="radio" name="emotion" value="Mixolydian">
-                        <span class="emoji major" aria-hidden="true">😊</span>
-                        <span class="emoji minor" aria-hidden="true">😖</span>
-                        <span class="emotion sr-only major">Jolly</span> 
-                        Mixolydian
-                    </label>
-
-                    <label for="emotion-aeolian">
-                        <input id="emotion-aeolian" type="radio" name="emotion" value="Aeolian">
-                        <span class="emoji major" aria-hidden="true">😲</span>
-                        <span class="emoji minor" aria-hidden="true">😱</span>
-                        <span class="emotion sr-only major">Surprise</span> 
-                        Aeolian
-                    </label>
-
-                    <label for="emotion-locrian">
-                        <input id="emotion-locrian" type="radio" name="emotion" value="Locrian">
-                        <span class="emoji major" aria-hidden="true">😛</span>
-                        <span class="emoji minor" aria-hidden="true">😬</span>
-                        <span class="emotion sr-only major">Fearful</span> 
-                        Locrian
-                    </label>
-
-
-                    <!-- <label for="emotion-angry"><span class="emoji major">😠</span> | Angry</label>
-                    <input id="emotion-angry" type="radio" name="emotion" value="angry">
-                
-                    <label for="emotion-fearful">Fearful</label>
-                    <input id="emotion-fearful" type="radio" name="emotion" value="fearful"> -->
-
-                </fieldset>
-                
-                <output>
-
-                </output>
-
-            </form>
-            <a href="#link-chords" class="cta">Return to the circular synthesizer</a>
-            <!-- <a href="#circular-synthesizer" class="cta">Return to the circular synthesizer</a> -->
         </section>
         
         <!-- Technology ------------------------------------------- -->
       
         <section id="technology" class="split" data-observe>
-            <h3>Technology</h3>
-            <p>Computers are very good at recognising patterns. 
-                If you keep showing a computer ducks, eventually it will realise what ducks have in common - a bill, wings, webbed feat, a distinct waddle and some quacks. 
-                With practice it becomes an expert it duck detection.
-            </p>
-            <p>
-                The same can be true for recognising emotions. 
-                Happiness presents many obvious indicators such as smiling, wide eyes and raised eyebrows.  
-        
-                Whilst frowns and furrowed brows indicate melancholy and malaise.
-                Both are easy to spot. Like ducks.
-            </p>
-            <p>
-                A well-trained machine can read you like a book...
-            </p>
-            <p class="flood">
-                <strong>But can it play you like a musical instrument?</strong>
-            </p>
+            <article class="page">
+                <h3 class="heading-icon">Technology</h3>
+                <p>Computers are very good at recognising patterns. 
+                    If you keep showing a computer ducks, eventually it will realise what ducks have in common - a bill, wings, webbed feat, a distinct waddle and some quacks. 
+                    With practice it becomes an expert it duck detection.
+                </p>
+                <p>
+                    The same can be true for recognising emotions. 
+                    Happiness presents many obvious indicators such as smiling, wide eyes and raised eyebrows.  
+            
+                    Whilst frowns and furrowed brows indicate melancholy and malaise.
+                    Both are easy to spot. Like ducks.
+                </p>
+                <p>
+                    A well-trained machine can read you like a book...
+                </p>
+                <p class="flood">
+                    <strong>But can it play you like a musical instrument?</strong>
+                </p>
+            </article>
         </section>
 
+
         <!-- AMIC ------------------------------------------- -->
-      
         <section id="amic"  class="split" data-observe>
 
-            <h3>Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h3>
-                  
-            <p>Over 14 years, working directly with disabled artists and people with no musical abilities, DMLab has been researching ways to grant musical superpowers through research and technology.</p>
-          
-            <figure class="sticky bumpers">
-                <picture>
-                    <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=avif&width=1080" type="image/avif" />
-                    <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=webp&width=1080" type="image/webp" />
-                    <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" type="image/jpeg" />
-                    <img src="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" alt="The Holographic PhotoSYNTH being presented at the AMIC, Accessible Musical Instrument Collection." />
-                </picture>
-                <figcaption>AMIC. Holographic PhotoSYNTH.</figcaption>
-            </figure>
-          
-            <figure class="sticky bumpers">
-                <img src="/source/assets/photos/alexander-baxevanis.jpg" alt="The Holographic PhotoSYNTH being presented at the Electromagnetic Fields Festival.">
-                <figcaption>
-                    Holographic PhotoSYNTH at the Electromagnetic Fields Festival 
-                    <br>Photograph by <cite class="attribution">Alexander Baxevanis</cite>
-                    <a class="license" href="https://creativecommons.org/licenses/by/2.0/">
-                       <img src="/source/assets/icons/cc-icon.svg" alt="Creative Commons Attribution 2.0 Generic" width="44" height="44">
-                       <img src="/source/assets/icons/cc-icons-person.svg" alt="Creative Commons Attribution 2.0 Generic" width="44" height="44">
-                        CC2.0
-                    </a>
-                </figcaption>
-            </figure>
-
-
-            <p>Over the past 14 years we have run the DMLab workshop in London (and now Manchester too) that invites people with technical knowledge and people with disabilities and different abilities to work together in order to research and develop new ways of interacting with technology. 
-                One area that we have been working on is using neural networks and machine learning to attempt to determine intention from emotions and motions in realime, in order to augment existing skills with new musical powers. 
-                By piggybacking onto intrinsic movements, that come naturally, a performance can be both expressive and communicative, where the dance leads the music, this could be as simple as binding musical actions to hand movements, or as sophisticated as a collaborative multiplayer face controlled pop-music factory that learns how to play you!
-            </p>
-          
-            <p>A duet collaboration between the godfather of biometric music, Zenon Olenski and DMLab, Drake Music's
-                legendary research and development team, and hundreds of disabled artists.
-               
-            </p>
-
-            <p>
-                https://mimugloves.com/
-            </p>
-
-            <h3>A Celebration of diversity & Inclusion</h3>
-            <p>A musical instrument is at the zenith of fidelity, some are incredibly complicated machines that require time to master. 
-                If you can control a complex musical instrument 
+            <article class="page">
+                <h3 class="heading-icon">Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h3>
+                    
+                <p>Over 14 years, working directly with disabled artists and people with no musical abilities, DMLab has been researching ways to grant musical superpowers through research and technology.</p>
             
-                The same techniques used to simplify music making can be used for controlling other things.
-            </p>
+                <figure class="sticky bumpers">
+                    <picture>
+                        <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=avif&width=1080" type="image/avif" />
+                        <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=webp&width=1080" type="image/webp" />
+                        <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" type="image/jpeg" />
+                        <img src="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" alt="The Holographic PhotoSYNTH being presented at the AMIC, Accessible Musical Instrument Collection." />
+                    </picture>
+                    <figcaption>AMIC. Holographic PhotoSYNTH.</figcaption>
+                </figure>
+            
+                <figure class="sticky bumpers">
+                    <img src="/source/assets/photos/alexander-baxevanis.jpg" alt="The Holographic PhotoSYNTH being presented at the Electromagnetic Fields Festival.">
+                    <figcaption>
+                        Holographic PhotoSYNTH at the Electromagnetic Fields Festival 
+                        <br>Photograph by <cite class="attribution">Alexander Baxevanis</cite>
+                        <a class="license" href="https://creativecommons.org/licenses/by/2.0/">
+                        <img src="/source/assets/icons/cc-icon.svg" alt="Creative Commons Attribution 2.0 Generic" width="44" height="44">
+                        <img src="/source/assets/icons/cc-icons-person.svg" alt="Creative Commons Attribution 2.0 Generic" width="44" height="44">
+                            CC2.0
+                        </a>
+                    </figcaption>
+                </figure>
+
+
+                <p>Over the past 14 years we have run the DMLab workshop in London (and now Manchester too) that invites people with technical knowledge and people with disabilities and different abilities to work together in order to research and develop new ways of interacting with technology. 
+                    One area that we have been working on is using neural networks and machine learning to attempt to determine intention from emotions and motions in realime, in order to augment existing skills with new musical powers. 
+                    By piggybacking onto intrinsic movements, that come naturally, a performance can be both expressive and communicative, where the dance leads the music, this could be as simple as binding musical actions to hand movements, or as sophisticated as a collaborative multiplayer face controlled pop-music factory that learns how to play you!
+                </p>
+            
+                <p>A duet collaboration between the godfather of biometric music, Zenon Olenski and DMLab, Drake Music's
+                    legendary research and development team, and hundreds of disabled artists.
+                
+                </p>
+
+                <p>
+                    https://mimugloves.com/
+                </p>
+
+                <h3>A Celebration of diversity & Inclusion</h3>
+                <p>A musical instrument is at the zenith of fidelity, some are incredibly complicated machines that require time to master. 
+                    If you can control a complex musical instrument 
+                
+                    The same techniques used to simplify music making can be used for controlling other things.
+                </p>
+            </article>
         </section>
 
         <!-- DMLab ------------------------------------------- -->
-      
         <section  id="laboratory" data-observe>
-            
-            <article class="sticky">
+            <article class="page">
 
-            </article>
+                <hgroup>
+                    <h3 class="heading-icon">Laboratory</h3>
+                    <h4>#DMLab and the Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h4>
+                </hgroup>
 
-            <aside class="sticky">
-                <h3>Laboratory</h3>
-                <h4>#DMLab and the Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h4>
-            
                 <dl class="data-address">
                 
                     <dt>Venue</dt>
@@ -722,7 +845,7 @@
                     
                     <dt>Email</dt>
                     <dd class="email"><a href="mailto:info@drakemusic.org">info@drakemusic.org</a></dd> 
-              
+            
                     <dt id="social-media">Social Media</dt>
                     <dd class="social-media">
                         <ul >
@@ -758,8 +881,8 @@
                         </ul>    
                     </dd>
                 </dl>
-                
-            </aside>
+            </article>
+
         </section>
 
    
@@ -767,64 +890,69 @@
       
 
         <section id="history" data-observe>
-            <h3>History</h3>
-            <p>Created by</p>
+            <article class="page">
 
-            <figure class="sticky bumpers">
-                <img src="/source/assets/photos/gawain-hewitt-photosynth2.png" alt="The PhotoSYNTH version 2 being played by Gawain Hewitt.">
-                <figcaption>Gawain Hewitt playing with the PhotoSYNTH II</figcaption>
-            </figure>
+                <h3 class="heading-icon">History</h3>
+                
+                <p>Created by</p>
 
-            <figure class="sticky bumpers">
+                <figure class="sticky bumpers">
+                    <img src="/source/assets/photos/gawain-hewitt-photosynth2.png" alt="The PhotoSYNTH version 2 being played by Gawain Hewitt.">
+                    <figcaption>Gawain Hewitt playing with the PhotoSYNTH II</figcaption>
+                </figure>
 
-                <picture>
-                    <source srcset="/source/assets/photos/emf-photosynth4d.jpg?as=avif&width=1080" type="image/avif" />
-                    <source srcset="/source/assets/photos/emf-photosynth4d.jpg?as=webp&width=1080" type="image/webp" />
-                    <source srcset="/source/assets/photos/emf-photosynth4d.jpg?width=1080" type="image/jpeg" />
-                    <img src="/source/assets/photos/emf-photosynth4d.jpg?width=1080" alt="The Holographic PhotoSYNTH 4D being played at Electromagnetic Fields." />
-                </picture>
-                <figcaption>Holographic PhotoSYNTH 4D being played at Electromagnetic Fields</figcaption>
-            </figure>
+                <figure class="sticky bumpers">
+
+                    <picture>
+                        <source srcset="/source/assets/photos/emf-photosynth4d.jpg?as=avif&width=1080" type="image/avif" />
+                        <source srcset="/source/assets/photos/emf-photosynth4d.jpg?as=webp&width=1080" type="image/webp" />
+                        <source srcset="/source/assets/photos/emf-photosynth4d.jpg?width=1080" type="image/jpeg" />
+                        <img src="/source/assets/photos/emf-photosynth4d.jpg?width=1080" alt="The Holographic PhotoSYNTH 4D being played at Electromagnetic Fields." />
+                    </picture>
+                    <figcaption>Holographic PhotoSYNTH 4D being played at Electromagnetic Fields</figcaption>
+                </figure>
 
 
-            <details>
-                <summary>
-                    Where we began
-                </summary>
+                <details>
+                    <summary>
+                        Where we began
+                    </summary>
 
-                Access to the right musical instruments and technology can be powerful and transformative.
+                    Access to the right musical instruments and technology can be powerful and transformative.
 
-                As part of our DMLab programme, we have supported the design and creation of a significant number of innovative accessible musical instruments. 
-                We have also established communities and networks of Disabled musicians and technologists working together to develop bespoke solutions to accessible music-making.
+                    As part of our DMLab programme, we have supported the design and creation of a significant number of innovative accessible musical instruments. 
+                    We have also established communities and networks of Disabled musicians and technologists working together to develop bespoke solutions to accessible music-making.
 
-                We have learned a lot from DMLab and now is the right time for us to share our technology, expertise and experience…
-                Introducing, the Accessible Musical Instrument Collection (<abbr title="Accessible Musical Instrument Collection">AMIC</abbr>) :
+                    We have learned a lot from DMLab and now is the right time for us to share our technology, expertise and experience…
+                    Introducing, the Accessible Musical Instrument Collection (<abbr title="Accessible Musical Instrument Collection">AMIC</abbr>) :
 
-                    A ground-breaking national collection, representing state-of-the-art of accessible instrument design
-                    A world-class resource for Disabled people to explore technological possibilities for making music 
-                    A focal point for development of cutting-edge accessible instrument technology
+                        A ground-breaking national collection, representing state-of-the-art of accessible instrument design
+                        A world-class resource for Disabled people to explore technological possibilities for making music 
+                        A focal point for development of cutting-edge accessible instrument technology
 
-                As well as establishing a collection of existing accessible tech, the <abbr title="Accessible Musical Instrument Collection">AMIC</abbr> will commission and support the creation of the next generation of accessible instruments.
+                    As well as establishing a collection of existing accessible tech, the <abbr title="Accessible Musical Instrument Collection">AMIC</abbr> will commission and support the creation of the next generation of accessible instruments.
 
-                The Collection will be as varied as possible, from high-end commercial instruments through to DIY experimental prototypes and bespoke instruments.
+                    The Collection will be as varied as possible, from high-end commercial instruments through to DIY experimental prototypes and bespoke instruments.
 
-                We will continue to build the collection as new instruments come to light, working with makers, hackers and music tech companies to make sure it reflects the most up to date technology.
+                    We will continue to build the collection as new instruments come to light, working with makers, hackers and music tech companies to make sure it reflects the most up to date technology.
 
-                <abbr title="Accessible Musical Instrument Collection">AMIC</abbr> will be housed in an accessible space at Drake Music’s HQ and will be available to visit. 
+                    <abbr title="Accessible Musical Instrument Collection">AMIC</abbr> will be housed in an accessible space at Drake Music’s HQ and will be available to visit. 
 
-                Disabled musicians will be able to visit the collection, test out different instruments using an accessible workstation and (hopefully) find one which suits them. Makers can come and be inspired or see what has already been built. Academics can call upon it for research and teachers can explore options for their students.
-            </details>
+                    Disabled musicians will be able to visit the collection, test out different instruments using an accessible workstation and (hopefully) find one which suits them. Makers can come and be inspired or see what has already been built. Academics can call upon it for research and teachers can explore options for their students.
+                </details>
+            </article>
+
         </section>
 
         <!-- Event ------------------------------------------- -->
-      
-        <section id="event" class="sticky">
+        <section id="event" class="">
+           
+            <article class="page">
+                <hgroup>
+                    <h3 class="heading-icon">Come and join us for a fun musical celebration of diversity, inclusive technology and science!</h3>
+                    <h4>Come and join us for a fun musical celebration of diversity, inclusive technology and science!</h4>
+                </hgroup>
 
-            <h3>Come and join us for a fun musical celebration of diversity, inclusive technology and science!</h3>
-
-            <article>
-                <h4>Event Details</h4>
-                
                 <img class="icon float outside-leaning-polygon" width="100" height="100" src="/source/assets/icons/hearing-loop.svg" alt="Hearing loop enabled venue.">
           
                 <p>The exhibition will feature a series of interactive installations and hands-on demonstrations.</p>
@@ -833,14 +961,60 @@
                     <i class="emoji">🦻</i> 
                     and quiet spaces.
                 </p>
+
+                <table summary="Accessibility facilities">
+                    <caption>Facilities</caption>
+                    
+                    <tr>
+                        <th>Wheelchair accessible</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Hearing loop</th>
+                        <td><img class="icon float outside-leaning-polygon" width="100" height="100" src="/source/assets/icons/hearing-loop.svg" alt="Hearing loop enabled venue."></td>
+                    </tr>
+                    <tr>
+                        <th>Lifts, elevators and stairs</th>
+                        <td>Lifts are available for access to the basement level or first floor.</td>
+                    </tr>
+                    <tr>
+                        <th>Signage</th>
+                        <td>Well lit signage</td>
+                    </tr>
+                    <tr>
+                        <th>Guide dogs</th>
+                        <td>water, special rest room</td>
+                    </tr>
+                    <tr>
+                        <th>Accessible toilet</th>
+                        <td> There is an accessible toilet on the ground floor behind the reception area and an ambulant toilet in the basement. 
+                            There are baby changing facilities in all the toilets in the basement and in the accessible toilet behind reception. 
+                            Please note that the baby change facilities in the accessible toilets should only be used by parents/carers that specifically require the use of an accessible toilet, as baby changes facilities are available elsewhere.</td>
+                    </tr>
+                    <tr>
+                        <th>Quiet space</th>
+                        <td>There is a quiet room on the ground floor next to the marble hall. <em>Please ask the reception desk if you need access to this space.</em></td>
+                    </tr>
+                </table>
             </article>
 
-            <article id="event-info">
+            <article id="event-info" class="page">
+                <h5>Event Details</h5>
                 <iframe class="map" width="1080" height="540" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1344162225723267%2C51.50472238057011%2C-0.1302212476730347%2C51.506889393716634&amp;layer=mapnik"></iframe>
                 <a class="link-map" href="https://www.openstreetmap.org/?#map=18/51.505806/-0.132319">View Larger Map</a>
+            
+                <details>
+                    <summary><h4>Getting there</h4></summary>
+                    <p>
+                        Underground stations: Charing Cross and Piccadilly Circus
+                        Bus routes: 12, 13, 15 and 453.
+                        Coach station: Connections from Victoria coach station
+                        <a rel="noopener noreferrer" target="_blank" href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">See official recommendations</a>       
+                    </p>
+                </details>
             </article>
 
-            <aside id="details" >
+            <aside id="details" class="page">
                 <h4>Summer Science Exhibition 2025 Details</h4>
                 <dl class="data-address">
                     <dt>Start</dt>
@@ -878,13 +1052,17 @@
 
     <!-- Frequently Asked Questions ------------------------------------------- -->
         <section id="faq">
-            <h3>FAQ</h3>
-            <p></p>
+            <article class="page"></article>
+                <h3 class="heading-icon">FAQ</h3>
+                <p></p>
+            </article>
         </section>
-
 
     </main>
 
+
+
+    <!-- Bottom section -->
     <footer>
         
         <p>
@@ -892,7 +1070,7 @@
                 href="https://www.drakemusic.org/">#DMLab @Drake Music</a>
         </p>
 
-        <div id="affiliates">
+        <article id="affiliates">
             <h5>A collaborative duet between</h5>
             <ul>
   
@@ -929,15 +1107,8 @@
                         </figure>
                     </a>
                 </li> -->
-                <!-- <li><a href="https://futureeverything.org" rel="noopener noreferrer" target="_blank">
-                        <figure>
-                            <figcaption><small>Supported by</small>Future Everything</figcaption>
-                            <img src="/source/assets/logos/future-everything.svg" alt="Future Everything">
-                        </figure>
-                    </a>
-                </li> -->
             </ul>
-        </div>
+        </article>
 
         <small>
             <i class="emoji">🫰</i>
