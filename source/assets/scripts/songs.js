@@ -15,3 +15,14 @@ export const ASTLEY = `
     f g a f F a a# a g
     f g a f a# C a g f f C a#
     `
+
+export const AFRICA = `C# B A E C# G# A E G# A E B G# A E B F# C# E B F# C# E B C# G# A E C# G# A E G# A E B G# A E B F# C# E B F# C# E B F# C# E B F# C# E B G# A E B F# C# E B F# C# E B F# C# E B`
+
+export const SONGS = [
+    ASTLEY, AFRICA
+]
+
+export const getRandomSong = () => {
+    const index = Math.floor(Math.random() * SONGS.length)
+    return SONGS[index]
+}
