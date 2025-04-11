@@ -265,16 +265,16 @@ export default class SynthOscillator{
      * 
      * @returns 
      */
-    noteOff(){
+    noteOff( note ){
         if (!this.isNoteDown ){
-            console.warn("noteOff IGNORED")
+            console.warn("noteOff IGNORED", note)
             return
         }
         const now = this.now
         const elapsed = now - this.startedAt
         const extendNow = elapsed < this.options.minDuration ? now + this.options.minDuration : now
 
-        console.info("noteOff", {elapsed, now, extendNow, tooLong:elapsed < this.options.minDuration})
+        // console.info("noteOff", {elapsed, now, extendNow, tooLong:elapsed < this.options.minDuration})
       
 		this.filterNode.frequency.cancelScheduledValues(extendNow)
 		this.filterNode.frequency.linearRampToValueAtTime(this.options.filterCutOff, extendNow + this.options.filterRelease)
