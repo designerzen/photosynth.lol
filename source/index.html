@@ -11,7 +11,6 @@
     <link rel="canonical" href="https://photosynth.lol/">
     <meta name="description" content="A free six-day festival showcasing the science shaping our future.">
     <meta name="RS:PageVersion" content="0">
-    <meta name="RS:PageUID" content="f5da03b6-32ae-45b5-9a06-3e3846d63f90">
     <meta name="RS:PageType" content="ContentPage;">
     <meta name="RS:ContentName" content="Summer Science Exhibition 2025">
     <meta name="RS:PublishedDate" content="00010101">
@@ -20,23 +19,23 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Summer Science Exhibition 2025 | Royal Society">
     <meta property="og:description" content="A free six-day festival showcasing the science shaping our future.">
-    <meta property="og:image" content="https://royalsociety.org/-/media/summer-science-exhibition/2024/sse-2024-newsletter.jpg">
+    <meta property="og:image" content="/source/assets/figures/instant-musical-superpowers-red-square.svg">
     <meta property="og:locale" content="en_GB">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@royalsociety">
     <meta name="twitter:url" content="https://royalsociety.org/science-events-and-lectures/summer-science-exhibition/">
     <meta name="twitter:title" content="Summer Science Exhibition 2025 | Royal Society | Drake Music">
-    <meta itemprop="name" content="Summer Science Exhibition 2025 | Royal Society | Drake Music">
     <meta name="twitter:description" content="A free six-day festival showcasing the science shaping our future.">
-    <meta name="twitter:image" content="https://royalsociety.org/-/media/summer-science-exhibition/2024/sse-2024-newsletter.jpg">
-    
+    <meta name="twitter:image" content="/source/assets/figures/instant-musical-superpowers-red-square.svg">
+     <!-- <meta itemprop="name" content="Summer Science Exhibition 2025 | Royal Society | Drake Music"> -->
+   
     <meta name="color-scheme" content="dark light">
 
-    <link type="text/plain" rel="author" href="https://interface.place/humans.txt">
-	
-    <link rel="sitemap" href="./sitemap-index.xml" />
+    <link type="text/plain" rel="author" href="./humans.txt">
 
-    <script defer src="./assets/scripts/index.js" type="module"></script>
+	<link rel="sitemap" href="./sitemap-index.xml" />
+
+    <script src="./assets/scripts/index.js" type="module"></script>
 
 </head>
 
@@ -70,80 +69,85 @@
             </li>
             <li class="text-size-link">
                 <form>
-                    <legend>Text Size</legend>
-                    <label for="button-text-size-increase"><span class="sr-only">Increase Font Size.</span>
-                        <button title="Increase Font Size" type="button" id="button-text-size-increase"><span class="sr-only">Text Size Increase.</span></button>
-                    </label>
-            
-                    <label for="button-text-size-decrease"><span class="sr-only">Increase Font Size></span>
-                        <button title="Decrease Font Size" type="button" id="button-text-size-decrease"><span class="sr-only">Text Size Decrease.</span></button>
-                    </label>
+                    <fieldset>
+                        <legend>Text Size</legend>
+                        <label for="button-text-size-increase"><span class="sr-only">Increase Font Size.</span>
+                            <button title="Increase Font Size" type="button" id="button-text-size-increase"><span class="sr-only">Text Size Increase.</span></button>
+                        </label>
+                
+                        <label for="button-text-size-decrease"><span class="sr-only">Increase Font Size></span>
+                            <button title="Decrease Font Size" type="button" id="button-text-size-decrease"><span class="sr-only">Text Size Decrease.</span></button>
+                        </label>
+                    </fieldset>
                 </form>
             </li>
 
             <li class="font-link">
                 <form>
-                    <legend>Typeface</legend>
+                    <fieldset>
+                        <legend>Typeface</legend>
 
-                    <label for="font-default">
-                        <input name="font" id="font-default" type="radio" value="default" checked>
-                        Balanced<span class="sr-only"> font</span>
-                    </label>
+                        <label for="font-default">
+                            <input name="font" id="font-default" type="radio" value="default" checked>
+                            Balanced<span class="sr-only"> font</span>
+                        </label>
 
-                    <label for="font-readable">
-                        <input name="font" id="font-readable" type="radio" value="readable">
-                        Readable<span class="sr-only"> font</span>
-                    </label>
+                        <label for="font-readable">
+                            <input name="font" id="font-readable" type="radio" value="readable">
+                            Readable<span class="sr-only"> font</span>
+                        </label>
 
-                    <label for="font-dsylexic">
-                        <input name="font" id="font-dsylexic" type="radio" value="dsylexic">
-                        Dsylexic<span class="sr-only"> font</span>
-                    </label>
-
+                        <label for="font-dsylexic">
+                            <input name="font" id="font-dsylexic" type="radio" value="dsylexic">
+                            Dsylexic<span class="sr-only"> font</span>
+                        </label>
+                    </fieldset>
                 </form>
             </li>
             
             <li class="color-scheme-link">
                 <form>
-                    <legend>Colour Scheme</legend>
+                    <fieldset>
+                        <legend>Colour Scheme</legend>
 
-                    <label for="palette-default">
-                        <input name="palette" id="palette-default" type="radio" value="default" checked>
-                        Balanced<span class="sr-only"> Colour Scheme.</span>
-                    </label>
+                        <label for="palette-default">
+                            <input name="palette" id="palette-default" type="radio" value="default" checked>
+                            Balanced<span class="sr-only"> Colour Scheme.</span>
+                        </label>
 
-                    <label for="palette-contrast">
-                        <input name="palette" id="palette-contrast" type="radio" value="contrast">
-                        High<span class="sr-only"> Contrast Scheme.</span>
-                    </label>
-                    
-                    <label for="palette-monochrome">
-                        <input name="palette" id="palette-monochrome" type="radio" value="monochrome">
-                        Monochrome<span class="sr-only"> Colour Scheme.</span>
-                    </label>
+                        <label for="palette-contrast">
+                            <input name="palette" id="palette-contrast" type="radio" value="contrast">
+                            High<span class="sr-only"> Contrast Scheme.</span>
+                        </label>
                         
-                    <label for="palette-colourful">
-                        <input name="palette" id="palette-colourful" type="radio" value="colourful">
-                        Colourful<span class="sr-only"> Scheme.</span>
-                    </label>
-
+                        <label for="palette-monochrome">
+                            <input name="palette" id="palette-monochrome" type="radio" value="monochrome">
+                            Monochrome<span class="sr-only"> Colour Scheme.</span>
+                        </label>
+                            
+                        <label for="palette-colourful">
+                            <input name="palette" id="palette-colourful" type="radio" value="colourful">
+                            Colourful<span class="sr-only"> Scheme.</span>
+                        </label>
+                    </fieldset>
                 </form>
             </li>
 
             <li class="volume-control-link">
                 <form id="controls-volume">
-                    <legend class="sr-only">Control Volume</legend> 
-                
-                    <label for="mute">
-                        <span class="sr-only">Toggle </span>Mute
-                        <input id="mute" type='checkbox'>
-                    </label>
+                    <fieldset>
+                        <legend class="sr-only">Control Volume</legend> 
+                    
+                        <label for="mute">
+                            <span class="sr-only">Toggle </span>Mute
+                            <input id="mute" type='checkbox'>
+                        </label>
 
-                    <label for="volume">
-                        Volume
-                        <input id="volume" type='range' value='100' min="0" max="100">
-                    </label>
-
+                        <label for="volume">
+                            Volume
+                            <input id="volume" type='range' value='100' min="0" max="100">
+                        </label>
+                    </fieldset>
                 </form>
             </li>
 
@@ -151,18 +155,21 @@
        
         <img class="logo-royal-society-crest" width="100" height="100" src="/source/assets/logos/royal_society-crest.svg" alt="">
         
-        <meter id="load-progress" min="0" max="1" value="0" hidden></meter>
     </header>
 
 
     <main id="main-content">
 
-        <!-- Introduction -->
-        <section id="introduction" inert data-observe data-full-keyboard>
+        <meter id="load-progress" min="0" max="1" value="0" hidden></meter>
+
+        <!-- Introduction data-full-keyboard -->
+        <section id="introduction" class="full-width" inert data-observe>
             
             <article id="hero" class="sticky full-width page">
                 
-                <h3 class="sr-only">Smile Powered Music!</h3>
+                <header>
+                    <h3 class="sr-only">Smile Powered Music!</h3>
+                </header>
                 <figure id="hero-figure" inert>
                     <img 
                         class="flood"
@@ -190,34 +197,29 @@
 
         </section>
 
-        
+
         <!-- Interactive wallpapers -->
         <canvas id="mouse-visualiser" inert></canvas>
         <canvas id="wallpaper"></canvas>
 
 
         <!--  -->
-        <section id="teaser" class="" data-observe>
+        <section id="teaser" class="shadow" data-observe>
            <article class="split page">
-                <h3 class="underline">Drake Music presents, the <cite>Photo<wbr>SYNTH</cite>, the happiest way to make music!</h3>
-
-                <p>This smile powered synthesizer grants you and your friends radical new musical superpowers!</p>
-                <p>Rather than playing a musical instrument, the PhotoSYNTH plays you!</p>
-                <p>By tracking your movements and emotions in real-time, this magic mirror converts them into beautiful music - making it one of the easiest and most fun synthesizers to play, alone or collaboratively with friends.</p>
-                <p>Working alongside Drake Music Charity who specialize in accessible technology, and under the guidance of hundreds of differently abled people, this multiplayer, collaborative mixed-reality pop music machine finally gives your reflection a purpose; empowering the broadest diversity of people to create expressive music... Instantly! =D</p>
                 
-                <p>
-                    Science, research, innovation and development allow us to augment people's abilities in radical new ways thanks to advancements in neural networking, machine learning and artificial intelligence that have made it possible to elegantly interface with machines in natural and intuitive new ways.
-                </p>
+                <header>
+                    <h3 class="underline heading-icon">Drake Music presents, the <cite>Photo<wbr>SYNTH</cite>, the happiest way to make music!</h3>
+                </header>
 
+                <p>The smile powered synthesizer that grants you and your friends radical new musical superpowers!</p>
+                <p>Rather than playing a musical instrument, the PhotoSYNTH plays you!</p>
+                <p>By tracking your movements and expressions in real-time, this magic mirror converts them into great music. 
+                    It is fun and easy to make a musical masterpiece especially if you collaborative with friends.</p>  
+                <p>Working alongside Drake Music Charity, specialists in accessible technology, and with the guidance of hundreds of differently-abled people, this mixed-reality pop music machine finally gives your reflection a purpose =D</p>
+              
                 <h4>If you've ever dreamed of being more musical, you're not alone!</h4>
                 <p>Have you ever dreamed of being more musical, well alright... Hold tight!</p>
             
-                <blockquote>
-                    <p>Wouldn't it be nice if there was a musical magic-spell?</p>
-                </blockquote>
-
-                <p>We all know music can make you feel happy, but what if your happiness could make music?</p>
                 <p>Imagine if you could just make music without having to learn a new instrument!</p>
 
                 <p>Makes learning how to play music simple ... easy, like a Sunday morning.</p>
@@ -240,11 +242,13 @@
 
 
         <!-- MIDI Equipment ------------------------------------------- -->
-        <section id="midi-equipment" class="full-height" data-observe hidden>
+        <section id="midi-equipment" class="full-height shadow" data-observe hidden>
 
             <article class="page">
-                <h3>This site is MIDI Enabled</h3> 
-                <h4>For your listening experience</h4>
+                <header>
+                    <h3 class="heading-icon">This site is MIDI Enabled</h3> 
+                    <h4>For your listening experience</h4>
+                </header>
                 <details>
                     <summary>MIDI</summary>
                     <p>If you have any MIDI equipment, connect them now and press the enable MIDI button above.</p>
@@ -265,11 +269,13 @@
 
 
         <!-- About the event -->
-        <section id="about" data-observe>
+        <section id="about" class="shadow" data-observe>
 
             <article class="split page">
 
-                <h3>About</h3>
+                <header>
+                    <h3 class="heading-icon">About</h3>
+                </header>
 
                 <p>The Summer Science Exhibition is a free six-day festival showcasing the science shaping our future and
                     will be held at the Royal Society in London from July 1st, 2025 to July 6th, 2025.</p>
@@ -305,7 +311,11 @@
             
             <!-- Diagrams -->
             <article class="page">
-                    
+                            
+                <p>
+                    Science, research, innovation and development allow us to augment people's abilities in radical new ways thanks to advancements in neural networking, machine learning and artificial intelligence that have made it possible to elegantly interface with machines in natural and intuitive new ways.
+                </p>
+
                 <figure id="diagram-face-scan" class="sticky full-width bg-clear">
                     <img 
                         class=""
@@ -350,22 +360,26 @@
 
                 <p>Every articulation can become an audio revelation… Instant musical superpowers!</p>
 
+
+                
                 <a href="https://royalsociety.org/science-events-and-lectures/summer-science-exhibition/" class="cta">Learn more</a>
 
             </article>
 
         </section>
-
-            
-
-        <!-- Funky audio analyser overlay -->
         <canvas id="visualiser" class="sticky full-height full-width" width=800 height=400></canvas>
-        
-        <section id="waveform-visualiser" class="bg-clear" data-full-keyboard data-observe>
-            <article class="page">
-                <h3 data-timbre>The Shape of Sound</h3>
-                
-                <form action="/">  
+           
+        <section id="science" class="shadow bg-clear" data-observe>
+
+            <!-- Funky audio analyser overlay -->            
+            <article id="waveform-visualiser" class="bg-clear shadow sticky full-height full-width" data-full-keyboard data-observe>
+                   
+                <header>
+                    <h3 class="heading-icon" data-timbre>Each Sound Has a Shape</h3>
+                </header>
+
+                <form action="/">
+                    
                     <fieldset class="timbre-selector">
                         <legend>Shape (Timbre)</legend>
                         <label for="song-timbre-random">
@@ -396,6 +410,68 @@
                         </label>
                     </fieldset>
 
+                </form>
+            </article>
+        </section>
+
+        <section id="shapes" class="bg-clear shadow" data-full-keyboard data-observe>
+            <article class="page">
+                
+                <hgroup>
+                    <h3 class="heading-icon" data-timbre>The Shape of Sound</h3>
+                    <h4>Each sound has a shape, similar to fingerprints</h4>
+                </hgroup>
+
+                <form id="emotion" action="/">    
+                    <fieldset class="octave-selector">
+                        
+                        <legend>Frequency</legend>
+
+                        <label for="octave-bass">
+                            <input id="octave-bass" name="octave" type="radio" value="3">
+                            <span class="notation">𝄢</span>
+                            Bass
+                        </label>
+                        
+                        <label for="octave-lead">
+                            <input id="octave-lead" name="octave" type="radio" value="4" checked>
+                            <span class="notation">𝄡</span>
+                            Lead
+                        </label>
+
+                        <label for="octave-treble">
+                            <input id="octave-treble" name="octave" type="radio" value="5">
+                            <span class="notation">𝄞</span>
+                            Treble
+                        </label>
+                        
+                    </fieldset>
+
+                    <fieldset class="emotion-selector">
+                        <legend>Emotion</legend>
+                        <label for="emotion-major">
+                            <input id="emotion-major" type="radio" name="chord" value="Major">
+                            <span class="emoji">🙂</span>
+                            Happy
+                        </label>
+                        
+                        <label for="emotion-minor">
+                            <input id="emotion-minor" type="radio" name="chord" value="Minor">
+                            <span class="emoji">☹︎</span>
+                            Sad
+                        </label>
+                    </fieldset>
+        <!--                
+
+                    <label for="emotion-ionian"><span class="emoji">😐</span>Ionian</label>
+                    <input id="emotion-ionian" type="radio" name="emotion" value="ionian">
+                
+                    <label for="emotion-dorian"><span class="emoji">🥹</span>Dorian</label>
+                    <input id="emotion-dorian" type="radio" name="emotion" value="dorian">
+
+                    <label for="emotion-phrygian"><span class="emoji">🫤</span>Phrygian</label>
+                    <input id="emotion-phrygian" type="radio" name="emotion" value="phrygian"> -->
+              
                     <fieldset class="emotional-chord-player">
                         <legend>Emotional Shapes</legend>
                         <label for="button-happy">
@@ -404,7 +480,7 @@
                         </label>
 
                         <label for="button-sad">
-                            Happy sound
+                            Sad sound
                             <button class="button-image" id="button-sad" type="button">Sad</button>
                         </label>
                     </fieldset>
@@ -415,11 +491,11 @@
 
         <!-- Research ------------------------------------------- -->
       
-        <section id="research" class="split" data-observe>
+        <section id="research" class="split shadow" data-observe>
             <article class="page">
                 <hgroup>
                     <h3 class="heading-icon">Research</h3>
-                    <h4>"Some People"<h4>
+                    <h4>"Some People"</h4>
                 </hgroup>
                     
                 <p>
@@ -461,7 +537,7 @@
         </section>
 
         <!-- Chords & Patterns ------------------------------------------- -->
-        <section id="chords" class="bg-clear" data-observe>
+        <section id="chords" class="bg-clear shadow" data-observe>
             <article class="page">
                 <hgroup>
                     <h3 class="heading-icon">Shapes &amp; Patterns</h3>
@@ -546,60 +622,10 @@
 
                     <figcaption class="sr-only">Circle of Fifths</figcaption>
                 
-                    <form id="emotion">
-                    
-                        <fieldset class="octave-selector">
-                            
-                            <legend>Frequency</legend>
-
-                            <label for="octave-bass">
-                                <input id="octave-bass" name="octave" type="radio" value="3">
-                                <span class="notation">𝄢</span>
-                                Bass
-                            </label>
-                            
-                            <label for="octave-lead">
-                                <input id="octave-lead" name="octave" type="radio" value="4" checked>
-                                <span class="notation">𝄡</span>
-                                Lead
-                            </label>
-
-                            <label for="octave-treble">
-                                <input id="octave-treble" name="octave" type="radio" value="5">
-                                <span class="notation">𝄞</span>
-                                Treble
-                            </label>
-                            
-                        </fieldset>
-
-                        <fieldset class="emotion-selector">
-                            <legend>Emotion</legend>
-                            <label for="emotion-major">
-                                <input id="emotion-major" type="radio" name="chord" value="Major">
-                                <span class="emoji">🙂</span>
-                                Happy
-                            </label>
-                            
-                            <label for="emotion-minor">
-                                <input id="emotion-minor" type="radio" name="chord" value="Minor">
-                                <span class="emoji">☹︎</span>
-                                Sad
-                            </label>
-                        </fieldset>
-            <!--                
-
-                        <label for="emotion-ionian"><span class="emoji">😐</span>Ionian</label>
-                        <input id="emotion-ionian" type="radio" name="emotion" value="ionian">
-                    
-                        <label for="emotion-dorian"><span class="emoji">🥹</span>Dorian</label>
-                        <input id="emotion-dorian" type="radio" name="emotion" value="dorian">
-
-                        <label for="emotion-phrygian"><span class="emoji">🫤</span>Phrygian</label>
-                        <input id="emotion-phrygian" type="radio" name="emotion" value="phrygian"> -->
-                    </form>
                 </figure>
 
                 <form class="emotion-selector" action="/">
+                    <a href="#link-chords" class="button-close">Return to the circular synthesizer</a>
                     <fieldset class="synth-shape">
 
                         <legend>Shape <em>(Timbre)</em> <span data-timbre></span></legend>
@@ -720,12 +746,8 @@
 
                     </fieldset>
                     
-                    <output>
-
-                    </output>
-
                 </form>
-                <a href="#link-chords" class="cta">Return to the circular synthesizer</a>
+                <a href="#link-chords" class="cta centralise">Return to the circular synthesizer</a>
                 <!-- <a href="#circular-synthesizer" class="cta">Return to the circular synthesizer</a> -->
             </article>
 
@@ -733,7 +755,7 @@
         
         <!-- Technology ------------------------------------------- -->
       
-        <section id="technology" class="split" data-observe>
+        <section id="technology" class="split shadow" data-observe>
             <article class="page">
                 <h3 class="heading-icon">Technology</h3>
                 <p>Computers are very good at recognising patterns. 
@@ -758,10 +780,13 @@
 
 
         <!-- AMIC ------------------------------------------- -->
-        <section id="amic"  class="split" data-observe>
+        <section id="amic"  class="split shadow" data-observe>
 
             <article class="page">
-                <h3 class="heading-icon">Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h3>
+
+                <hgroup>
+                    <h3 class="heading-icon">Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h3>
+                </hgroup>
                     
                 <p>Over 14 years, working directly with disabled artists and people with no musical abilities, DMLab has been researching ways to grant musical superpowers through research and technology.</p>
             
@@ -813,7 +838,7 @@
         </section>
 
         <!-- DMLab ------------------------------------------- -->
-        <section  id="laboratory" data-observe>
+        <section  id="laboratory" class="shadow"data-observe>
             <article class="page">
 
                 <hgroup>
@@ -889,7 +914,7 @@
         <!-- History ------------------------------------------- -->
       
 
-        <section id="history" data-observe>
+        <section id="history" class="shadow" data-observe>
             <article class="page">
 
                 <h3 class="heading-icon">History</h3>
@@ -945,7 +970,7 @@
         </section>
 
         <!-- Event ------------------------------------------- -->
-        <section id="event" class="">
+        <section id="event" class="shadow">
            
             <article class="page">
                 <hgroup>
@@ -962,40 +987,44 @@
                     and quiet spaces.
                 </p>
 
-                <table summary="Accessibility facilities">
-                    <caption>Facilities</caption>
-                    
-                    <tr>
-                        <th>Wheelchair accessible</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>Hearing loop</th>
-                        <td><img class="icon float outside-leaning-polygon" width="100" height="100" src="/source/assets/icons/hearing-loop.svg" alt="Hearing loop enabled venue."></td>
-                    </tr>
-                    <tr>
-                        <th>Lifts, elevators and stairs</th>
-                        <td>Lifts are available for access to the basement level or first floor.</td>
-                    </tr>
-                    <tr>
-                        <th>Signage</th>
-                        <td>Well lit signage</td>
-                    </tr>
-                    <tr>
-                        <th>Guide dogs</th>
-                        <td>water, special rest room</td>
-                    </tr>
-                    <tr>
-                        <th>Accessible toilet</th>
-                        <td> There is an accessible toilet on the ground floor behind the reception area and an ambulant toilet in the basement. 
-                            There are baby changing facilities in all the toilets in the basement and in the accessible toilet behind reception. 
-                            Please note that the baby change facilities in the accessible toilets should only be used by parents/carers that specifically require the use of an accessible toilet, as baby changes facilities are available elsewhere.</td>
-                    </tr>
-                    <tr>
-                        <th>Quiet space</th>
-                        <td>There is a quiet room on the ground floor next to the marble hall. <em>Please ask the reception desk if you need access to this space.</em></td>
-                    </tr>
-                </table>
+                <figure>
+                    <table>
+                        <caption>Facilities</caption>
+                        
+                        <tr>
+                            <th>Wheelchair accessible</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>Hearing loop</th>
+                            <td><img class="icon float outside-leaning-polygon" width="100" height="100" src="/source/assets/icons/hearing-loop.svg" alt="Hearing loop enabled venue."></td>
+                        </tr>
+                        <tr>
+                            <th>Lifts, elevators and stairs</th>
+                            <td>Lifts are available for access to the basement level or first floor.</td>
+                        </tr>
+                        <tr>
+                            <th>Signage</th>
+                            <td>Well lit signage</td>
+                        </tr>
+                        <tr>
+                            <th>Guide dogs</th>
+                            <td>water, special rest room</td>
+                        </tr>
+                        <tr>
+                            <th>Accessible toilet</th>
+                            <td> There is an accessible toilet on the ground floor behind the reception area and an ambulant toilet in the basement. 
+                                There are baby changing facilities in all the toilets in the basement and in the accessible toilet behind reception. 
+                                Please note that the baby change facilities in the accessible toilets should only be used by parents/carers that specifically require the use of an accessible toilet, as baby changes facilities are available elsewhere.</td>
+                        </tr>
+                        <tr>
+                            <th>Quiet space</th>
+                            <td>There is a quiet room on the ground floor next to the marble hall. <em>Please ask the reception desk if you need access to this space.</em></td>
+                        </tr>
+                    </table>
+                    <figcaption>Accessibility facilities</figcaption>
+                </figure>
+
             </article>
 
             <article id="event-info" class="page">
@@ -1004,7 +1033,7 @@
                 <a class="link-map" href="https://www.openstreetmap.org/?#map=18/51.505806/-0.132319">View Larger Map</a>
             
                 <details>
-                    <summary><h4>Getting there</h4></summary>
+                    <summary><h6>Getting there</h6></summary>
                     <p>
                         Underground stations: Charing Cross and Piccadilly Circus
                         Bus routes: 12, 13, 15 and 453.
@@ -1051,10 +1080,42 @@
 
 
     <!-- Frequently Asked Questions ------------------------------------------- -->
-        <section id="faq">
-            <article class="page"></article>
-                <h3 class="heading-icon">FAQ</h3>
-                <p></p>
+        <section id="faq" class="shadow">
+            <article class="page">
+                
+                <hgroup>
+                    <h3 class="heading-icon">FAQ</h3>
+                    <h4>Frequently Asked Questions</h4>
+                </hgroup>
+               
+                <details name="questions">
+                    <summary><h5>Question</h5></summary>
+                    <p>
+                        Underground stations: Charing Cross and Piccadilly Circus
+                        Bus routes: 12, 13, 15 and 453.
+                        Coach station: Connections from Victoria coach station
+                        <a rel="noopener noreferrer" target="_blank" href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">See official recommendations</a>       
+                    </p>
+                </details>
+                <details name="questions">
+                    <summary><h5>Question</h5></summary>
+                    <p>
+                        Underground stations: Charing Cross and Piccadilly Circus
+                        Bus routes: 12, 13, 15 and 453.
+                        Coach station: Connections from Victoria coach station
+                        <a rel="noopener noreferrer" target="_blank" href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">See official recommendations</a>       
+                    </p>
+                </details>
+                <details name="questions">
+                    <summary><h5>Question</h5></summary>
+                    <p>
+                        Underground stations: Charing Cross and Piccadilly Circus
+                        Bus routes: 12, 13, 15 and 453.
+                        Coach station: Connections from Victoria coach station
+                        <a rel="noopener noreferrer" target="_blank" href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">See official recommendations</a>       
+                    </p>
+                </details>
+
             </article>
         </section>
 
@@ -1078,7 +1139,7 @@
                         rel="noopener noreferrer" target="_blank">
                         <figure>
                             <figcaption class="sr-only">Drake Music Homepage</figcaption>
-                            <img class="logo-drake-music" src="/source/assets/logos/drake-square.svg" width="1024" height="1024" alt="Drake Music.">
+                            <img class="logo logo-drake-music" src="/source/assets/logos/drake-square.svg" width="1024" height="1024" alt="Drake Music.">
                         </figure>
                     </a>
                 </li>
@@ -1087,7 +1148,7 @@
                         rel="noopener noreferrer" target="_blank">
                         <figure>
                             <figcaption class="sr-only">Royal Society Homepage</figcaption>
-                            <img class="logo-royal-society" src="/source/assets/logos/royal-society-square.svg" width="1024" height="1024" alt="Royal Society.">
+                            <img class="logo logo-royal-society" src="/source/assets/logos/royal-society-square.svg" width="1024" height="1024" alt="Royal Society.">
                             <!-- <img src="/source/assets/logos/royal_society.svg" alt="Royal Society."> -->
                         </figure>
                         
@@ -1110,14 +1171,35 @@
             </ul>
         </article>
 
-        <small>
+        <article id="share-menu" hidden>
+            <share-menu
+                id="share"
+                title="Share!"
+                text="Share this event"
+                url="https://photosynth/"
+                image="https://photosynth/assets/logos/photosynth-square.svg"
+                dialog-title="Share now"
+                copy-hint="Copy to clipboard"
+                handle="always"
+                no-backdrop
+                >
+                <share-target-email></share-target-email>
+                <share-target-facebook></share-target-facebook>
+                <share-target-telegram></share-target-telegram>
+            </share-menu>
+
+            <button class="button-share" onclick="share.share()">Share</button>
+        </article>
+
+        <small class="smallprint">
             <i class="emoji">🫰</i>
-            <em>Made for humans, by humans, at <a href="https://designerzen.com">designerzen</a> with <span>Awesomething</span>.</em> 
+            <em>Made for humans, by humans, at <a href="https://designerzen.com">designerzen</a> with <span class="awesomething">Awesomething</span>.</em> 
             <br>
             Dedicated to Josefa Olenska and Blue Ramsey.
             © <span class="current-year">2025</span> 
                 Royal Society & Accessible Musical Instrument Collection.
         </small>
+
     </footer>
 
     <a href="#" class="back-to-top button">Back to Top</a>
