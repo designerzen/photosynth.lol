@@ -44,7 +44,7 @@ export default class CircleSynth extends AbstractInteractive{
         return this.scaleType
     }
 
-    constructor( notes, noteOn, noteOff, setMode ){
+    constructor( notes, noteOn, noteOff, setMode, mode=0, octave=4 ){
 		super()
 
         const chordOn = (noteModel, velocity=1, id=0, idOffset=0) => {
@@ -53,7 +53,12 @@ export default class CircleSynth extends AbstractInteractive{
         const chordOff = (noteModel, velocity=1, id=0, idOffset=0) => {
             noteOff( noteModel, velocity, id, null, this.mode, idOffset )
         }
+
         this.notes = notes
+        this.octave = octave ?? 4
+        this.modeIndex = mode ?? 0
+        // this.scaleType = sc ?? 0
+        
         this.element = document.querySelector(".circle-of-fifths")
         this.title = this.element.querySelector("title")
         this.emoji = this.element.querySelector(".fifths-emotion-text")
@@ -61,6 +66,8 @@ export default class CircleSynth extends AbstractInteractive{
         this.keyElements.push(...this.createKeys(notes, ".circle-of-fifths-harmonies path" ))
         this.addInteractivity( this.keyElements, chordOn, chordOff )  
         this.addControls( setMode )
+
+        this.setEmoji()
 	}
 
     setEmoji(){
@@ -120,6 +127,14 @@ export default class CircleSynth extends AbstractInteractive{
             path.setAttribute("data-number", i) // note.noteNumber
             path.setAttribute("data-note", note.noteNumber )
             path.setAttribute("data-name", note.noteName)
+            path.setAttribute("data-frequency", note.frequency)
+            path.setAttribute("data-octave", note.octave)
+            
+            // make this into an accessible button
+            path.setAttribute("role", "button")
+            path.setAttribute("tabindex", "0")
+            path.setAttribute("aria-label", note.noteName )
+
             this.noteLibrary.set( path, notes[i] )
             return path
         })

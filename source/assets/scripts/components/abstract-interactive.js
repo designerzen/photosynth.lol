@@ -24,6 +24,15 @@ export default class AbstractInteractive{
 		
 			const onPianoInteractionStarting = (event) => {
 
+				// Keypresses other than Enter and Space should not trigger a command
+				if (
+					event instanceof KeyboardEvent &&
+					event.key !== "Enter" &&
+					event.key !== " "
+				) {
+					return
+				}
+
 				if (!passive && event.preventDefault)
 				{
 					event.preventDefault()
@@ -61,6 +70,15 @@ export default class AbstractInteractive{
 			}
 		
 			const onInterationComplete = (event) => {
+				// Keypresses other than Enter and Space should not trigger a command
+				if (
+					event instanceof KeyboardEvent &&
+					event.key !== "Enter" &&
+					event.key !== " "
+				) {
+					return
+				}
+
 				if (!passive && event.preventDefault)
 				{
 					event.preventDefault()
@@ -84,6 +102,7 @@ export default class AbstractInteractive{
 			
 			// if the user has finger down but they change keys...
 			button.addEventListener("mouseenter", event => {
+			
 				if (!passive && event.preventDefault)
 				{
 					event.preventDefault()

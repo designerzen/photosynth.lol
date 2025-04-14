@@ -14,6 +14,7 @@ import AbstractInteractive from "./abstract-interactive"
  */
 export const convertNoteNameToMIDINoteNumber = name => NOTE_NAME_MAP[name]
 
+const DEFAULT_TITLE = "Piano Keyboard with 12 keys"
 
 export default class SVGKeyboard extends AbstractInteractive{
 
@@ -21,7 +22,9 @@ export default class SVGKeyboard extends AbstractInteractive{
 
 	isTouching = false
 	keyElements = []
+
 	htmlElement
+	titleElement
 
 	firstNoteNumber = 0
 
@@ -35,6 +38,10 @@ export default class SVGKeyboard extends AbstractInteractive{
 		return this.htmlElement
 	}
 
+	set title( value ){
+		this.titleElement.textContent = value
+	}
+
 	constructor( notes, noteOn, noteOff ){
 		super()
         const unique = `keyboard-${SVGKeyboard.uniqueID++}`
@@ -45,6 +52,7 @@ export default class SVGKeyboard extends AbstractInteractive{
 		this.htmlElement.className = "piano"
 		this.htmlElement.setAttribute( "data-piano", true )
 		this.htmlElement.innerHTML = svg
+		this.titleElement = this.htmlElement.querySelector("title")
 		this.keyElements = Array.from(this.htmlElement.querySelectorAll(".piano-key"))
 		this.firstNoteNumber = notes[0].noteNumber
 		this.svgString = svg
@@ -54,7 +62,7 @@ export default class SVGKeyboard extends AbstractInteractive{
     getNoteFromKey( button){
         const noteNumber = parseInt( button.getAttribute("data-number") )
         const note = this.notes[noteNumber - this.firstNoteNumber]
-        console.info("noteNumber", noteNumber, note, this.notes )
+        // console.info("noteNumber", noteNumber, note, this.notes )
         return note
     }
 
@@ -68,16 +76,19 @@ export default class SVGKeyboard extends AbstractInteractive{
 					x="${x}" 
 					y="${y}" 
 					rx="${r}" 
+					role="button"
+					tabindex="0"
 					class="piano-key piano-key-black" 
 					width="${width}" height="${height}" 
 					title="${key.noteName}" 
+					aria-label="${key.noteName}"
                     data-key="${key.noteKey}" 
 					data-note="${key.noteName}" 
 					data-number="${key.noteNumber}" 
 					data-frequency="${key.frequency}"
 					data-key="${key.noteKey}"
 					data-octave="${key.octave}"
-					>
+				>
 				</rect>`
 	}
 	
@@ -86,15 +97,18 @@ export default class SVGKeyboard extends AbstractInteractive{
 					x="${x}" 
 					y="${y}" 
 					rx="${r}" 
+					role="button"
+					tabindex="0"
 					class="piano-key piano-key-white" 
 					width="${width}" height="${height}" 
 					title="${key.noteName}" 
+					aria-label="${key.noteName}"
 					data-key="${key.noteKey}" 
 					data-note="${key.noteName}" 
 					data-number="${key.noteNumber}" 
 					data-frequency="${key.frequency}"
 					data-octave="${key.octave}"
-					>
+				>
 				</rect>`
 	}
 	
@@ -116,7 +130,7 @@ export default class SVGKeyboard extends AbstractInteractive{
 					data-number="${key.noteNumber}" 
 					data-frequency="${key.frequency}"
 					data-octave="${key.octave}"
-					>
+				>
 				</circle>`
 	}
 
@@ -171,7 +185,7 @@ export default class SVGKeyboard extends AbstractInteractive{
 			x += isBlack ? halfBlackKeyWidth : whiteKeyWidth
 			// x += isBlack ? -halfBlackKeyWidth  : whiteKeyWidth
 			
-			// only white keys affect toal width
+			// only white keys affect total width
 			totalWidth += isBlack ? 0 : whiteKeyWidth
 
             this.notes.push( key )
@@ -213,14 +227,16 @@ export default class SVGKeyboard extends AbstractInteractive{
 	 * 
 	 * @param {Number} noteNumber 
 	 */
-	setKeyAsActive( noteNumber ){
+	setKeyAsActive( noteModel ){
+		const noteNumber = noteModel.noteNumber
 		const key = this.htmlElement.querySelector('[data-number="'+noteNumber+'"]')
 		// const key = this.keyElements[noteNumber - this.firstNoteNumber]
 		if (key)
 		{
 			key.classList.toggle("active", true)
+			this.title = noteModel.toString()
 		}else{
-			console.warn("Key "+noteNumber+" not found")
+			// console.warn("Key "+noteNumber+" not found")
 		}
 	}
 
@@ -228,14 +244,15 @@ export default class SVGKeyboard extends AbstractInteractive{
 	 * 
 	 * @param {Number} noteNumber 
 	 */
-	setKeyAsInactive( noteNumber ){
+	setKeyAsInactive( noteModel ){
+		const noteNumber = noteModel.noteNumber
 		const key = this.htmlElement.querySelector('[data-number="'+noteNumber+'"]')
 		// const key = this.keyElements[noteNumber - this.firstNoteNumber]
 		if (key)
 		{
 			key.classList.toggle("active", false)
 		}else{
-			console.warn("Key "+noteNumber+" not found")
+			//console.warn("Key "+noteNumber+" outside range")
 		}
 	}
 }
