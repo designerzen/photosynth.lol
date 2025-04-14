@@ -21,9 +21,12 @@ figure{
         color:var(--col-plum);
     }
 
+    // if figcaption is below image...
     img + figcaption{
-        margin-top: var(--pad);
-        margin-bottom: var(--pad);
+        padding-top: var(--pad);
+        padding-bottom: var(--pad);
+        background: var(--col-bg);
+        border-radius: var(--curve, 4px);
     }
 }
 

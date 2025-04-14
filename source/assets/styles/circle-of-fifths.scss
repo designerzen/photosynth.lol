@@ -10,8 +10,7 @@
     display: grid;
     // display: block;
     align-items: end;
-    margin-top: var(--pad);
-    margin-bottom: var(--pad);
+   
     grid-template-areas:
         "caption"
         "interactive"
@@ -64,6 +63,7 @@
 
 }
 
+
 #emotion{
     fieldset{
         align-items: center;
@@ -106,6 +106,11 @@
             }
         }
     }
+    
+    // try to prevent wrapping...
+    .octave-selector{
+        flex-wrap: nowrap;
+    }
 }
 
 // When wider, we overlay certain elements
@@ -117,21 +122,7 @@
             flex-direction: row;
         }
        
-        .octave-selector{
-            display: flex;
-            //flex-direction: row-reverse;
-            flex-wrap: wrap;//-reverse;
-
-            label:first-of-type{
-                transform: translateY(0px);
-            }
-            label:nth-of-type(2){
-                transform: translateY(70px);
-            }
-            label:nth-of-type(3){
-                transform: translateY(115px);
-            }       
-        }
+        
 
         // 
         .emotion-selector{
@@ -142,7 +133,21 @@
                 transform: translateY(10px);
             }
 
-            
+            .octave-selector{
+                display: flex;
+                //flex-direction: row-reverse;
+                flex-wrap: wrap;//-reverse;
+    
+                label:first-of-type{
+                    transform: translateY(0px);
+                }
+                label:nth-of-type(2){
+                    transform: translateY(70px);
+                }
+                label:nth-of-type(3){
+                    transform: translateY(115px);
+                }       
+            }
         }
         
         // if we have support for circular masking...
@@ -160,14 +165,19 @@
 }
 
 
-.octave-selector{
-   
+
+#circular-synthesizer{
+    // margin-top: var(--pad);
+    margin-bottom: calc( 4 *var(--pad) );
 }
 
-.circle-of-fifths {
+// SVG
+svg.circle-of-fifths {
     
-    max-height : 100vh;
-    max-height : 100dvh;
+    // try to always give space for the keyboard at the base
+    max-height : calc( 100vh - var(--footer-height) );
+    max-height : calc( 100dvh - var(--footer-height) );
+
     margin: auto;
 
     background-color: var(--col-stone-light);
@@ -227,4 +237,16 @@
     text{
         color:currentColor;
     }
+}
+
+.curved-text-tone{
+    text-transform: capitalize;
+}
+
+.curved-text-frequency{
+    text-transform: capitalize;
+}
+
+.curved-text-timbre{
+    text-transform: capitalize;
 }

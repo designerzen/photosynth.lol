@@ -147,6 +147,24 @@ figure {
     break-after: column;
 }
 
+   
+// overlaying images...
+.stackable{
+    figure{
+        padding-top: var(--pad);
+    }
+}
+
+.page{
+    width:100%;
+    padding:calc( 2 * var( --pad ));
+    min-height:100vh;
+    min-height:100dvh;
+    margin-left:auto;
+    margin-right:auto;
+    box-sizing: border-box; 
+    background-color: inherit;
+}
 
 [hidden]{
 	display:none !important;

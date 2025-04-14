@@ -91,6 +91,11 @@
     z-index: 303;
     order:-2;
     grid-area:hero;
+    // background-color: var(--col-bg);  
+    background-image: url(/source/assets/wallpaper/hero-bg.svg);
+
+    // as these are sticky, this just gives a bit more scrolling time
+    // margin-bottom: 20vh;
 }
 
 // #hero.active{

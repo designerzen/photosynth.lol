@@ -83,6 +83,8 @@ body{
         1fr 
     ;
     
+
+    // Blue background with royal society logo and stuff
     &::before{
         content:"";
         position: absolute;
@@ -92,11 +94,14 @@ body{
         height: 100%;
         background-color: var(--col-blue);
         background-image: url(/source/assets/logos/royal_society-crest.svg);
+        background-image: url(/source/assets/logos/photosynth.svg);
         background-size: 25%;
         background-repeat: no-repeat;
-        background-position: top  var(--pad) right var(--pad);
+        background-position: 
+            top  var(--pad) 
+            right calc( 2 * var(--pad) );
         opacity: 0.94;
-        grid-area: 1/1/-1/-1;
+        grid-area: 3/1/-1/-1;
     }
 
     position: relative;
@@ -171,6 +176,10 @@ body{
         hgroup{
             padding-right: calc( 12ch + 4 * var(--pad) ) ;
         }
+
+        &::before{
+            grid-area: 2/1/-1/-1;
+        }
     }
 }
 
@@ -193,11 +202,6 @@ body{
         background-image: url(/source/assets/figures/hero-royal-society-smile-only.svg);
         z-index: 1;
     }
-}
-
-#hero{
-    // background-color: var(--col-bg);  
-    background-image: url(/source/assets/wallpaper/hero-bg.svg);
 }
 
 // ensure all hero images are the same scale and size
@@ -245,16 +249,8 @@ body > footer{
     max-width: calc( var(--max-section-width) - var(--pad) * 2 );
 }
 
-.page{
-    width:100%;
-    padding:calc( 2 * var( --pad ));
-    min-height:100vh;
-    min-height:100dvh;
-    margin-left:auto;
-    margin-right:auto;
-    box-sizing: border-box; 
-    background-color: inherit;
-}
+#diagram-face-scan{}
+
 
 main > :is(
     section, 
@@ -627,7 +623,7 @@ footer{
     top:0;
     left:0;
     z-index: 1;    // behind everything except...
-    background-color: var(--col-bg);
+    background-color:inherit;// var(--col-bg);
 }
 
 #waveform-visualiser{
