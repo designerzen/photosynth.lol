@@ -84,7 +84,7 @@
     // pointer-events: none;
     z-index: 505;
     img{
-        max-width:2122px;
+        max-width:var(--image-width-hero);
     }    
 }
 #hero{

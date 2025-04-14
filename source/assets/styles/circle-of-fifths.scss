@@ -182,6 +182,12 @@
         will-change: fill;
     }
 
+    path:focus{
+        stroke:var(--col-accent);
+        stroke-width:4px;
+        outline: none;
+    }
+
     textPath{
         color:var(--col-accent);
     }

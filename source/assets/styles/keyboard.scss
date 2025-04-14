@@ -1,3 +1,5 @@
+@use "./ease";
+
 .piano-key{
 	transition: fill var(--time-quick, 90ms) linear;
     border-radius: 10%;
@@ -11,11 +13,9 @@
 		
 		.piano-key-name{
 			visibility: visible;
-		}
-		
+		}		
 	}	
     
-
     &.active{
 		fill:var( --col-accent, var(--shade-brand, red) );
 	}
@@ -33,6 +33,10 @@
 	fill:black;
 	background-color:black;
 	background-image:linear-gradient(to bottom, #000, #222);
+}
+
+.piano-key-indicators{
+	pointer-events: none;
 }
 
 .piano-note-indicator{
@@ -58,19 +62,14 @@
     }
 }
 
-
-
 .piano{
-    --c:calc(100% - max(5vw, 24px) );
+    // --c:calc(100% - max(5vw, 24px) );
+	// margin-top:calc( -1 * var(--c) );
+    // transform: translateY( var(--c) );
     position: sticky;
     bottom:calc( -1 * var(--footer-height,0 ));
-	transition: bottom var(--timing-s, 90ms) ease-in-out; 
-    // bottom:min( -12vw, -100px );
-    // bottom:0px;
-    // margin-top:calc( -1 * var(--c) );
-    // transform: translateY( var(--c) );
+	transition: bottom var(--time-medium, 90ms) ease.$easeOutBack;  
 }
-
 
 .show-full-keyboard{
 	.piano{

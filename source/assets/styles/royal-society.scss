@@ -243,7 +243,7 @@ details{
         cursor: pointer;
         background-color: var(--col-stone-light);
         color:var(--col-red);
-        padding: var(--pad) calc(var(--pad)/2);
+        padding: var(--pad) calc(var(--pad)/2) var(--pad)  var(--pad) ;
         font-weight:bold;
    
         border-radius: var(--curve, 4px);

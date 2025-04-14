@@ -3,7 +3,6 @@
 @use "./settings.scss";
 
 @use "./base.scss";
-@use "./notes.scss";
 
 @use "./royal-society.scss";
 
@@ -11,11 +10,12 @@
 @use "./typography.scss";
 
 
+@use "./notes.scss";
+
 @use "./menus.scss";
 @use "./buttons.scss";
 @use "./figure.scss";
 @use "./social.scss";
-@use "./utils.scss";
 
 
 @use "./hero.scss";
@@ -28,3 +28,6 @@
 
 // finally we apply any themes
 @use "./themes.scss";
+
+
+@use "./utils.scss";

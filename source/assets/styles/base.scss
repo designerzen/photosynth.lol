@@ -342,6 +342,11 @@ svg[aria-hidden='true'] {
     text-align: center;
 }
 
+form{
+    background-color: var(--col-bg);
+    background-color: color-mix( in oklch, var(--col-bg) 38%, transparent );
+}
+
 fieldset{
     padding: calc( var(--pad) );
     // padding: calc( var(--pad) / 2 ) calc( var(--pad) );
@@ -349,6 +354,7 @@ fieldset{
     // to balance out the legend we have extra lower padding
     padding-bottom: calc( var(--pad) * 2 );
 
+    background-color: inherit;
     legend{
         text-align: center;
         padding-left:calc( var(--pad) / 2 );

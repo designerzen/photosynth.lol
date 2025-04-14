@@ -11,7 +11,9 @@ body{
 :is(h1,h2,h3,h4,h5,h6){
     font-weight: bold;
     position: relative;
+
     &.underline{
+        margin-bottom: var(--pad);
         padding-bottom: var(--pad);
         border-bottom: 1px solid var(--col-warm-grey-light);
     }
@@ -21,8 +23,27 @@ strong{
     font-weight: bolder;
 }
 
+legend,
+label,
 em{
+    font-style: italic;
+    font-weight: 900;
 
+    span,
+    input,
+    select,
+    button{
+        font-style: normal;
+        font-weight: 500;
+    }
+}
+
+option{
+    font: inherit;
+}
+
+hgroup{
+    margin-bottom:var(--pad);
 }
 
 // Same sizes as Royal Society :D
@@ -60,6 +81,72 @@ blockquote{
     }
 }
 
+// specific icons...
+a[href="#introduction"],
+#introduction .heading-icon{
+    --icon:url(/source/assets/icons/audiotrack-24px.svg);
+}
+
+a[href="#teaser"],
+#teaser .heading-icon{
+    --icon:url(/source/assets/icons/audiotrack-24px.svg);
+}
+
+a[href="#about"],
+#about .heading-icon{
+    --icon:url(/source/assets/icons/accessibility_new-24px.svg);
+}
+
+a[href="#chords"],
+#chords .heading-icon{
+    --icon:url(/source/assets/icons/piano-24px.svg);
+}
+
+a[href="#technology"],
+#technology .heading-icon{
+    --icon:url(/source/assets/icons/speaker-24px.svg);
+}
+
+a[href="#laboratory"],
+#laboratory .heading-icon{
+    --icon:url(/source/assets/icons/biotech.svg);
+}
+
+a[href="#research"],
+#research .heading-icon{
+    --icon:url(/source/assets/icons/favorite-24px.svg);
+}
+
+a[href="#history"],
+#history .heading-icon{
+    --icon:url(/source/assets/icons/access_time.svg);
+}
+
+a[href="#event"],
+#event .heading-icon{
+    --icon:url(/source/assets/icons/event.svg);
+    // --icon:url(/source/assets/icons/accessible-24px.svg);
+}
+
+a[href="#faq"],
+#faq .heading-icon{
+    --icon:url(/source/assets/icons/help_black_24dp.svg);
+}
+
+a[href="#waveform-visualiser"],
+#waveform-visualiser .heading-icon{
+    --icon:url(/source/assets/icons/music_video.svg);
+    --icon:url(/source/assets/icons/trip_origin.svg);
+   
+    --icon:url(/source/assets/icons/waves.svg);
+}
+
+a[href="#shapes"],
+#shapes .heading-icon{
+    --icon:url(/source/assets/icons/trip_origin.svg);
+    --icon:url(/source/assets/icons/water.svg);
+}
+
 p.flood{
     font-size: var(--font-size-h3);
 }
@@ -72,6 +159,7 @@ p:first-of-type {
 }
 
 summary,
+summary > :is(h3,h4,h5,h6),
 figcaption,
 h5 {
     font-size: var(--font-size-h5);
@@ -166,7 +254,10 @@ blockquote{
 }
 
 
-a:not(.cta) {
+a:not(
+    .cta, 
+    .button-close 
+) {
     color: var(--col-accent);
 
     &:focus-visible,

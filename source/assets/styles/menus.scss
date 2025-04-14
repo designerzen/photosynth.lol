@@ -1,15 +1,139 @@
 .menu-main{
 
+    margin:0;
+    padding:0;
+    position: sticky;
+    top:0;
+    z-index: 202;
+    grid-area: nav;
+    justify-self: center;
+    pointer-events: auto;
+    width: 100%;
+
+    ul{
+        --gap:clamp( 11px, 2vw, calc( 0.5 * var(--pad) ) );
+        // margin-top:auto;
+        background-color:var(--col-red);
+        display: grid;
+        // flex-wrap: wrap;
+        grid-auto-flow: dense; // column;
+        grid-auto-columns: min-content;
+        grid-template-columns: repeat(auto-fit, minmax(66px, auto) );
+        // grid-template-columns: repeat(auto-fit, minmax(44px, 1fr) );
+
+        gap:0 var(--gap);
+
+        list-style: none;
+        // overflow: hidden;
+        
+        align-items: center;
+        justify-content: space-evenly;
+        margin:0;
+        // border-radius:9px 9px 0 0;
+    }
+
     li{
-        position: relative;
-        z-index: 1;
+       
+        a{
+            --size:calc(1lh - 2px); 
+            
+            position: relative;
+            z-index: 1;
+            padding:var(--pad) calc(var(--pad) * 0.5 );
+            display: block;
+            text-decoration: none;
+            color:var(--col-white);
+            transition: 
+            background-color var(--time-long, 90ms) linear,
+            color var(--time-long, 90ms) linear;
+
+            display: flex;
+            flex-direction: column;
+            flex-wrap:nowrap;
+            align-items: center;
+
+            width: fit-content;
+            margin: auto;
+
+            // icon -> filter to white
+            &::before{
+                display: inline-block;
+                content:'';
+                background-image:var(--icon);
+                background-repeat: no-repeat;
+                background-size: contain;
+                width: var(--size,1ch);
+                height: var(--size,1ch);
+                
+                min-width: var(--size,1ch);
+                min-height: var(--size,1ch);
+
+                margin-right: calc( var(--pad) / 5 );
+                vertical-align: bottom;
+                // make white
+                filter:brightness(0) invert(1);
+            }
+            
+            &:hover{
+                background-color:var(--col-plum);
+                color:var(--col-white);
+                text-decoration: none;
+                transition-duration: var(--time-quick, 90ms) ;
+            }
+
+            &:active{
+                transform: var(--button-active);
+            }
+        }
     }
 }
-
 //   ::view-transition-group(target),
 //   ::view-transition-group(item) {
 //     mix-blend-mode: normal;
 //   }
+
+// Larger sizes
+@media screen and (min-width:600px) {
+    .menu-main{
+
+        ul{
+            --gap:clamp( 11px, 2vw, calc( 0.5 * var(--pad) ) );
+            justify-items: baseline;
+        }
+
+        li a{
+            flex-direction: row;
+            flex-wrap:nowrap;
+        }    
+    }
+}
+
+// Largest sizes
+@media screen and (min-width:800px){
+
+    .menu-main{
+        // width: fit-content;
+        justify-self: end;
+        max-width:calc( var(--max-section-width) - var(--pad) * 2 );
+
+        ul{
+            --gap:1px; //clamp( 11px, 5vw, calc( 1 * var(--pad) ) );
+            margin:var(--pad) calc( 2 * var(--pad) );
+            border-radius: 99px;
+            padding:0 calc( 1.5 * var(--pad) );
+
+            li a{
+                // color:var(--col-plum);
+                
+                &:hover{
+                    border-radius: var(--curve, 4px);
+                }
+            }
+        }
+    }
+}
+
+
 
 
 #menu-accessibility{
@@ -50,10 +174,24 @@
     .font-link{
 
     }
+    fieldset{
+        display: flex;
+        flex-wrap: wrap;
+        gap:calc( var(--pad) / 2);
+        border:0;
+        padding:0;
+        // padding:1px calc(var(--pad)/2) 1px calc(var(--pad)/8);
+    }
     legend{
+        float: left;
+        vertical-align: baseline;
         align-self: center;
         text-align: right;
         // margin-right:calc( var(--pad) / 2 );
+    }
+    legend,
+    label{
+        font-size: var(--font-size-h5);
     }
 
     form{

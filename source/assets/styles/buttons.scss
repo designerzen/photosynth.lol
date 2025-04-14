@@ -1,22 +1,6 @@
-button,
-a.cta{
-    z-index: 909;
-    position: relative;
-    align-self: flex-end;
-    justify-self: end;
-    touch-action: manipulation;
-}
+@use "./ease";
 
-// we need space around the button
-.cta{
-    margin-top:var(--pad);
-    margin-bottom:var(--pad);
-    transition: var(--time-quick, 90ms) transform linear;
-    &:active{
-        transform: var(--button-active);
-    }
-}
-
+// External links
 a[target="_blank"]{
     text-decoration: dashed;
 }
@@ -47,12 +31,76 @@ input[type=radio]{
 
     &:hover{
         cursor: pointer;
-        // background-color: var(--col-accent);
+        background-color: var(--col-accent);
+        color:var(--col-bg);
     }
 
     &:focus-visible{
-        background-color:var(--col-orange);
+        background-color:var(--col-blue);
+        // background-color:var(--col-orange);
     }
+
+    &:checked{
+        background-color: var(--col-plum);
+        border-color:var(--col-accent);
+    }
+      
+    &:checked:focus-visible{
+        background-color:var(--col-blue);
+    }
+}
+
+input[type=checkbox]{
+    
+}
+
+input[type=radio]{
+    --size:var(--button-size, 80px);//44px;
+  
+    border:calc( var(--size) / 8 ) solid var(--col-stone, var(--col-charcoal));
+    border-radius: 999px;
+    grid-area:icon; //1/1/-1/-1;
+    display: inline-grid;
+    place-content: center;
+    
+    transition: 
+        opacity var(--time-quick, 90ms) linear,
+        border-width var(--time-quick, 90ms) ease.$easeInBack; 
+ 
+    &:hover{
+        border-color:var(--col-accent);
+    }
+
+    &:active{
+        border-width:calc( var(--size) / 4 )
+    }
+}
+
+label{
+    input[type=radio]{
+        // height: 100%;
+    }
+    span{
+        pointer-events: none;
+        position: relative;
+    }
+}
+
+@supports(selector(:has(p))) {
+
+    label:has(input:checked){
+
+        input[type=radio]{
+            background-color: var(--col-accent);
+        }
+
+        &::before,
+        &::after,
+        span{
+            color:var(--col-white,white);
+        }
+    }
+
 }
 
 fieldset label{
@@ -94,78 +142,95 @@ fieldset label{
     // }
 }
 
-input[type=checkbox]{
-    box-sizing: border-box;
+
+button,
+a.cta{
+    z-index: 909;
+    position: relative;
+    align-self: flex-end;
+    justify-self: end;
+    touch-action: manipulation;
 }
 
-input[type=radio]{
-    --size:var(--button-size, 80px);//44px;
-  
-    border:calc( var(--size) / 8 ) solid var(--col-stone);
-    // border: 0.15em solid currentColor;
-    border-radius: 999px;
+// we need space around the button
+.cta{
+    margin-top:var(--pad);
+    margin-bottom:var(--pad);
+    transition: var(--time-quick, 90ms) transform linear;
+    &:active{
+        transform: var(--button-active);
+    }
+}
+
+button.button-image{
+    --size:var(--button-size, 144px);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: var(--size);
+    height: var(--size);
+    padding: 0;
+    border:0;
+    color: transparent;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.button-close{
+    display: inline-block;
+    text-align: center;
+    font-size: 0;
     box-sizing: border-box;
-    // transform: translateY(-0.075em);
+    border-radius: 99px;
+    background-color: var(--col-bg);
+    color: transparent;
+    overflow: hidden;
+    display: grid;
+    border:2px solid var(--col-charcoal);
+    outline:9px solid var(--col-bg);
+    transition: var(--time-quick, 90ms) transform linear;
+    // outline:9px solid color-mix( in oklch, var(--col-bg) 38%, transparent );
 
-    grid-area:icon; //1/1/-1/-1;
-    display: inline-grid;
-    place-content: center;
-    
-    $easeInBack: cubic-bezier(0.6, -0.28, 0.735, 0.045);
-    $easeOutBack: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    $easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    
-    transition: 
-        opacity var(--time-quick, 90ms) linear,
-        border-width var(--time-quick, 90ms) #{$easeInBack}; 
-
-    &:checked{
-        background-color: var(--col-plum);
-        border-color:var(--col-accent);
-    }
-
-    &:focus-visible{
-        background-color:var(--col-blue);
-    }
-
-    &:checked:focus-visible{
-        background-color:var(--col-blue);
+    &::before{
+        content:'^';
+        font-size:16px;
+        background-image: url(/source/assets/icons/up-chevron.svg);
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        color:transparent;
+        grid-area:1/1/-1/-1;
     }
 
     &:hover{
-        border-color:var(--col-accent);
+        color:transparent;
+        background-color: var(--col-text);
+        &::before{
+            background-image: url(/source/assets/icons/up-chevron-white.svg);
+        }
     }
 
     &:active{
-        border-width:calc( var(--size) / 4 )
+        transform: var(--button-active);
     }
 }
 
-label{
-    input[type=radio]{
-        // height: 100%;
+.button-share{
+    --size:var(--button-size, 144px);
+    &::before{
+        content:'';
+        font-size:inherit;
+        background-image: url(/source/assets/icons/share.svg);
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: var(--size);
+        height: var(--size);
+        display: inline-block;
+        vertical-align: middle;
     }
-    span{
-        pointer-events: none;
-        position: relative;
-    }
-}
-
-@supports(selector(:has(p))) {
-
-    label:has(input:checked){
-
-        input[type=radio]{
-            background-color: var(--col-accent);
-        }
-
-        &::before,
-        &::after,
-        span{
-            color:var(--col-white,white);
-        }
-    }
-
 }
 
 a.back-to-top,
@@ -263,17 +328,20 @@ label[for="toggle-midi"]{
     width: fit-content;
     display: grid;
 }
+
 #toggle-midi{
     grid-area: 1/1/-1/-1;
 }
 
 #button-text-size-decrease{
-    background-image:url("../icons/font_decrease_filled.svg");
+    background-image:url("/source/assets/icons/font_decrease_filled.svg");
 }
 
 #button-text-size-increase{
-    background-image:url("../icons/font_increase_filled.svg");
+    background-image:url("/source/assets/icons/font_increase_filled.svg");
 }
+
+
 #song-timbre-next,
 #song-timbre-previous,
 #song-timbre-random{
@@ -298,13 +366,13 @@ label[for="toggle-midi"]{
 
 #song-timbre-previous{
     &::before{
-        background-image: url('/source/assets/icons/fast_rewind_black_24dp.svg');   
+        background-image: url('/source/assets/icons/skip_previous.svg');   
     }
 }
 
 #song-timbre-next{
     &::before{
-        background-image: url('/source/assets/icons/fast_forward_black_24dp.svg');
+        background-image: url('/source/assets/icons/skip_next.svg');
     }
 }
 #song-timbre-random{
@@ -322,33 +390,22 @@ label[for="toggle-midi"]{
 }
 
 
-button.button-image{
-    --size:var(--button-size, 144px);
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: var(--size);
-    height: var(--size);
-    padding: 0;
-    border:0;
-    color: transparent;
-    user-select: none;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-}
-
 label[for="button-happy"]{
     
 }
 
 #button-happy{
+    border-radius:40px 0 0  40px;
     grid-area:happy;
     align-self: start;
     background-image: url(/source/assets/figures/happy.svg);
     transition: var(--time-quick, 90ms) transform linear;
     &:active{
         transform: var(--button-active);
+    }
+    &:hover{
+        background-blend-mode: screen;
+        background-color: var(--col-plum);
     }
 }
 
@@ -357,13 +414,20 @@ label[for="button-sad"]{
 }
 
 #button-sad{
+    border-radius:0 40px 40px 0;
     grid-area:sad;
     background-image: url(/source/assets/figures/sad.svg);
     transition: var(--time-quick, 90ms) transform linear;
     &:active{
         transform: var(--button-active);
     }
+    &:hover{
+        background-blend-mode: screen;
+        background-color: var(--col-plum);
+    }
 }
+
+// TIMBRES ==============================================================
 
 label[for="timbre-sine"]{
     &::before{

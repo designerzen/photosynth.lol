@@ -35,11 +35,15 @@
     }
 }
 
-// Low Colour theme
+// Black and white high contrast Colour theme
 [data-theme="monochrome"]{
     color-scheme: dark only;
     --col-bg:var(--col-white, white);
     --col-text:var(--col-black, black);
+    filter: grayscale(100%) contrast(112%);
+    .piano{
+        filter:invert(100%);
+    }
 }
 
 // Low Colour theme

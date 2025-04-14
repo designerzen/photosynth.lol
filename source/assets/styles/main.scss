@@ -82,6 +82,22 @@ body{
         auto
         1fr 
     ;
+    
+    &::before{
+        content:"";
+        position: absolute;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--col-blue);
+        background-image: url(/source/assets/logos/royal_society-crest.svg);
+        background-size: 25%;
+        background-repeat: no-repeat;
+        background-position: top  var(--pad) right var(--pad);
+        opacity: 0.94;
+        grid-area: 1/1/-1/-1;
+    }
 
     position: relative;
     
@@ -89,6 +105,10 @@ body{
 
     touch-action: none;
     pointer-events: none;
+
+    scroll-behavior: smooth;
+    scroll-snap-align: center;
+    scroll-snap-type: y mandatory;
 
     hgroup{
         // to allow the background synth to be played
@@ -102,74 +122,8 @@ body{
         display: flex;
         flex-direction: column;
         gap:calc( var(--pad)) ;
-
-        &::before{
-            content:"";
-            position: absolute;
-            top:0;
-            left:0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--col-blue);
-            background-image: url(/source/assets/logos/royal_society-crest.svg);
-            background-size: 25%;
-            background-repeat: no-repeat;
-            background-position: top  var(--pad) right var(--pad);
-            opacity: 0.94;
-        }
     }
 
-    nav{
-        margin:0;
-        padding:0;
-        position: sticky;
-        top:0;
-        z-index: 202;
-        grid-area: nav;
-        justify-self: center;
-        pointer-events: auto;
-        width: 100%;
-
-        ul{
-            --gap:clamp( 11px, 4vw, calc( 0.6 * var(--pad) ) );
-            // margin-top:auto;
-            background-color:var(--col-red);
-            display: grid;
-            // flex-wrap: wrap;
-            grid-auto-flow: column;
-            grid-template-columns: repeat(auto-fit, minmax(44px, 1fr) );
-
-            gap:0 var(--gap);
-
-            list-style: none;
-            overflow: hidden;
-            
-            align-items: center;
-            justify-content: space-evenly;
-            margin:0;
-            // border-radius:9px 9px 0 0;
-
-            li a{
-                padding:var(--pad) 5px;
-                display: block;
-                text-decoration: none;
-                color:var(--col-white);
-                transition: 
-                    background-color var(--time-long, 90ms) linear,
-                    color var(--time-long, 90ms) linear;
-
-                &:hover{
-                    background-color:var(--col-plum);
-                    color:var(--col-white);
-                    text-decoration: none;
-                    transition-duration: var(--time-quick, 90ms) ;
-                }
-            }
-        }
-
-    }
-
-  
     canvas{
         grid-area:2/1/-1/-1;
     }
@@ -217,36 +171,15 @@ body{
         hgroup{
             padding-right: calc( 12ch + 4 * var(--pad) ) ;
         }
-
-        nav{
-            width: fit-content;
-            justify-self: end;
-
-            ul{
-                --gap:clamp( 11px, 5vw, calc( 1 * var(--pad) ) );
-                align-items: center;
-                gap:0 var(--gap);
-                background-color:var(--col-bg);
-                margin:var(--pad) calc( 2 * var(--pad) );
-                border-radius: 99px;
-                padding:0 calc( 1.5 * var(--pad) );
-
-                li a{
-                    color:var(--col-plum);
-                    
-                    &:hover{
-                        border-radius: var(--curve, 4px);
-                    }
-                }
-            }
-        }
     }
 }
 
 #main-content{
 
-    display: grid;
-    grid-auto-flow: row;
+    --overlap:50vh;
+
+    // display: grid;
+    // grid-auto-flow: row;
 
     &::before{
         content:"";
@@ -255,13 +188,12 @@ body{
         left:0;
         width: 100%;
         height: 100%;
+        max-width: var(--image-width-hero);
         // background-color: red;
         background-image: url(/source/assets/figures/hero-royal-society-smile-only.svg);
         z-index: 1;
     }
 }
-
-
 
 #hero{
     // background-color: var(--col-bg);  
@@ -271,10 +203,10 @@ body{
 // ensure all hero images are the same scale and size
 #main-content::before,
 #hero{
-background-repeat: no-repeat;
-        background-position: top center;
-        background-size: cover;
-        background-size: 2122px 100%; 
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: cover;
+    // background-size: var(--image-width-hero) 100%; 
 }
 // see menu in menu.scss
 
@@ -299,19 +231,30 @@ main > :is(
     position: relative;
     display: grid;
     width:100%;
+    max-width: var(--max-section-width);
+    border-radius: var(--curve);
+    // border-top: var(--pad) solid var(--col-accent);
+}
+
+body > footer{
+    position: relative;
+    margin-left:auto;
+    margin-right:auto;
+    box-sizing: border-box; 
+    padding: var(--pad);
+    max-width: calc( var(--max-section-width) - var(--pad) * 2 );
 }
 
 .page{
-    padding:calc( 2 * var( --pad ));
     width:100%;
-    max-width: var(--max-section-width);
+    padding:calc( 2 * var( --pad ));
     min-height:100vh;
     min-height:100dvh;
+    margin-left:auto;
+    margin-right:auto;
     box-sizing: border-box; 
-    background-color: var(--col-bg);
+    background-color: inherit;
 }
-
-
 
 main > :is(
     section, 
@@ -319,27 +262,22 @@ main > :is(
 ){
     // border-radius: 9px 9px 0 0;
     background-color: var(--col-bg);
-    // https://smoothshadows.com/#djEsMSw1LDAuMDQsNTcsMCwwLCMzMzMxMzIsI2U4ZTZkZiwjZmZmZmZmLDI%3D
-    box-shadow: 
-        0px 0px 2px rgba(51, 49, 50, 0.01),
-        0px 0px 9px rgba(51, 49, 50, 0.02),
-        0px 0px 21px rgba(51, 49, 50, 0.02),
-        0px 0px 36px rgba(51, 49, 50, 0.03),
-        0px 0px 57px rgba(51, 49, 50, 0.04);
-    
-    // https://smoothshadows.com/#djEsMSw1LDAuMDgsMjQsMCwwLCMzMzMxMzIsI2U4ZTZkZiwjZmZmZmZmLDI%3D 
-    // box-shadow: 
-    //     0px 0px 1px rgba(51, 49, 50, 0.02),
-    //     0px 0px 4px rgba(51, 49, 50, 0.03),
-    //     0px 0px 9px rgba(51, 49, 50, 0.05),
-    //     0px 0px 15px rgba(51, 49, 50, 0.06),
-    //     0px 0px 24px rgba(51, 49, 50, 0.08);
 }
 
 section p{
     // background-color: var(--col-bg);
-    padding-top:calc( var(--pad)  );
+    //padding-top:calc( var(--pad)  );
     // padding-bottom:calc( var(--pad) / 2 );
+}
+
+main > section + section{
+    // padding-top:calc( 12 * var(--pad) - 2px);
+    border-top: var(--pad) solid var(--col-accent);
+    margin-top:var(--pad);
+}
+
+section p + p{
+    padding-top:calc( var(--pad)  );
 }
 
 p.flood{
@@ -349,10 +287,10 @@ p.flood{
     margin-bottom:calc( var(--pad) / 2 );
 }
 
-main > section + section{
-    // padding-top:calc( 12 * var(--pad) - 2px);
-    border-top: 2px solid var(--col-accent);
-}
+// main > section + section{
+//     // padding-top:calc( 12 * var(--pad) - 2px);
+//     border-top: 2px solid var(--col-accent);
+// }
 main > section.sticky + section{
     margin-top:calc( 4 * var(--pad) );
 }
@@ -362,8 +300,32 @@ img{
     z-index: 1;
 }
 
+
+// thanks to the 
+#introduction{
+    margin-top:calc( -100vh );
+    margin-top:calc( -100dvh );
+    padding-bottom: var( --overlap, 0);
+
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-areas: 
+     "hero"
+     "warning"
+     "mask";
+
+    &::after{
+        content: '';
+        position: relative;
+        display: block;
+        // this is the timing on the intro pull up....
+        height:50vh;
+    }
+}
+
 #teaser{
-  
+    margin-top:calc( var(--overlap) * -2 );
+
     // wavy background and edges
     &::before{
         content:'';
@@ -374,33 +336,28 @@ img{
         left:0;
         width: 100%;
         height: 100%;
-        background-image: url(/source/assets/wallpaper/wavey.svg);
-        background-repeat: repeat-x;
-        background-position: top left;
+        // background-image: url(/source/assets/wallpaper/wavey.svg);
+        // background-repeat: repeat-x;
+        // background-position: top left;
+
+        mask: url(/source/assets/wallpaper/wavey.svg);
+
+
+        background-color: inherit;
         pointer-events: none;
         // opacity: 0.94;
-        filter:brightness(909);
+        // filter:brightness(909);
         overflow: hidden;
         overflow: clip;
     }
 }
-
-// thanks to the 
-#introduction{
-    margin-top:-100vh;
-    margin-top:-100dvh;
-    display: grid;
-    grid-auto-flow: row;
-    grid-template-areas: 
-     "hero"
-     "warning"
-     "mask";
-}
-
 .warning{
     margin-left:auto;
     margin-right:auto;
-    max-width: calc( var(--max-section-width) - var(--pad) * 2 );
+    max-width: min( 
+        80%,
+        calc( var(--max-section-width) - var(--pad) * 2 )
+    );
     padding: calc( var( --pad ) / 2 ) calc( var( --pad ) );
     box-sizing: border-box;  
     // position: relative;
@@ -415,6 +372,8 @@ img{
     top:var(--pad);
     // bottom:var(--pad);
     // margin-top: calc(var(--pad) * 2);
+    margin-left:auto;
+    margin-right:auto;
     margin-bottom:50%;
 
     // color:var(--col-accent);
@@ -436,13 +395,18 @@ img{
     grid-area: warning;
 
     &::before{
+        --size:calc( var(--pad) * 3);
         content:'!';
-        font-size:230%;
-        padding-top:0.75rem;
-        width:calc( var(--pad) * 3);
+        font-size:clamp( 28px, 7vw, 300%);
+        line-height: 0;
+        padding-top:0.5rem;
+        padding-bottom:0.05rem;
+        height:calc( var(--size) * 0.8 );
+        width:var(--size);
         grid-area: icon;
         display: flex;
         position: absolute;
+        margin:auto;
         left:calc( var(--pad) / 2 );
         top:calc( var(--pad) / 2 );
         bottom:calc( var(--pad) / 2 );
@@ -456,7 +420,7 @@ img{
 }
 
 
-#midi-equipment{
+#midi-equipment article{
     display: grid;
     grid-template-areas: 
         "h1 h1"
@@ -484,8 +448,15 @@ img{
     border-radius: var(--curve, 4px);
     overflow: hidden;
     position: relative;
-    padding: var(--pad);
-    padding-top: calc( var(--pad) * 2 );
+  
+    .button-close{
+        position: absolute;
+        top:0;
+        right:calc( var(--pad) * 1.5 );
+        z-index: 909;
+    }
+    // padding: var(--pad);
+    // padding-top: calc( var(--pad) * 2 );
     // &::before{
     //     content: '';
     //     background-color: var(--col-bg);
@@ -497,17 +468,25 @@ img{
     fieldset{
         position: relative;
         z-index: 1;
-        background-color: var(--col-bg);
-        background-color: color-mix( in oklch, var(--col-bg) 75%, transparent );
         // border-radius: 0;
+      
     }
 }
 
 
 #emotion{
-    position: sticky;
-    bottom:0;
-    z-index: 202;
+    // position: sticky;
+    // bottom:0;
+    // z-index: 202;
+}
+
+label[for="timbre-random"]{
+    display: flex;
+    flex-direction: column;
+    .cta{
+        margin:0;
+        order:-1;
+    }
 }
 
 .synth-shape{
@@ -524,13 +503,14 @@ img{
         "random random";
 
     grid-template-columns: repeat( auto-fit, minmax(88px, 1fr) );
-    gap: 0 var(--pad);
+    gap: 0 calc( var(--pad) / 2 );
     align-items: stretch;
     // grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
     // gap:var(--pad);
 
     label{
         align-items: stretch;
+        text-wrap: nowrap;
     }
     label[for="song-timbre-previous"]{
         grid-area: prev;
@@ -554,6 +534,7 @@ img{
     }
     button{
         width:100%;
+        min-width:11ch;
     }
 }
 
@@ -607,7 +588,7 @@ img{
 }
 
 body > footer{
-    color:var(--col-bg);
+    // color:var(--col-bg);
     // color:var(--col-text);
     // background-color:var(--col-text);
     background-image: url("/source/assets/logos/royal_society-crest.svg");
@@ -668,6 +649,8 @@ footer{
         flex-wrap: wrap;
         flex-direction: column-reverse;
         align-content: baseline;
+        align-items: center;
+
         position: relative;
         z-index:1;
         pointer-events: none;
@@ -759,10 +742,12 @@ footer{
     }
 }
 
+
+
 // RS button styles
 button.cta,
 a.cta{
-    
+    display: inline-block;
 }
 
 // Data & Tables
@@ -800,15 +785,36 @@ dt{
     flex-direction: column;
 }
 
+.smallprint{
+    // padding-left: var(--pad);
+    // padding-right: var(--pad);
+    --size:1lh; // 1 line-height
+}
+
 a[href$="designerzen.com"]{
     text-decoration: none;
+ 
     &::before{
-        --size:1.5ch;
+    
+        content:'';
+        margin-right: calc( var(--pad) / 10 );
+        display: inline-block;
+        vertical-align: middle;
+        background-image: url(/source/assets/logos/designerzen.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: var(--size,1ch);
+        height: var(--size,1ch);
+    }
+}
+
+.awesomething{
+    &::before{
         content:'';
         margin-right: calc( var(--pad) / 10 );
         display: inline-block;
         vertical-align: baseline;
-        background-image: url(../logos/designerzen.svg);
+        background-image: url(/source/assets/logos/awesomething-logo.45.svg);
         background-repeat: no-repeat;
         background-size: contain;
         width: var(--size,1ch);
@@ -826,6 +832,10 @@ a[href$="designerzen.com"]{
 .link-map{
     align-self: flex-end;
     margin-bottom:var(--pad);
+}
+
+.logo{
+    width: 222px;
 }
 
 .logo-royal-society{
