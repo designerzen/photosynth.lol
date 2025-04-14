@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 3840 2160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
     <g transform="matrix(0.826002,0,0,0.706413,1136.56,-159.004)">
-        <path d="M1743.09,299.417C1743.09,258.393 1714.6,225.086 1679.52,225.086L217.419,225.086C182.334,225.086 153.849,258.393 153.849,299.417L153.849,3208.46C153.849,3249.48 182.334,3282.79 217.419,3282.79L1679.52,3282.79C1714.6,3282.79 1743.09,3249.48 1743.09,3208.46L1743.09,299.417Z" style="fill:rgb(235,235,235);"/>
+        <path d="M1743.09,299.417C1743.09,258.393 1714.6,225.086 1679.52,225.086L217.419,225.086C182.334,225.086 153.849,258.393 153.849,299.417L153.849,3208.46C153.849,3249.48 182.334,3282.79 217.419,3282.79L1679.52,3282.79C1714.6,3282.79 1743.09,3249.48 1743.09,3208.46L1743.09,299.417Z" style="fill:rgba(235,235,235, 0.7);"/>
     </g>
     <g id="interface.cropped.svg" transform="matrix(13.1271,0,0,13.1904,1920,1078.87)">
         <g transform="matrix(1,0,0,1,-50,-50)">
@@ -252,7 +252,5 @@
                 </g>
             </g>
         </g>
-    </g>
-    <g id="Layer3">
     </g>
 </svg>
