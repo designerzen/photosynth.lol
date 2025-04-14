@@ -153,7 +153,7 @@
 
         </menu>
        
-        <img class="logo-royal-society-crest" width="100" height="100" src="/source/assets/logos/royal_society-crest.svg" alt="">
+        <!-- <img class="logo-royal-society-crest" width="100" height="100" src="/source/assets/logos/royal_society-crest.svg" alt=""> -->
         
     </header>
 
@@ -300,8 +300,14 @@
                     <p class="citation">Arthur Schopenhauer, <cite>The World as Will and Representation</cite></p>
                 </blockquote>
 
-                <img src="/source/assets/figures/instant-musical-superpowers-red-square.svg" alt="Instant Musical Superpowers!">
-                
+                <figure id="diagram-face-scan" class="sticky full-width bg-clear">
+                    <img 
+                        width="909" height="909"
+                        src="/source/assets/figures/instant-musical-superpowers-red-square.svg" 
+                        alt="Instant Musical Superpowers!">
+                    <figcaption>Face is observed</figcaption>
+                </figure>
+
                 <blockquote class="sticky full-height">
                     <p class="quote">Music is an unconscious exercise in communication in which the mind is unaware that it is being guided.</p>
                     <p class="citation">Zenon Olenski <cite></cite></p>
@@ -310,7 +316,7 @@
             </article>
             
             <!-- Diagrams -->
-            <article class="page">
+            <article class="page stackable" id="technology-explanation">
                             
                 <p>
                     Science, research, innovation and development allow us to augment people's abilities in radical new ways thanks to advancements in neural networking, machine learning and artificial intelligence that have made it possible to elegantly interface with machines in natural and intuitive new ways.
@@ -318,7 +324,6 @@
 
                 <figure id="diagram-face-scan" class="sticky full-width bg-clear">
                     <img 
-                        class=""
                         width="9000" height="2160"
                         src="/source/assets/diagrams/face-winking.svg" 
                         alt="The Photosynth, smile powered music.">
@@ -343,7 +348,12 @@
                         alt="">
                     <figcaption>Facial landmarks are detected and tracked</figcaption>
                 </figure>
-                
+            
+            </article>
+
+
+            <article class="split page">
+
                 <p>Developed from the ground up to be accessible and inclusive, with the support and feedback from Drake
                     Music and hundreds of disabled and differently-abled people met through #DMLabs throughout the years.
                 </p>
@@ -359,23 +369,24 @@
                     filters and controls.</p>
 
                 <p>Every articulation can become an audio revelation… Instant musical superpowers!</p>
-
-
                 
                 <a href="https://royalsociety.org/science-events-and-lectures/summer-science-exhibition/" class="cta">Learn more</a>
 
             </article>
 
         </section>
+
+        <!-- Funky audio analyser overlay -->   
         <canvas id="visualiser" class="sticky full-height full-width" width=800 height=400></canvas>
            
+        <!-- SCIENCE -->
         <section id="science" class="shadow bg-clear" data-observe>
-
-            <!-- Funky audio analyser overlay -->            
+         
             <article id="waveform-visualiser" class="bg-clear shadow sticky full-height full-width" data-full-keyboard data-observe>
                    
                 <header>
                     <h3 class="heading-icon" data-timbre>Each Sound Has a Shape</h3>
+                    <h4>Sonic characteristics of Sound</h4>
                 </header>
 
                 <form action="/">
@@ -423,30 +434,7 @@
                 </hgroup>
 
                 <form id="emotion" action="/">    
-                    <fieldset class="octave-selector">
-                        
-                        <legend>Frequency</legend>
-
-                        <label for="octave-bass">
-                            <input id="octave-bass" name="octave" type="radio" value="3">
-                            <span class="notation">𝄢</span>
-                            Bass
-                        </label>
-                        
-                        <label for="octave-lead">
-                            <input id="octave-lead" name="octave" type="radio" value="4" checked>
-                            <span class="notation">𝄡</span>
-                            Lead
-                        </label>
-
-                        <label for="octave-treble">
-                            <input id="octave-treble" name="octave" type="radio" value="5">
-                            <span class="notation">𝄞</span>
-                            Treble
-                        </label>
-                        
-                    </fieldset>
-
+            
                     <fieldset class="emotion-selector">
                         <legend>Emotion</legend>
                         <label for="emotion-major">
@@ -602,19 +590,19 @@
                 
                         <!-- Curved text -->
                         <text>
-                            <textPath font-size="22" alignment-baseline="top" startOffset="22%" xlink:href="#circular-synthesizer-text-curve">
+                            <textPath class="curved-text-tone" font-size="22" alignment-baseline="top" startOffset="22%" xlink:href="#circular-synthesizer-text-curve">
                                 Tone
                             </textPath>
                         </text>
 
                         <text>
-                            <textPath font-size="22" alignment-baseline="top" startOffset="69%" xlink:href="#circular-synthesizer-text-curve">
+                            <textPath class="curved-text-frequency" font-size="22" alignment-baseline="top" startOffset="69%" xlink:href="#circular-synthesizer-text-curve">
                                 Frequency
                             </textPath>
                         </text>
 
                         <text>
-                            <textPath font-size="22" alignment-baseline="top" startOffset="-4%" xlink:href="#circular-synthesizer-text-curve">
+                            <textPath class="curved-text-timbre" font-size="22" alignment-baseline="top" startOffset="-6%" xlink:href="#circular-synthesizer-text-curve">
                                 Timbre
                             </textPath>
                         </text>
@@ -656,10 +644,33 @@
                             Random Wave
                         </label>
 
-
                     </fieldset>
 
-                    <fieldset class="">
+                    <fieldset class="octave-selector">
+                        
+                        <legend>Frequency</legend>
+
+                        <label for="octave-bass">
+                            <input id="octave-bass" name="octave" type="radio" value="3">
+                            <span class="notation">𝄢</span>
+                            Bass
+                        </label>
+                        
+                        <label for="octave-lead">
+                            <input id="octave-lead" name="octave" type="radio" value="4" checked>
+                            <span class="notation">𝄡</span>
+                            Lead
+                        </label>
+
+                        <label for="octave-treble">
+                            <input id="octave-treble" name="octave" type="radio" value="5">
+                            <span class="notation">𝄞</span>
+                            Treble
+                        </label>
+                        
+                    </fieldset>
+
+                    <fieldset class="mood-selector">
 
                         <legend>Mood</legend>
                         
@@ -677,7 +688,7 @@
 
                     </fieldset>
 
-                    <fieldset class="happy">
+                    <fieldset class="scale-selector">
 
                         <legend><span class="sr-only">Choose an </span>Emotion</legend>   
 
@@ -1125,14 +1136,15 @@
 
     <!-- Bottom section -->
     <footer>
-        
-        <p>
-            A collaborative duet between the <a href="https://royalsociety.org/">Royal Society</a> and <a
-                href="https://www.drakemusic.org/">#DMLab @Drake Music</a>
-        </p>
-
+       
         <article id="affiliates">
-            <h5>A collaborative duet between</h5>
+            <h5>Brought to you by</h5>
+             
+            <p>
+                A collaborative duet between the <a href="https://royalsociety.org/">Royal Society</a> and <a
+                    href="https://www.drakemusic.org/">#DMLab @Drake Music</a>
+            </p>
+
             <ul>
   
                 <li><a href="https://www.drakemusic.org/pages-that-are-currently-not-live-on-the-site/instrument-led-projects/photosynth-by-zenon-olenski/"
