@@ -99,10 +99,10 @@ export const VISUALISER_OPTIONS = {
     lineWidth:3
 }
 
+// to disable the password simply set it to false or null
 export const DEFAULT_PASSWORD = "dm"
 
-
- // Charles Goes Dancing At Every Big Fun Celebration.
+// Charles Goes Dancing At Every Big Fun Celebration.
 // From G D A E B...
    
 // const FIFTHS_LYDIAN = [0,1,1,1,1,1]

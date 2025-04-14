@@ -31,6 +31,11 @@ import { ASTLEY, getRandomSong } from "./songs"
 import WAVE_ARCHIVE_GENERAL_MIDI from "url:/static/wave-tables/general-midi.zip"
 import WAVE_ARCHIVE_GOOGLE from "url:/static/wave-tables/google.zip"
 import { MouseVisualiser } from "./components/mouse-visualiser"
+import { MelodyRecorder } from "./melody-recorder"
+
+// audio reqiures a user gesture to start...
+// so we hook into each musical event to check if the user has engaged
+let hasUserEngaged = false
 
 // read any saved themes from the URL ONLY (not from cookies so no overlay required :)
 const searchParams = new URLSearchParams(location.search)
@@ -55,6 +60,8 @@ let shapeVisualiser
 let mouseVisualiser
 let circles
 let keyboard 
+let recorder
+
 
 const keyboardKeys = ( new Array(128) ).fill("")
 // Full keyboard with all notes including those we do not want the user to play
@@ -74,20 +81,20 @@ const SCALES = [
     "Minor"
 ]
 
-
 const preloadWaveTablesFromZip = async (zipURL) => {
     const meter = document.getElementById("load-progress")
     const data = await loadWaveTableFromArchive(zipURL, (progress, fileName, file)=>{
-        console.info("zip", {progress, fileName, file })
+        // console.info("zip", {progress, fileName, file })
         meter.value = progress
     })
-    console.info("ZIP WAVE data", data)
+    console.info( data.length, "ZIPPED WAVE data",zipURL, {data}, getAllWaveTables() )
 }
 
 
 let isHappy = true          // is Major or Minor?
 let scale = SCALES[0]       // scale (eg. Major, Minor... etc)
 let mode = 0                // scale mode (eg. Dorian, Mixolydian... etc)
+let octave = 0                // octave (bass / mid / treble )
 let shape = "sine"          // oscillator shape (eg. sine, square, sawtooth, triangle)
 
 // console.info({ALL_KEYBOARD_NOTES, KEYBOARD_NOTES})
@@ -147,6 +154,16 @@ const addAccessibilityFunctionality = ()=> {
     addThemeSelectionOptions((themeName) =>{
         searchParams.set("theme", themeName)
         updateURL()
+        // now also ensure that the note visualiser has the correct
+        // background colour by checking the canvas's 
+        const bgCol = noteVisualiser.backgroundColour
+        
+        if (bgCol)
+        {
+                console.info("bgCol", bgCol)
+        }else{
+            
+        }
     })
 
     // AUDIO ------------------------------------------------
@@ -166,10 +183,10 @@ const addAccessibilityFunctionality = ()=> {
    
     // connect the menu to the theme selection options
     const initialFontSize = searchParams.get("font-size") ?? 1
-    addTextScalingFacilities( initialFontSize, (scale) => {
+    addTextScalingFacilities( initialFontSize, (scaleMode) => {
         // due to floating points, this may be irrational
         // so we ensure that it is a good number
-        searchParams.set("font-size", scale)
+        searchParams.set("font-size", scaleMode)
         updateURL()
     })
 
@@ -196,7 +213,13 @@ const addAccessibilityFunctionality = ()=> {
  * @param {Number} velocity 
  * @param {Number} id 
  */
-const noteOn = (noteModel, velocity=1, id=0 ) => {
+const noteOn = ( noteModel, velocity=1, id=0 ) => {
+
+    // as user click is required to start the audio context
+    if (!hasUserEngaged)
+    {
+        createAudioContext()
+    }
 
     if (!noteModel)
     {
@@ -206,22 +229,29 @@ const noteOn = (noteModel, velocity=1, id=0 ) => {
 
     const synth = getSynthForFinger(id)
     synth.noteOn( noteModel, velocity )                                                                                                            
-    keyboard.setKeyAsActive( noteModel.noteNumber )    // highlight the keys on the keyboard!    
+    keyboard.setKeyAsActive( noteModel )    // highlight the keys on the keyboard!    
     hero && hero.noteOn( noteModel )
     noteVisualiser && noteVisualiser.noteOn( noteModel, velocity )
     mouseVisualiser && mouseVisualiser.noteOn( noteModel, velocity )
+    recorder && recorder.noteOn( noteModel, velocity )
     
     // this should change the visualiser line colour
     shapeVisualiser.colour = noteModel.colour
 }
    
 /**
- * Stop playing a NOTE
+ * Stop playing a specific NOTE
  * @param {Object} noteModel 
  * @param {Number} velocity 
  * @param {Number} id 
  */
 const noteOff = (noteModel, velocity=1, id=0 ) => {
+   
+    // as user click is required to start the audio context
+    if (!hasUserEngaged)
+    {
+        createAudioContext()
+    }
 
     if (!noteModel)
     {
@@ -231,10 +261,11 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
 
     const synth = getSynthForFinger(id)
     synth.noteOff( noteModel, velocity )
-    keyboard.setKeyAsInactive( noteModel.noteNumber )   // unhighlight the keys on the keyboard
+    keyboard.setKeyAsInactive( noteModel )   // unhighlight the keys on the keyboard
     hero && hero.noteOff( noteModel )
     noteVisualiser && noteVisualiser.noteOff( noteModel, velocity )
     mouseVisualiser && mouseVisualiser.noteOff( noteModel, velocity )
+    recorder && recorder.noteOff( noteModel, velocity )
     shapeVisualiser.colour = false
 }
 
@@ -330,7 +361,7 @@ const addMusicalMouseEventsToElement = (button, chord=MAJOR_CHORD_INTERVALS, mus
 }
 
 /**
- * 
+ * Waveform visualiser
  * @param {AudioContext} audioContext 
  * @param {AudioNode} source 
  */
@@ -362,36 +393,6 @@ const createAudioVisualiser = (audioContext, source, song, visualiserOptions=VIS
 
 // AUDIO ==============================================================
 
-/**
- * Requires a user-gesture before initiation...
- */
-const createAudioContext = (event) => {
-
-    if (audioContext)
-    {
-        return audioContext
-    }
-    
-    // polyfilled see : https://github.com/chrisguttandin/standardized-audio-context
-    audioContext = new AudioContext()
-
-    limiter = audioContext.createDynamicsCompressor();
-    limiter.threshold.value = 0
-    limiter.ratio.value = 2 // 20
-    
-    mixer = audioContext.createGain()
-    mixer.gain.value = parseInt(searchParams.get("volume") ?? 1)
-
-    limiter.connect(mixer)
-    mixer.connect( audioContext.destination )
-    
-    createAudioVisualiser( audioContext, mixer, song, { ...VISUALISER_OPTIONS, backgroundColour:false } )
-
-    registerMultiTouchSynth( ALL_KEYBOARD_NOTES, chordOn, chordOff, (noteModel,p) => {
-        // show the mouse visualiser primed to play note
-        mouseVisualiser && mouseVisualiser.noteOn( noteModel, 1 )
-    })
-}
 
 /**
  * Set the musical scale to Major / Minor
@@ -418,8 +419,8 @@ const setScale = (scaleType) => {
 
     updateScaleUI( scaleType )
     scale = scaleType
-    circles.scale = scaleType
-    console.info("Scale set to", scaleType )
+    circles && (circles.scale = scaleType)
+    // console.info("Scale set to", scaleType )
 }
 
 /**
@@ -429,7 +430,6 @@ const setScale = (scaleType) => {
  */
 const setMode = (musicalMode) => {
 
-    // TUNING_MODE_NAMES
     mode = isNaN(musicalMode) ? 
         getModeAsIntegerOffset(musicalMode) : 
         musicalMode%TUNING_MODE_NAMES.length
@@ -463,11 +463,25 @@ const setTimbre = (timbre) => {
     // updateTimbreUI( timbreSanitised )
     updateTimbreUI( timbre )
     shape = timbre
+    circles && (circles.timbre = timbre)
 }
 
+/**
+ * 
+ * @param {Array} timbres - array of all timbres
+ * @param {String} timbre - the timbre to fetch
+ * @param {Number} offset 
+ * @returns {String} timbre name
+ */
 const getTimbre = (timbres, timbre, offset=0) => {
     const index = timbres.indexOf(timbre)
-    console.error("getTimbre", timbres, timbre, offset)
+    if ( index < 0)
+    {
+        console.error( index, "NO TIMBRE", timbres, timbre, offset)
+    }else{
+        console.log( index, "getTimbre", timbres, timbre, offset)
+    }
+   
     return timbres[ (index + offset) % timbres.length ]
 }
 
@@ -527,7 +541,8 @@ const fetchStateFromRadioButtons = () => {
                 break
             case "octave":
                 console.warn("octave", radioButton.value)
-                circles.octave = parseInt( radioButton.value )
+                octave = parseInt( radioButton.value )
+                // circle && (circle.octave = octave)
                 break
             case "timbre":
                 console.warn("timbre", radioButton.value)
@@ -547,6 +562,16 @@ const fetchStateFromRadioButtons = () => {
 
 // USER INTERFACE ==============================================================
  
+
+const loadShareMenu = () => {
+    // import("./share.js")
+    import('share-menu').then( lib => {
+        const shareMenu = document.getElementById("share-menu")
+        shareMenu.hidden = false
+        // console.info("Menu for sharing is available", shareMenu, lib )
+    })
+}
+
 /**
  * Show the MIDI toggle button (ensure that MIDI is enabled first!)
  */
@@ -568,17 +593,17 @@ const showMIDIToggle = () => {
 }
 
 /**
- * Add to DOM the Circle of Fifths Synthesizer
+ * Add to DOM the Circle of Fifths Synthesizer and populate with
+ * historic input data (octave and musical mode)
  */
-const createCircularSynth = () => {
+const createCircularSynth = (musicalMode, musicalOctave) => {
 
-    const circleIntervals = CICRLE_INTERVALS
-
-    const circle = createFifthsChord(ALL_KEYBOARD_NOTES, 41, mode).reverse()
+    // const circleIntervals = CICRLE_INTERVALS
+    const circle = createFifthsChord(ALL_KEYBOARD_NOTES, 41, musicalMode).reverse()
     const fifthIndexes = circle.map((note, index)=> note.sequenceIndex )
     const fifthData = ALL_KEYBOARD_NOTES.map( (key,i)=>{
-        const octave = Math.floor(i/12) 
-        return ALL_KEYBOARD_NOTES[(octave*12)+fifthIndexes[i%fifthIndexes.length]]
+        const oneOctave = Math.floor(i/12) 
+        return ALL_KEYBOARD_NOTES[(oneOctave*12)+fifthIndexes[i%fifthIndexes.length]]
     })
 
     // const svgCircle = Array.from(document.querySelectorAll(".circle-of-fifths-tonics > path"))
@@ -589,7 +614,7 @@ const createCircularSynth = () => {
     //     return path
     // })
 
-    const circularSynth = new CircleSynth(fifthData, chordOn, chordOff, setMode )
+    const circularSynth = new CircleSynth( fifthData, chordOn, chordOff, setMode, musicalMode, musicalOctave )
     // const f5 = createChord( fifthData, circleIntervals.major, 0, mode, false, true )
     //console.info("COF", {f5, fifthData, fifthIndexes }) 
     return circularSynth
@@ -611,8 +636,9 @@ const setupRadioButtons = () => {
                     setTimbre( input )
                     break
 
+                // 
                 case "octave":
-                    circles.octave = parseInt(input) 
+                    circles.frequency = parseInt(input) 
                     break
 
                 case "emotion":
@@ -661,9 +687,11 @@ const setupShapeVisualiser = (instrumentNames) => {
         setTimbre( timbre )
     })
     timbrePrevious.addEventListener("click", e => {
+        console.info("timbre previous", timbreSelect.value, timbreSelect.options.length )
         setTimbre( getTimbre(instrumentNames, shape, -1 ) )
     })
     timbreNext.addEventListener("click", e => {
+        console.info("timbre next", timbreSelect.value, timbreSelect.options.length )
         setTimbre( getTimbre(instrumentNames, shape, 1 ) )
     })
 
@@ -674,6 +702,73 @@ const setupShapeVisualiser = (instrumentNames) => {
 // LOGIC ==============================================================
 
 /**
+ * Requires a user-gesture before initiation...
+ */
+const createAudioContext = (event) => {
+
+    // only ever perform this once!
+    if (hasUserEngaged || audioContext)
+    {
+        return audioContext
+    }
+    
+    // polyfilled see : https://github.com/chrisguttandin/standardized-audio-context
+    audioContext = new AudioContext()
+
+    limiter = audioContext.createDynamicsCompressor();
+    limiter.threshold.value = 0
+    limiter.ratio.value = 2 // 20
+    
+    mixer = audioContext.createGain()
+    mixer.gain.value = parseInt(searchParams.get("volume") ?? 1)
+
+    limiter.connect(mixer)
+    mixer.connect( audioContext.destination )
+    
+    createAudioVisualiser( audioContext, mixer, song, { ...VISUALISER_OPTIONS, backgroundColour:false } )
+
+    registerMultiTouchSynth( ALL_KEYBOARD_NOTES, chordOn, chordOff, (noteModel,previousNoteModel, p) => {
+        // show the mouse visualiser primed to play note
+        if (mouseVisualiser)
+        {
+            previousNoteModel && mouseVisualiser.noteOff( previousNoteModel, 1 )
+            // mouseVisualiser.chordOn( noteModel, 1, 0 )
+            mouseVisualiser.noteOn( noteModel, 1 )
+        }
+    })
+    hasUserEngaged = true
+}
+
+/**
+ * Preload all of the wave tables 
+ */
+const backgroundLoad = async () => {
+    // await preloadAllWaveTables()
+    await preloadWaveTablesFromZip(WAVE_ARCHIVE_GENERAL_MIDI)
+    await preloadWaveTablesFromZip(WAVE_ARCHIVE_GOOGLE)
+    
+    // update the UI with these new data sets...
+    
+    const instrumentNames = getAllWaveTables()
+    
+    // NB. This is the full list that may not be loaded yet?
+    // all possible data files for instrument sounds
+   
+    // waveform visualiser
+    setupShapeVisualiser(instrumentNames)
+
+    console.error("DATA LOADED!", {instrumentNames} )
+
+    // now add the share button and share overlay
+    await loadShareMenu()
+
+    const timing = await import("./timing/timer.js")
+	// const timer = new Timer()
+    console.error("DATA LOADED!", {timing} )
+
+}
+
+/**
  * DOM is ready...
  */
 const start =  async () => {
@@ -682,24 +777,28 @@ const start =  async () => {
     //     console.info("searchParams",p, searchParams)
     // }
 
-    // NB. This is the full list that may not be loaded yet?
-    // all possible data files for instrument sounds
-    const instrumentNames = getAllWaveTables()
+    // record each user note!
+    recorder = new MelodyRecorder()
 
     // load in our note sequences
     song = loadSong( getRandomSong() )
 
-    handlePasswordProtection( searchParams, DEFAULT_PASSWORD, updateURL )
+    // show password protection
+    if (DEFAULT_PASSWORD)
+    {
+        handlePasswordProtection( searchParams, DEFAULT_PASSWORD, updateURL )
+    }
     
+    // change the copyright year to this year
     setCurrentYear()
-    
+
+    // add accessibility functionality menu to header
     addAccessibilityFunctionality()
 
-    if (navigator.requestMIDIAccess)
-    {
-        showMIDIToggle()
-    }
-   
+    // reinstate the state recalled from the previous session
+    // and use as the basis for initialising the synths
+    fetchStateFromRadioButtons() 
+    
     // top interactive smiling graphic
     hero = new Hero(ALL_KEYBOARD_NOTES, noteOn, noteOff)
      
@@ -718,22 +817,21 @@ const start =  async () => {
     const keyboardElement = document.body.appendChild( keyboard.asElement )
     keyboardElement.addEventListener("dblclick", e => setScale( !isHappy ) )
    
-    // we can 
+    // we can turn the mouse cursor into a note indicator
     const mouseCanvas = document.getElementById("mouse-visualiser")
     mouseVisualiser = new MouseVisualiser(mouseCanvas)
  
-    // this is waveform visualiser
-    setupShapeVisualiser(instrumentNames)
+    // circular fifths synth
+    circles = createCircularSynth( mode, octave )
 
-    // circular synth
-    circles = createCircularSynth()
-
-    // reinstate the state recalled from the previous session
-    fetchStateFromRadioButtons() 
-    
-    // now wire up the radio buttons
+    // wire up the radio buttons
     setupRadioButtons()
-  
+    
+    if (navigator.requestMIDIAccess)
+    {
+        showMIDIToggle()
+    }
+    
     // watch for when an element arrives in the window
     monitorIntersections()
   
@@ -741,10 +839,7 @@ const start =  async () => {
     updateURL()
 
     // try and load in some instrument data sets in the background...
-    // preload all of the wave tables
-    requestAnimationFrame(()=>preloadWaveTablesFromZip(WAVE_ARCHIVE_GENERAL_MIDI))
-    requestAnimationFrame(()=>preloadWaveTablesFromZip(WAVE_ARCHIVE_GOOGLE))
-    // requestAnimationFrame(()=>preloadAllWaveTables())
+    requestAnimationFrame(backgroundLoad)
 }
 
 /**

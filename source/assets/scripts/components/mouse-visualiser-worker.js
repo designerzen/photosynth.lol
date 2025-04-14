@@ -4,8 +4,8 @@ const TAU = Math.PI * 2
 const FRICTION = 0.3
 
 const STROKE = 4
-const MIN_RADIUS = 12
-const MAX_RADIUS = 88
+const MIN_RADIUS = 1
+const MAX_RADIUS = 44
 const RADIUS_RANGE = MAX_RADIUS - MIN_RADIUS
 
 const MAX_SIZE = (MAX_RADIUS + STROKE) * 2
@@ -13,11 +13,16 @@ const HALF_MAX_RADIUS = MAX_SIZE / 2
 
 const SHRINK_DURATION = 202 // 101 is good   // this should be similar to the decay on the instrument
 
+const OFFSET = 16
+const X_OFFSET = -MAX_RADIUS - OFFSET
+const Y_OFFSET = -MAX_RADIUS - OFFSET
+
 let mouseDown = false 
-let mouseX = 0
-let mouseY = 0
+let mouseX = -1
+let mouseY = -1
 let currentX = 0
 let currentY = 0
+let hoveredElement = null
 
 let radius = MAX_RADIUS
 let lastNoteColour
@@ -33,24 +38,35 @@ let countDown = 0
  * @param {Number} radius 
  * @returns 
  */
-function renderMouse(x, y, radius=MAX_RADIUS){
+function renderMouse(x, y, radius=MAX_RADIUS, nodeTypeHovered=null){
   
-    /*
+    // we can adjust the behaviour and style depending
+    // on what element the mouse is over.
+    // for example, change to a square or triangle
+    switch(nodeTypeHovered)
+    {
+        case "A":
+        case "NAV":
+        case "MENU":
+        case "LABEL":
+        case "LEGEND":
+        case "INPUT":
+        case "BUTTON":
+        case "SELECT":
+        case "FIELDSET":
+            return
+    }
+
+    x += X_OFFSET
+    y += Y_OFFSET
     // draw a circle at the mouse position
     const path = new Path2D()
-    path.moveTo(x, y)
     // arc(x, y, radius, startAngle, endAngle, counterclockwise)
     path.arc(x, y, radius, 0, TAU, true)
     path.closePath()
 
-    context.fillStyle = lastNoteColour
-    context.fill(path)
-
-    // now draw the outlines...
-    context.strokeStyle = mouseDown ? lastNoteColour : 0x000000
-    context.lineWidth = mouseDown ? STROKE : 8
-    context.stroke(path)
-*/
+    // context.fillStyle = lastNoteColour
+    // context.fill(path)
 
     if (notes.size > 0)
     {
@@ -61,21 +77,32 @@ function renderMouse(x, y, radius=MAX_RADIUS){
         let i = 0
         // draw parts of the PI!
         notes.forEach((data, colour, map) => {
+
+            // if (i>0)
+            // {
+            //     return
+            // }
+
             const segment = new Path2D()
             segment.moveTo(x, y)
             // arc(x, y, radius, startAngle, endAngle, counterclockwise)
-            segment.arc(x, y, radius, last, radians, true)
+            segment.arc(x, y, radius, last, last+radians, false)
             segment.closePath()
             
             context.fillStyle = colour
             context.fill(segment)
             
             last += radians
-            console.error(i++, "->", radians * (180/Math.PI),  {countDown, x, y, radius, colour, last, radians, notes} )
+            // console.error(i++, "->", radians * (180/Math.PI),  {countDown, x, y, radius, colour, last, radians, notes} )
         })
     }
     
- 
+    // now draw the outlines...
+    context.strokeStyle = !mouseDown ?  'rgba(0,0,0,0.8)' : lastNoteColour
+    context.lineWidth = mouseDown ? STROKE : 8
+    // context.stroke()
+    context.stroke(path)
+    
     // only fill if mouse is pressed or the circle is shrinking out 
     // if (mouseDown || countDown > 0)
     // {
@@ -85,6 +112,8 @@ function renderMouse(x, y, radius=MAX_RADIUS){
     //     // console.info("skipping fill")
     //     context.fillStyle = lastNoteColour ?? 'rgba(0,0,0,0.8)'
     // }
+
+    // console.error("HOVERED ELEMENT", nodeTypeHovered)
 }
 
 /**
@@ -92,8 +121,13 @@ function renderMouse(x, y, radius=MAX_RADIUS){
  */
 function render() {
 
+    if (mouseX === -1 || mouseY === -1)
+    {
+        return requestAnimationFrame(render)
+    }
+
     // clear previous shape
-    context.clearRect( currentX - HALF_MAX_RADIUS, currentY - HALF_MAX_RADIUS, MAX_SIZE, MAX_SIZE )
+    context.clearRect( currentX - HALF_MAX_RADIUS + X_OFFSET, currentY - HALF_MAX_RADIUS + Y_OFFSET, MAX_SIZE, MAX_SIZE )
 
     // clear full screen (greedy)
     // context.clearRect( 0, 0, canvas.width, canvas.height )
@@ -113,7 +147,7 @@ function render() {
     // redraw the mouse position
     // if (radius > 0 )
     // {
-        renderMouse( currentX, currentY, radius  )
+        renderMouse( currentX, currentY, radius, hoveredElement  )
     // }
     
     // console.info("mouse visualiser", countDown, {mouseX, mouseY, currentX, currentY, radius}, easeOutSine( countDown / SHRINK_DURATION ) )
@@ -146,14 +180,14 @@ onmessage = (evt) => {
           
             countDown = SHRINK_DURATION
             radius = MAX_RADIUS
-            console.error("VIZ:noteOn", notes ) 
+            // console.error("VIZ:noteOn", notes ) 
             break
 
         case "noteOff":
             lastNoteColour = "transparent"
             // FIXME:
             notes.delete(evt.data.colour)
-            console.error("VIZ:noteOff", notes ) 
+            // console.error("VIZ:noteOff", notes ) 
          
             // console.info("VIZ:noteOff", evt.data, {lastNoteColour} )
             break
@@ -162,6 +196,7 @@ onmessage = (evt) => {
             mouseX = evt.data.x
             mouseY = evt.data.y
             mouseDown = evt.data.pressed
+            hoveredElement = evt.data.target
             break
 
         case "resize":

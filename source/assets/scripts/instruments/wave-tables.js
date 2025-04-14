@@ -115,6 +115,7 @@ export const loadWaveTableFromJSON = (waveTableURI, waveTableString) => {
     }
 
     waveTables.set(waveTableURI, waveTable)
+    console.error("loading waves from JSON", waveTableURI, waveTables.entries(), {waveTable, waveTables} )
     return waveTable
 }
 
@@ -151,10 +152,14 @@ export const loadWaveTable = async (waveTableName = TB303) => {
  * @returns 
  */
 export const getRandomWaveTableName = () => {
-    return ALL_WAVE_FORM_NAMES[Math.floor(Math.random() * ALL_WAVE_FORM_NAMES.length)]
+    const randomIndex = Math.floor(Math.random() * waveTableNames.size )
+    const allWaves = getAllWaveTables()
+    console.error("randomIndex", randomIndex, allWaves )
+    return allWaves[randomIndex]
+    // return ALL_WAVE_FORM_NAMES[Math.floor(Math.random() * ALL_WAVE_FORM_NAMES.length)]
 }
 
-export const getAllWaveTables = () => ALL_WAVE_FORM_NAMES
+export const getAllWaveTables = () => Array.from(waveTables) // ALL_WAVE_FORM_NAMES
 
 /**
  * 

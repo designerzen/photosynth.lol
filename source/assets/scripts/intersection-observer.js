@@ -45,9 +45,9 @@ export const monitorIntersections = ( query="[data-observe]", intersectionOption
                     
                 }
 
-                if (entry.classList)
+                if (entry.target.classList)
                 {
-                    entry.classList.toggle("in-viewport", true)
+                    entry.target.classList.toggle("in-viewport", true)
                 }else{
                     console.error("IN intersection without entry", entry, entry.classList )
                 }
@@ -56,9 +56,9 @@ export const monitorIntersections = ( query="[data-observe]", intersectionOption
                 document.body.classList.toggle("show-full-keyboard", fullSizeKeyboard)
               
             }else{
-                if (entry.classList)
+                if (entry.target.classList)
                 {
-                    entry.classList.toggle("in-viewport", false)
+                    entry.target.classList.toggle("in-viewport", false)
                 }else{
                     console.error("OUT intersection without entry", entry, entry.classList )
                 }

@@ -1,7 +1,6 @@
 /**
  * Scrolling note on / off visualisation
  */
-
 import NOTE_VISUALISER_CANVAS_WORKER from "url:./note-visualiser-worker.js"
 import { AbstractResizeable } from "./abstract-resizeable-canvas.js"
 
@@ -21,21 +20,19 @@ export default class NoteVisualiser extends AbstractResizeable{
     mouseX = 0
     mouseY = 0
 
+    get backgroundColour(){
+        return getComputedStyle(this.canvas).getPropertyValue("background-color")
+        return this.canvas.style.backgroundColor
+    }
+
     constructor( notes, canvas, vertical=false, wave=0 ){
         
         super(canvas, NOTE_VISUALISER_CANVAS_WORKER, {vertical, notes})
 
         this.notes = notes
         this.canvas = canvas
-
-        // this.context = canvas.getContext('2d')
-        // this.offscreenCanvas =  new OffscreenCanvas(256, 256)
-       
         this.wave = wave
         this.vertical = vertical
-
-        // start!
-        // this.advance()
     }
 
     /**
@@ -44,7 +41,7 @@ export default class NoteVisualiser extends AbstractResizeable{
      * @param {number} velocity 
      */
     noteOn( note, velocity=1 ){
-        const payload = { type:"noteOn", note, velocity }
+        const payload = { type:"noteOn", note:note.number,colour:note.colour, velocity }
         // console.info("NOTEVIZ noteOn", {note, velocity, payload} )
         this.notesOn++
         this.worker.postMessage(payload)
@@ -57,6 +54,6 @@ export default class NoteVisualiser extends AbstractResizeable{
      */
     noteOff( note, velocity=1 ){
         this.notesOn--
-        this.worker.postMessage({ type:"noteOff", note, velocity })
+        this.worker.postMessage({ type:"noteOff",  note:note.number, colour:note.colour, velocity })
     }
 }

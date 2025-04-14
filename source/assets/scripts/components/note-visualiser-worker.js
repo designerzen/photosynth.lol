@@ -5,7 +5,7 @@ let firstNoteNumber
 
 let loop = false
 let vertical = false
-let noteOnCount = 0
+let notesOn = new Map()
 let wave = 0
 
 let lastNoteColour
@@ -73,7 +73,8 @@ function render() {
         renderHorizontal(counter)
  
     counter = counter+1 % 999
-  
+    // console.info("mirror render", counter )
+     
     // context.fillStyle = "#ff0000"
     // context.fillRect( 
     //     Math.random() * 400, 
@@ -121,16 +122,28 @@ onmessage = (evt) => {
 
         loop = true
         render()
-        
-        console.info("mirror created", canvas.width, canvas.height , notes.length, {firstNoteNumber, mirror, canvas, context, mirrorContext, noteSize, notes })
+        // 
+        // console.info("mirror created", canvas.width, canvas.height , notes.length, {firstNoteNumber, mirror, canvas, context, mirrorContext, noteSize, notes })
         
         return
     }
-     
+
+    switch (evt.data.type)
+    {
+        case "coord":
+            mouseX = evt.data.x
+            mouseY = evt.data.y
+            mouseDown = evt.data.pressed
+            return    
+    }
+
     vertical = evt.data.vertical
  
     const transposedNoteNumber = Math.max( firstNoteNumber, evt.data.note - firstNoteNumber )
+    // console.info("fillrect", transposedNoteNumber, firstNoteNumber, evt.data.note, firstNoteNumber ) 
             
+    // console.info("note-vis",evt.data.type, evt )
+        
     switch (evt.data.type)
     {
         case "noteOn":
@@ -142,7 +155,7 @@ onmessage = (evt) => {
             }else{
                 context.fillRect( 0, transposedNoteNumber * noteSize, noteDepth, noteSize ) 
             }
-            noteOnCount++
+            notesOn.set( transposedNoteNumber, evt.data )
             // console.info("VIZ:noteOn", evt.data.note, {firstNoteNumber, transposedNoteNumber}, notes[0], {notes} ) 
             break
 
@@ -156,15 +169,10 @@ onmessage = (evt) => {
             }else{
                 // context.clearRect( 0, transposedNoteNumber * noteSize, gap, noteSize ) 
                 context.fillRect( 0, transposedNoteNumber * noteSize, gap, noteSize ) 
-             }
-             noteOnCount--
-            //console.info("VIZ:noteOff", evt.data, transposedNoteNumber )
-            break
-
-        case "coord":
-            mouseX = evt.data.x
-            mouseY = evt.data.y
-            mouseDown = evt.data.pressed
+            }
+            
+            notesOn.delete( transposedNoteNumber )
+            // console.info("VIZ:noteOff", evt.data, transposedNoteNumber )
             break
 
         case "resize":

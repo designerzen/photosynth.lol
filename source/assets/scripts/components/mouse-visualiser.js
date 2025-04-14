@@ -7,6 +7,8 @@ export class MouseVisualiser extends AbstractResizeable{
     
     mouseDown = false
 
+    hoveredElement = null
+
     mouseX = 0
     mouseY = 0
 
@@ -20,10 +22,13 @@ export class MouseVisualiser extends AbstractResizeable{
         const elementToObserve = window ?? document
 
         elementToObserve.onmousemove = e => {
+            const details = e.target // can e.something return what element the mouse cursor is over?
             const coords = this.getMouseCoords(canvas, e)
             this.mouseX = coords.x // ?? e.offsetX ?? e.layerX ?? e.clientX
             this.mouseY = coords.y // e.offsetY ?? e.layerY ?? e.clientY
+            this.hoveredElement = details ? details.nodeName : ''
             this.sendMessage(1)
+            // console.log("onmousemove", {details, coords})
         }
     
         elementToObserve.onmousedown = e => {
@@ -91,7 +96,7 @@ export class MouseVisualiser extends AbstractResizeable{
      */
     getPayload(){
         // console.info("MOUSEMOVE", {type:"mouse", x:this.mouseX , y:this.mouseY, pressed:this.mouseDown})
-        return { type:"mouse", x:this.mouseX , y:this.mouseY, pressed:this.mouseDown }
+        return { type:"mouse", x:this.mouseX , y:this.mouseY, pressed:this.mouseDown, target:this.hoveredElement }
     }
 
     /**
@@ -113,4 +118,6 @@ export class MouseVisualiser extends AbstractResizeable{
         const payload = { type:"noteOff", colour:note.colour, velocity }
         this.worker.postMessage(payload)  
     }
+
+    // TODO: chordOn and chordOff
 }

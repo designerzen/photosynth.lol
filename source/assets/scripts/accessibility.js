@@ -1,4 +1,6 @@
 
+const toPrecision = (scale, minimum=2, precision=1) => parseFloat( Math.min(scale, minimum).toFixed(precision) )
+
 /**
  * Add text scaling controls to the menu
  */
@@ -10,21 +12,29 @@ export const addTextScalingFacilities = (initialFontSize=1, onFontSizeChange) =>
     let fontScale = initialFontSize
     const fontScaleBy = 0.1
 
-    // TODO: disable the buttons when their extents are reached
+  
     const setFontScale = scale => {
-        if (fontScale !== scale){
+        if (fontScale !== scale)
+        {
             fontScale = scale
             rootStyles.setProperty("--font-scale",scale)
-            console.log(rootStyles.getPropertyValue("--font-size-base"))
+           
+            // disable the buttons when their extents are reached?
+            buttonFontSizeDecrease.disabled = scale <= 1
+            buttonFontSizeIncrease.disabled = scale >= 2
+
+            // console.log(rootStyles.getPropertyValue("--font-size-base"))
             onFontSizeChange(scale)
         }
     }
     
-    buttonFontSizeIncrease.addEventListener("click", ()=>{
-        setFontScale( Math.min(fontScale + fontScaleBy, 2).toFixed(1) )
+    buttonFontSizeIncrease.addEventListener("click", e =>{
+        e.preventDefault()
+        setFontScale( toPrecision(fontScale + fontScaleBy, 2) )
     }) 
 
-    buttonFontSizeDecrease.addEventListener("click", ()=>{
-        setFontScale( Math.max(fontScale - fontScaleBy, 1).toFixed(1) )
+    buttonFontSizeDecrease.addEventListener("click", e =>{
+        e.preventDefault()
+        setFontScale( toPrecision(fontScale - fontScaleBy, 1) )
     })
 }

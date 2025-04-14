@@ -3,6 +3,10 @@ import { EMOJI_SEQUENCE, getEmojiForScaleAndMode, TUNING_MODE_EMOJIS_MAJOR } fro
 import { addThemeSelectionOptions } from "../theme"
 import AbstractInteractive from "./abstract-interactive"
 
+const OCTAVE_NAMES = [
+    "Bass", "Lead", "Treble"
+]
+
 export default class CircleSynth extends AbstractInteractive{
 
     noteLibrary = new Map()	
@@ -12,12 +16,19 @@ export default class CircleSynth extends AbstractInteractive{
     modeIndex = 0
     scaleType = null
 
+    // text elements
+    timbreElement
+    frequencyElement
+    toneElement
+
     set happiness(value){
         const emoji = EMOJI_SEQUENCE[ Math.round(value * EMOJI_SEQUENCE.length )]
-        // const emoji = EMOJI_SEQUENCE[ Math.round(value * EMOJI_SEQUENCE.length )]
         this.emoji.textContent = emoji
     }
 
+    /**
+     * Musical Scale Mode (eg. dorian) as Number
+     */
     set mode( value){
         this.modeIndex = value
         this.setEmoji()
@@ -36,12 +47,42 @@ export default class CircleSynth extends AbstractInteractive{
      */
     set scale( musicalScale) {
         this.scaleType = musicalScale
-        console.info("Scale", musicalScale )
+        this.toneElement.textContent = musicalScale
+        this.toneElement.setAttribute("startOffset", (35.5 - (musicalScale.length * 0.5)) + "%")
+        // console.info("Scale", musicalScale )
         this.setEmoji()
     }
 
     get scale() {
         return this.scaleType
+    }
+
+    /**
+     * Timbre is a string value that is displayed in curved text
+     */
+    set timbre(value){
+        this.timbreElement.textContent = value // String(value).toUpperCase()
+        this.timbreElement.setAttribute("startOffset", (12.5 - (value.length * 0.5)) + "%")
+    }
+
+    set frequency( value ){
+        this.octave = typeof value === "number" ? value : OCTAVE_NAMES.indexOf(value)
+        let octaveName = "All"
+        if (this.octave <= 3)
+        {
+            // BASS
+            octaveName = OCTAVE_NAMES[ 0 ]
+        }else if (this.octave <= 4){
+            // MID
+            octaveName = OCTAVE_NAMES[ 1 ]
+        }else if (this.octave >= 5){
+            // TREBLE
+            octaveName = OCTAVE_NAMES[ 2 ]
+        }
+        this.frequencyElement.textContent = octaveName
+        this.frequencyElement.setAttribute("startOffset", (75 - (octaveName.length * 0.5)) + "%")
+        // this.frequencyElement.textContent = OCTAVE_NAMES[ this.octave ] 
+        // console.info("FREQ", value, this.frequencyElement.textContent )
     }
 
     constructor( notes, noteOn, noteOff, setMode, mode=0, octave=4 ){
@@ -54,26 +95,39 @@ export default class CircleSynth extends AbstractInteractive{
             noteOff( noteModel, velocity, id, null, this.mode, idOffset )
         }
 
-        this.notes = notes
-        this.octave = octave ?? 4
-        this.modeIndex = mode ?? 0
+     
         // this.scaleType = sc ?? 0
         
         this.element = document.querySelector(".circle-of-fifths")
         this.title = this.element.querySelector("title")
         this.emoji = this.element.querySelector(".fifths-emotion-text")
+        this.timbreElement = this.element.querySelector(".curved-text-timbre")
+        this.frequencyElement = this.element.querySelector(".curved-text-frequency")
+        this.toneElement = this.element.querySelector(".curved-text-tone")
+       
+        // console.error( "COF elements", this.timbreElement, this.frequencyElement, this.toneElement  )
+
+        this.notes = notes
+        this.octave = octave ?? 4
+        this.modeIndex = mode ?? 0
+
         this.keyElements = this.createKeys(notes, ".circle-of-fifths-tonics path", 3)
         this.keyElements.push(...this.createKeys(notes, ".circle-of-fifths-harmonies path" ))
         this.addInteractivity( this.keyElements, chordOn, chordOff )  
         this.addControls( setMode )
 
+        this.frequency = octave
+
+        // now update the face
         this.setEmoji()
 	}
 
+    /**
+     * set the emoji in the centre
+     */
     setEmoji(){
         const emoji = getEmojiForScaleAndMode( this.scaleType, this.modeIndex )
         this.emoji.textContent = emoji
-        console.log("Emoji", emoji)
     }
 
     addControls( setMode ){
@@ -101,11 +155,11 @@ export default class CircleSynth extends AbstractInteractive{
         emojiHitArea.addEventListener("click", e => {
             const newMode = (this.mode + 1) % TUNING_MODE_NAMES.length
             this.mode = setMode( TUNING_MODE_NAMES[newMode] )
-            console.info("emoji pressed to mode", this.mode)
+            // console.info("emoji pressed to mode", this.mode)
             e.preventDefault()
         })
         emojiHitArea.addEventListener("dblclick", e => {
-            console.info("emoji double clicked to mode", this.mode)
+            // console.info("emoji double clicked to mode", this.mode)
             e.preventDefault()
         })
     }

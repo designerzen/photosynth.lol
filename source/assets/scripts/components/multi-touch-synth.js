@@ -1,9 +1,10 @@
-export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffCallback=null, onNoteChange=null) => {
+export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffCallback=null, onAvailableNoteChange=null) => {
 
     const controller = new AbortController()
     const canvas = document.getElementById("wallpaper")
     // const ctx = canvas.getContext('2d')
     const activeNotes = new Map()
+    let availableNote
 
     /**
      * 
@@ -44,7 +45,7 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
         noteOnCallback( note, 1, id )
         activeNotes.set(id, note)
         
-        console.info(id, "mouse down", {e})
+        // console.info(id, "mouse down", {e})
     }
 
     /**
@@ -80,10 +81,10 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
         const id = e.pointerId ?? 0
         
         if (activeNotes.size === 0){
-            const note = convertPositionToNote(e)
-            onNoteChange && onNoteChange(note, id)
+            const previousNote = availableNote
+            availableNote = convertPositionToNote(e)
+            onAvailableNoteChange && onAvailableNoteChange(availableNote, previousNote, id)
             return
-            console.info("ignoring mouse move", { e,  synth })
         }
 
         // Note: if the user makes more than one "simultaneous" touches, most browsers
@@ -108,17 +109,22 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
     }
   
     /**
-     * 
+     * Touch / Mouse interaction has completed
+     * (either mouse up or touch end)
      * @param {MouseEvent|TouchEvent} e 
      */
     const onInteractionEnd = e => {
         e.preventDefault()
-        
         const id = e.pointerId ?? 0
-        const note = convertPositionToNote(e)
-        noteOffCallback( note, 1, id )
-        activeNotes.delete(id)
-        console.info( id, "mouse up", {e, note, activeNotes})
+        const activeNote = activeNotes.get(id)
+        if (activeNote) {
+            const note = convertPositionToNote(e)
+            noteOffCallback( note, 1, id )
+            activeNotes.delete(id)
+            // console.info( id, "mouse up", {e, note, activeNotes})
+        }else{
+            // console.info( id, "mouse up IGNORED", {e, activeNotes})
+        }      
     }
 
     canvas.addEventListener("mousedown", onInteractionBegin, { signal: controller.signal, passive: true })

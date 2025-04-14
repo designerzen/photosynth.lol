@@ -4,11 +4,6 @@ const backing = [
     new SynthOscillator(audioContext),
     new SynthOscillator(audioContext)
 ]
- 
-
-    // playBackingMelody(  )
-
-
 
 const playBackingMelody = ()=>{
     setInterval(()=>{
