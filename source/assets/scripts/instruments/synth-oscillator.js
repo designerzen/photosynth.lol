@@ -2,7 +2,7 @@
 import { BiquadFilterNode } from "standardized-audio-context"
 import {noteNumberToFrequency} from "../note.js"
 import { loadWaveTable } from "./wave-tables.js"
-const OSCILLATORS = [ "sine", "square", "sawtooth", "triangle" ]
+export const OSCILLATORS = [ "sine", "square", "sawtooth", "triangle" ]
 
 export default class SynthOscillator{
 
@@ -64,29 +64,40 @@ export default class SynthOscillator{
     }
 
 	set shape(value){
-        // there are 2 different sources of shapes
-        // 1. the oscillator type
-        if (OSCILLATORS.includes(value))
-        {
-            console.info("SynthOscillator::STANDARD"+ this.options, value)
-            if ( this.oscillator)
-            {
-                this.oscillator.type = value
-            }
-            this.customWave = null
+        // there are 3 different sources of shapes :
+        switch (typeof value ){
 
-        }else{
-          
-            // 2. the customWave creates a periodic wave
-            this.loadWaveTable(value).then( waves => {
-                this.setWaveTable( waves )
-                if ( this.oscillator)
+            case 'string':   
+                if (OSCILLATORS.includes(value))
                 {
-                    this.oscillator.setPeriodicWave(this.customWave)
-                }
-                console.info("SynthOscillator::CUSTOM"+this.options, value, {waves} )
-            } )  
+                    // 1. the oscillator type
+                    console.info("SynthOscillator::STANDARD"+ this.options, value)
+                    if ( this.oscillator )
+                    {
+                        this.oscillator.type = value
+                    }
+                    this.customWave = null
+
+                }else {
+
+                    // 2. attempt to load in customWave JSON data from a URI
+                    this.loadWaveTable(value).then( waves => {
+                        this.setWaveTable( waves )
+                        console.info("SynthOscillator::CUSTOM URI"+this.options, value, {waves} )
+                    } )     
+                } 
+                break
+        
+            case 'object':
+                // 3. customWave data with real and imag arrays
+                this.setWaveTable( value )
+                console.info("SynthOscillator::CUSTOM DATA"+this.options, value )
+                break
+
+            default: 
+                console.warn("SynthOscillator::UNKNOWN TYPE", value)
         }
+    
         this.options.shape = value
 	}
 
@@ -293,6 +304,13 @@ export default class SynthOscillator{
 
     setWaveTable(waveTable){
         const {real, imag} = waveTable
-        this.customWave = this.audioContext.createPeriodicWave(real, imag, { disableNormalization: true })
+        const waveData = this.audioContext.createPeriodicWave(real, imag, { disableNormalization: true })
+        // reshape any playing oscillators
+        if ( this.oscillator)
+        {
+            this.oscillator.setPeriodicWave(waveData)
+        }
+        this.customWave = waveData
+        return waveData
     }
 }

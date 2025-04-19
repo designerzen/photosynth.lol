@@ -12,9 +12,6 @@ export const createNotes = ()=> {
     }
 }
 
-export const createAudio = ()=>{
-    const audio = new AudioContext()
-}
 
 /**
  * Convert a MIDI Note Number into a frequency in hertz
