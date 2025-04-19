@@ -15,13 +15,23 @@
 			visibility: visible;
 		}		
 	}	
-    
+	&:focus{
+		outline: none;
+	}
+
+	&:focus-visible{
+		outline: none;
+		stroke-width:4px;
+		stroke:var(--col-accent);
+	}
+
     &.active{
 		fill:var( --col-accent, var(--shade-brand, red) );
 	}
     &.active:hover{
 		fill:var( --col-accent, var(--shade-brand, red) );
 	}
+
 }
 
 .piano-key-white{
@@ -32,7 +42,11 @@
 .piano-key-black{
 	fill:black;
 	background-color:black;
-	background-image:linear-gradient(to bottom, #000, #222);
+	// background-image:linear-gradient(to bottom, #000, #222);
+	&:focus-visible{
+		stroke-width:4px;
+		stroke:var(--col-accent);
+	}
 }
 
 .piano-key-indicators{
@@ -62,17 +76,52 @@
     }
 }
 
+// peeking
 .piano{
-    // --c:calc(100% - max(5vw, 24px) );
+	--overhang:calc(-50% + 50vw);
+ 	--c:calc(100% - var(--footer-height) );
 	// margin-top:calc( -1 * var(--c) );
-    // transform: translateY( var(--c) );
-    position: sticky;
-    bottom:calc( -1 * var(--footer-height,0 ));
-	transition: bottom var(--time-medium, 90ms) ease.$easeOutBack;  
-}
 
-.show-full-keyboard{
-	.piano{
-		bottom:0;
+	min-height:calc( 100px +  var(--footer-height));
+	//width: min(100%, 100vw);
+	// max-width: min(100%, 100vw);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+
+   	position: sticky;
+    bottom:0; // calc( -1 * var(--footer-height,0 ));
+	
+	transition: bottom var(--time-medium, 90ms) ease.$easeOutBack; 
+	pointer-events: none;
+
+	// transform: translateX(-50%);
+
+	.piano-keys{
+		// we want the piano to be in the middle of the screen
+		// so we move it 50% of it's own width to the left then 50% of the screen to the right
+
+		pointer-events: all;
+		transform: translateY( calc( var(--c) ) ) translateX( var(--overhang) );
+ 		transition: transform var(--time-medium, 90ms) ease.$easeOutBack; 
+		
+		margin:auto;
+		margin-bottom: 0;
+		
+		// padding-right: 100%;
+		// left:50%;
+
+		// make sure that it cannot be taller than 1/4 of the viewport height
+		max-height:min(148px, 25vh);
+		// ensure that it never shrinks to unusable size
+		min-width:calc( 128 * 11px);
 	}
 }
+
+// Full size
+.piano.show-full-keyboard{
+	.piano-keys{
+		transform: translateY( 0 ) translateX( var(--overhang) );
+	}
+}
+

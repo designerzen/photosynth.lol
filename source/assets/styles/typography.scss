@@ -8,7 +8,7 @@ body{
     font-weight: lighter;
 }
 
-:is(h1,h2,h3,h4,h5,h6){
+:is(h1,h2,h3,h4,h5,h6,header){
     font-weight: bold;
     position: relative;
 
@@ -42,6 +42,7 @@ option{
     font: inherit;
 }
 
+.page header,
 hgroup{
     margin-bottom:var(--pad);
 }
@@ -112,6 +113,11 @@ a[href="#laboratory"],
     --icon:url(/source/assets/icons/biotech.svg);
 }
 
+a[href="#science"],
+#science .heading-icon{
+    --icon:url(/source/assets/icons/favorite-24px.svg);
+}
+
 a[href="#research"],
 #research .heading-icon{
     --icon:url(/source/assets/icons/favorite-24px.svg);
@@ -175,6 +181,10 @@ p{
     position: relative;
     margin:0;
 }
+details p:first-of-type{
+    font-size: var(--font-size-h5);
+}
+
 
 blockquote{
 
@@ -221,7 +231,6 @@ blockquote{
 }
 
 
-
 @media(max-width:820px) {
     // h1 {
     //     font-size: var(--font-size-h1-mobile)
@@ -233,25 +242,28 @@ blockquote{
     h3,
     p.flood,
     blockquote{
-        font-size: var(--font-size-h3-mobile)
+        font-size: var(--font-size-h3-mobile);
     }
 
     h4,
     legend,
     p:first-of-type {
-        font-size: var(--font-size-h4-mobile)
+        font-size: var(--font-size-h4-mobile);
     }
 
     summary,
     figcaption,
+    details p:first-of-type,
     h5 {
-        font-size: var(--font-size-h5-mobile)
+        font-size: var(--font-size-h5-mobile);
     }
 
     h6 {
-        font-size: var(--font-size-h6-mobile)
+        font-size: var(--font-size-h6-mobile);
     }
+    
 }
+
 
 
 a:not(
@@ -305,4 +317,16 @@ legend{
 figcaption{
     font-style: italic;
     font-weight: bolder;
+}
+
+address{
+    text-align: left;
+
+    .delimiter::after{
+        content:'';
+    //     display: inline-block;
+    //     vertical-align: middle;
+        // force line-break
+        display: table;
+    }
 }

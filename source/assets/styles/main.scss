@@ -75,12 +75,14 @@ body{
         "menu"
         "nav"
         "headline"
+        "share"
         ;
 
     grid-template-rows: 
         auto 
         auto
         1fr 
+        auto
     ;
     
 
@@ -157,21 +159,28 @@ body{
         justify-self: center;
         pointer-events: auto;
     }
+
+    #share-menu{
+        grid-area:share;
+        display: flex;
+        place-items: center;
+    }
 }
 
 // Larger sizes
 @media screen and (min-width:800px){
     #headline {
         grid-template-areas: 
-            "menu"
-            "headline"
-            "nav"
+            "menu menu"
+            "headline headline"
+            "share nav"
         ;
         grid-template-rows: 
             auto 
             1fr
             auto
         ;
+        grid-template-columns: auto 1fr ;
 
         hgroup{
             padding-right: calc( 12ch + 4 * var(--pad) ) ;
@@ -186,6 +195,7 @@ body{
 #main-content{
 
     --overlap:50vh;
+    --notes-height:100dvh;
 
     // display: grid;
     // grid-auto-flow: row;
@@ -201,6 +211,10 @@ body{
         // background-color: red;
         background-image: url(/source/assets/figures/hero-royal-society-smile-only.svg);
         z-index: 1;
+
+        // make it look cool
+        // filter: invert(1);
+        mix-blend-mode: soft-light;
     }
 }
 
@@ -299,10 +313,10 @@ img{
 
 // thanks to the 
 #introduction{
-    margin-top:calc( -100vh );
-    margin-top:calc( -100dvh );
+    margin-top:calc( var(--notes-height, --100vh) * -1 );
     padding-bottom: var( --overlap, 0);
 
+    background: transparent;
     display: grid;
     grid-auto-flow: row;
     grid-template-areas: 
@@ -322,30 +336,41 @@ img{
 #teaser{
     margin-top:calc( var(--overlap) * -2 );
 
-    // wavy background and edges
-    &::before{
-        content:'';
-        // margin-top:-10vh;
- 
+    &::before,
+    &::after{
+        content: '';
         position: absolute;
-        top:-10vh;
-        left:0;
         width: 100%;
         height: 100%;
-        // background-image: url(/source/assets/wallpaper/wavey.svg);
+        left:0;
+        
+        background-color: inherit;
         // background-repeat: repeat-x;
         // background-position: top left;
 
-        mask: url(/source/assets/wallpaper/wavey.svg);
-
-
-        background-color: inherit;
         pointer-events: none;
         // opacity: 0.94;
         // filter:brightness(909);
+
         overflow: hidden;
         overflow: clip;
     }
+    
+    // wavy background and edges
+    &::before{
+        // margin-top:-10vh;
+        top:-10vh;
+        // background-image: url(/source/assets/wallpaper/wavey.svg);
+        mask: url(/source/assets/wallpaper/wavey-top.svg);
+    }
+    // wavy background and edges
+    &::before{
+        // margin-top:-10vh;
+        bottom:-10vh;
+        // background-image: url(/source/assets/wallpaper/wavey.svg);
+        mask: url(/source/assets/wallpaper/wavey-bottom.svg);
+    }
+
 }
 .warning{
     margin-left:auto;
@@ -623,6 +648,9 @@ footer{
     top:0;
     left:0;
     z-index: 1;    // behind everything except...
+    
+
+    // background-image: url(/source/assets/wallpaper/hero-bg.svg);
     background-color:inherit;// var(--col-bg);
 }
 
@@ -662,6 +690,20 @@ footer{
     }
 }
 
+#waveforms{
+    // pointer-events: none;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+        "controls"
+        "visualiser";
+}
+.song-controls{
+    padding: var(--pad);
+    button{
+        margin:0;
+    }
+}
+
 #visualiser{
     // z-index: 1;
     z-index: 505;
@@ -669,8 +711,26 @@ footer{
     height: 100%;
     display: block;
     margin:auto;
-    // grid-area:1/1/-1/-1;
+    grid-area:1/1/-1/-1;
+    // grid-area:visualiser;
 }
+
+#visualiser.in-viewport{
+   
+}
+
+#waveforms{
+    form{
+        grid-area:controls;
+    }
+}
+
+// push notes behind again
+#waveforms.in-viewport ~ .overlaid-notes{
+    opacity: 0.25;
+    z-index: 101;
+}
+
 
 // at the front
 #mouse-visualiser{
@@ -682,6 +742,24 @@ footer{
     height: 100%;
     width:100%
 }
+
+#song-in-pixels{
+    background-color: var(--col-bg);
+    height:100%;//calc( 128px * 2 );
+    margin-top:auto;
+    margin-bottom:auto;
+}
+
+#playback{
+    overflow: visible;
+
+    &.in-viewport{
+        #song-in-pixels{
+            
+        }
+    }
+}
+
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
@@ -699,8 +777,12 @@ footer{
         max-width: 480px;
         margin-left: auto;
         margin-right: auto;
-         // this is a seperator x between the images
-         &::before{
+
+        border-radius: var(--curve);
+        background-color: color-mix( in rgba, var(--col-bg) 66%, transparent );
+
+        // this is a seperator x between the images
+        &::before{
             content:"×";
             // text-align: center;
             font-size: 300%;
@@ -785,17 +867,22 @@ dt{
     // padding-left: var(--pad);
     // padding-right: var(--pad);
     --size:1lh; // 1 line-height
+    line-height: 1.2;
+    .emoji{
+        float: left;
+    }
 }
 
 a[href$="designerzen.com"]{
     text-decoration: none;
  
     &::before{
-    
+        // --size:0.666lh;
         content:'';
+        // margin-top: 4px;
         margin-right: calc( var(--pad) / 10 );
         display: inline-block;
-        vertical-align: middle;
+        vertical-align: text-bottom;
         background-image: url(/source/assets/logos/designerzen.svg);
         background-repeat: no-repeat;
         background-size: contain;
@@ -835,7 +922,7 @@ a[href$="designerzen.com"]{
 }
 
 .logo-royal-society{
-
+    transform:scale(0.93) translateY(-1%);
 }
 
 

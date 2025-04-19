@@ -10,6 +10,9 @@
 [data-theme="contrast"]{
 //     --col-bg:var(--col-black, black);
 //     --col-text:var(--col-white, white);
+
+    --col-accent:red;
+    --col-button-red:green;//oklch(0.5 saturation(0.5) lightness(0.5));
     filter: invert(100%) contrast(92%);
 
     h3:first-child::before,
@@ -28,11 +31,23 @@
     // try and made images slightly darker
     img { 
         // mix-blend-mode: multiply;
-        filter: brightness(.8) contrast(1.2);
+        filter:invert(100%) brightness(.8) contrast(1.2);
     }
     // main{
     //     background-color: var(--col-charcoal);
     // }
+    svg.circle-of-fifths{
+        filter:invert(100%);   
+    }
+    .circle-of-fifths-tonics{
+        filter:invert(100%);   
+    }
+    .logo-drake-music{
+        filter: brightness(0%) invert(100%) ;
+    }
+    .logo-royal-society{
+        filter: brightness(66%) ;
+    }
 }
 
 // Black and white high contrast Colour theme
@@ -43,6 +58,10 @@
     filter: grayscale(100%) contrast(112%);
     .piano{
         filter:invert(100%);
+    }
+    img { 
+        // mix-blend-mode: multiply;
+        filter:brightness(.8) contrast(1.2);
     }
 }
 
@@ -57,4 +76,8 @@
 [data-theme="colourful"]{
     --col-bg:var(--col-white, white);
     --col-text:var(--col-black, black);
+    img { 
+        // mix-blend-mode: multiply;
+        filter:brightness(.8) contrast(1.2);
+    }
 }

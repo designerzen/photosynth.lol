@@ -31,8 +31,13 @@ input[type=radio]{
 
     &:hover{
         cursor: pointer;
-        background-color: var(--col-accent);
+        background-color: var(--col-hover);
         color:var(--col-bg);
+
+        // if it has an icon, invert it too
+        &::before{
+            filter:brightness(100%) invert(100%);
+        }
     }
 
     &:focus-visible{
@@ -57,6 +62,7 @@ input[type=checkbox]{
 input[type=radio]{
     --size:var(--button-size, 80px);//44px;
   
+    background-color:color-mix( in oklch, var(--col-bg) 66%, transparent);
     border:calc( var(--size) / 8 ) solid var(--col-stone, var(--col-charcoal));
     border-radius: 999px;
     grid-area:icon; //1/1/-1/-1;
@@ -218,18 +224,52 @@ button.button-image{
 }
 
 .button-share{
-    --size:var(--button-size, 144px);
+    --size:var(--button-size, 44px);
+    margin:var(--pad) calc(2 * var(--pad));
+    color:transparent;
+    
     &::before{
         content:'';
         font-size:inherit;
         background-image: url(/source/assets/icons/share.svg);
         background-position: center;
-        background-size: contain;
+        // background-size: contain;
+        background-size: auto;
         background-repeat: no-repeat;
-        width: var(--size);
-        height: var(--size);
+        width: var(--size, 1lh);
+        height: var(--size, 1lh);
         display: inline-block;
         vertical-align: middle;
+        // padding:0 calc(var(--pad)/2);
+        margin-right:calc( var(--pad) / 4 );
+        filter:brightness(100%) invert(100%);
+        border: 2px solid black;
+        border-radius: 999px;
+        padding: 2px;
+    }
+
+    &:hover,
+    &:focus{
+        color:var(--color-text);
+    }
+}
+
+.button-play,
+button[data-control-play]{
+    &::before{
+        content:'';
+        font-size:inherit;
+        background-image: url(/source/assets/icons/play_circle.svg);
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: var(--size, 1lh);
+        height: var(--size, 1lh);
+        display: inline-block;
+        vertical-align: middle;
+        // padding:0 calc(var(--pad)/2);
+        margin-right:calc( var(--pad) / 4 );
+        filter:brightness(100%) invert(100%);
     }
 }
 
@@ -333,12 +373,34 @@ label[for="toggle-midi"]{
     grid-area: 1/1/-1/-1;
 }
 
+#button-text-size-increase,
 #button-text-size-decrease{
-    background-image:url("/source/assets/icons/font_decrease_filled.svg");
+    &::before{
+        content:'';
+        display: block;
+        top:0;
+        left:0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image:url("/source/assets/icons/font_decrease_filled.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+}
+
+#button-text-size-decrease{
+    &::before{
+        background-image:url("/source/assets/icons/font_decrease_filled.svg");
+    }
+    // background-image:url("/source/assets/icons/font_decrease_filled.svg");
 }
 
 #button-text-size-increase{
-    background-image:url("/source/assets/icons/font_increase_filled.svg");
+    &::before{
+        background-image:url("/source/assets/icons/font_increase_filled.svg");
+    }
+    // background-image:url("/source/assets/icons/font_increase_filled.svg");
 }
 
 

@@ -78,7 +78,7 @@
 #hero,
 #hero-mask{
     padding:0;
-    background-color: transparent;
+    // background-color: transparent;
     overflow: hidden;
     overflow: clip;
     // pointer-events: none;
@@ -91,9 +91,6 @@
     z-index: 303;
     order:-2;
     grid-area:hero;
-    // background-color: var(--col-bg);  
-    background-image: url(/source/assets/wallpaper/hero-bg.svg);
-
     // as these are sticky, this just gives a bit more scrolling time
     // margin-bottom: 20vh;
 }
@@ -169,11 +166,15 @@
 
     position: sticky;
     top:0;
-    max-width: 100%;
-    height: 100vh;
-    height: 100dvh;
+    
+    height: var(--notes-height, 100vh);
+    width: 100%;
+
+    max-width: 100vw;
     max-height: 100%;
     overflow: hidden;
+    overflow: clip;
+
     z-index: 909;
     order:-9;
     grid-area: 1/1/-1/-1;

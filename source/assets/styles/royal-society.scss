@@ -268,15 +268,15 @@ details{
             filter: invert(20%) sepia(32%) saturate(7261%) hue-rotate(330deg) brightness(88%) contrast(105%);
         }
     }
-    ::marker{
+    > ::marker{
         content:'';
         display: none;
     }
-    ::-webkit-details-marker { 
+    > ::-webkit-details-marker { 
         display:none; 
     }
 
-    p{
+    > *:not(summary){
         padding: var(--pad);
         padding-top: 0;
         background-color: inherit;
