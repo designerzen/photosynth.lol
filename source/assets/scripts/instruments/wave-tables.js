@@ -8,7 +8,7 @@ import { unzip, strFromU8 } from 'fflate'
 import manifest from "/static/wave-tables/general-midi/manifest.json"
 
 const waveTables = new Map()
-const waveTableNames = new Map()
+const waveTableFileNames = new Map()
 const ALL_WAVE_FORM_NAMES = []
 
 const assignWaveTables = (locations, waves, waveMap) => {
@@ -32,7 +32,9 @@ const assignWaveTables = (locations, waves, waveMap) => {
  * @returns 
  */
 export const loadWaveTableFromFile = async (waveTableName = TB303) => {
-    const url = waveTableNames.get(waveTableName)
+    console.info("Loading wavetable from file", waveTableName ) 
+       
+    const url = waveTableFileNames.get(waveTableName)
     // we use the names from above...
     const request = await fetch(url)
     // const request = await fetch(`/wave-tables/${waveTableName}`)
@@ -43,21 +45,9 @@ export const loadWaveTableFromFile = async (waveTableName = TB303) => {
         .replaceAll(/(\s|\n|\r)/g, '')
         .replaceAll(/"/g, "'")
 
-    // const data = response
-    //                 .replaceAll( /\s/g, '')
-    //                 .replaceAll( /\n|\r/g, '')
-    //                 .replaceAll( /"/g, "'")
-
-    // const data = response // .replaceAll( /\n|\r|\s+/g, '')
-    // const data = response.replaceAll(/\s+/g, '')
-    // delimiters use 2nd first then split first...
     const delimA = /\{('|")real('|"):\[/
     const delimB = /(,)?\],('|")imag('|"):\[/
-    // const delimB = /(,)\],('|")imag('|"):\[/
     const delimC = /(,)?\](,)?\}/ // ]}
-    // const delimA = /\{'real':(\s+)\[/
-    // const delimB = /,\],'imag'(:\s+)\[/
-    // const delimC = /,\],\}/
 
     const parts = data.split(delimB)
 
@@ -82,11 +72,62 @@ export const loadWaveTableFromFile = async (waveTableName = TB303) => {
         real.length = imag.length
     }
 
-    console.info("Wave table available", waves)
+    console.info("Wave table available:loadWaveTableFromFile", waves)
 
     waveTables.set(waveTableName, waves)
     return waves
 }
+
+export const generateNoiseWave = ( colour="white", numberOfHarmonics = 4096 ) => {
+        
+    // Array length needs to be numberOfHarmonics + 1 to include the DC component (index 0)
+    const arrayLength = numberOfHarmonics + 1
+
+    const real = new Float32Array(arrayLength)
+    const imag = new Float32Array(arrayLength)
+
+    // Generally, we don't want a DC offset in our noise signal.
+    real[0] = 0
+    // The imaginary part for the DC component MUST be 0.
+    imag[0] = 0
+
+    // Assign random values to the coefficients for harmonics 1 through N.
+    // Math.random() gives [0, 1), so Math.random() * 2 - 1 gives [-1, 1)
+    for (let i = 1; i < arrayLength; i++) {
+        // Generate random values for phase component (same as white noise)
+        const randomReal = Math.random() * 2 - 1
+        const randomImag = Math.random() * 2 - 1
+        
+        // PINK:Calculate the scaling factor for pink noise (Amplitude ~ 1/sqrt(f))
+        // PINK: Since frequency is proportional to harmonic number 'i', scale by 1/sqrt(i)
+        // BROWN: Calculate the scaling factor for Brown noise (Amplitude ~ 1/f)
+        // BROWN: Since frequency is proportional to harmonic number 'i', scale by 1/i
+         const scaleFactor = 
+            colour === "pink" ? 1 / Math.sqrt(i) :
+            colour === "brown" ? 1 / i : 1
+
+        // Apply the scale factor to the random components
+        real[i] = randomReal * scaleFactor
+        imag[i] = randomImag * scaleFactor
+    }
+
+    // Note: We are *not* manually normalizing the coefficients here.
+    // By default, audioContext.createPeriodicWave normalizes the resulting
+    // waveform so that its peak amplitude is 1.0. Relying on this built-in
+    // normalization is usually sufficient and simpler.
+    // If you were to set `disableNormalization: true` in createPeriodicWave,
+    // you would need to scale these random coefficients down significantly
+    // to avoid generating a waveform that clips violently.
+    const waveTable = {
+        "name": colour + " Noise",
+        "midi_number": -1,
+        "description":colour + " Noise",
+        real, imag
+    }
+
+    return waveTable
+}
+
 
 export const loadWaveTableFromJSON = (waveTableURI, waveTableString) => {
 
@@ -114,8 +155,8 @@ export const loadWaveTableFromJSON = (waveTableURI, waveTableString) => {
         real, imag
     }
 
-    waveTables.set(waveTableURI, waveTable)
-    console.error("loading waves from JSON", waveTableURI, waveTables.entries(), {waveTable, waveTables} )
+    waveTables.set( waveTableString.name, waveTable)
+    // console.error("loading waves from JSON", waveTableURI, waveTables.entries(), {waveTable, waveTables} )
     return waveTable
 }
 
@@ -152,14 +193,33 @@ export const loadWaveTable = async (waveTableName = TB303) => {
  * @returns 
  */
 export const getRandomWaveTableName = () => {
-    const randomIndex = Math.floor(Math.random() * waveTableNames.size )
+    const randomIndex = Math.floor(Math.random() * waveTables.size )
     const allWaves = getAllWaveTables()
     console.error("randomIndex", randomIndex, allWaves )
     return allWaves[randomIndex]
     // return ALL_WAVE_FORM_NAMES[Math.floor(Math.random() * ALL_WAVE_FORM_NAMES.length)]
 }
 
-export const getAllWaveTables = () => Array.from(waveTables) // ALL_WAVE_FORM_NAMES
+// get all the map's keys
+export const getAllWaveTables = () => Array.from(waveTables.keys()) // ALL_WAVE_FORM_NAMES
+
+
+export const getWaveTable =async (timbre) => {
+
+    if (waveTables.has(timbre))
+    {
+        console.info("Found saved wavetable", timbre, waveTables.get(timbre) )
+        return waveTables.get(timbre)
+    }
+
+    // check if it is a string and if so, try to load it
+    if (typeof timbre === 'string') 
+    {
+        return loadWaveTable(timbre)
+    }
+
+    return timbre
+}
 
 /**
  * 
@@ -264,15 +324,24 @@ export const loadWaveTableFromArchive = (waveTableArchiveURI, onProgress) => new
         }
         
         const fileNames = Object.keys(unzipped)
+        // TODO: multiple streams?
         const waveTables = fileNames.map( (fileName, index) => {
             // Conversion to string and then JSON
             const progress = index / fileNames.length
             const file = unzipped[fileName]
             const waveTable = JSON.parse( strFromU8( file ) )
             const waveTableData = loadWaveTableFromJSON(fileName, waveTable)
+           
             onProgress && onProgress(progress, fileName, waveTable )
             return waveTableData
         })
+
         resolve( waveTables )
     })
 })
+
+export const addNoises = () => {
+    waveTables.set( "White Noise",  generateNoiseWave() )
+    waveTables.set( "Pink Noise",  generateNoiseWave( "pink" ) )
+    waveTables.set( "Brown Noise",  generateNoiseWave( "brown" ) )
+}
