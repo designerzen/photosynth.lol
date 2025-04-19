@@ -54,7 +54,7 @@
             <ul role="list">
                 <li><a href="#about">About</a></li>
                 <li><a href="#history">History</a></li>
-                <li><a href="#research">Research</a></li>
+                <li><a href="#science">Science</a></li>
                 <li><a href="#event">Event</a></li>
                 <li><a href="#faq">Q &amp; A</a></li>
                 <li><a href="#laboratory">Laboratory</a></li>
@@ -155,6 +155,26 @@
        
         <!-- <img class="logo-royal-society-crest" width="100" height="100" src="/source/assets/logos/royal_society-crest.svg" alt=""> -->
         
+        <div id="share-menu" hidden>
+            <share-menu
+                id="share"
+                title="Share!"
+                text="Share this event"
+                url="https://photosynth/"
+                image="https://photosynth/assets/logos/photosynth-square.svg"
+                dialog-title="Share now"
+                copy-hint="Copy to clipboard"
+                handle="always"
+                no-backdrop
+                >
+                <share-target-email></share-target-email>
+                <share-target-facebook></share-target-facebook>
+                <share-target-telegram></share-target-telegram>
+            </share-menu>
+
+            <button class="button-share" onclick="share.share()">Share</button>
+        </div>
+
     </header>
 
 
@@ -220,7 +240,6 @@
                 <h4>If you've ever dreamed of being more musical, you're not alone!</h4>
                 <p>Have you ever dreamed of being more musical, well alright... Hold tight!</p>
             
-                <p>Imagine if you could just make music without having to learn a new instrument!</p>
 
                 <p>Makes learning how to play music simple ... easy, like a Sunday morning.</p>
             
@@ -228,23 +247,12 @@
                 <p>Imagine a world where rather than having to learn a musical instrument, the musical instrument could learn how to play you...</p>
             
 
-        
-                <blockquote class="sticky full-height">
-                    <p class="quote">Any sufficiently advanced technology is indistinguishable from magic.</p>
-                    <p class="citation">Arthur C Clarke<cite></cite></p>
-                </blockquote>
-        
-
 
                 <p>Come and have a play with some of the newest instruments from the <a href="#amic">Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></a></p>
             </article>
-        </section>
-
-
-        <!-- MIDI Equipment ------------------------------------------- -->
-        <section id="midi-equipment" class="full-height shadow" data-observe hidden>
-
-            <article class="page">
+                
+            <!-- MIDI Equipment ------------------------------------------- -->
+            <aside id="midi-equipment" class="full-height shadow" data-observe hidden>
                 <header>
                     <h3 class="heading-icon">This site is MIDI Enabled</h3> 
                     <h4>For your listening experience</h4>
@@ -263,10 +271,14 @@
                     Enable MIDI connection
                     <input type="checkbox" id="toggle-midi" value="midi" class="cta">
                 </label>
-            </article>
+        
+
+            </aside>
 
         </section>
 
+
+    
 
         <!-- About the event -->
         <section id="about" class="shadow" data-observe>
@@ -275,43 +287,40 @@
 
                 <header>
                     <h3 class="heading-icon">About</h3>
+                    <h4>Summer Science Exhibition</h4>
                 </header>
 
-                <p>The Summer Science Exhibition is a free six-day festival showcasing the science shaping our future and
-                    will be held at the Royal Society in London from July 1st, 2025 to July 6th, 2025.</p>
+                <div data-countdown>
+                    <time datetime="2025-07-01 09:00">July 1<sup>st</sup>, 2025</time>
+                </div>
 
+                <p>The Summer Science Exhibition is a free six-day festival showcasing the science shaping our future and
+                    will be held at the Royal Society in London from 
+                    <time datetime="2025-07-01 09:00">July 1<sup>st</sup>, 2025</time>
+                     to 
+                    <time datetime="2025-07-07 09:00">July 6<sup>th</sup>, 2025</time>.
+                </p>
+            
                 <p><dfn id="definition-photosynth">The <cite>Photo<wbr>SYNTH</cite></dfn> is a 
                     <dfn id="definition-mixed-reality">mixed-reality</dfn> audio synthesizer that uses real-time motion capture with
                     facial-landmark tracking to enhance your movements, and the movements of your friends, with radical new musical
-                    superpowers, instantly controlling aspects of each instrument and sound... 
+                    superpowers, instantly turning you into a pop-star and your friends into a band!
                 </p>
+
+                <p>Imagine if you could just make music without having to learn a new instrument!</p>
                 
                 <p>
                     <em>Finally, a purpose for your reflection!</em>
                 </p>
 
-                <blockquote class="sticky full-height">
-                    <p class="quote">Music is an unconscious exercise in mathematics in which the mind is unaware that it is calculating.</p>
-                    <p class="citation">Gottfried Wilhelm Leibniz <cite></cite></p>
-                </blockquote>
-        
-                <blockquote class="sticky full-height">
-                    <p class="quote">Music is an unconscious exercise in metaphysics in which the mind is unaware that it is philosophizing.</p>
-                    <p class="citation">Arthur Schopenhauer, <cite>The World as Will and Representation</cite></p>
-                </blockquote>
-
                 <figure id="diagram-face-scan" class="sticky full-width bg-clear">
                     <img 
+                        loading="lazy"
                         width="909" height="909"
                         src="/source/assets/figures/instant-musical-superpowers-red-square.svg" 
                         alt="Instant Musical Superpowers!">
                     <figcaption>Face is observed</figcaption>
                 </figure>
-
-                <blockquote class="sticky full-height">
-                    <p class="quote">Music is an unconscious exercise in communication in which the mind is unaware that it is being guided.</p>
-                    <p class="citation">Zenon Olenski <cite></cite></p>
-                </blockquote>
 
             </article>
             
@@ -324,16 +333,26 @@
 
                 <figure id="diagram-face-scan" class="sticky full-width bg-clear">
                     <img 
+                        class="animation-rock"
+                        style="--delay:0s;"
+                        loading="lazy"
                         width="9000" height="2160"
                         src="/source/assets/diagrams/face-winking.svg" 
                         alt="The Photosynth, smile powered music.">
                     <figcaption>Face is observed</figcaption>
                 </figure>
 
+                <p>By using motion capture and augmented reality, the whole face is converted into a musical instrument
+                    where smiles are converted into musical notes, movements into melodies and facial expressions into audio
+                    filters and controls.</p>
+
                 <!-- Background mask & warnings -->
                 <figure id="diagram-face-scan-overlay" class="sticky full-width bg-clear">
                 
-                    <img class=""
+                    <img 
+                        class="animation-rock"
+                        style="--delay:0.1s;"
+                        loading="lazy"
                         width="9000" height="2160"
                         src="/source/assets/diagrams/face-scanning.svg" 
                         alt="">
@@ -342,11 +361,14 @@
 
                 <figure id="diagram-face-landmarks-overlay" class="sticky full-width bg-clear">
                 
-                    <img class=""
+                    <img 
+                        class="animation-rock"
+                        style="--delay:0.2s;"
+                        loading="lazy"
                         width="9000" height="2160"
-                        src="/source/assets/diagrams/face-scanning.svg" 
+                        src="/source/assets/diagrams/face-recognition.svg" 
                         alt="">
-                    <figcaption>Facial landmarks are detected and tracked</figcaption>
+                    <figcaption>Moods and emotions are determined</figcaption>
                 </figure>
             
             </article>
@@ -364,10 +386,7 @@
                 <p>Rather than playing a musical instrument, the <cite>Photo<wbr>SYNTH</cite> plays you!</p>
                 <p>Without any training you can instantly make great music using movements familiar to you.</p>
 
-                <p>By using motion capture and augmented reality, the whole face is converted into a musical instrument
-                    where smiles are converted into musical notes, movements into melodies and facial expressions into audio
-                    filters and controls.</p>
-
+              
                 <p>Every articulation can become an audio revelation… Instant musical superpowers!</p>
                 
                 <a href="https://royalsociety.org/science-events-and-lectures/summer-science-exhibition/" class="cta">Learn more</a>
@@ -377,80 +396,104 @@
         </section>
 
         <!-- Funky audio analyser overlay -->   
-        <canvas id="visualiser" class="sticky full-height full-width" width=800 height=400></canvas>
+        <section id="waveforms" class="sticky full-height full-width" data-observe>
+            
+            <audio id="audio-spell" src="/source/assets/audio/fx/spells/shine-magic-sound-4-sounds-190258.mp3" preload="auto"></audio>
+            
+            <form action="/">
+                <!-- Play next note from provided song -->
+                <fieldset class="song-controls">
+                    <legend>Song Controls</legend>
+                    <button data-control-play type="button" class="cta">Play Song</button>
+                </fieldset>
+                                
+                <fieldset class="timbre-selector">
+                    <legend>Shape (Timbre)</legend>
+                    <label for="song-timbre-random">
+                        <!-- <input id="song-timbre-random" class="cta" type="button" value="random"> -->
+                        <button class="cta" id="song-timbre-random" type="button">Random</button>
+                        Random Wave
+                    </label>
+                    
+                    <label for="song-timbre-previous">
+                        Previous Shape
+                        <button class="cta" id="song-timbre-previous" type="button">Previous</button>
+                    </label>
+                    
+                    <label for="song-timbre-next">
+                        Next Shape
+                        <button class="cta" id="song-timbre-next" type="button">Next</button>
+                    </label>
+                    
+                    <label for="song-timbre-select">
+                        <select id="song-timbre-select" class="">
+                            <optgroup>
+                                <option value="sine">Sine</option>
+                                <option value="square">Square</option>
+                                <option value="sawtooth">Sawtooth</option>
+                                <option value="triangle">Triangle</option>
+                            </optgroup>
+                            <!-- <option value="noise">Noise</option> -->
+                        </select>
+                        Select a shape
+                    </label>
+                </fieldset>                
+            </form>
+            
+            <canvas id="visualiser" inert width=800 height=400></canvas>
            
+        </section>
+
         <!-- SCIENCE -->
         <section id="science" class="shadow bg-clear" data-observe>
          
-            <article id="waveform-visualiser" class="bg-clear shadow sticky full-height full-width" data-full-keyboard data-observe>
+            <!-- <article id="waveform-visualiser"  class="bg-clear shadow sticky full-height full-width" data-full-keyboard data-observe>
                    
                 <header>
                     <h3 class="heading-icon" data-timbre>Each Sound Has a Shape</h3>
                     <h4>Sonic characteristics of Sound</h4>
                 </header>
 
-                <form action="/">
-                    
-                    <fieldset class="timbre-selector">
-                        <legend>Shape (Timbre)</legend>
-                        <label for="song-timbre-random">
-                            <!-- <input id="song-timbre-random" class="cta" type="button" value="random"> -->
-                            <button class="cta" id="song-timbre-random" type="button">Random</button>
-                            Random Wave
-                        </label>
-                        
-                        <label for="song-timbre-previous">
-                            Previous Shape
-                            <button class="cta" id="song-timbre-previous" type="button">Previous</button>
-                        </label>
-                        
-                        <label for="song-timbre-next">
-                            Next Shape
-                            <button class="cta" id="song-timbre-next" type="button">Next</button>
-                        </label>
-                        
-                        <label for="song-timbre-select">
-                            <select id="song-timbre-select" class="">
-                                <option value="sine">Sine</option>
-                                <option value="square">Square</option>
-                                <option value="sawtooth">Sawtooth</option>
-                                <option value="triangle">Triangle</option>
-                                <option value="noise">Noise</option>
-                            </select>
-                            Select a shape
-                        </label>
-                    </fieldset>
-
-                </form>
-            </article>
-        </section>
-
-        <section id="shapes" class="bg-clear shadow" data-full-keyboard data-observe>
-            <article class="page">
+            </article> -->
+     
+            <article id="shapes"  class="page bg-clear" data-full-keyboard data-observe>
                 
-                <hgroup>
+                <header>
                     <h3 class="heading-icon" data-timbre>The Shape of Sound</h3>
-                    <h4>Each sound has a shape, similar to fingerprints</h4>
-                </hgroup>
+                    <h4>Unique Sonic characteristics</h4>
+                </header>
 
+                <p>Each sound has a distinct shape, similar to a fingerprint or snowflake, that dictate how it is perceived, how it moves and what effect it will have on matter..</p>
+                <p>Round sounds such as the Sine wave sound soft and comfortable, whilst sharp, angular sounds, such as the Sawtooth wave, sound fierce and aggressive.</p>
+                <p>Often discordant and unpleasant sound is described as noise.</p>
+                
+                <p>Slow moving sounds are perceived as deep or bassy, whist the faster they vibrate, the higher pitched they sound.</p>
+               
                 <form id="emotion" action="/">    
-            
-                    <fieldset class="emotion-selector">
-                        <legend>Emotion</legend>
-                        <label for="emotion-major">
-                            <input id="emotion-major" type="radio" name="chord" value="Major">
-                            <span class="emoji">🙂</span>
-                            Happy
+                    <fieldset class="octave-selector">
+                        
+                        <legend>Frequency</legend>
+
+                        <label for="octave-bass">
+                            <input id="octave-bass" name="octave" type="radio" value="3">
+                            <span class="notation">𝄢</span>
+                            Bass
                         </label>
                         
-                        <label for="emotion-minor">
-                            <input id="emotion-minor" type="radio" name="chord" value="Minor">
-                            <span class="emoji">☹︎</span>
-                            Sad
+                        <label for="octave-lead">
+                            <input id="octave-lead" name="octave" type="radio" value="4" checked>
+                            <span class="notation">𝄡</span>
+                            Lead
                         </label>
+
+                        <label for="octave-treble">
+                            <input id="octave-treble" name="octave" type="radio" value="5">
+                            <span class="notation">𝄞</span>
+                            Treble
+                        </label>
+                        
                     </fieldset>
         <!--                
-
                     <label for="emotion-ionian"><span class="emoji">😐</span>Ionian</label>
                     <input id="emotion-ionian" type="radio" name="emotion" value="ionian">
                 
@@ -479,8 +522,8 @@
 
         <!-- Research ------------------------------------------- -->
       
-        <section id="research" class="split shadow" data-observe>
-            <article class="page">
+        <section id="science" class="split shadow" data-observe>
+            <article id="research" class="page">
                 <hgroup>
                     <h3 class="heading-icon">Research</h3>
                     <h4>"Some People"</h4>
@@ -527,11 +570,13 @@
         <!-- Chords & Patterns ------------------------------------------- -->
         <section id="chords" class="bg-clear shadow" data-observe>
             <article class="page">
-                <hgroup>
+                <header>
                     <h3 class="heading-icon">Shapes &amp; Patterns</h3>
-                    <!-- This ID is used to scroll back to above the synth byt he link below it -->
-                    <h4 id="link-chords">Chords & Patterns</h4>
-                </hgroup>
+                    <h4>Chords & Patterns</h4>
+                </header>
+                
+                <!-- This ID is used to scroll back to above the synth byt he link below it -->
+                <a id="link-chords" href="#link-chords" class="hidden-link">Bookmark the Circular Synth</a>
 
                 <figure id="circular-synthesizer" class="instrument-circular">
                     <svg class="circle-of-fifths" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="-24 -24 454 454">
@@ -768,7 +813,10 @@
       
         <section id="technology" class="split shadow" data-observe>
             <article class="page">
-                <h3 class="heading-icon">Technology</h3>
+                <header>
+                    <h3 class="heading-icon">Technology</h3>
+                    <h4>And how it works</h4>
+                </header>
                 <p>Computers are very good at recognising patterns. 
                     If you keep showing a computer ducks, eventually it will realise what ducks have in common - a bill, wings, webbed feat, a distinct waddle and some quacks. 
                     With practice it becomes an expert it duck detection.
@@ -783,9 +831,16 @@
                 <p>
                     A well-trained machine can read you like a book...
                 </p>
+                
                 <p class="flood">
                     <strong>But can it play you like a musical instrument?</strong>
                 </p>
+
+                
+                <blockquote class="sticky full-height">
+                    <p class="quote">Any sufficiently advanced technology is indistinguishable from magic.</p>
+                    <p class="citation">Arthur C Clarke<cite></cite></p>
+                </blockquote>
             </article>
         </section>
 
@@ -806,13 +861,13 @@
                         <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=avif&width=1080" type="image/avif" />
                         <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=webp&width=1080" type="image/webp" />
                         <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" type="image/jpeg" />
-                        <img src="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" alt="The Holographic PhotoSYNTH being presented at the AMIC, Accessible Musical Instrument Collection." />
+                        <img loading="lazy" src="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" alt="The Holographic PhotoSYNTH being presented at the AMIC, Accessible Musical Instrument Collection." />
                     </picture>
                     <figcaption>AMIC. Holographic PhotoSYNTH.</figcaption>
                 </figure>
             
                 <figure class="sticky bumpers">
-                    <img src="/source/assets/photos/alexander-baxevanis.jpg" alt="The Holographic PhotoSYNTH being presented at the Electromagnetic Fields Festival.">
+                    <img loading="lazy" src="/source/assets/photos/alexander-baxevanis.jpg" alt="The Holographic PhotoSYNTH being presented at the Electromagnetic Fields Festival.">
                     <figcaption>
                         Holographic PhotoSYNTH at the Electromagnetic Fields Festival 
                         <br>Photograph by <cite class="attribution">Alexander Baxevanis</cite>
@@ -849,7 +904,7 @@
         </section>
 
         <!-- DMLab ------------------------------------------- -->
-        <section  id="laboratory" class="shadow"data-observe>
+        <section  id="laboratory" class="shadow" data-observe>
             <article class="page">
 
                 <hgroup>
@@ -928,12 +983,31 @@
         <section id="history" class="shadow" data-observe>
             <article class="page">
 
-                <h3 class="heading-icon">History</h3>
+                <header>
+                    <h3 class="heading-icon">History</h3>
+                </header>
+
                 
+                <blockquote class="sticky full-height">
+                    <p class="quote">Music is an unconscious exercise in mathematics in which the mind is unaware that it is calculating.</p>
+                    <p class="citation">Gottfried Wilhelm Leibniz <cite></cite></p>
+                </blockquote>
+        
+                <blockquote class="sticky full-height">
+                    <p class="quote">Music is an unconscious exercise in metaphysics in which the mind is unaware that it is philosophizing.</p>
+                    <p class="citation">Arthur Schopenhauer, <cite>The World as Will and Representation</cite></p>
+                </blockquote>
+
+                <blockquote class="sticky full-height">
+                    <p class="quote">Music is an unconscious exercise in communication in which the mind is unaware that it is being guided.</p>
+                    <p class="citation">Zenon Olenski <cite></cite></p>
+                </blockquote>
+
+
                 <p>Created by</p>
 
                 <figure class="sticky bumpers">
-                    <img src="/source/assets/photos/gawain-hewitt-photosynth2.png" alt="The PhotoSYNTH version 2 being played by Gawain Hewitt.">
+                    <img loading="lazy" src="/source/assets/photos/gawain-hewitt-photosynth2.png" alt="The PhotoSYNTH version 2 being played by Gawain Hewitt.">
                     <figcaption>Gawain Hewitt playing with the PhotoSYNTH II</figcaption>
                 </figure>
 
@@ -943,7 +1017,7 @@
                         <source srcset="/source/assets/photos/emf-photosynth4d.jpg?as=avif&width=1080" type="image/avif" />
                         <source srcset="/source/assets/photos/emf-photosynth4d.jpg?as=webp&width=1080" type="image/webp" />
                         <source srcset="/source/assets/photos/emf-photosynth4d.jpg?width=1080" type="image/jpeg" />
-                        <img src="/source/assets/photos/emf-photosynth4d.jpg?width=1080" alt="The Holographic PhotoSYNTH 4D being played at Electromagnetic Fields." />
+                        <img loading="lazy" src="/source/assets/photos/emf-photosynth4d.jpg?width=1080" alt="The Holographic PhotoSYNTH 4D being played at Electromagnetic Fields." />
                     </picture>
                     <figcaption>Holographic PhotoSYNTH 4D being played at Electromagnetic Fields</figcaption>
                 </figure>
@@ -980,12 +1054,16 @@
 
         </section>
 
+        <section id="playback" class="shadow sticky bg-transparent overflow-scroll-x full-height" data-observe>
+            <canvas id="song-in-pixels" width="320" height="128"></canvas>
+        </section>
+        
         <!-- Event ------------------------------------------- -->
-        <section id="event" class="shadow">
+        <section id="event" class="shadow" data-observe>
            
             <article class="page">
                 <hgroup>
-                    <h3 class="heading-icon">Come and join us for a fun musical celebration of diversity, inclusive technology and science!</h3>
+                    <h3 class="heading-icon">Summer Exhibition 2025</h3>
                     <h4>Come and join us for a fun musical celebration of diversity, inclusive technology and science!</h4>
                 </hgroup>
 
@@ -1068,16 +1146,11 @@
     
                     <dt>Address</dt>
                     <dd class="address">
-                        <address>
-                            <a href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">
-                                <span class="street-address">6-9 Carlton House Terrace</span>
-                                <span class="delimiter">, </span>
-                                <span class="locality">London</span>
-                                <span class="delimiter">, </span>
-                                <span class="postal-code">SW1Y 5AG</span>
-                                <span class="country-name">United Kingdom</span>
-                            </a>
-                        </address>
+                        <a href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">
+                            <address>
+                                <span class="street-address">6-9 Carlton House Terrace</span><span class="delimiter">, </span><span class="locality">London</span><span class="delimiter">, </span><span class="postal-code">SW1Y 5AG</span><span class="delimiter">, </span><span class="country-name">United Kingdom</span>
+                            </address>
+                        </a>
                     </dd>
         
                     <dt>Location</dt>
@@ -1091,12 +1164,12 @@
 
 
     <!-- Frequently Asked Questions ------------------------------------------- -->
-        <section id="faq" class="shadow">
+        <section id="faq" class="shadow" data-observe>
             <article class="page">
                 
                 <hgroup>
-                    <h3 class="heading-icon">FAQ</h3>
-                    <h4>Frequently Asked Questions</h4>
+                    <h3 class="heading-icon">FAQ - Frequently Asked Questions</h3>
+                    <h4>Answers to common questions</h4>
                 </hgroup>
                
                 <details name="questions">
@@ -1109,21 +1182,23 @@
                     </p>
                 </details>
                 <details name="questions">
-                    <summary><h5>Question</h5></summary>
+                    <summary><h5>Where can I learn more about the research?</h5></summary>
                     <p>
-                        Underground stations: Charing Cross and Piccadilly Circus
-                        Bus routes: 12, 13, 15 and 453.
-                        Coach station: Connections from Victoria coach station
-                        <a rel="noopener noreferrer" target="_blank" href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">See official recommendations</a>       
+                       There are a number of research papers written about this topic including :
                     </p>
+                    <ul>
+                        <li><a rel="noopener noreferrer" target="_blank" href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/986301/Human_Augmentation_SIP_access2.pdf">Musical Avatars</a></li>
+                        <li><a rel="noopener noreferrer" target="_blank" href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/986301/Human_Augmentation_SIP_access2.pdf">Augmenting human abilities by observing intrinsic movements</a></li>
+                        <li><a rel="noopener noreferrer" target="_blank" href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/986301/Human_Augmentation_SIP_access2.pdf">Gov UK - Human Augmentation – The Dawn of a New Paradigm</a></li>
+                    </ul>
+                
                 </details>
                 <details name="questions">
-                    <summary><h5>Question</h5></summary>
+                    <summary><h5>Cool website! How did you make it?</h5></summary>
                     <p>
-                        Underground stations: Charing Cross and Piccadilly Circus
-                        Bus routes: 12, 13, 15 and 453.
-                        Coach station: Connections from Victoria coach station
-                        <a rel="noopener noreferrer" target="_blank" href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">See official recommendations</a>       
+                        This website was designed and created by <a href="https://designerzen.com" target="_blank">designerzen</a> of Awesomething social enterprise.
+                        Hand coded using HMTL, CSS and Javascript, using Web-Audio and the Web-MIDI APIs.
+                        <a href="https://github.com/designerzen/photosynth.lol" target="_blank">The source code is available on github</a>
                     </p>
                 </details>
 
@@ -1134,8 +1209,9 @@
 
 
 
+
     <!-- Bottom section -->
-    <footer>
+    <footer data-observe data-full-keyboard>
        
         <article id="affiliates">
             <h5>Brought to you by</h5>
@@ -1183,25 +1259,6 @@
             </ul>
         </article>
 
-        <article id="share-menu" hidden>
-            <share-menu
-                id="share"
-                title="Share!"
-                text="Share this event"
-                url="https://photosynth/"
-                image="https://photosynth/assets/logos/photosynth-square.svg"
-                dialog-title="Share now"
-                copy-hint="Copy to clipboard"
-                handle="always"
-                no-backdrop
-                >
-                <share-target-email></share-target-email>
-                <share-target-facebook></share-target-facebook>
-                <share-target-telegram></share-target-telegram>
-            </share-menu>
-
-            <button class="button-share" onclick="share.share()">Share</button>
-        </article>
 
         <small class="smallprint">
             <i class="emoji">🫰</i>
