@@ -7,6 +7,10 @@ const OCTAVE_NAMES = [
     "Bass", "Lead", "Treble"
 ]
 
+export const OCTAVE_NUMBERS =[
+    3,5,7
+]
+
 export default class CircleSynth extends AbstractInteractive{
 
     noteLibrary = new Map()	
@@ -65,17 +69,21 @@ export default class CircleSynth extends AbstractInteractive{
         this.timbreElement.setAttribute("startOffset", (12.5 - (value.length * 0.5)) + "%")
     }
 
+    get frequency(){
+        return this.octave
+    }
+
     set frequency( value ){
         this.octave = typeof value === "number" ? value : OCTAVE_NAMES.indexOf(value)
         let octaveName = "All"
-        if (this.octave <= 3)
+        if (this.octave <= OCTAVE_NUMBERS[0])
         {
             // BASS
             octaveName = OCTAVE_NAMES[ 0 ]
-        }else if (this.octave <= 4){
+        }else if (this.octave <= OCTAVE_NUMBERS[1]){
             // MID
             octaveName = OCTAVE_NAMES[ 1 ]
-        }else if (this.octave >= 5){
+        }else if (this.octave >= OCTAVE_NUMBERS[2]){
             // TREBLE
             octaveName = OCTAVE_NAMES[ 2 ]
         }
@@ -101,6 +109,7 @@ export default class CircleSynth extends AbstractInteractive{
         this.element = document.querySelector(".circle-of-fifths")
         this.title = this.element.querySelector("title")
         this.emoji = this.element.querySelector(".fifths-emotion-text")
+        
         this.timbreElement = this.element.querySelector(".curved-text-timbre")
         this.frequencyElement = this.element.querySelector(".curved-text-frequency")
         this.toneElement = this.element.querySelector(".curved-text-tone")
@@ -117,6 +126,10 @@ export default class CircleSynth extends AbstractInteractive{
         this.addControls( setMode )
 
         this.frequency = octave
+        this.frequencyElement.addEventListener("click",e =>{
+            const index = (OCTAVE_NUMBERS.indexOf( this.octave ) + 1 )%OCTAVE_NUMBERS.length
+            this.frequency = OCTAVE_NUMBERS[index]
+        })
 
         // now update the face
         this.setEmoji()

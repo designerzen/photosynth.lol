@@ -3,7 +3,8 @@ const DEFAULT_OBSERVATION_OPTIONS = {
     // root: document.body,
     root: null,
     rootMargin: '0px',
-    threshold: 0
+    threshold: 0,
+    pianoQuery: ".piano"
 }
 
 export const monitorIntersections = ( query="[data-observe]", intersectionOptions = DEFAULT_OBSERVATION_OPTIONS) => {
@@ -12,6 +13,8 @@ export const monitorIntersections = ( query="[data-observe]", intersectionOption
     intersectionOptions = { ...DEFAULT_OBSERVATION_OPTIONS, ...intersectionOptions }
 
     const elementsToObserve = document.querySelectorAll(query)
+    const pianoElement = document.querySelector(intersectionOptions.pianoQuery)
+    
     const intersectionObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
            
@@ -53,7 +56,7 @@ export const monitorIntersections = ( query="[data-observe]", intersectionOption
                 }
 
                 // document.body.classList.toggle("inert", inert)
-                document.body.classList.toggle("show-full-keyboard", fullSizeKeyboard)
+                pianoElement.classList.toggle("show-full-keyboard", fullSizeKeyboard)
               
             }else{
                 if (entry.target.classList)

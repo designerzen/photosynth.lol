@@ -98,7 +98,6 @@ export class AbstractResizeable{
                 height = entry.contentRect.height
             }
 
-
             this.resizeCanvasToDisplaySize(width, height, dpr)
         }
     }

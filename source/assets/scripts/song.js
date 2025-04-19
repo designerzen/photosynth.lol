@@ -14,6 +14,7 @@ export default class Song {
         const data = noteString.replaceAll("\n", "").split(" ").filter( note => note.length )
         // now convert that into a series of Note object
         this.notes = this.createNotes(data)
+        // test
         this.notes.forEach( (note, index)  => {
             console.info(index, note.noteKey === data[index], "NOTE", note, data[index] )
         })

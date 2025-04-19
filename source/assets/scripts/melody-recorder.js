@@ -1,5 +1,3 @@
-const now = ()=> performance.now()
-
 export class MelodyRecorder{
 
     melodyRecorder = new Map()
@@ -13,16 +11,16 @@ export class MelodyRecorder{
      * @param {Note} note 
      * @param {Number} velocity 
      */
-    noteOn(note, velocity=1){
-       this.melodyRecorder.add( now(), {note, velocity, playing:true} )
+    noteOn(note, velocity=1, time=0){
+       this.melodyRecorder.add( {time, note, velocity, playing:true} )
     }
 
     /**
      * 
      * @param {Number} velocity 
      */
-    noteOff(note, velocity=1){
-        this.melodyRecorder.add( now(), {note, velocity, playing:false} )
+    noteOff(note, velocity=1,time=0){
+        this.melodyRecorder.add({time,note, velocity, playing:false} )
     }
 
     getRecording(){

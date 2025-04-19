@@ -4,15 +4,15 @@ import { addTextScalingFacilities } from "./accessibility"
 import { addThemeSelectionOptions, setTheme, THEMES } from "./theme"
 import { setFont } from "./fonts"
 
-// audio
-import { AudioContext, OfflineAudioContext } from 'standardized-audio-context'
+// NB. This polyfill will break AudioWorklets which we use for timing
+import { AudioContext as PonyAudioContext, OfflineAudioContext } from 'standardized-audio-context'
 import { enableMIDI, mapped, toChord, toNote } from "./audio"
 import { createChord, createFifthsChord, createMajorChord, createMinorChord, getModeAsIntegerOffset, getModeFromIntegerOffset, MAJOR_CHORD_INTERVALS, MINOR_CHORD_INTERVALS, TUNING_MODE_NAMES } from "./chords"
 import { registerMultiTouchSynth } from "./components/multi-touch-synth"
 import CircleSynth from "./components/circle-synth"
 
-import SynthOscillator from "./instruments/synth-oscillator"
-import { getAllWaveTables, getRandomWaveTableName, loadWaveTableFromArchive, preloadAllWaveTables } from "./instruments/wave-tables"
+import SynthOscillator, { OSCILLATORS } from "./instruments/synth-oscillator"
+import { addNoises, getAllWaveTables, getRandomWaveTableName, getWaveTable, loadWaveTableFromArchive, preloadAllWaveTables } from "./instruments/wave-tables"
 
 import Note from "./note"
 import Song from "./song"
@@ -32,10 +32,20 @@ import WAVE_ARCHIVE_GENERAL_MIDI from "url:/static/wave-tables/general-midi.zip"
 import WAVE_ARCHIVE_GOOGLE from "url:/static/wave-tables/google.zip"
 import { MouseVisualiser } from "./components/mouse-visualiser"
 import { MelodyRecorder } from "./melody-recorder"
+import { debounce } from "./utils.js"
+import Timer from "./timing/timer.js"
+// import TimingAudioWorkletNode, { createTimingProcessor } from "./timing/timing.audioworklet.js"
+
+import AUDIOTIMER_PROCESSOR_URI from 'url:./timing/timing.audioworklet-processor.js'
+import { SongCanvas } from "./components/song-canvas.js"
+import { countdown } from "./countdown.js"
 
 // audio reqiures a user gesture to start...
 // so we hook into each musical event to check if the user has engaged
 let hasUserEngaged = false
+
+// flag for showing the whole keyboard on screen rather than a trimmed size
+let showAllKeys = true
 
 // read any saved themes from the URL ONLY (not from cookies so no overlay required :)
 const searchParams = new URLSearchParams(location.search)
@@ -58,6 +68,7 @@ let hero
 let noteVisualiser
 let shapeVisualiser
 let mouseVisualiser
+let miniNotation
 let circles
 let keyboard 
 let recorder
@@ -107,10 +118,15 @@ let shape = "sine"          // oscillator shape (eg. sine, square, sawtooth, tri
  * This query string can then be used to restore the state of the page
  * on reload
  */
-const updateURL = ()=>{
+const updateURL = debounce(()=>{
     const newURL = `${window.location.pathname}?${searchParams.toString()}`
     window.history.pushState({ path: newURL }, '', newURL)
-}
+})
+
+const setURLParameter = debounce((name, value) => {
+    searchParams.set(name, value)
+})
+
 
 // AUDIO ==============================================================
 
@@ -130,6 +146,12 @@ const getSynthForFinger = (finger=0)=>{
         fingerSynths.set( finger, fingerSynth )
     }
     return fingerSynths.get(finger)
+}
+
+const createMetronome = () => {
+    const timer = new Timer()
+    
+    return timer
 }
 
 /**
@@ -234,6 +256,7 @@ const noteOn = ( noteModel, velocity=1, id=0 ) => {
     noteVisualiser && noteVisualiser.noteOn( noteModel, velocity )
     mouseVisualiser && mouseVisualiser.noteOn( noteModel, velocity )
     recorder && recorder.noteOn( noteModel, velocity )
+    miniNotation && miniNotation.noteOn( noteModel, velocity, audioContext.currentTime )
     
     // this should change the visualiser line colour
     shapeVisualiser.colour = noteModel.colour
@@ -266,6 +289,7 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
     noteVisualiser && noteVisualiser.noteOff( noteModel, velocity )
     mouseVisualiser && mouseVisualiser.noteOff( noteModel, velocity )
     recorder && recorder.noteOff( noteModel, velocity )
+    miniNotation && miniNotation.noteOff( noteModel, velocity, audioContext.currentTime )
     shapeVisualiser.colour = false
 }
 
@@ -378,15 +402,19 @@ const createAudioVisualiser = (audioContext, source, song, visualiserOptions=VIS
     updateVis()
 
     // allow the user to click the visualiser to play a song...
-    addMusicalMouseEventsToElement(visualiserCanvas)
-    
+    const playButtons = document.querySelectorAll('[data-control-play]')
+    playButtons.forEach( playButton => {
+       addMusicalMouseEventsToElement(playButton) // visualiserCanvas
+    })
+        
     // const randomWaveButton = document.querySelector('#timbre-random')
     const randomWaveButtons = document.querySelectorAll('input[value="random"]')
     randomWaveButtons.forEach( randomWaveButton => {
+            
         randomWaveButton.addEventListener("click", e => {
             const randomWave = getRandomWaveTableName() 
             //console.info("randomWaveButton", randomWave)
-            setTimbre( randomWave )
+            shape = setTimbre( randomWave )
         })
     })
 }
@@ -457,13 +485,20 @@ const setMode = (musicalMode) => {
  * @param {String|Number} timbre 
  */
 const setTimbre = (timbre) => {
-    const timbreSanitised = " " + timbre.replaceAll("_","") 
-    const lowerCaseTimbre = timbre.toLowerCase()
-    fingerSynths.forEach( synth => synth.shape = lowerCaseTimbre )
-    // updateTimbreUI( timbreSanitised )
+    if (!OSCILLATORS.includes(timbre))
+    {
+        // const timbreSanitised = " " + timbre.replaceAll("_","") 
+        // const lowerCaseTimbre = timbre.toLowerCase()
+        getWaveTable(timbre).then( waveTable =>{
+            fingerSynths.forEach( synth => synth.shape = waveTable )
+        })
+    }else{
+        fingerSynths.forEach( synth => synth.shape = timbre )
+    }
+
     updateTimbreUI( timbre )
-    shape = timbre
     circles && (circles.timbre = timbre)
+    return timbre
 }
 
 /**
@@ -485,6 +520,7 @@ const getTimbre = (timbres, timbre, offset=0) => {
     return timbres[ (index + offset) % timbres.length ]
 }
 
+
 /**
  * Set the Master Volume
  * @param {Number} value 0->1
@@ -492,7 +528,7 @@ const getTimbre = (timbres, timbre, offset=0) => {
 const setVolume = (value) => {
     mixer.gain.value = value
     volume = value
-    searchParams.set("volume", value)
+    setURLParameter("volume", value)
     updateURL()
 }
 
@@ -529,7 +565,7 @@ const fetchStateFromRadioButtons = () => {
         radioButtons.forEach(radioButton => checkedInputRadioButtons.push(radioButton))
     })
 
-    console.info("checked", { checkedInputRadioButtons} )
+    // console.info("checked", { checkedInputRadioButtons} )
     
     checkedInputRadioButtons.forEach(radioButton => {
         console.info("checked radio button", radioButton)
@@ -546,7 +582,7 @@ const fetchStateFromRadioButtons = () => {
                 break
             case "timbre":
                 console.warn("timbre", radioButton.value)
-                setTimbre( radioButton.value )
+                shape = radioButton.value
                 break
             case "chord":
                 console.warn("chord", radioButton.value)
@@ -633,7 +669,7 @@ const setupRadioButtons = () => {
 
             switch(name){
                 case "timbre":
-                    setTimbre( input )
+                    shape = setTimbre( input )
                     break
 
                 // 
@@ -679,20 +715,21 @@ const setupShapeVisualiser = (instrumentNames) => {
     const chordSad = document.getElementById("button-sad")
     
     instrumentNames.forEach( name => {
+        //  <hr>
         timbreSelect.add(new Option(name, name))
     })
     timbreSelect.addEventListener("change", e => {
         const timbre = e.target.value
         console.info("timbre", timbre)
-        setTimbre( timbre )
+        shape = setTimbre( timbre )
     })
     timbrePrevious.addEventListener("click", e => {
         console.info("timbre previous", timbreSelect.value, timbreSelect.options.length )
-        setTimbre( getTimbre(instrumentNames, shape, -1 ) )
+        shape = setTimbre( getTimbre(instrumentNames, shape, -1 ) )
     })
     timbreNext.addEventListener("click", e => {
         console.info("timbre next", timbreSelect.value, timbreSelect.options.length )
-        setTimbre( getTimbre(instrumentNames, shape, 1 ) )
+        shape = setTimbre( getTimbre(instrumentNames, shape, 1 ) )
     })
 
     addMusicalMouseEventsToElement(chordHappy, MAJOR_CHORD_INTERVALS, mode)
@@ -704,7 +741,7 @@ const setupShapeVisualiser = (instrumentNames) => {
 /**
  * Requires a user-gesture before initiation...
  */
-const createAudioContext = (event) => {
+const createAudioContext = async(event) => {
 
     // only ever perform this once!
     if (hasUserEngaged || audioContext)
@@ -712,8 +749,10 @@ const createAudioContext = (event) => {
         return audioContext
     }
     
+    hasUserEngaged = true
+    
     // polyfilled see : https://github.com/chrisguttandin/standardized-audio-context
-    audioContext = new AudioContext()
+    audioContext = new PonyAudioContext()
 
     limiter = audioContext.createDynamicsCompressor();
     limiter.threshold.value = 0
@@ -736,7 +775,48 @@ const createAudioContext = (event) => {
             mouseVisualiser.noteOn( noteModel, 1 )
         }
     })
-    hasUserEngaged = true
+
+    miniNotation = new SongCanvas(document.getElementById("song-in-pixels"), recorder)
+
+    const audioSpell = document.getElementById("audio-spell")
+
+    const timingContext = new AudioContext()
+    const timer = new Timer({contexts:{audioContext:timingContext}, bpm:65 })
+    // console.info("timer", timer)
+    // await timer.loaded
+    // console.info("timer loaded", timer)
+    timer.startTimer(e =>{
+        // 
+        if (timer.currentBar === 0 &&timer.isAtStart)
+        {
+            // console.info("timer started", timer)
+            // audioSpell.pause()
+            // audioSpell.currentTime = 0
+            // audioSpell.play()
+        }
+    })
+
+  
+    // timer.setCallback(event => {
+    //     // console.log("timer event", event)
+    // })
+  
+    
+
+    // const timingContext = new AudioContext()
+    // // const timing = createTimingProcessor( timingContext )
+  
+    // await timingContext.audioWorklet.addModule(AUDIOTIMER_PROCESSOR_URI)
+    // const TimingAudioWorklet = await import("./timing/timing.audioworklet.js")
+    // const timing = new TimingAudioWorklet.default(timingContext)
+    // timing.onmessage = event => {
+    //     console.log("time message:", event)
+    // }
+    // timing.    timer.startTimer()
+
+
+    // const timing = createTimingProcessor(audioContext)
+    // const timing = new TimingAudioWorkletNode(audioContext)
 }
 
 /**
@@ -744,6 +824,9 @@ const createAudioContext = (event) => {
  */
 const backgroundLoad = async () => {
     // await preloadAllWaveTables()
+
+    addNoises()
+
     await preloadWaveTablesFromZip(WAVE_ARCHIVE_GENERAL_MIDI)
     await preloadWaveTablesFromZip(WAVE_ARCHIVE_GOOGLE)
     
@@ -751,6 +834,9 @@ const backgroundLoad = async () => {
     
     const instrumentNames = getAllWaveTables()
     
+    // load saved instrument if not the default
+    setTimbre(shape)
+
     // NB. This is the full list that may not be loaded yet?
     // all possible data files for instrument sounds
    
@@ -758,14 +844,13 @@ const backgroundLoad = async () => {
     setupShapeVisualiser(instrumentNames)
 
     console.error("DATA LOADED!", {instrumentNames} )
-
+    
     // now add the share button and share overlay
     await loadShareMenu()
 
-    const timing = await import("./timing/timer.js")
+    // const timing = await import("./timing/timer.js")
 	// const timer = new Timer()
-    console.error("DATA LOADED!", {timing} )
-
+    // console.error("DATA LOADED!", {timing} )
 }
 
 /**
@@ -808,7 +893,7 @@ const start =  async () => {
     // noteVisualiser = new NoteVisualiser( KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
 
     // bottom interactive piano
-    keyboard = new SVGKeyboard(KEYBOARD_NOTES, noteOn, noteOff )
+    keyboard = new SVGKeyboard( showAllKeys ? ALL_KEYBOARD_NOTES : KEYBOARD_NOTES, noteOn, noteOff )
     
     // const headerElement = document.getElementById("headline")  
     // headerElement.appendChild(keyboard.asElement)
@@ -831,6 +916,8 @@ const start =  async () => {
     {
         showMIDIToggle()
     }
+
+    countdown(document.querySelector("[data-countdown]"))
     
     // watch for when an element arrives in the window
     monitorIntersections()

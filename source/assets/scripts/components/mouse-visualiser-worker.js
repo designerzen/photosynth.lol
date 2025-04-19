@@ -11,7 +11,7 @@ const RADIUS_RANGE = MAX_RADIUS - MIN_RADIUS
 const MAX_SIZE = (MAX_RADIUS + STROKE) * 2
 const HALF_MAX_RADIUS = MAX_SIZE / 2
 
-const SHRINK_DURATION = 202 // 101 is good   // this should be similar to the decay on the instrument
+const SHRINK_DURATION = 101 // 101 is good   // this should be similar to the decay on the instrument
 
 const OFFSET = 16
 const X_OFFSET = -MAX_RADIUS - OFFSET
