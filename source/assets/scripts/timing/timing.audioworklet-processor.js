@@ -6,11 +6,12 @@
 * @extends AudioWorkletProcessor
 */
 import {
+	CMD_INITIALISE,
 	CMD_START,CMD_STOP,CMD_UPDATE,
 	EVENT_READY, EVENT_STARTING, EVENT_STOPPING, EVENT_TICK
 } from './timing.events.js'
 
-class TimingProcessor extends AudioWorkletProcessor {
+class TimingAudioWorkletProcessor extends AudioWorkletProcessor {
  
 	isAvailable = false
 	isRunning = false
@@ -28,8 +29,6 @@ class TimingProcessor extends AudioWorkletProcessor {
 
 	constructor() {
 	  	super()
-		
-		console.log("TimingProcessor created", this)
 		this.port.onmessage = this.onmessage.bind(this)
 		this.postMessage({ event:EVENT_READY })
 	}
@@ -38,9 +37,13 @@ class TimingProcessor extends AudioWorkletProcessor {
 		this.port.postMessage(message)
 	}
 
+	reset(){
+		this.intervals = 0
+	}
+
 	/**
 	 * 
-	 * @param {Number} interval 
+	 * @param {Number} interval in milliseconds
 	 * @param {*} accurateTiming 
 	 */
 	start(interval=250, accurateTiming=true ){
@@ -51,12 +54,12 @@ class TimingProcessor extends AudioWorkletProcessor {
 		{   
 			this.startTime = currentTime
 			// work out the next step from this step...
-			this.nextInterval = this.startTime + interval
+			this.nextInterval = this.startTime + this.gap
 			this.isRunning = true
 			this.postMessage({event:EVENT_STARTING, time:0, intervals:this.intervals})
 		}else{
 			// work out the next step from this step...
-			this.nextInterval = currentTime + interval
+			this.nextInterval = currentTime + this.gap
 		}
 	
 		// INITIAL tick
@@ -83,18 +86,27 @@ class TimingProcessor extends AudioWorkletProcessor {
 
 		const sourceLimit = Math.min(inputs.length, outputs.length)
 
+		// console.log(currentTime, "Processor:process", {sourceLimit, inputs, outputs, parameters})
 		// Wwrite the output into each of the outputs
 		// By default, the node has single input and output.
 		for (let inputIndex = 0; inputIndex < sourceLimit; ++inputIndex) {
 			const input = inputs[inputIndex]
 			const output = outputs[inputIndex]
+
+			if (input.length === 0){
+				//console.error("Processor:FAIL NO INPUT", {input, inputs, output, outputs, parameters})
+				continue
+			}
+
+			//console.log(inputIndex, "> Processor:process", {input, inputs, output, outputs, parameters})
 			for (let channel = 0; channel < output.length; ++channel) {
 				output[channel].set(input[channel])
 			}
 		}
 
-		if (this.nextInterval > currentTime)
+		if (this.isRunning && this.nextInterval >= currentTime)
 		{
+			// console.info("Processor:BEAT", this.nextInterval, currentTime )
 			this.onTick()
 		}
 		
@@ -106,7 +118,8 @@ class TimingProcessor extends AudioWorkletProcessor {
 	 * 
 	 */
 	onTick(){
-		this.nextInterval = currentTime + interval
+		this.intervals++
+		this.nextInterval = currentTime + this.gap
 		this.postMessage({event:EVENT_TICK, time:this.elapsed, intervals:this.intervals })
 	}
 
@@ -126,8 +139,13 @@ class TimingProcessor extends AudioWorkletProcessor {
 			case EVENT_READY:
 				break;
 
+			case CMD_INITIALISE:
+				// this.accurateTiming = data.accurateTiming ?? false
+				// this.start(data.interval)
+				break
+
 			case CMD_START:
-				this.accurateTiming = data.accurateTiming || false
+				this.accurateTiming = data.accurateTiming ?? false
 				this.start(data.interval)
 				break
 	
@@ -144,12 +162,11 @@ class TimingProcessor extends AudioWorkletProcessor {
 				break
 
 			default:
-				console.log('[Processor:Received] ' + event.data.message +
-					' (' + event.data.contextTimestamp + ')');
+				console.log('[Processor:Received] ' , event)
 				console.error("SampleAudioWorkletProcessor: Unknown message type", event)
 		}
 	}
 }
   
 const ID = "timing-processor"
-registerProcessor(ID, TimingProcessor)
+registerProcessor(ID, TimingAudioWorkletProcessor)

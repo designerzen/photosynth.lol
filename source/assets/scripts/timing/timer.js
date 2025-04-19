@@ -9,19 +9,26 @@ import {
 	EVENT_READY, EVENT_STARTING, EVENT_STOPPING, EVENT_TICK
 } from './timing.events.js'
 
+// import AUDIOCONTEXT_WORKER_URI from 'url:./timing.audiocontext.worker.js'
 import AUDIOTIMER_WORKLET_URI from 'url:./timing.audioworklet.js'
 import AUDIOTIMER_PROCESSOR_URI from 'url:./timing.audioworklet-processor.js'
-import { createTimingProcessor } from './timing.audioworklet.js'
-
-export const WORKLETS = {
-	AUDIOTIMER_WORKLET_URI
-}
+// import { createTimingProcessor } from './timing.audioworklet.js'
 
 export const MAX_BARS_ALLOWED = 32
 
-// keep this at 24 to match MIDI1.0 spec
-// where there are 24 ticks per quarternote
-const DIVISIONS = 24 // 4
+const DEFAULT_TIMER_OPTIONS = {
+	bars:16,
+	// keep this at 24 to match MIDI1.0 spec
+	// where there are 24 ticks per quarternote
+	divisions:24,
+
+	bpm:90,
+
+	contexts:null,
+	type:AUDIOTIMER_WORKLET_URI,
+	processor:AUDIOTIMER_PROCESSOR_URI,
+	callback:null
+}
 
 /**
  * Convert a BPM to a period in ms
@@ -75,6 +82,7 @@ export default class Timer {
 	// for time formatting...
 	currentBar = 0
 
+	divisions = 24
 	bars = 16
 
 	// There are 16 quarter notes in a note
@@ -83,7 +91,6 @@ export default class Timer {
 	totalBarsElapsed = 0
 
 	lastRecordedTime = 0
-	divisions = DIVISIONS
 	
 	isRunning = false
 	isCompatible = false
@@ -91,8 +98,12 @@ export default class Timer {
 	isActive = false
 
 	timingWorker
-	loaded = new Promise( this.onAvailable )
+	loaded = new Promise( this.onAvailable, this.onUnavailable)
+	
 	callback
+
+	// we overwrite this with an audioContext if available
+	getNow = performance.now
 
 	/**
 	 * Can we use this timing method on this device?
@@ -115,7 +126,7 @@ export default class Timer {
 	 * @returns {Number} The current time as of now
 	 */
 	get now(){ 
-		return Performance.now() 
+		return this.getNow() 
 	}
 
 	/**
@@ -218,6 +229,9 @@ export default class Timer {
 		return this.microTempo / 24
 	}
 
+	get isAtStartOfBar(){
+		return this.barProgress === 0
+	}
 	get isAtMiddleOfBar(){
 		return this.barProgress === 0.5
 	}
@@ -284,24 +298,42 @@ export default class Timer {
 			interval,
 			time:this.now 
 		})
-
-		return interval
 	}
 
-	constructor( divisions=DIVISIONS, type=SETTIMEOUT_WORKER_URI, contexts=null ){
-		this.divisions = divisions
-		if (contexts)
+	constructor( options=DEFAULT_TIMER_OPTIONS ){
+		options = {...DEFAULT_TIMER_OPTIONS, ...options}
+		const optionKeys = Object.keys(options)
+		// const { contexts, type=AUDIOTIMER_WORKLET_URI, divisions=DIVISIONS, processor=AUDIOTIMER_PROCESSOR_URI} = options
+
+		for (let key of optionKeys)
 		{
-			for (let context in contexts)
-				{this[context] = contexts[context]
-			}
-			console.info("Setting up timer with context", contexts, this )
+			switch(key)
+			{
+				case "audioContext":
+					this.audioContext = options.audioContext
+					this.getNow = () => this.audioContext.currentTime * 1000
+					break
+
+				case "contexts":
+					for (let context in options.contexts){
+						this[context] = options.contexts[context]
+					}
+					this.getNow = () => this.audioContext.currentTime * 1000
+					break
+
+				default:
+					this[key] = options[key]
+					console.warn("Timer option", key, options[key])
+			}			
 		}
-				
-		// We need to find a way to load this dynamically
-		this.setTimingWorker( type ).then(()=>{
-			Promise.resolve( this.loaded )
-		})
+
+		// 
+		const isWorklet = options.type.indexOf("orklet") > -1 && this.audioContext
+		if (isWorklet){
+			this.loaded = this.setTimingWorklet( options.type, options.processor, this.audioContext )
+		}else{
+			this.loaded = this.setTimingWorker( options.type, options.processor, this.audioContext )
+		}
 	}
 
 	/**
@@ -312,9 +344,14 @@ export default class Timer {
 		this.callback = callback
 	}
 
-	
-	// allows us to disable the existing route to send our own
-	// or to inject them into here 
+
+	/**
+	 * Allows us to disable the existing route to send our own
+	 * or to inject them into here 
+	 * 
+	 * @param {Boolean} useExternalClock 
+	 * @returns 
+	 */
 	bypass( useExternalClock=true ){
 
 		if (useExternalClock){
@@ -350,23 +387,50 @@ export default class Timer {
 		return trigger
 	}
 
-	/**
-	 * 
-	 * @param {String} type 
-	 * @returns 
-	 */
-	async unsetTimingWorker(type){
-		// timer.onmessage = this.timingWorker.onmessage 
-		// timer.onerror = this.timingWorker.onerror 
+	// WORKLET ------------------------------------------------------------------------------------
 
-		// // TODO: clone the methods into new worker
-		// this.timingWorker.onmessage = (e) => {}
-		// this.timingWorker.onerror = (e) => {}
-		this.stopTimer()
-		this.timingWorker.terminate()
-		this.timingWorker = null
-		return true
+	/**
+	 * Set the worklet as the main timing mechanism
+	 * @param {String} type 
+	 * @param {String} processor 
+	 * @param {AudioContext} audioContext 
+	 */
+	async setTimingWorklet( type, processor, audioContext ) {
+		
+		let wasRunning = this.isRunning
+
+		// destroy any existing worklet
+		if (this.timingWorker)
+		{
+			await this.unsetTimingWorker()
+		}
+
+		try{
+			await audioContext.audioWorklet.addModule(processor)
+		}catch(error){
+			console.error("AudioWorklet processor cannot be added", error)
+			throw Error ("Timing Worklet failed to load processor:"+processor+ " type:" + type)
+		}
+
+		// console.error(type, "timer.processor loaded", { type, processor} ) 
+		// const wrklet = await import(type) 
+		const wrklet = await import("../timing/timing.audioworklet.js")
+		// set worker in global space
+		this.timingWorker = new wrklet.default( audioContext )
+			
+		// console.error(type, "timer.audioworklet", wrklet, this.timingWorker ) 
+	
+		//const timing = module.createTimingProcessor( audioContext )
+		// this.timingWorker = timing
+		// console.error(type, "timer.audioworklet", {module, audioContext}, this.timingWorker ) 
+		if (wasRunning)
+		{
+			this.startTimer()
+		}
+		return this.timingWorker
 	}
+
+	// WORKER ------------------------------------------------------------------------------------
 
 	/**
 	 * Load in the Worker URI
@@ -377,9 +441,14 @@ export default class Timer {
 		return new Worker( new URL( type ), {type: 'module'} )
 	}
 
-	// in the future, we may be able to pass offlineAudioContext to a worker
-	// and at that point, we can finally tie in the actual timing by using the 
-	// context as the global clock!
+	/**
+	 * In the future, we may be able to pass offlineAudioContext to a worker
+	 * and at that point, we can finally tie in the actual timing by using the 
+	 * context as the global clock!
+	 * NB. We NOW CAN! User the setTimingWorklet instead :)
+	 * @param {String} type 
+	 * @returns 
+	 */
 	async setTimingWorker(type){
 		try{
 
@@ -415,8 +484,29 @@ export default class Timer {
 		return null
 	}
 
+	// SHARED WORKER / WORKLET CDE ------------------------------------------------------------------------------------
+	
 	/**
 	 * 
+	 * @param {String} type 
+	 * @returns {Boolean}
+	 */
+	async unsetTimingWorker(type){
+		// timer.onmessage = this.timingWorker.onmessage 
+		// timer.onerror = this.timingWorker.onerror 
+
+		// // TODO: clone the methods into new worker
+		// this.timingWorker.onmessage = (e) => {}
+		// this.timingWorker.onerror = (e) => {}
+		this.stopTimer()
+		this.timingWorker.terminate()
+		this.timingWorker = null
+		return true
+	}
+
+	/**
+	 * Add a worker or worklet into the pipeline
+	 * and monitor it's events and messages
 	 * @param {Worker} worker 
 	 */
 	connectWorker( worker ){
@@ -433,6 +523,10 @@ export default class Timer {
 
 			switch(data.event)
 			{
+				case EVENT_READY:
+					console.log("EVENT_READY", {time, data}) 
+					break
+
 				case EVENT_STARTING:
 					// save start time
 					this.startTime = time
@@ -501,7 +595,7 @@ export default class Timer {
 	}
 
 	/**
-	 * Reset
+	 * Reset the timer and start from the beginning
 	 */
 	resetTimer(){
 		this.totalBarsElapsed = 0
@@ -513,7 +607,9 @@ export default class Timer {
 	 * 
 	 * @returns {Object} current time and timingWorker
 	 */
-	startTimer( callback, options={} ){
+	async startTimer( callback, options={} ){
+
+		await this.loaded
 
 		const currentTime = this.now
 
@@ -521,6 +617,11 @@ export default class Timer {
 		{
 			// FIXME: Alter this behaviour for rolling count
 			this.totalBarsElapsed = 0
+		}
+
+		if (callback)
+		{
+			this.setCallback(callback)
 		}
 				
 		// if we are using an external clock
@@ -558,7 +659,10 @@ export default class Timer {
 	 * Stops the timer and prevents events being dispatched
 	 * @returns {Object} current time and timingWorker
 	 */
-	stopTimer() {
+	async stopTimer() {
+
+		await this.loaded
+
 		const currentTime = this.now
 		// cancel the thing thrugh the workers first
 		// cancel any scheduled quie noises
@@ -570,18 +674,24 @@ export default class Timer {
 		}
 	}
 
-	toggleTimer(){
+	/**
+	 * start the timer if it is paused...
+	 * or stop the timer if it is running
+	 * @returns {Boolean} is the timer running
+	 */
+	async toggleTimer(){
 		if (this.isBypassed)
 		{
 			// we are using an external timer!
-			return
+			return this.isRunning
 		}
 		if (!this.isRunning)
 		{
-			this.startTimer()
+			await this.startTimer()
 		}else{
-			this.stopTimer()
+			await this.stopTimer()
 		}
+		return this.isRunning
 	}
 
 	/**
@@ -600,8 +710,18 @@ export default class Timer {
 		}
 	}
 
+	/**
+	 * EVENT: Timer is available
+	 */
 	onAvailable(){
 		console.info("Timer is available")
+	}
+
+	/**
+	 * EVENT: Timer is unavailable
+	 */
+	onUnavailable(){
+		console.error("Timer is unavailable")
 	}
 
 	/**
@@ -615,6 +735,8 @@ export default class Timer {
 	 */
 	onTick(timePassed, expected, drift=0, level=0, intervals=0, lag=0){
 		
+		// console.info("Timer:onTick", {timePassed, expected, drift, level, intervals, lag} )
+
 		this.lastRecordedTime = timePassed
 
 		if (++this.divisionsElapsed >= this.divisions)
