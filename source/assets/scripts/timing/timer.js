@@ -82,12 +82,11 @@ export default class Timer {
 	// for time formatting...
 	currentBar = 0
 
-	divisions = 24
-	bars = 16
+	divisions = 24	// 24 quarter notes in a bar
+	bars = 16		// 16 bars in a measure
+	swingOffset = 0	// from 0 -> divisions
 
-	// There are 16 quarter notes in a note
 	divisionsElapsed = 0
-	// and 4 notes in each bar
 	totalBarsElapsed = 0
 
 	lastRecordedTime = 0
@@ -97,7 +96,9 @@ export default class Timer {
 	isBypassed = false
 	isActive = false
 
+
 	timingWorker
+
 	loaded = new Promise( this.onAvailable, this.onUnavailable)
 	
 	callback
@@ -190,6 +191,16 @@ export default class Timer {
 		return this.currentBar / this.bars
 	}
 
+	
+	/**
+	 * Percentage duration of beat progress 0->1
+	 * @returns {Number} percentage elapsed
+	 */
+	get beatProgress(){
+		return this.divisionsElapsed / this.totalDivisions 
+	}
+
+
 	// Bar times
 
 	/**
@@ -232,18 +243,30 @@ export default class Timer {
 	get isAtStartOfBar(){
 		return this.barProgress === 0
 	}
-	get isAtMiddleOfBar(){
-		return this.barProgress === 0.5
+	get isStartBar(){
+		return this.currentBar === 0
 	}
 
 	get isAtStart(){
 		return this.divisionsElapsed === 0
 	}
+
+	get isAtMiddleOfBar(){
+		return this.barProgress === 0.5
+	}
+
 	get isQuarterNote(){
-		return this.divisionsElapsed / this.totalDivisions % 0.25 === 0 
+		return this.beatProgress % 0.25 === 0 
 	}
 	get isHalfNote(){
-		return this.divisionsElapsed / this.totalDivisions % 0.5 === 0 
+		return this.beatProgress % 0.5 === 0 
+	}
+	get isSwungBeat(){
+		return this.divisionsElapsed % this.swingOffset === 0
+	}
+	
+	get swing(){
+		return this.swingOffset / this.divisions
 	}
 
 	// Setters
@@ -293,11 +316,19 @@ export default class Timer {
 		// FIXME
 		// if it is running, stop and restart it?
 		//interval = newInterval
-		this.timingWorker && this.timingWorker.postMessage({
+		this.postMessage({
 			command:CMD_UPDATE, 
 			interval,
 			time:this.now 
 		})
+	}
+
+	/**
+	 * Passed in the onBeat callback as a variant
+	 * to determine when the "beat" should occur
+	 */
+	set swing( value ){
+		this.swingOffset = value * this.divisions
 	}
 
 	constructor( options=DEFAULT_TIMER_OPTIONS ){
@@ -569,6 +600,10 @@ export default class Timer {
 		}
 	}
 
+	postMessage(payload){
+		this.timingWorker && this.timingWorker.postMessage(payload)
+	}
+
 	/**
 	 * Disconnect the worker from the timer
 	 * @param {Worker} worker 
@@ -600,6 +635,7 @@ export default class Timer {
 	resetTimer(){
 		this.totalBarsElapsed = 0
 		this.divisionsElapsed = 0
+		this.flipped = false
 	}
 
 	/**
@@ -617,6 +653,7 @@ export default class Timer {
 		{
 			// FIXME: Alter this behaviour for rolling count
 			this.totalBarsElapsed = 0
+			this.flipped = false
 		}
 
 		if (callback)
@@ -639,7 +676,7 @@ export default class Timer {
 		this.connectWorker( this.timingWorker )
 	
 		// send command to worker... options
-		this.timingWorker.postMessage({
+		this.postMessage({
 			command:CMD_START, 
 			time:currentTime, 
 			interval:this.period,
@@ -725,6 +762,7 @@ export default class Timer {
 	}
 
 	/**
+	 * Occurs 24 times per beat
 	 * Call the callback with internal flags
 	 * @param {Number} timePassed 
 	 * @param {Number} expected 
@@ -739,12 +777,19 @@ export default class Timer {
 
 		this.lastRecordedTime = timePassed
 
+		// check if bar has completed
 		if (++this.divisionsElapsed >= this.divisions)
 		{
 			++this.totalBarsElapsed
 			this.currentBar = (this.currentBar+1) % this.bars
 			this.divisionsElapsed = 0
 		}
+
+		
+
+		// let us determine if we are on a swung beat
+		const swung = this.divisionsElapsed%this.swingOffset === 0
+
 
 		this.callback && this.callback({
 			bar:this.currentBar, bars:this.totalBars, 
