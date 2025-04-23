@@ -72,8 +72,12 @@ export const mapped = (note, chord, channel) =>{
     return note + chord + channel
 }
 
+let midiDriver
 export const enableMIDI = async () => {
-    const midiDriver = await loadMIDIDriver()
+    if (!midiDriver)
+    {
+        midiDriver = await loadMIDIDriver()
+    }
     try {    
        await WebMidi.enable()
     } catch (error) {

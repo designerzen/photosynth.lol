@@ -18,11 +18,28 @@ export const ASTLEY = `
 
 export const AFRICA = `C# B A E C# G# A E G# A E B G# A E B F# C# E B F# C# E B C# G# A E C# G# A E G# A E B G# A E B F# C# E B F# C# E B F# C# E B F# C# E B G# A E B F# C# E B F# C# E B F# C# E B`
 
+export const BABY_SHARK = `
+    D E G G G G G G G 
+    D E G G G G G G G 
+    D E G G G G G G G
+    G G F# 
+    D E G G G G G G G 
+    D E G G G G G G G 
+    D E G G G G G G G
+    G G F# 
+    D E G G G G G G G 
+    D E G G G G G G G 
+    D E G G G G G G G
+    G G F#`
+
 export const SONGS = [
-    ASTLEY, AFRICA
+    ASTLEY, AFRICA, BABY_SHARK
 ]
 
 export const getRandomSong = () => {
     const index = Math.floor(Math.random() * SONGS.length)
     return SONGS[index]
 }
+
+// Make a jive bunny style melody
+export const getCompondSong = () => SONGS.reverse().map(song=>song).join(" ")
