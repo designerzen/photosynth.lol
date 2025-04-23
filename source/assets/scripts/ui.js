@@ -1,3 +1,4 @@
+import { hasSpeech, say, stopSpeaking } from "./speech"
 
 export const toTitleCase = word => (word.charAt(0).toUpperCase() + word.slice(1))
 
@@ -20,10 +21,20 @@ export const selectRadioButton = (value) => {
  * update text field on UI
  * @param {String} timbre 
  */
+let elementTimbreSelector
 export const updateTimbreUI = (timbre) => {
+    
     changeUIText("[data-timbre]", toTitleCase(timbre) )
-    const d = document.getElementById("song-timbre-select")
-    d.value = timbre
+    
+    if (!elementTimbreSelector)
+    {
+        elementTimbreSelector = document.getElementById("song-timbre-select")
+    }
+
+    if (elementTimbreSelector.value !== timbre)
+    {  
+        elementTimbreSelector.value = timbre
+    }
 }
 
 /**
@@ -92,4 +103,49 @@ export const handlePasswordProtection = ( searchParams, correctPassword="", onSu
 
     // console.error({pass:pass, hidden:pass.hidden, showingPasswordScreen, timesVisited})
     return hasPreviousUserSession
+}
+
+/**
+ * 
+ * @returns 
+ */
+export const addReadButtons = () => {
+    const hasVoice = hasSpeech()
+    if (!hasVoice)
+    {
+        return false
+    }
+
+    const readableElements = document.querySelectorAll("[data-readable]")
+    readableElements.forEach( element => {
+        element.innerHTML = `<button class="button-read" type="button" data-button-speak>Read out this section</button>` + element.innerHTML
+    })
+
+    const speakOutLoudButtons = document.querySelectorAll('[data-button-speak]')
+    speakOutLoudButtons.forEach( button => {
+        if (hasVoice)
+        {
+            button.addEventListener("click", async ( e )=> {
+                
+                stopSpeaking()
+                
+                if (button.hasAttribute("data-speaking"))
+                {
+                    button.removeAttribute( "data-speaking" )
+                    return
+                }
+                const article = button.closest("[data-readable]")
+                
+                const text = article.textContent.replace( button.innerText, "" )
+                // We do not want to read out the button text we just pressed...
+
+                button.setAttribute("data-speaking", true )
+                await say( text )
+                button.removeAttribute( "data-speaking" )
+            })
+        }else{
+            button.hidden = true
+        }
+    })
+    return true
 }

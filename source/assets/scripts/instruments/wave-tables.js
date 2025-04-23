@@ -5,7 +5,6 @@ import { generateImageFromWaveTable, loadWaveTableFromImage } from "./wave-table
 // external dependencies
 import { unzip, strFromU8 } from 'fflate'
 
-import manifest from "/static/wave-tables/general-midi/manifest.json"
 
 const waveTables = new Map()
 const waveTableFileNames = new Map()
@@ -257,9 +256,8 @@ export const preloadAllWaveTables = async (simultaneous = 3) => {
  * loadWaveTableFromManifest(GM_MANIFEST)
  * @param {String} manifest GM_MANIFEST
  */
-export const loadWaveTableFromManifest = (manifest) => {
+export const loadWaveTableFromManifest = (manifest, folder="/wave-tables/gm_periodic_waves_v5/") => {
     // console.error("GM_MANIFEST", GM_MANIFEST)
-    const WAVE_TABLES_FOLDER = "/wave-tables/gm_periodic_waves_v5/"
     const keys = Object.keys(manifest)
     const waveDataToLoad = keys.map(async (noteName, index) => {
 
@@ -267,13 +265,13 @@ export const loadWaveTableFromManifest = (manifest) => {
 
         // first create the file name to load
         const waveTableFileName = noteName.replaceAll(" ", "")
-        const path = WAVE_TABLES_FOLDER + noteURI
+        const path = folder + noteURI
         const waveTableData = loadWaveTableFromJSONFile(path)
 
         ALL_WAVE_FORM_NAMES.push(noteName)
 
         // console.info(noteNumber, "GM",path, {waveTableData, real, imag, noteName, noteName, noteURI, waveTableFileName} ) 
-        if (index === 127) {
+        if (index === keys.length - 1) {
             console.error("waveTables", waveTables)
         }
         return waveTableData
@@ -282,7 +280,6 @@ export const loadWaveTableFromManifest = (manifest) => {
     Promise
         .allSettled(waveDataToLoad)
         .then(results => {
-
             waveDataToLoad.forEach((waveTableData, index) => {
                 const { real, imag } = waveTableData
                 const noteNumber = index + 1
