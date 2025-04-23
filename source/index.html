@@ -56,7 +56,7 @@
                 <li><a href="#history">History</a></li>
                 <li><a href="#science">Science</a></li>
                 <li><a href="#event">Event</a></li>
-                <li><a href="#faq">Q &amp; A</a></li>
+                <li><a href="#faq">FAQ</a></li>
                 <li><a href="#laboratory">Laboratory</a></li>
             </ul>
         </nav>
@@ -183,9 +183,9 @@
         <meter id="load-progress" min="0" max="1" value="0" hidden></meter>
 
         <!-- Introduction data-full-keyboard -->
-        <section id="introduction" class="full-width" inert data-observe>
+        <section id="introduction" class="full-width full-height" inert data-observe>
             
-            <article id="hero" class="sticky full-width page">
+            <article id="hero" class="sticky full-width full-height page">
                 
                 <header>
                     <h3 class="sr-only">Smile Powered Music!</h3>
@@ -218,57 +218,55 @@
         </section>
 
 
-        <!-- Interactive wallpapers -->
-        <canvas id="mouse-visualiser" inert></canvas>
-        <canvas id="wallpaper"></canvas>
-
-
         <!--  -->
-        <section id="teaser" class="shadow" data-observe>
-           <article class="split page">
-                
+        <section id="teaser" class="shadow wavey" data-observe>
+           <article class="split page" data-readable>
+            
                 <header>
                     <h3 class="underline heading-icon">Drake Music presents, the <cite>Photo<wbr>SYNTH</cite>, the happiest way to make music!</h3>
                 </header>
 
                 <p>The smile powered synthesizer that grants you and your friends radical new musical superpowers!</p>
-                <p>Rather than playing a musical instrument, the PhotoSYNTH plays you!</p>
-                <p>By tracking your movements and expressions in real-time, this magic mirror converts them into great music. 
-                    It is fun and easy to make a musical masterpiece especially if you collaborative with friends.</p>  
-                <p>Working alongside Drake Music Charity, specialists in accessible technology, and with the guidance of hundreds of differently-abled people, this mixed-reality pop music machine finally gives your reflection a purpose =D</p>
-              
-                <h4>If you've ever dreamed of being more musical, you're not alone!</h4>
-                <p>Have you ever dreamed of being more musical, well alright... Hold tight!</p>
-            
+                <p>Rather than playing a musical instrument, the PhotoSYNTH plays you<span aria-hidden>=P</span></p>
+                <p>This magic mirror tracks your movements, moods and expressions and converts them into music — giving your reflection a musical purpose!</p> 
+                <p>It is fun and easy to make a musical masterpiece, especially if you collaborate with friends.</p>  
 
-                <p>Makes learning how to play music simple ... easy, like a Sunday morning.</p>
-            
-            
-                <p>Imagine a world where rather than having to learn a musical instrument, the musical instrument could learn how to play you...</p>
-            
+                <p>Designed from the ground up to be the most accessible musical instrument possible with the sole intention of empowering everybody to make lovely music! Express yourself!</p>
+                
+                <blockquote class="sticky full-height">
+                    <p class="quote">
+                        Magic Mirror on the wall, 
+                        <br>who's the fairest of them all?
+                    </p>
+                    <!-- <p class="citation">Snow White<cite></cite></p> -->
+                </blockquote>
+                
+                <p>Makes creating music fun and easy (easy like a Sunday morning).</p> 
 
+                <p>Created alongside <a href="https://drakemusic.org">Drake Music Charity</a>, specialists in accessible technology, and with the help &amp; guidance of hundreds of differently-abled people, this mixed-reality pop music machine will put a smile on your face and make it musical =D</p>
 
-                <p>Come and have a play with some of the newest instruments from the <a href="#amic">Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></a></p>
+                <p>
+                    <em>Finally, a purpose for your reflection!</em>
+                </p>
             </article>
                 
             <!-- MIDI Equipment ------------------------------------------- -->
-            <aside id="midi-equipment" class="full-height shadow" data-observe hidden>
-                <header>
-                    <h3 class="heading-icon">This site is MIDI Enabled</h3> 
-                    <h4>For your listening experience</h4>
-                </header>
-                <details>
-                    <summary>MIDI</summary>
-                    <p>If you have any MIDI equipment, connect them now and press the enable MIDI button above.</p>
-            
+            <aside id="midi-equipment" class="" data-observe hidden>
+                <hgroup>
+                    <h5 class="heading-icon">This site is MIDI enabled for your listening pleasure</h5>
+                    <p>Connect your MIDI equipment now and press the button below</p>
+                </hgroup>
                 
-                    <aside>
-                        <h4>MIDI</h4>
-                        <p> The universal language of synths, controllers, and electronic instruments, MIDI (Musical Instrument Digital Interface) is a standard for communication between electronic musical devices using either a MIDI cable or, if your instruments supports it, USB cables.</p>
-                    </aside>
+                <details>
+                    <summary><h5>Learn more about Web MIDI</h5></summary>
+                    <p> The universal language of synths and electronic musical instruments, MIDI (Musical Instrument Digital Interface) is a standard for communication between electronic musical devices using either a MIDI cable or, if your instruments supports it, USB cables.</p>
+                    <p>If you have any MIDI equipment, connect them now and 
+                        <label for="toggle-midi">press the enable MIDI button.</label>
+                    </p>
+                    <p>Any MIDI equipment will both control the instruments on this site, as well as be controlled by them. All MIDI channels are targetted.</p>
                 </details>
                 <label for="toggle-midi" hidden>
-                    Enable MIDI connection
+                    Enable and disbale MIDI connection
                     <input type="checkbox" id="toggle-midi" value="midi" class="cta">
                 </label>
         
@@ -281,100 +279,162 @@
     
 
         <!-- About the event -->
-        <section id="about" class="shadow" data-observe>
+        <section id="about" class="wavey shadow" data-observe >
 
-            <article class="split page">
+            <article class="split page" data-readable>
 
                 <header>
                     <h3 class="heading-icon">About</h3>
                     <h4>Summer Science Exhibition</h4>
                 </header>
 
-                <div data-countdown>
+                <div data-countdown class="flood">
                     <time datetime="2025-07-01 09:00">July 1<sup>st</sup>, 2025</time>
                 </div>
 
-                <p>The Summer Science Exhibition is a free six-day festival showcasing the science shaping our future and
-                    will be held at the Royal Society in London from 
-                    <time datetime="2025-07-01 09:00">July 1<sup>st</sup>, 2025</time>
+                <p>The Summer Science Exhibition is a free six-day festival showcasing the science shaping our future and will be held at the Royal Society in London from 
+                    <time datetime="2025-07-01 09:00">July 1<sup>st</sup></time>
                      to 
                     <time datetime="2025-07-07 09:00">July 6<sup>th</sup>, 2025</time>.
                 </p>
             
-                <p><dfn id="definition-photosynth">The <cite>Photo<wbr>SYNTH</cite></dfn> is a 
-                    <dfn id="definition-mixed-reality">mixed-reality</dfn> audio synthesizer that uses real-time motion capture with
-                    facial-landmark tracking to enhance your movements, and the movements of your friends, with radical new musical
-                    superpowers, instantly turning you into a pop-star and your friends into a band!
-                </p>
-
-                <p>Imagine if you could just make music without having to learn a new instrument!</p>
+                <p>If you've ever dreamed of being more musical, you're not alone!</p>
+                <p>Come along this summer to have a play with some of the newest instruments from the <a href="#amic">Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></a> and learn all about the science behind them.</p>
+                      
+                <p>If you ever dreamed of being more musical, well alright... Hold tight!</p>
+        
+                <p class="flood">Imagine if there was a musical magic spell, what musical skills would you wish for? !</p>
                 
-                <p>
-                    <em>Finally, a purpose for your reflection!</em>
-                </p>
 
-                <figure id="diagram-face-scan" class="sticky full-width bg-clear">
-                    <img 
-                        loading="lazy"
-                        width="909" height="909"
-                        src="/source/assets/figures/instant-musical-superpowers-red-square.svg" 
-                        alt="Instant Musical Superpowers!">
-                    <figcaption>Face is observed</figcaption>
+                <figure class="sticky full-width bg-clear">
+                    <button 
+                    aria-labelledby="button-cast-spell-caption"
+                    type="button" id="button-cast-spell">
+                        <img 
+                            loading="lazy"
+                            width="909" height="909"
+                            src="/source/assets/figures/instant-musical-superpowers-red-square.svg" 
+                            alt="Instant Musical Superpowers!">
+                            <audio id="audio-spell" src="/source/assets/audio/fx/spells/shine-magic-sound-4-sounds-190258.mp3" preload="auto"></audio>
+                    </button>
+                    <figcaption id="button-cast-spell-caption" class="sr-only">Radical Musical Superpowers in an instant!</figcaption>
                 </figure>
 
             </article>
             
-            <!-- Diagrams -->
-            <article class="page stackable" id="technology-explanation">
+            <!-- Event ------------------------------------------- -->
+            <article id="event" class="page">
+                <hgroup>
+                    <h3 class="heading-icon">Summer Exhibition 2025</h3>
+                    <h4>Come and join us for a fun musical celebration of diversity, inclusive technology and science!</h4>
+                </hgroup>
+
+                <img class="icon float outside-leaning-polygon" width="100" height="100" src="/source/assets/icons/hearing-loop.svg" alt="Hearing loop enabled venue.">
+          
+                <p>The exhibition will feature a series of interactive installations and hands-on demonstrations.</p>
+                <p>
+                    The venue is fully accessible and has hearing loop T enabled 
+                    <i class="emoji">🦻</i> 
+                    and quiet spaces.
+                </p>
+
+                <figure>
+                    <table>
+                        <caption>Facilities</caption>
+                        
+                        <tr>
+                            <th>Wheelchair accessible</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>Hearing loop</th>
+                            <td><img class="icon float outside-leaning-polygon" width="100" height="100" src="/source/assets/icons/hearing-loop.svg" alt="Hearing loop enabled venue."></td>
+                        </tr>
+                        <tr>
+                            <th>Lifts, elevators and stairs</th>
+                            <td>Lifts are available for access to the basement level or first floor.</td>
+                        </tr>
+                        <tr>
+                            <th>Signage</th>
+                            <td>Well lit signage</td>
+                        </tr>
+                        <tr>
+                            <th>Guide dogs</th>
+                            <td>water, special rest room</td>
+                        </tr>
+                        <tr>
+                            <th>Accessible toilet</th>
+                            <td> There is an accessible toilet on the ground floor behind the reception area and an ambulant toilet in the basement. 
+                                There are baby changing facilities in all the toilets in the basement and in the accessible toilet behind reception. 
+                                Please note that the baby change facilities in the accessible toilets should only be used by parents/carers that specifically require the use of an accessible toilet, as baby changes facilities are available elsewhere.</td>
+                        </tr>
+                        <tr>
+                            <th>Quiet space</th>
+                            <td>There is a quiet room on the ground floor next to the marble hall. <em>Please ask the reception desk if you need access to this space.</em></td>
+                        </tr>
+                    </table>
+                    <figcaption>Accessibility facilities</figcaption>
+                </figure>
+
+            </article>
+
+            <article id="event-info" class="page">
+                <h5>Event Details</h5>
+                <iframe class="map" width="1080" height="540" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1344162225723267%2C51.50472238057011%2C-0.1302212476730347%2C51.506889393716634&amp;layer=mapnik"></iframe>
+                <a class="link-map" href="https://www.openstreetmap.org/?#map=18/51.505806/-0.132319">View Larger Map</a>
+            
+                <details>
+                    <summary><h6>Getting there</h6></summary>
+                    <p>
+                        Underground stations: Charing Cross and Piccadilly Circus
+                        Bus routes: 12, 13, 15 and 453.
+                        Coach station: Connections from Victoria coach station
+                        <a rel="noopener noreferrer" target="_blank" href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">See official recommendations</a>       
+                    </p>
+                </details>
+            </article>
+
+            <aside id="details" class="page">
+                <h4>Summer Science Exhibition 2025 Details</h4>
+                <dl class="data-address">
+                    <dt>Start</dt>
+                    <dd><time datetime="2025-07-01 09:00">July 1<sup>st</sup>, 2025</time></dd>
+    
+                    <dt>End</dt>
+                    <dd><time datetime="2025-07-06 09:00">July 6<sup>th</sup>, 2025</time></dd>
+    
+                    <dt>Venue</dt>
+                    <dd>Royal Society</dd>
+    
+                    <dt>Address</dt>
+                    <dd class="address">
+                        <a href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">
+                            <address>
+                                <span class="street-address">6-9 Carlton House Terrace</span><span class="delimiter">, </span><span class="locality">London</span><span class="delimiter">, </span><span class="postal-code">SW1Y 5AG</span><span class="delimiter">, </span><span class="country-name">United Kingdom</span>
+                            </address>
+                        </a>
+                    </dd>
+        
+                    <dt>Location</dt>
+                    <dd>London</dd>
+    
+                    <dt>Category</dt>
+                    <dd>Exhibition</dd>
+                </dl>
+            </aside>
+
+        </section>
+
+
+
+        <!-- SCIENCE -->
+        <section id="science" class="shadow bg-clear" data-observe>
+                     
+            <article class="page split" id="technology-explanation" data-readable>
                             
-                <p>
-                    Science, research, innovation and development allow us to augment people's abilities in radical new ways thanks to advancements in neural networking, machine learning and artificial intelligence that have made it possible to elegantly interface with machines in natural and intuitive new ways.
-                </p>
-
-                <figure id="diagram-face-scan" class="sticky full-width bg-clear">
-                    <img 
-                        class="animation-rock"
-                        style="--delay:0s;"
-                        loading="lazy"
-                        width="9000" height="2160"
-                        src="/source/assets/diagrams/face-winking.svg" 
-                        alt="The Photosynth, smile powered music.">
-                    <figcaption>Face is observed</figcaption>
-                </figure>
-
-                <p>By using motion capture and augmented reality, the whole face is converted into a musical instrument
-                    where smiles are converted into musical notes, movements into melodies and facial expressions into audio
-                    filters and controls.</p>
-
-                <!-- Background mask & warnings -->
-                <figure id="diagram-face-scan-overlay" class="sticky full-width bg-clear">
-                
-                    <img 
-                        class="animation-rock"
-                        style="--delay:0.1s;"
-                        loading="lazy"
-                        width="9000" height="2160"
-                        src="/source/assets/diagrams/face-scanning.svg" 
-                        alt="">
-                    <figcaption>Facial landmarks are detected and tracked</figcaption>
-                </figure>
-
-                <figure id="diagram-face-landmarks-overlay" class="sticky full-width bg-clear">
-                
-                    <img 
-                        class="animation-rock"
-                        style="--delay:0.2s;"
-                        loading="lazy"
-                        width="9000" height="2160"
-                        src="/source/assets/diagrams/face-recognition.svg" 
-                        alt="">
-                    <figcaption>Moods and emotions are determined</figcaption>
-                </figure>
-            
-            </article>
-
-
-            <article class="split page">
+                <p>Developments in science, research, and development have resulted in exciting innovations that allow us to augment people's abilities in radical new ways using neural networking and machine learning.</p>
+                    
+                <p>By constantly refining, improving and evolving, thanks to feedback from loops of reinforced learning, and artificial intelligence that is trained to recognise patterns, we now have the neccessary tools to make it possible to elegantly interface with machines in natural and intuitive new ways.</p>
 
                 <p>Developed from the ground up to be accessible and inclusive, with the support and feedback from Drake
                     Music and hundreds of disabled and differently-abled people met through #DMLabs throughout the years.
@@ -386,27 +446,120 @@
                 <p>Rather than playing a musical instrument, the <cite>Photo<wbr>SYNTH</cite> plays you!</p>
                 <p>Without any training you can instantly make great music using movements familiar to you.</p>
 
-              
+            
                 <p>Every articulation can become an audio revelation… Instant musical superpowers!</p>
                 
                 <a href="https://royalsociety.org/science-events-and-lectures/summer-science-exhibition/" class="cta">Learn more</a>
 
             </article>
 
+            <!-- Technology ------------------------------------------- -->
+            <article id="technology" class="stackable page" data-observe data-readable>
+                <header>
+                    <h3 class="heading-icon">Technology</h3>
+                    <h4 class="underline">How converting emotions into music works</h4>
+                </header>
+                <p>Computers are very good at recognising patterns. 
+                    If you keep showing a computer ducks, eventually it will realise what ducks have in common - a bill, wings, webbed feat, a distinct waddle and some quacks. 
+                    With practice it becomes an expert it duck detection.
+                </p>
+                <p>
+                    The same can be true for recognising human characteristics such as moods and emotions. 
+                    Being happy presents many clues and indications when studied, most obvious is smiling, but joy also brings wide eyes, and delight raises eyebrows.  
+            
+                    Frowns and furrowed brows indicate signs of melancholy and malaise.
+                </p><p>
+                    Both are easy to spot. Like ducks.
+                </p>
+                <p>
+                    A well-trained machine can read you like a book...
+                </p>
+                
+                <p class="flood">
+                    <em>But can it play you like a musical instrument?</em>
+                </p>
+
+                <p>Imagine a world where rather than having to learn a musical instrument, the musical instrument could learn how to play you...</p>
+                
+                   
+                <p>
+                    <dfn id="definition-photosynth">The <cite>Photo<wbr>SYNTH</cite></dfn> is a 
+                    <dfn id="definition-mixed-reality">mixed-reality</dfn> audio synthesizer that uses real-time motion capture with
+                    facial-landmark tracking to enhance your movements, and the movements of your friends, with radical new musical
+                    superpowers, instantly turning you into a pop-star and your friends into a band!
+                </p>
+
+                <figure id="diagram-face-scan" class="diagram sticky full-width bg-clear">
+                    <img 
+                        class="animation-rock"
+                        style="--delay:0s;"
+                        loading="lazy"
+                        width="1024" height="1024"
+                        src="/source/assets/diagrams/face-winking.svg" 
+                        alt="The Photosynth, smile powered music.">
+                    <figcaption>Face is observed</figcaption>
+                </figure>
+
+                <p class="wavey">By using motion capture and augmented reality, the whole face is converted into a musical instrument
+                    where smiles are converted into musical notes, movements into melodies and facial expressions into audio
+                    filters and controls.</p>
+
+                <!-- Background mask & warnings -->
+                <figure id="diagram-face-scan-overlay" class="diagram sticky full-width bg-clear">
+                
+                    <img 
+                        class="animation-rock"
+                        style="--delay:0.1s;"
+                        loading="lazy"
+                        width="1024" height="1024"
+                        src="/source/assets/diagrams/face-scanning.svg" 
+                        alt="">
+                    <figcaption>Facial landmarks are detected and tracked</figcaption>
+                </figure>
+
+                <p class="wavey">Using facial landmarks as references, the user's facial expressions and mood are determinded.</p>
+
+                <figure id="diagram-face-landmarks-overlay" class="diagram sticky full-width bg-clear">
+                
+                    <img 
+                        class="animation-rock"
+                        style="--delay:0.2s;"
+                        loading="lazy"
+                        width="1024" height="1024"
+                        src="/source/assets/diagrams/face-recognition.svg" 
+                        alt="">
+                    <figcaption>Moods and emotions are determined</figcaption>
+                </figure>
+            
+                <p class="wavey">These metrics are then used to create music that tries to represent and invoke the same moods and emotions.</p>
+               
+                <figure id="diagram-face-mood-recognition" class="diagram sticky full-width bg-clear">
+            
+                    <img 
+                        class="animation-rock"
+                        style="--delay:0.3s;"
+                        loading="lazy"
+                        width="1024" height="1024"
+                        src="/source/assets/diagrams/face-recognised.svg" 
+                        alt="Mood has been recognised">
+                    <figcaption>Mood has been recognised</figcaption>
+                </figure>
+            
+                <blockquote class="sticky full-height">
+                    <p class="quote">Any sufficiently advanced technology is indistinguishable from magic.</p>
+                    <p class="citation">Arthur C Clarke<cite></cite></p>
+                </blockquote>
+                
+            </article>
         </section>
 
         <!-- Funky audio analyser overlay -->   
         <section id="waveforms" class="sticky full-height full-width" data-observe>
             
-            <audio id="audio-spell" src="/source/assets/audio/fx/spells/shine-magic-sound-4-sounds-190258.mp3" preload="auto"></audio>
+            <audio id="audio-sample" src="/source/assets/audio/fx/spells/shine-magic-sound-4-sounds-190258.mp3" preload="auto"></audio>
             
             <form action="/">
-                <!-- Play next note from provided song -->
-                <fieldset class="song-controls">
-                    <legend>Song Controls</legend>
-                    <button data-control-play type="button" class="cta">Play Song</button>
-                </fieldset>
-                                
+              
                 <fieldset class="timbre-selector">
                     <legend>Shape (Timbre)</legend>
                     <label for="song-timbre-random">
@@ -440,13 +593,74 @@
                 </fieldset>                
             </form>
             
+            <form id="emotion" action="/">    
+                <!-- Play next note from provided song -->
+                <fieldset class="song-controls">
+                    <legend>Song Controls</legend>
+                    <button data-control-play type="button" class="cta">Play Song</button>
+                </fieldset>
+                            
+
+                <fieldset class="anger-selector">
+                    <legend>Anger</legend>
+                    <button type="button" data-play-timbre="Pink Noise">Mildly Angry</button>
+                    <button type="button" data-play-timbre="Brown Noise">Quite Angry</button>
+                    <button type="button" data-play-timbre="White Noise">Very Angry</button>
+                </fieldset>
+
+                <fieldset class="octave-selector">
+                    
+                    <legend>Frequency</legend>
+
+                    <label for="octave-bass">
+                        <input id="octave-bass" name="octave" type="radio" value="3">
+                        <span class="notation">𝄢</span>
+                        Bass
+                    </label>
+                    
+                    <label for="octave-lead">
+                        <input id="octave-lead" name="octave" type="radio" value="4" checked>
+                        <span class="notation">𝄡</span>
+                        Lead
+                    </label>
+
+                    <label for="octave-treble">
+                        <input id="octave-treble" name="octave" type="radio" value="5">
+                        <span class="notation">𝄞</span>
+                        Treble
+                    </label>
+                    
+                </fieldset>
+    <!--                
+                <label for="emotion-ionian"><span class="emoji">😐</span>Ionian</label>
+                <input id="emotion-ionian" type="radio" name="emotion" value="ionian">
+            
+                <label for="emotion-dorian"><span class="emoji">🥹</span>Dorian</label>
+                <input id="emotion-dorian" type="radio" name="emotion" value="dorian">
+
+                <label for="emotion-phrygian"><span class="emoji">🫤</span>Phrygian</label>
+                <input id="emotion-phrygian" type="radio" name="emotion" value="phrygian"> -->
+          
+                <fieldset class="emotional-chord-player">
+                    <legend>Emotional Shapes</legend>
+                    <label for="button-happy">
+                        Happy sound
+                        <button class="button-image" id="button-happy" type="button">Happy</button>
+                    </label>
+
+                    <label for="button-sad">
+                        Sad sound
+                        <button class="button-image" id="button-sad" type="button">Sad</button>
+                    </label>
+                </fieldset>
+
+            </form>
+            
             <canvas id="visualiser" inert width=800 height=400></canvas>
            
         </section>
 
-        <!-- SCIENCE -->
-        <section id="science" class="shadow bg-clear" data-observe>
-         
+
             <!-- <article id="waveform-visualiser"  class="bg-clear shadow sticky full-height full-width" data-full-keyboard data-observe>
                    
                 <header>
@@ -455,126 +669,93 @@
                 </header>
 
             </article> -->
+
+            <article id="process">
+                <p>
+                    capture snapshots of movements and expressions
+                    converting them into a digital version that exists in 3d space           
+                    recognise emotions, expressions and moods and try to determine the intention
+                    generate music in response, that represents those same emotions and intentions to convey the same moods
+                    evoke the same emotions in the listener who is experiencing the music
+                </p>
+            </article>
      
-            <article id="shapes"  class="page bg-clear" data-full-keyboard data-observe>
+            <article id="shapes" class="page bg-clear" data-full-keyboard data-observe data-readable>
                 
                 <header>
                     <h3 class="heading-icon" data-timbre>The Shape of Sound</h3>
                     <h4>Unique Sonic characteristics</h4>
                 </header>
 
-                <p>Each sound has a distinct shape, similar to a fingerprint or snowflake, that dictate how it is perceived, how it moves and what effect it will have on matter..</p>
+                <p>Each sound has a distinct shape, similar to a fingerprint or snowflake. This affects how the sound travels, bounces off things, and what effect it will have on matter and how that is perceived by your ears (if at all) .</p>
+                 
+                <p>As sound moves it leaves remnants of itself on things it touches, imagine, if you like, sonic snail trails, vibrating and shedding frequencies and reverberations. These alter the acoustics and harmonics of the original sound and add character such as echo and reverb. </p>
+                <p>Sound travels at the same speeds as gases do, regardless of whether they are high or low pitched, however high frequencies can be directionalised, unlike bass that is omnipresent.</p>
                 <p>Round sounds such as the Sine wave sound soft and comfortable, whilst sharp, angular sounds, such as the Sawtooth wave, sound fierce and aggressive.</p>
                 <p>Often discordant and unpleasant sound is described as noise.</p>
                 
                 <p>Slow moving sounds are perceived as deep or bassy, whist the faster they vibrate, the higher pitched they sound.</p>
                
-                <form id="emotion" action="/">    
-                    <fieldset class="octave-selector">
-                        
-                        <legend>Frequency</legend>
-
-                        <label for="octave-bass">
-                            <input id="octave-bass" name="octave" type="radio" value="3">
-                            <span class="notation">𝄢</span>
-                            Bass
-                        </label>
-                        
-                        <label for="octave-lead">
-                            <input id="octave-lead" name="octave" type="radio" value="4" checked>
-                            <span class="notation">𝄡</span>
-                            Lead
-                        </label>
-
-                        <label for="octave-treble">
-                            <input id="octave-treble" name="octave" type="radio" value="5">
-                            <span class="notation">𝄞</span>
-                            Treble
-                        </label>
-                        
-                    </fieldset>
-        <!--                
-                    <label for="emotion-ionian"><span class="emoji">😐</span>Ionian</label>
-                    <input id="emotion-ionian" type="radio" name="emotion" value="ionian">
-                
-                    <label for="emotion-dorian"><span class="emoji">🥹</span>Dorian</label>
-                    <input id="emotion-dorian" type="radio" name="emotion" value="dorian">
-
-                    <label for="emotion-phrygian"><span class="emoji">🫤</span>Phrygian</label>
-                    <input id="emotion-phrygian" type="radio" name="emotion" value="phrygian"> -->
-              
-                    <fieldset class="emotional-chord-player">
-                        <legend>Emotional Shapes</legend>
-                        <label for="button-happy">
-                            Happy sound
-                            <button class="button-image" id="button-happy" type="button">Happy</button>
-                        </label>
-
-                        <label for="button-sad">
-                            Sad sound
-                            <button class="button-image" id="button-sad" type="button">Sad</button>
-                        </label>
-                    </fieldset>
-
-                </form>
             </article>
-        </section>
-
+     
         <!-- Research ------------------------------------------- -->
-      
-        <section id="science" class="split shadow" data-observe>
-            <article id="research" class="page">
-                <hgroup>
+            <article id="research" class="page split" data-readable  data-observe>
+                <header>
                     <h3 class="heading-icon">Research</h3>
                     <h4>"Some People"</h4>
-                </hgroup>
+                </header>
                     
                 <p>
                     Everybody is different and unique. 
                     Some people have incredible memories and can vividly remember past events, whilst some people forget where they put their house keys every day. 
-                    Some people are laser focussed whilst others' brains begin to womble off.
+                    Some people remain laser focussed while others' brains begin to womble off.
                 </p>
                 <p>
                     <em>Everybody has their own talents and their limitations.</em>
                 </p>
-                <p><strong>Everybody is differently abled.</strong>
-                    This diversity in human abilities has allowed humans to approach the same problem from different perspectives finding creative new ways of solving them.
+
+                <p><strong>Everybody is differently abled.</strong></p>
+                
+                <p>
+                    The diversity in human abilities has supported humanity by approaching problems from different perspectives and finding creative new ways of solving them.
                 </p>
                 <p>
                     Diversity is a human strength, and differences are powerful.
                 </p>
                 <p>
-                    If everybody did the same things in the same way, nothing new would ever happen.
-                    Creativity lies at the intersection of inspiration and expression, and innovations form to facilitate them.
+                    If everybody did the same things in the same fashion, 
+                    everything would be a sea of uneventful nothingness, 
+                    devoid of character, charm and appeal,  
+                    where nothing new or exciting ever happens.
                 </p>
+                <!-- <p>Creativity lies at the intersection of inspiration and expression, and innovations form to facilitate them.</p> -->
                 <p>
                     Some people have a natural talent for music whilst others struggle to play a note.
                 </p>
-                <p><em>What a wonderful world it would be if we all celebrated our differences through the universal language of music!</em>
+
+                <p class="question">
+                    Can technology help us to create a world where everyone can enjoy jamming together?
                 </p>
 
-                <blockquote class="sticky full-height">
-                    <p class="quote">Magic Mirror on the wall, 
-                        <br>who's the fairest of them all?</p>
-                    <p class="citation">Snow White<cite></cite></p>
-                </blockquote>
-        
-                <h4>Audio is powerful</h4>
-
-                <p>DMLab </p>
-                <p>Curiosity killed the cat, but also helped create world changing research.</p>
+                <p>We should celebrate our differences through the universal language of music and dance!</p>
+                <!-- <p>Curiosity killed the cat, but also helped create world changing research.</p> -->
             </article>
 
+            <blockquote>
+                <p><em>What a wonderful world it would be!</em></p>
+            </blockquote>
+            
         </section>
 
         <!-- Chords & Patterns ------------------------------------------- -->
         <section id="chords" class="bg-clear shadow" data-observe>
-            <article class="page">
+            <article class="page" data-readable>
                 <header>
                     <h3 class="heading-icon">Shapes &amp; Patterns</h3>
                     <h4>Chords & Patterns</h4>
                 </header>
-                
+            </article>
+            <article class="page">
                 <!-- This ID is used to scroll back to above the synth byt he link below it -->
                 <a id="link-chords" href="#link-chords" class="hidden-link">Bookmark the Circular Synth</a>
 
@@ -809,169 +990,155 @@
 
         </section>
         
-        <!-- Technology ------------------------------------------- -->
-      
-        <section id="technology" class="split shadow" data-observe>
-            <article class="page">
-                <header>
-                    <h3 class="heading-icon">Technology</h3>
-                    <h4>And how it works</h4>
-                </header>
-                <p>Computers are very good at recognising patterns. 
-                    If you keep showing a computer ducks, eventually it will realise what ducks have in common - a bill, wings, webbed feat, a distinct waddle and some quacks. 
-                    With practice it becomes an expert it duck detection.
-                </p>
-                <p>
-                    The same can be true for recognising emotions. 
-                    Happiness presents many obvious indicators such as smiling, wide eyes and raised eyebrows.  
-            
-                    Whilst frowns and furrowed brows indicate melancholy and malaise.
-                    Both are easy to spot. Like ducks.
-                </p>
-                <p>
-                    A well-trained machine can read you like a book...
-                </p>
-                
-                <p class="flood">
-                    <strong>But can it play you like a musical instrument?</strong>
-                </p>
-
-                
-                <blockquote class="sticky full-height">
-                    <p class="quote">Any sufficiently advanced technology is indistinguishable from magic.</p>
-                    <p class="citation">Arthur C Clarke<cite></cite></p>
-                </blockquote>
-            </article>
-        </section>
-
-
-        <!-- AMIC ------------------------------------------- -->
-        <section id="amic"  class="split shadow" data-observe>
-
-            <article class="page">
-
-                <hgroup>
-                    <h3 class="heading-icon">Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h3>
-                </hgroup>
-                    
-                <p>Over 14 years, working directly with disabled artists and people with no musical abilities, DMLab has been researching ways to grant musical superpowers through research and technology.</p>
-            
-                <figure class="sticky bumpers">
-                    <picture>
-                        <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=avif&width=1080" type="image/avif" />
-                        <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=webp&width=1080" type="image/webp" />
-                        <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" type="image/jpeg" />
-                        <img loading="lazy" src="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" alt="The Holographic PhotoSYNTH being presented at the AMIC, Accessible Musical Instrument Collection." />
-                    </picture>
-                    <figcaption>AMIC. Holographic PhotoSYNTH.</figcaption>
-                </figure>
-            
-                <figure class="sticky bumpers">
-                    <img loading="lazy" src="/source/assets/photos/alexander-baxevanis.jpg" alt="The Holographic PhotoSYNTH being presented at the Electromagnetic Fields Festival.">
-                    <figcaption>
-                        Holographic PhotoSYNTH at the Electromagnetic Fields Festival 
-                        <br>Photograph by <cite class="attribution">Alexander Baxevanis</cite>
-                        <a class="license" href="https://creativecommons.org/licenses/by/2.0/">
-                        <img src="/source/assets/icons/cc-icon.svg" alt="Creative Commons Attribution 2.0 Generic" width="44" height="44">
-                        <img src="/source/assets/icons/cc-icons-person.svg" alt="Creative Commons Attribution 2.0 Generic" width="44" height="44">
-                            CC2.0
-                        </a>
-                    </figcaption>
-                </figure>
-
-
-                <p>Over the past 14 years we have run the DMLab workshop in London (and now Manchester too) that invites people with technical knowledge and people with disabilities and different abilities to work together in order to research and develop new ways of interacting with technology. 
-                    One area that we have been working on is using neural networks and machine learning to attempt to determine intention from emotions and motions in realime, in order to augment existing skills with new musical powers. 
-                    By piggybacking onto intrinsic movements, that come naturally, a performance can be both expressive and communicative, where the dance leads the music, this could be as simple as binding musical actions to hand movements, or as sophisticated as a collaborative multiplayer face controlled pop-music factory that learns how to play you!
-                </p>
-            
-                <p>A duet collaboration between the godfather of biometric music, Zenon Olenski and DMLab, Drake Music's
-                    legendary research and development team, and hundreds of disabled artists.
-                
-                </p>
-
-                <p>
-                    https://mimugloves.com/
-                </p>
-
-                <h3>A Celebration of diversity & Inclusion</h3>
-                <p>A musical instrument is at the zenith of fidelity, some are incredibly complicated machines that require time to master. 
-                    If you can control a complex musical instrument 
-                
-                    The same techniques used to simplify music making can be used for controlling other things.
-                </p>
-            </article>
-        </section>
 
         <!-- DMLab ------------------------------------------- -->
-        <section  id="laboratory" class="shadow" data-observe>
-            <article class="page">
+        <section  id="laboratory" class="wavey shadow" data-observe>
 
-                <hgroup>
+            <article class="page" data-readable>
+
+                <header class="underline">
                     <h3 class="heading-icon">Laboratory</h3>
-                    <h4>#DMLab and the Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h4>
-                </hgroup>
+                    <h4>Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h4>
+                </header>
 
-                <dl class="data-address">
+                <!-- AMIC ------------------------------------------- -->
+                <section id="amic" class="split" data-observe>
+                    <hgroup>
+                        <h5 class="heading-icon">Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h5>
+                    </hgroup>
+                        
+                    <p>Over 14 years, working directly with disabled artists and people with no musical abilities, DMLab has been researching ways to grant musical superpowers through research and technology.</p>
                 
-                    <dt>Venue</dt>
-                    <dd>DMLab RichMix</dd>
+                    <figure class="sticky bumpers">
+                        <picture>
+                            <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=avif&width=1080" type="image/avif" />
+                            <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=webp&width=1080" type="image/webp" />
+                            <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" type="image/jpeg" />
+                            <img loading="lazy" src="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" alt="The Holographic PhotoSYNTH being presented at the AMIC, Accessible Musical Instrument Collection." />
+                        </picture>
+                        <figcaption>AMIC. Holographic PhotoSYNTH.</figcaption>
+                    </figure>
+                
+                    <figure class="sticky bumpers">
+                        <img loading="lazy" src="/source/assets/photos/alexander-baxevanis.jpg" alt="The Holographic PhotoSYNTH being presented at the Electromagnetic Fields Festival.">
+                        <figcaption>
+                            Holographic PhotoSYNTH at the Electromagnetic Fields Festival 
+                            <br>Photograph by <cite class="attribution">Alexander Baxevanis</cite>
+                            <a class="license" href="https://creativecommons.org/licenses/by/2.0/">
+                            <img src="/source/assets/icons/cc-icon.svg" alt="Creative Commons Attribution 2.0 Generic" width="44" height="44">
+                            <img src="/source/assets/icons/cc-icons-person.svg" alt="Creative Commons Attribution 2.0 Generic" width="44" height="44">
+                                CC2.0
+                            </a>
+                        </figcaption>
+                    </figure>
 
-                    <dt>Address</dt>
-                    <dd class="address">
-                        <address>
-                            <span class="street-address">35-47 Bethnal Green Rd</span>
-                            <span class="delimiter">,</span>
-                            <span class="town">Shoreditch</span>
-                            <span class="delimiter">,</span>
-                            <span class="locality">London</span>
-                            <span class="delimiter">,</span>
-                            <span class="postal-code">E1 6LA</span>
-                            <span class="country-name">United Kingdom</span>
-                        </address>
-                    </dd>
 
-                    <dt>Telephone</dt>
-                    <dd class="tel"><a href="tel:02077395444">020 7739 5444</a></dd>
+                    <p>Over the past 14 years we have run the DMLab workshop in London (and now Manchester too) that invites people with technical knowledge and people with disabilities and different abilities to work together in order to research and develop new ways of interacting with technology. 
+                        One area that we have been working on is using neural networks and machine learning to attempt to determine intention from emotions and motions in realime, in order to augment existing skills with new musical powers. 
+                        By piggybacking onto intrinsic movements, that come naturally, a performance can be both expressive and communicative, where the dance leads the music, this could be as simple as binding musical actions to hand movements, or as sophisticated as a collaborative multiplayer face controlled pop-music factory that learns how to play you!
+                    </p>
+                
+                    <p>A duet collaboration between the godfather of biometric music, Zenon Olenski and DMLab, Drake Music's
+                        legendary research and development team, and hundreds of disabled artists.
                     
-                    <dt>Email</dt>
-                    <dd class="email"><a href="mailto:info@drakemusic.org">info@drakemusic.org</a></dd> 
-            
-                    <dt id="social-media">Social Media</dt>
-                    <dd class="social-media">
-                        <ul >
-                            <li>
-                                <a class="socials-twitter" href="http://www.twitter.com/drake_music" rel="noopener noreferrer" target="_blank">
-                                Twitter / X
-                                </a>
-                            </li>
+                    </p>
+
+                    <p>
+                        https://mimugloves.com/
+                    </p>
+
+                    <h3>A Celebration of diversity & Inclusion</h3>
+                    <p>A musical instrument is at the zenith of fidelity, some are incredibly complicated machines that require time to master. 
+                        If you can control a complex musical instrument 
+                    
+                        The same techniques used to simplify music making can be used for controlling other things.
+                    </p>
+                </section>
+
+                <section id="lab-venue-details" class="">
+                    <dl id="lab-venue-london" class="data-address">
+                    
+                        <dt>London Venue</dt>
+                        <dd>DMLab RichMix</dd>
+
+                        <dt>Address</dt>
+                        <dd class="address">
+                            <address>
+                                <span class="street-address">35-47 Bethnal Green Rd</span>
+                                <span class="delimiter">,</span>
+                                <span class="town">Shoreditch</span>
+                                <span class="delimiter">,</span>
+                                <span class="locality">London</span>
+                                <span class="delimiter">,</span>
+                                <span class="postal-code">E1 6LA</span>
+                                <span class="country-name">United Kingdom</span>
+                            </address>
+                        </dd>
+                    </dl>
+
+                    <dl id="lab-venue-manchester" class="data-address">
+                    
+                        <dt>Manchester Venue</dt>
+                        <dd>School of Digital Arts SODA</dd>
+
+                        <dt>Address</dt>
+                        <dd class="address">
+                            <address>
+                                <span class="street-address">35-47 Bethnal Green Rd</span>
+                                <span class="delimiter">,</span>
+                                <span class="town">Shoreditch</span>
+                                <span class="delimiter">,</span>
+                                <span class="locality">London</span>
+                                <span class="delimiter">,</span>
+                                <span class="postal-code">E1 6LA</span>
+                                <span class="country-name">United Kingdom</span>
+                            </address>
+                        </dd>
+                    </dl>
+
+                    <dl id="lab-contact" class="data-contact">
+                        <dt>Telephone</dt>
+                        <dd class="tel"><a href="tel:02077395444">020 7739 5444</a></dd>
                         
-                            <li>
-                                <a class="socials-facebook" href="http://www.facebook.com/drakemusicorg" rel="noopener noreferrer" target="_blank">
-                                Facebook
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a class="socials-instagram" href="http://www.instagram.com/drakemusicorg" rel="noopener noreferrer" target="_blank">
-                                Instagram
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a class="socials-youtube" href="https://www.youtube.com/user/drakemusicorg/featured" rel="noopener noreferrer" target="_blank">
-                                YouTube
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a class="socials-soundcloud" href="http://www.soundcloud.com/drake_music" rel="noopener noreferrer" target="_blank">
-                                SoundCloud
-                                </a>
-                            </li>
-                        </ul>    
-                    </dd>
-                </dl>
+                        <dt>Email</dt>
+                        <dd class="email"><a href="mailto:info@drakemusic.org">info@drakemusic.org</a></dd> 
+                
+                        <dt id="social-media">Social Media</dt>
+                        <dd class="social-media">
+                            <ul >
+                                <li>
+                                    <a class="socials-twitter" href="http://www.twitter.com/drake_music" rel="noopener noreferrer" target="_blank">
+                                    Twitter / X
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a class="socials-facebook" href="http://www.facebook.com/drakemusicorg" rel="noopener noreferrer" target="_blank">
+                                    Facebook
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a class="socials-instagram" href="http://www.instagram.com/drakemusicorg" rel="noopener noreferrer" target="_blank">
+                                    Instagram
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a class="socials-youtube" href="https://www.youtube.com/user/drakemusicorg/featured" rel="noopener noreferrer" target="_blank">
+                                    YouTube
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a class="socials-soundcloud" href="http://www.soundcloud.com/drake_music" rel="noopener noreferrer" target="_blank">
+                                    SoundCloud
+                                    </a>
+                                </li>
+                            </ul>    
+                        </dd>
+                    </dl>
+                </section>
             </article>
 
         </section>
@@ -987,7 +1154,6 @@
                     <h3 class="heading-icon">History</h3>
                 </header>
 
-                
                 <blockquote class="sticky full-height">
                     <p class="quote">Music is an unconscious exercise in mathematics in which the mind is unaware that it is calculating.</p>
                     <p class="citation">Gottfried Wilhelm Leibniz <cite></cite></p>
@@ -1025,7 +1191,7 @@
 
                 <details>
                     <summary>
-                        Where we began
+                        <h5>Accessible Musical Instrument Collection</h5>
                     </summary>
 
                     Access to the right musical instruments and technology can be powerful and transformative.
@@ -1054,123 +1220,22 @@
 
         </section>
 
-        <section id="playback" class="shadow sticky bg-transparent overflow-scroll-x full-height" data-observe>
+
+        <section id="playback" class="sticky bg-transparent full-height full-width" data-observe>
             <canvas id="song-in-pixels" width="320" height="128"></canvas>
         </section>
         
-        <!-- Event ------------------------------------------- -->
-        <section id="event" class="shadow" data-observe>
-           
-            <article class="page">
-                <hgroup>
-                    <h3 class="heading-icon">Summer Exhibition 2025</h3>
-                    <h4>Come and join us for a fun musical celebration of diversity, inclusive technology and science!</h4>
-                </hgroup>
 
-                <img class="icon float outside-leaning-polygon" width="100" height="100" src="/source/assets/icons/hearing-loop.svg" alt="Hearing loop enabled venue.">
-          
-                <p>The exhibition will feature a series of interactive installations and hands-on demonstrations.</p>
-                <p>
-                    The venue is fully accessible and has hearing loop T enabled 
-                    <i class="emoji">🦻</i> 
-                    and quiet spaces.
-                </p>
-
-                <figure>
-                    <table>
-                        <caption>Facilities</caption>
-                        
-                        <tr>
-                            <th>Wheelchair accessible</th>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th>Hearing loop</th>
-                            <td><img class="icon float outside-leaning-polygon" width="100" height="100" src="/source/assets/icons/hearing-loop.svg" alt="Hearing loop enabled venue."></td>
-                        </tr>
-                        <tr>
-                            <th>Lifts, elevators and stairs</th>
-                            <td>Lifts are available for access to the basement level or first floor.</td>
-                        </tr>
-                        <tr>
-                            <th>Signage</th>
-                            <td>Well lit signage</td>
-                        </tr>
-                        <tr>
-                            <th>Guide dogs</th>
-                            <td>water, special rest room</td>
-                        </tr>
-                        <tr>
-                            <th>Accessible toilet</th>
-                            <td> There is an accessible toilet on the ground floor behind the reception area and an ambulant toilet in the basement. 
-                                There are baby changing facilities in all the toilets in the basement and in the accessible toilet behind reception. 
-                                Please note that the baby change facilities in the accessible toilets should only be used by parents/carers that specifically require the use of an accessible toilet, as baby changes facilities are available elsewhere.</td>
-                        </tr>
-                        <tr>
-                            <th>Quiet space</th>
-                            <td>There is a quiet room on the ground floor next to the marble hall. <em>Please ask the reception desk if you need access to this space.</em></td>
-                        </tr>
-                    </table>
-                    <figcaption>Accessibility facilities</figcaption>
-                </figure>
-
-            </article>
-
-            <article id="event-info" class="page">
-                <h5>Event Details</h5>
-                <iframe class="map" width="1080" height="540" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1344162225723267%2C51.50472238057011%2C-0.1302212476730347%2C51.506889393716634&amp;layer=mapnik"></iframe>
-                <a class="link-map" href="https://www.openstreetmap.org/?#map=18/51.505806/-0.132319">View Larger Map</a>
-            
-                <details>
-                    <summary><h6>Getting there</h6></summary>
-                    <p>
-                        Underground stations: Charing Cross and Piccadilly Circus
-                        Bus routes: 12, 13, 15 and 453.
-                        Coach station: Connections from Victoria coach station
-                        <a rel="noopener noreferrer" target="_blank" href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">See official recommendations</a>       
-                    </p>
-                </details>
-            </article>
-
-            <aside id="details" class="page">
-                <h4>Summer Science Exhibition 2025 Details</h4>
-                <dl class="data-address">
-                    <dt>Start</dt>
-                    <dd><time datetime="2025-07-01 09:00">July 1<sup>st</sup>, 2025</time></dd>
-    
-                    <dt>End</dt>
-                    <dd><time datetime="2025-07-06 09:00">July 6<sup>th</sup>, 2025</time></dd>
-    
-                    <dt>Venue</dt>
-                    <dd>Royal Society</dd>
-    
-                    <dt>Address</dt>
-                    <dd class="address">
-                        <a href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">
-                            <address>
-                                <span class="street-address">6-9 Carlton House Terrace</span><span class="delimiter">, </span><span class="locality">London</span><span class="delimiter">, </span><span class="postal-code">SW1Y 5AG</span><span class="delimiter">, </span><span class="country-name">United Kingdom</span>
-                            </address>
-                        </a>
-                    </dd>
-        
-                    <dt>Location</dt>
-                    <dd>London</dd>
-    
-                    <dt>Category</dt>
-                    <dd>Exhibition</dd>
-                </dl>
-            </aside>
-        </section>
 
 
     <!-- Frequently Asked Questions ------------------------------------------- -->
-        <section id="faq" class="shadow" data-observe>
+        <section id="faq" class="shadow wavey" data-observe>
             <article class="page">
                 
-                <hgroup>
+                <header>
                     <h3 class="heading-icon">FAQ - Frequently Asked Questions</h3>
                     <h4>Answers to common questions</h4>
-                </hgroup>
+                </header>
                
                 <details name="questions">
                     <summary><h5>Question</h5></summary>
@@ -1204,6 +1269,10 @@
 
             </article>
         </section>
+        
+        <!-- Interactive wallpapers -->
+        <canvas id="mouse-visualiser" inert></canvas>
+        <canvas id="wallpaper"></canvas>
 
     </main>
 
