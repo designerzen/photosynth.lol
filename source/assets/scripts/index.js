@@ -612,7 +612,7 @@ const fetchStateFromRadioButtons = () => {
 
     // ensure MIDI is always set to checked OFF
     const midiToggle = document.getElementById("toggle-midi")
-    midiToggle.checked = FontFaceSetLoadEvent
+    midiToggle.checked = false
 }
 
 // USER INTERFACE ==============================================================
