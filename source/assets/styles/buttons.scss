@@ -168,7 +168,7 @@ a.cta{
     }
 }
 
-button.button-image{
+.button-image{
     --size:var(--button-size, 144px);
     background-position: center;
     background-size: contain;
@@ -228,20 +228,29 @@ button.button-image{
     margin:var(--pad) calc(2 * var(--pad));
     color:transparent;
     
+    width: var(--size, 1lh);
+    overflow:hidden;
+    border-radius:999px;
+    padding:0;
+    margin:0;
+
+    color:transparent;
+
     &::before{
         content:'';
         font-size:inherit;
         background-image: url(/source/assets/icons/share.svg);
         background-position: center;
         // background-size: contain;
+        box-sizing:border-box;
         background-size: auto;
         background-repeat: no-repeat;
         width: var(--size, 1lh);
         height: var(--size, 1lh);
         display: inline-block;
-        vertical-align: middle;
+        // vertical-align: middle;
         // padding:0 calc(var(--pad)/2);
-        margin-right:calc( var(--pad) / 4 );
+        // margin-right:calc( var(--pad) / 4 );
         filter:brightness(100%) invert(100%);
         border: 2px solid black;
         border-radius: 999px;
@@ -271,6 +280,36 @@ button[data-control-play]{
         margin-right:calc( var(--pad) / 4 );
         filter:brightness(100%) invert(100%);
     }
+}
+
+.button-read{
+    --offset-right: calc( 44px + var(--pad));
+    background-color: var(--col-accent);
+    background-image: url(/source/assets/icons/play_circle.svg);
+    background-size: contain;
+    background-position: center left;
+    font-size:0;
+    color:transparent;
+    top:calc( 2 * var(--pad) );
+    // right:calc( 2 * var(--pad) );
+    left:calc( 100% - var(--offset-right,0));
+    position: absolute;
+    position: sticky;
+    box-sizing: border-box;
+
+    // float: right;
+    // margin-top:calc( 2 * var(--pad) );
+    // margin-right:calc( 2 * var(--pad) );
+    shape-outside: circle(50%);
+
+    &[data-speaking]{
+        background-image: url(/source/assets/icons/stop_circle.svg);
+    }
+}
+
+// clear some room for the button
+[data-readable] .button-read + *:first-of-type{
+    padding-right:calc( var(--pad) * 3);
 }
 
 a.back-to-top,
@@ -315,6 +354,8 @@ a.back-to-top{
     justify-self: end;
     // margin-top:1px;
     margin-bottom:1px;
+    box-sizing: border-box;
+    padding: 0;
     z-index: 868;
 }
 
@@ -347,30 +388,59 @@ a.skip-to-content{
         font-size: inherit;
         color:var(--col-white);
         padding:var(--pad);
+        // max-width:88px;
+        max-width: calc(2 * 44px);
+
         &::after{
             display: none;
         }
+    }
+    .button-read{
+        --offset-right: calc(3 * 44px + var(--pad) * 2);
     }
 }
 
 label[for="toggle-midi"]{
 // #toggle-midi{
-    background-image:url("/source/assets/icons/midi-copyright-free.svg");
-    // background-image:url("../logos/midi-association.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 1;
     // position: absolute;
     padding:0;
+    margin: 0;
     // bottom:var(--pad);
     // left:var(--pad);
-    color: transparent;
     width: fit-content;
+  
+    &::before{
+        content: '';
+        background-image:url("/source/assets/icons/midi-copyright-free.svg");
+        // background-image:url("../logos/midi-association.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        grid-area: 1/1/-1/-1;
+        display: none;
+        z-index: 1;
+    }
+
+    &:has(:checked)::before{ 
+        filter:brightness(0%) invert(100%);
+    }
+}
+
+aside > label[for="toggle-midi"]{
     display: grid;
+    font-size: 0;
+    color: transparent;
+    // margin-bottom: var(--pad);
+ 
+    &::before{
+        display: block;
+    }
 }
 
 #toggle-midi{
+    --size:66px;
     grid-area: 1/1/-1/-1;
+    border-radius: 999px;
+    overflow: hidden;
 }
 
 #button-text-size-increase,
@@ -408,11 +478,15 @@ label[for="toggle-midi"]{
 #song-timbre-previous,
 #song-timbre-random{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     border-radius: var(--curve, 4px);
+    min-width: 44px;
     margin:0;
+    padding: var(--pad);
+    gap:calc(var(--pad) / 4 );
     &::before{
         content:'';
         background-repeat: no-repeat;
@@ -439,7 +513,8 @@ label[for="toggle-midi"]{
 }
 #song-timbre-random{
     &::before{
-        background-image: url('/source/assets/icons/fast_forward_black_24dp.svg');  
+        background-image: url('/source/assets/icons/interests.svg');  
+        // background-image: url('/source/assets/icons/fast_forward_black_24dp.svg');  
     }
 }
 

@@ -33,6 +33,9 @@
         // mix-blend-mode: multiply;
         filter:invert(100%) brightness(.8) contrast(1.2);
     }
+    .icon {
+        filter:brightness(0);
+    }
     // main{
     //     background-color: var(--col-charcoal);
     // }
@@ -43,7 +46,8 @@
         filter:invert(100%);   
     }
     .logo-drake-music{
-        filter: brightness(0%) invert(100%) ;
+        // filter: brightness(0%) invert(100%) ;
+        filter: brightness(100%);
     }
     .logo-royal-society{
         filter: brightness(66%) ;

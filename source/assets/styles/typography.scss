@@ -19,6 +19,8 @@ body{
     }
 }
 
+[data-countdown],
+time,
 strong{
     font-weight: bolder;
 }
@@ -42,25 +44,29 @@ option{
     font: inherit;
 }
 
-.page header,
-hgroup{
-    margin-bottom:var(--pad);
-}
+// .page header,
+// hgroup{
+//     margin-bottom:var(--pad);
+// }
 
 // Same sizes as Royal Society :D
+.h1,
 h1 {
     font-size: clamp( 22px, 5vw, var(--font-size-h1) );
     font-weight: 900;
     line-height: 1.2;
 }
 
-h2 {
+.h2,
+h2,
+blockquote,
+blockquote p  {
     font-size: clamp( 18px, 4vw, var(--font-size-h2) );
     line-height: 1.2;
 }
 
-h3,
-blockquote{
+.h3,
+h3{
     font-size: var(--font-size-h3);
     line-height: 1.2;
 }
@@ -93,52 +99,53 @@ a[href="#teaser"],
     --icon:url(/source/assets/icons/audiotrack-24px.svg);
 }
 
+a[href="#midi-equipment"],
+#midi-equipment .heading-icon{
+    --icon:url(/source/assets/icons/midi-copyright-free.svg);
+}
+
+
 a[href="#about"],
 #about .heading-icon{
     --icon:url(/source/assets/icons/accessibility_new-24px.svg);
 }
-
 a[href="#chords"],
 #chords .heading-icon{
     --icon:url(/source/assets/icons/piano-24px.svg);
 }
-
+a[href="#venue"]
+#venue .heading-icon{
+    --icon:url(/source/assets/icons/fmd_good.svg);
+}
 a[href="#technology"],
 #technology .heading-icon{
     --icon:url(/source/assets/icons/speaker-24px.svg);
 }
-
 a[href="#laboratory"],
 #laboratory .heading-icon{
     --icon:url(/source/assets/icons/biotech.svg);
 }
-
 a[href="#science"],
 #science .heading-icon{
     --icon:url(/source/assets/icons/favorite-24px.svg);
 }
-
 a[href="#research"],
 #research .heading-icon{
     --icon:url(/source/assets/icons/favorite-24px.svg);
 }
-
 a[href="#history"],
 #history .heading-icon{
     --icon:url(/source/assets/icons/access_time.svg);
 }
-
 a[href="#event"],
 #event .heading-icon{
     --icon:url(/source/assets/icons/event.svg);
     // --icon:url(/source/assets/icons/accessible-24px.svg);
 }
-
 a[href="#faq"],
 #faq .heading-icon{
     --icon:url(/source/assets/icons/help_black_24dp.svg);
 }
-
 a[href="#waveform-visualiser"],
 #waveform-visualiser .heading-icon{
     --icon:url(/source/assets/icons/music_video.svg);
@@ -146,24 +153,25 @@ a[href="#waveform-visualiser"],
    
     --icon:url(/source/assets/icons/waves.svg);
 }
-
 a[href="#shapes"],
 #shapes .heading-icon{
     --icon:url(/source/assets/icons/trip_origin.svg);
     --icon:url(/source/assets/icons/water.svg);
 }
 
-p.flood{
-    font-size: var(--font-size-h3);
-}
 
+.h4,
 h4,
 legend,
-p:first-of-type {
+:is(article,section,div) > p:first-of-type{ 
     font-size: var(--font-size-h4);
     line-height: 1.3
 }
+p.flood{
+    font-size: var(--font-size-h5);
+}
 
+.h5,
 summary,
 summary > :is(h3,h4,h5,h6),
 figcaption,
@@ -171,6 +179,7 @@ h5 {
     font-size: var(--font-size-h5);
 }
 
+.h6,
 h6 {
     font-size: var(--font-size-h6);
 }
@@ -187,23 +196,34 @@ details p:first-of-type{
 
 
 blockquote{
+    display: grid; 
+    grid-template-columns: auto 1fr calc(var(--pad) * 2);
+    grid-template-rows: 
+        1fr 
+        auto 
+        auto
+        1fr 
+        ;
 
-    display: grid;
     grid-template-areas: 
-        "icon quote"
-        ". citation";
+        ". . ."
+        "icon quote ."
+        ". citation ."
+        ". . .";   
 
-    grid-template-rows: auto auto;
     align-items: center;
-    align-content: center;
+    // align-content: end;
+    // align-items: baseline;
+    // justify-content: end;
+    justify-items: center;
+    gap: 0 var(--pad);
 
     &::before{
         content:'“';
-        font-size: 500%;
+        font-size: 360%;
         line-height: 1;
         color: var(--col-warm-grey-light);
         color: var(--col-plum);
-        margin-right:var(--pad);
         grid-area: icon;
     }
 
@@ -235,22 +255,26 @@ blockquote{
     // h1 {
     //     font-size: var(--font-size-h1-mobile)
     // }
-    // h2 {
+    // h2,
+    // blockquote,
+    // blockquote p  {
     //     font-size: var(--font-size-h2-mobile)
     // }
 
+    .h3,
     h3,
-    p.flood,
-    blockquote{
+    p.flood{
         font-size: var(--font-size-h3-mobile);
     }
 
+    .h4,
     h4,
     legend,
     p:first-of-type {
         font-size: var(--font-size-h4-mobile);
     }
 
+    .h5,
     summary,
     figcaption,
     details p:first-of-type,
@@ -258,10 +282,10 @@ blockquote{
         font-size: var(--font-size-h5-mobile);
     }
 
+    .h6,
     h6 {
         font-size: var(--font-size-h6-mobile);
     }
-    
 }
 
 
@@ -279,7 +303,7 @@ a:not(
 }
 
 em {
-    font-family: var(--font-primary-italic)
+    // font-family: var(--font-primary-italic)
 }
 
 legend{

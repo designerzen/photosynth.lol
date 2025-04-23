@@ -42,10 +42,11 @@
             padding:var(--pad) calc(var(--pad) * 0.5 );
             display: block;
             text-decoration: none;
+            line-height: 1;
             color:var(--col-white);
             transition: 
-            background-color var(--time-long, 90ms) linear,
-            color var(--time-long, 90ms) linear;
+                background-color var(--time-long, 90ms) linear,
+                color var(--time-long, 90ms) linear;
 
             display: flex;
             flex-direction: column;
@@ -119,6 +120,7 @@
         ul{
             --gap:1px; //clamp( 11px, 5vw, calc( 1 * var(--pad) ) );
             margin:var(--pad) calc( 2 * var(--pad) );
+            margin-left: 0;
             border-radius: 99px;
             overflow: hidden;
             padding:0 calc( 1.5 * var(--pad) );
@@ -214,10 +216,11 @@
         background-repeat: no-repeat;
         background-position: center;
     }
-    #controls-volume{
-        display: grid;
-        grid-template-areas: "legend mute vol";
-        grid-template-columns: auto auto 1fr;
+    #controls-volume fieldset{
+        
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row-reverse;
     
         legend{
             grid-area:legend;

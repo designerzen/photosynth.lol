@@ -93,6 +93,30 @@ ul{
     }
 }
 
+
+// Data & Tables
+
+dl.data-contact,
+dl.data-address{
+    display: grid;
+    grid-template-columns: auto minmax(120px, 10fr);
+    gap:calc(var(--pad) / 2);
+    align-items: baseline;
+
+}
+
+dd{
+    margin:0;
+}
+
+th,
+dt{
+    text-align: right;
+    color:var(--col-warm-grey, grey);
+}
+
+
+
 // Type
 :where(
     h1,h2,h3,h4,h5,h6
@@ -138,6 +162,7 @@ abbr{
 
 aside{
     margin-top:var(--pad);
+    padding: calc(2 * var(--pad));
 }
 
 :where(blockquote){
@@ -207,6 +232,7 @@ svg[aria-hidden='true'] {
     // background-color: transparent;
     background-color: var(--col-bg);
     color:var(--col-text);
+    font:inherit;
 
     display: grid;
     grid-template-areas: "select icon";
@@ -252,6 +278,7 @@ svg[aria-hidden='true'] {
 
     optgroup{
         appearance:none;
+        font:inherit;
         font-weight:900;
         text-transform: uppercase;
         margin:auto;
@@ -264,6 +291,7 @@ svg[aria-hidden='true'] {
 
         text-transform:initial;
         text-align: left;
+        font:inherit;
         font-weight: 800;
         // border-radius: 2px;
         transition: var(--time-quick, 90ms) all ease-in;
@@ -373,13 +401,14 @@ fieldset{
     padding-bottom: calc( var(--pad) * 2 );
 
     background-color: inherit;
-
+    border-color: var(--col-stone);
+    
     legend{
         text-align: center;
         padding-left:calc( var(--pad) / 2 );
         padding-right:calc( var(--pad) / 2 );
         background-color: inherit;
-        border-radius: 4px;
+        border-radius: var(--curve, 4px);
     }
 }
 

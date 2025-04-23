@@ -4,7 +4,9 @@ figure{
     --col:var(--col-accent);
     
     background: inherit;
-    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     overflow: hidden;
  
     // there may be nested icons in figcaption for attributions etc
@@ -12,8 +14,8 @@ figure{
        
         width:auto;
         // min-width: 100%;
-        max-height: calc(100vh - var(--footer-height) - var(--pad) );
-        max-height: calc(100dvh - var(--footer-height) - var(--pad) );
+        max-height: calc(100vh - var(--footer-height) - var(--pad) * 2 );
+        max-height: calc(100dvh - var(--footer-height) - var(--pad) * 2 );
         margin-left: auto;
         margin-right: auto;
     }
@@ -36,11 +38,19 @@ figure{
 // as these overlay and stick...
 figure.sticky{
     background: var(--col-bg);
+    // ensure it sticks a little away from the top
+    top: var(--pad);
+
+    margin-bottom: calc( var(--pad) * 5);
+
+    img{
+        max-width:min(420px, 66%);
+    }
+    figcaption{
+        width: 100%;
+    }
 }
 
-.stackable figure.sticky{
-    background: transparent;
-}
 
 .bumpers{
     border-top: var(--depth) solid var(--col);
