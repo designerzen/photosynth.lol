@@ -41,6 +41,9 @@ import { SongCanvas } from "./components/song-canvas.js"
 import { countdown } from "./countdown.js"
 import { getRandomSpell } from "./sfx.js"
 
+// Data locations
+import manifest from "/static/wave-tables/general-midi/manifest.json"
+
 // audio reqiures a user gesture to start...
 // so we hook into each musical event to check if the user has engaged
 let hasUserEngaged = false
@@ -48,7 +51,9 @@ let hasUserEngaged = false
 // flag for showing the whole keyboard on screen rather than a trimmed size
 let showAllKeys = true
 
+// options
 const loadFromZips = false
+const debug = true
 
 // read any saved themes from the URL ONLY (not from cookies so no overlay required :)
 const searchParams = new URLSearchParams(location.search)
@@ -254,8 +259,8 @@ const noteOn = ( noteModel, velocity=1, id=0 ) => {
     }
 
     const synth = getSynthForFinger(id)
-    synth.noteOn( noteModel, velocity )                                                                                                            
-    keyboard.setKeyAsActive( noteModel )    // highlight the keys on the keyboard!    
+    synth && synth.noteOn( noteModel, velocity )                                                                                                            
+    keyboard && keyboard.setKeyAsActive( noteModel )    // highlight the keys on the keyboard!    
     hero && hero.noteOn( noteModel )
     noteVisualiser && noteVisualiser.noteOn( noteModel, velocity )
     mouseVisualiser && mouseVisualiser.noteOn( noteModel, velocity )
@@ -287,8 +292,8 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
     }
 
     const synth = getSynthForFinger(id)
-    synth.noteOff( noteModel, velocity )
-    keyboard.setKeyAsInactive( noteModel )   // unhighlight the keys on the keyboard
+    synth && synth.noteOff( noteModel, velocity )
+    keyboard && keyboard.setKeyAsInactive( noteModel )   // unhighlight the keys on the keyboard
     hero && hero.noteOff( noteModel )
     noteVisualiser && noteVisualiser.noteOff( noteModel, velocity )
     mouseVisualiser && mouseVisualiser.noteOff( noteModel, velocity )
@@ -883,9 +888,6 @@ const createAudioContext = async(event) => {
     // const timing = new TimingAudioWorkletNode(audioContext)
 }
 
-import manifest from "/static/wave-tables/general-midi/manifest.json"
-import { hasSpeech, say, stopSpeaking } from "./speech.js"
-
 /**
  * Preload all of the wave tables 
  */
@@ -992,18 +994,29 @@ const start =  async () => {
     }
 
     // watch for when an element arrives in the window
-    monitorIntersections()
-  
+    monitorIntersections({}, (entry, inViewport )=>{
+
+        console.info(entry,inViewport ? "in viewport" : "exit" )
+
+    })
     
     addReadButtons()
-
-    
    
     // finally update the URL with the state
     updateURL()
 
     // try and load in some instrument data sets in the background...
     requestAnimationFrame(backgroundLoad)
+
+    if (debug){
+        console.log("PhotoSYNTH.LOL loaded")
+        console.log("keyboard", {keyboard, keyboardElement} )
+        console.log("mouseVisualiser", {mouseVisualiser, mouseCanvas} )
+        console.log("noteVisualiser", {noteVisualiser, wallpaperCanvas} )
+        console.log("hero", {hero} )
+        console.log("song", {song} )
+        console.log("recorder", {recorder} )
+    }
 }
 
 /**

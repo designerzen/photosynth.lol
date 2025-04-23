@@ -4,15 +4,16 @@ const DEFAULT_OBSERVATION_OPTIONS = {
     root: null,
     rootMargin: '0px',
     threshold: 0,
-    pianoQuery: ".piano"
+    pianoQuery: ".piano",
+    triggerQuery:"[data-observe]"
 }
 
-export const monitorIntersections = ( query="[data-observe]", intersectionOptions = DEFAULT_OBSERVATION_OPTIONS) => {
+export const monitorIntersections = ( intersectionOptions = DEFAULT_OBSERVATION_OPTIONS, onInteraction=null) => {
 
     // ensure options contains all possible values
     intersectionOptions = { ...DEFAULT_OBSERVATION_OPTIONS, ...intersectionOptions }
 
-    const elementsToObserve = document.querySelectorAll(query)
+    const elementsToObserve = document.querySelectorAll( intersectionOptions.triggerQuery ) 
     const pianoElement = document.querySelector(intersectionOptions.pianoQuery)
     
     const intersectionObserver = new IntersectionObserver(entries => {
@@ -48,22 +49,22 @@ export const monitorIntersections = ( query="[data-observe]", intersectionOption
                     
                 }
 
+                onInteraction && onInteraction(entry, true)
+
                 if (entry.target.classList)
                 {
                     entry.target.classList.toggle("in-viewport", true)
-                }else{
-                    console.error("IN intersection without entry", entry, entry.classList )
                 }
 
                 // document.body.classList.toggle("inert", inert)
                 pianoElement.classList.toggle("show-full-keyboard", fullSizeKeyboard)
               
             }else{
+              
+                onInteraction && onInteraction(entry, false)
                 if (entry.target.classList)
                 {
                     entry.target.classList.toggle("in-viewport", false)
-                }else{
-                    console.error("OUT intersection without entry", entry, entry.classList )
                 }
             }
         })
