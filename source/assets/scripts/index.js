@@ -12,7 +12,7 @@ import { registerMultiTouchSynth } from "./components/multi-touch-synth"
 import CircleSynth from "./components/circle-synth"
 
 import SynthOscillator, { OSCILLATORS } from "./instruments/synth-oscillator"
-import { addNoises, getAllWaveTables, getRandomWaveTableName, getWaveTable, loadWaveTableFromArchive, preloadAllWaveTables } from "./instruments/wave-tables"
+import { addNoises, getAllWaveTables, getRandomWaveTableName, getWaveTable, loadWaveTableFromArchive, loadWaveTableFromManifest, preloadAllWaveTables } from "./instruments/wave-tables"
 
 import Note from "./note"
 import Song from "./song"
@@ -23,11 +23,11 @@ import NoteVisualiser from "./components/note-visualiser"
 import AudioVisualiser from "./components/audio-visualiser"
 import SVGKeyboard from "./components/keyboard-svg"
 import { monitorIntersections } from "./intersection-observer"
-import { handlePasswordProtection, selectRadioButton, setCurrentYear, updateScaleUI, updateTimbreUI } from "./ui"
+import { addReadButtons, handlePasswordProtection, selectRadioButton, setCurrentYear, updateScaleUI, updateTimbreUI } from "./ui"
 
 // data
 import { CICRLE_INTERVALS, DEFAULT_PASSWORD, PALETTE, VISUALISER_OPTIONS } from "./settings"
-import { ASTLEY, getRandomSong } from "./songs"
+import { ASTLEY, getCompondSong, getRandomSong } from "./songs"
 import WAVE_ARCHIVE_GENERAL_MIDI from "url:/static/wave-tables/general-midi.zip"
 import WAVE_ARCHIVE_GOOGLE from "url:/static/wave-tables/google.zip"
 import { MouseVisualiser } from "./components/mouse-visualiser"
@@ -39,6 +39,7 @@ import Timer from "./timing/timer.js"
 import AUDIOTIMER_PROCESSOR_URI from 'url:./timing/timing.audioworklet-processor.js'
 import { SongCanvas } from "./components/song-canvas.js"
 import { countdown } from "./countdown.js"
+import { getRandomSpell } from "./sfx.js"
 
 // audio reqiures a user gesture to start...
 // so we hook into each musical event to check if the user has engaged
@@ -46,6 +47,8 @@ let hasUserEngaged = false
 
 // flag for showing the whole keyboard on screen rather than a trimmed size
 let showAllKeys = true
+
+const loadFromZips = false
 
 // read any saved themes from the URL ONLY (not from cookies so no overlay required :)
 const searchParams = new URLSearchParams(location.search)
@@ -98,6 +101,7 @@ const preloadWaveTablesFromZip = async (zipURL) => {
         // console.info("zip", {progress, fileName, file })
         meter.value = progress
     })
+    return data
     console.info( data.length, "ZIPPED WAVE data",zipURL, {data}, getAllWaveTables() )
 }
 
@@ -352,18 +356,19 @@ const loadSong = (track=ASTLEY) => {
  */
 const playNextNoteInSong = (songSequence, chordIntervals=MAJOR_CHORD_INTERVALS, scaleMode=0) => {
     const note = songSequence.getNextNote()
-   
+    const isChord = chordIntervals && chordIntervals.length > 1
     if (playingNote)
     {
         console.info("Killing note", note, {songSequence, playingNote} )
-        chordOff( playingNote, 1, playingChord ?? chordIntervals, scaleMode )
+        isChord ? chordOff( playingNote, 1, playingChord ?? chordIntervals, scaleMode ) : noteOff( playingNote, 1 )
     }else{
         console.info("Starting note", note, {songSequence, playingNote} )
     }
 
-    chordOn( note, 1, 0, chordIntervals, scaleMode )
+    isChord ? chordOn( note, 1, 0, chordIntervals, scaleMode ) : noteOn( note, 1 )
     playingNote = note
     playingChord = chordIntervals
+    return note
 }
 
 /**
@@ -372,13 +377,17 @@ const playNextNoteInSong = (songSequence, chordIntervals=MAJOR_CHORD_INTERVALS, 
  * @param {Array<Number>} chord 
  * @param {Number} musicalMode 
  */
-const addMusicalMouseEventsToElement = (button, chord=MAJOR_CHORD_INTERVALS, musicalMode=0 ) => {
+const addMusicalMouseEventsToElement = (button, chord=null, musicalMode=null, onActive=null ) => {
+    let notePlaying = null
     button.addEventListener("mousedown", e => {
-        playNextNoteInSong(song, chord, musicalMode)
+        const scaleMode = musicalMode ?? mode
+        onActive && onActive()
+        notePlaying = playNextNoteInSong(song, chord, scaleMode)
         document.addEventListener("mouseup", e => {
-            if (playingNote)
+            if (notePlaying)
             {
-                chordOff( playingNote, 1, 0, playingChord, musicalMode )
+                chordOff( notePlaying, 1, 0, chord, scaleMode )
+                playingNote = null
             }
         }, {once:true})
     })
@@ -393,6 +402,7 @@ const createAudioVisualiser = (audioContext, source, song, visualiserOptions=VIS
 
     const visualiserCanvas = document.getElementById("visualiser")
     const visualiserContext = visualiserCanvas.getContext('2d')
+
     shapeVisualiser = new AudioVisualiser( visualiserContext, audioContext, source, visualiserOptions )
    
     const updateVis = () => {
@@ -520,7 +530,6 @@ const getTimbre = (timbres, timbre, offset=0) => {
     return timbres[ (index + offset) % timbres.length ]
 }
 
-
 /**
  * Set the Master Volume
  * @param {Number} value 0->1
@@ -549,6 +558,9 @@ const toggleMute = (value, volumeSlider=null) => {
 
 // STATE ==============================================================
 
+/**
+ * Fetch the state from the radio buttons   
+ */
 const fetchStateFromRadioButtons = () => {
 
     const CHECKED_RADIO_BUTTON = 'input[type="radio"]:checked'
@@ -561,46 +573,49 @@ const fetchStateFromRadioButtons = () => {
     
     queries.forEach(query => {
         const radioButtons = document.querySelectorAll(query)
-        console.info("radioButtons", radioButtons)
         radioButtons.forEach(radioButton => checkedInputRadioButtons.push(radioButton))
     })
 
     // console.info("checked", { checkedInputRadioButtons} )
     
+    // now set each state by calling the relevant selection function   
     checkedInputRadioButtons.forEach(radioButton => {
         console.info("checked radio button", radioButton)
         switch (radioButton.name)
         {
             case "emotion":
-                console.warn("emotion", radioButton.value)
+                console.warn("fetchStateFromRadioButtons:emotion", radioButton.value)
                 setMode( radioButton.value )
                 break
             case "octave":
-                console.warn("octave", radioButton.value)
+                console.warn("fetchStateFromRadioButtons:octave", radioButton.value)
                 octave = parseInt( radioButton.value )
                 // circle && (circle.octave = octave)
                 break
             case "timbre":
-                console.warn("timbre", radioButton.value)
+                console.warn("fetchStateFromRadioButtons:timbre", radioButton.value)
                 shape = radioButton.value
                 break
             case "chord":
-                console.warn("chord", radioButton.value)
+                console.warn("fetchStateFromRadioButtons:chord", radioButton.value)
                 setScale( radioButton.value )
                 break
             default:
                 console.warn("No case for", radioButton.value)
         }
     })
-    
-    // now set each state by calling the relevant selection function   
+
+    // ensure MIDI is always set to checked OFF
+    const midiToggle = document.getElementById("toggle-midi")
+    midiToggle.checked = FontFaceSetLoadEvent
 }
 
 // USER INTERFACE ==============================================================
- 
 
+/**
+ * Load the share menu and make the button visible
+ */
 const loadShareMenu = () => {
-    // import("./share.js")
     import('share-menu').then( lib => {
         const shareMenu = document.getElementById("share-menu")
         shareMenu.hidden = false
@@ -703,10 +718,20 @@ const setupRadioButtons = () => {
 }
 
 /**
- * 
+ * Timbre selector and shape creator
  * @param {Array<String>} instrumentNames 
  */
 const setupShapeVisualiser = (instrumentNames) => {
+
+    const timbreSongButtons = document.querySelectorAll("[data-play-timbre]")
+    timbreSongButtons.forEach(button => {
+        const timbre = button.dataset.playTimbre
+        // we can specify the chord and mode or infer them... MAJOR_CHORD_INTERVALS
+        addMusicalMouseEventsToElement(button, null, null, ()=>{
+            setTimbre(timbre)
+        })
+    })
+
     const timbreSelect = document.getElementById("song-timbre-select")
     const timbrePrevious = document.getElementById("song-timbre-previous")
     const timbreNext = document.getElementById("song-timbre-next")
@@ -732,10 +757,21 @@ const setupShapeVisualiser = (instrumentNames) => {
         shape = setTimbre( getTimbre(instrumentNames, shape, 1 ) )
     })
 
-    addMusicalMouseEventsToElement(chordHappy, MAJOR_CHORD_INTERVALS, mode)
-    addMusicalMouseEventsToElement(chordSad, MINOR_CHORD_INTERVALS, mode)
+    addMusicalMouseEventsToElement(chordHappy, MAJOR_CHORD_INTERVALS)
+    addMusicalMouseEventsToElement(chordSad, MINOR_CHORD_INTERVALS)
 }
 
+/**
+ * Read entire article!
+ */
+const readOutLoud = () => {
+    let e = "Hello there, welcome to the Summer Science Exhibition 2025"
+    const speakSources = document.querySelectorAll("[data-speak]")
+    speakSources.forEach( speakSource => {
+        e += speakSource.textContent
+    })
+    say(e)
+}
 // LOGIC ==============================================================
 
 /**
@@ -778,21 +814,49 @@ const createAudioContext = async(event) => {
 
     miniNotation = new SongCanvas(document.getElementById("song-in-pixels"), recorder)
 
-    const audioSpell = document.getElementById("audio-spell")
+    const audioSpellSources = document.querySelectorAll("audio")
+    audioSpellSources.forEach( audioSpellSource => {
+        const audioSpell = audioContext.createMediaElementSource(audioSpellSource)
+        audioSpell.connect(limiter)
+    })
 
+    const playMetronomeBeat = (odd) => {
+        console.info("playMetronomeBeat", !odd ? "even" : "odd")
+        audioSpellSource.pause()
+        audioSpellSources.forEach( audioSpellSource => audioSpellSource.src = getRandomSpell() )
+        audioSpellSource.currentTime = 0
+        audioSpellSource.play()
+    }
+
+    let beats = 0
     const timingContext = new AudioContext()
-    const timer = new Timer({contexts:{audioContext:timingContext}, bpm:65 })
+    const timer = new Timer({contexts:{audioContext:timingContext}, bpm:32 })
     // console.info("timer", timer)
     // await timer.loaded
     // console.info("timer loaded", timer)
+    timer.swing = 0.5
     timer.startTimer(e =>{
         // 
-        if (timer.currentBar === 0 &&timer.isAtStart)
+        const oddBeat = beats % 2 !== 0
+        switch(oddBeat)
         {
-            // console.info("timer started", timer)
-            // audioSpell.pause()
-            // audioSpell.currentTime = 0
-            // audioSpell.play()
+            // Even Beats
+            case false:
+                if (timer.isStartBar && timer.isAtStart)
+                {
+                    this.playMetronomeBeat(false)
+                    beats++
+                }
+                break
+
+            // Odd Beats
+            case true:
+                if (timer.isStartBar && timer.isSwungBeat)
+                {
+                    this.playMetronomeBeat(true)
+                    beats++
+                }
+                break
         }
     })
 
@@ -819,17 +883,27 @@ const createAudioContext = async(event) => {
     // const timing = new TimingAudioWorkletNode(audioContext)
 }
 
+import manifest from "/static/wave-tables/general-midi/manifest.json"
+import { hasSpeech, say, stopSpeaking } from "./speech.js"
+
 /**
  * Preload all of the wave tables 
  */
 const backgroundLoad = async () => {
     // await preloadAllWaveTables()
 
+    countdown(document.querySelector("[data-countdown]"))
+    
     addNoises()
 
-    await preloadWaveTablesFromZip(WAVE_ARCHIVE_GENERAL_MIDI)
-    await preloadWaveTablesFromZip(WAVE_ARCHIVE_GOOGLE)
-    
+    if (loadFromZips)
+    {
+        await preloadWaveTablesFromZip(WAVE_ARCHIVE_GENERAL_MIDI)
+        await preloadWaveTablesFromZip(WAVE_ARCHIVE_GOOGLE)
+    }else{
+        loadWaveTableFromManifest(manifest)
+    }
+   
     // update the UI with these new data sets...
     
     const instrumentNames = getAllWaveTables()
@@ -866,7 +940,7 @@ const start =  async () => {
     recorder = new MelodyRecorder()
 
     // load in our note sequences
-    song = loadSong( getRandomSong() )
+    song = loadSong( getCompondSong() )
 
     // show password protection
     if (DEFAULT_PASSWORD)
@@ -900,7 +974,7 @@ const start =  async () => {
     // const keyboard2 = new SVGKeyboard(KEYBOARD_NOTES, noteOn, noteOff )
 
     const keyboardElement = document.body.appendChild( keyboard.asElement )
-    keyboardElement.addEventListener("dblclick", e => setScale( !isHappy ) )
+    keyboardElement.addEventListener("dblclick", e => setTimbre( getRandomWaveTableName() ) )
    
     // we can turn the mouse cursor into a note indicator
     const mouseCanvas = document.getElementById("mouse-visualiser")
@@ -917,11 +991,14 @@ const start =  async () => {
         showMIDIToggle()
     }
 
-    countdown(document.querySelector("[data-countdown]"))
-    
     // watch for when an element arrives in the window
     monitorIntersections()
   
+    
+    addReadButtons()
+
+    
+   
     // finally update the URL with the state
     updateURL()
 

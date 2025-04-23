@@ -5,7 +5,7 @@ export const countdown = (element) => {
     // grab all the time elements
     const timeElements = element.querySelectorAll("time")
     
-    const counter = document.createElement("div")
+    const counter = document.createElement("p")
     counter.classList.add("countdown")
 
     let date
@@ -46,6 +46,7 @@ export const countdown = (element) => {
             counter.appendChild(span)
             countElements.push(span)
         })  
+        timeElement.hidden = true
     })
 
     element.appendChild(counter)
