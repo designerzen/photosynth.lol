@@ -281,8 +281,10 @@
         <!-- About the event -->
         <section id="about" class="wavey shadow" data-observe >
 
-            <article class="split page" data-readable>
-
+               
+            <!-- Event ------------------------------------------- -->
+            <article id="event" class="page split" data-readable>
+          
                 <header>
                     <h3 class="heading-icon">About</h3>
                     <h4>Summer Science Exhibition</h4>
@@ -304,12 +306,58 @@
                 <p>If you ever dreamed of being more musical, well alright... Hold tight!</p>
         
                 <p class="flood">Imagine if there was a musical magic spell, what musical skills would you wish for? !</p>
-                
+            </article>
+                    
+            <article id="venue" class="page">
+                <h5>Event Details</h5>
+                <iframe class="map" width="1080" height="540" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1344162225723267%2C51.50472238057011%2C-0.1302212476730347%2C51.506889393716634&amp;layer=mapnik"></iframe>
+                <a class="link-map" href="https://www.openstreetmap.org/?#map=18/51.505806/-0.132319">View Larger Map</a>
+            
+                <details>
+                    <summary><h6>Getting there</h6></summary>
+                    <p>
+                        Underground stations: Charing Cross and Piccadilly Circus
+                        Bus routes: 12, 13, 15 and 453.
+                        Coach station: Connections from Victoria coach station
+                        <a rel="noopener noreferrer" target="_blank" href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">See official recommendations</a>       
+                    </p>
+                </details>
+            </article>
+            
+            <aside id="details" class="page">
+                <h4>Summer Science Exhibition 2025 Details</h4>
+                <dl class="data-address">
+                    <dt>Start</dt>
+                    <dd><time datetime="2025-07-01 09:00">July 1<sup>st</sup>, 2025</time></dd>
+    
+                    <dt>End</dt>
+                    <dd><time datetime="2025-07-06 09:00">July 6<sup>th</sup>, 2025</time></dd>
+    
+                    <dt>Venue</dt>
+                    <dd>Royal Society</dd>
+    
+                    <dt>Address</dt>
+                    <dd class="address">
+                        <a href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">
+                            <address>
+                                <span class="street-address">6-9 Carlton House Terrace</span><span class="delimiter">, </span><span class="locality">London</span><span class="delimiter">, </span><span class="postal-code">SW1Y 5AG</span><span class="delimiter">, </span><span class="country-name">United Kingdom</span>
+                            </address>
+                        </a>
+                    </dd>
+        
+                    <dt>Location</dt>
+                    <dd>London</dd>
+    
+                    <dt>Category</dt>
+                    <dd>Exhibition</dd>
+                </dl>
+            </aside>
 
+            <article>
                 <figure class="sticky full-width bg-clear">
                     <button 
-                    aria-labelledby="button-cast-spell-caption"
-                    type="button" id="button-cast-spell">
+                        aria-labelledby="button-cast-spell-caption"
+                        type="button" id="button-cast-spell">
                         <img 
                             loading="lazy"
                             width="909" height="909"
@@ -320,10 +368,6 @@
                     <figcaption id="button-cast-spell-caption" class="sr-only">Radical Musical Superpowers in an instant!</figcaption>
                 </figure>
 
-            </article>
-            
-            <!-- Event ------------------------------------------- -->
-            <article id="event" class="page">
                 <hgroup>
                     <h3 class="heading-icon">Summer Exhibition 2025</h3>
                     <h4>Come and join us for a fun musical celebration of diversity, inclusive technology and science!</h4>
@@ -378,50 +422,7 @@
 
             </article>
 
-            <article id="event-info" class="page">
-                <h5>Event Details</h5>
-                <iframe class="map" width="1080" height="540" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1344162225723267%2C51.50472238057011%2C-0.1302212476730347%2C51.506889393716634&amp;layer=mapnik"></iframe>
-                <a class="link-map" href="https://www.openstreetmap.org/?#map=18/51.505806/-0.132319">View Larger Map</a>
-            
-                <details>
-                    <summary><h6>Getting there</h6></summary>
-                    <p>
-                        Underground stations: Charing Cross and Piccadilly Circus
-                        Bus routes: 12, 13, 15 and 453.
-                        Coach station: Connections from Victoria coach station
-                        <a rel="noopener noreferrer" target="_blank" href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">See official recommendations</a>       
-                    </p>
-                </details>
-            </article>
 
-            <aside id="details" class="page">
-                <h4>Summer Science Exhibition 2025 Details</h4>
-                <dl class="data-address">
-                    <dt>Start</dt>
-                    <dd><time datetime="2025-07-01 09:00">July 1<sup>st</sup>, 2025</time></dd>
-    
-                    <dt>End</dt>
-                    <dd><time datetime="2025-07-06 09:00">July 6<sup>th</sup>, 2025</time></dd>
-    
-                    <dt>Venue</dt>
-                    <dd>Royal Society</dd>
-    
-                    <dt>Address</dt>
-                    <dd class="address">
-                        <a href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">
-                            <address>
-                                <span class="street-address">6-9 Carlton House Terrace</span><span class="delimiter">, </span><span class="locality">London</span><span class="delimiter">, </span><span class="postal-code">SW1Y 5AG</span><span class="delimiter">, </span><span class="country-name">United Kingdom</span>
-                            </address>
-                        </a>
-                    </dd>
-        
-                    <dt>Location</dt>
-                    <dd>London</dd>
-    
-                    <dt>Category</dt>
-                    <dd>Exhibition</dd>
-                </dl>
-            </aside>
 
         </section>
 
@@ -597,15 +598,39 @@
                 <!-- Play next note from provided song -->
                 <fieldset class="song-controls">
                     <legend>Song Controls</legend>
-                    <button data-control-play type="button" class="cta">Play Song</button>
+                    <button data-control-play type="button" class="">Play Song</button>
                 </fieldset>
                             
-
                 <fieldset class="anger-selector">
-                    <legend>Anger</legend>
-                    <button type="button" data-play-timbre="Pink Noise">Mildly Angry</button>
-                    <button type="button" data-play-timbre="Brown Noise">Quite Angry</button>
-                    <button type="button" data-play-timbre="White Noise">Very Angry</button>
+                    <legend>Angry sounds</legend>
+                    <button type="button" data-play-timbre="Brown Noise">
+                        <span class="emoji" aria-hidden="true">😠</span>
+                        Mildly Angry
+                    </button>
+                    <button type="button" data-play-timbre="Pink Noise">
+                        <span class="emoji" aria-hidden="true">😡</span>
+                        Quite Angry
+                    </button>
+                    <button type="button" data-play-timbre="White Noise">
+                        <span class="emoji" aria-hidden="true">🤬</span>
+                        Very Angry
+                    </button>
+                </fieldset>
+
+                <fieldset class="lovely-selector">
+                    <legend>Lovely sounds</legend>
+                    <button type="button" data-play-timbre="">
+                        <span class="emoji" aria-hidden="true">😠</span>
+                        Mildly Angry
+                    </button>
+                    <button type="button" data-play-timbre="Celleste">
+                        <span class="emoji" aria-hidden="true">😡</span>
+                        Quite Angry
+                    </button>
+                    <button type="button" data-play-timbre="Marimba">
+                        <span class="emoji" aria-hidden="true">🤬</span>
+                        Very Angry
+                    </button>
                 </fieldset>
 
                 <fieldset class="octave-selector">
@@ -1145,6 +1170,9 @@
    
         <!-- History ------------------------------------------- -->
       
+        <section id="playback" class="sticky bg-transparent full-height full-width" data-observe>
+            <canvas id="song-in-pixels" width="320" height="128"></canvas>
+        </section>
 
         <section id="history" class="shadow" data-observe>
             <article class="page">
@@ -1219,13 +1247,7 @@
 
         </section>
 
-
-        <section id="playback" class="sticky bg-transparent full-height full-width" data-observe>
-            <canvas id="song-in-pixels" width="320" height="128"></canvas>
-        </section>
         
-
-
 
     <!-- Frequently Asked Questions ------------------------------------------- -->
         <section id="faq" class="shadow wavey" data-observe>

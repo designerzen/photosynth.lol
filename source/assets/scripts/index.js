@@ -53,7 +53,7 @@ let showAllKeys = true
 
 // options
 const debug = true
-const loadFromZips = !debug
+const loadFromZips = true // !debug
 
 // read any saved themes from the URL ONLY (not from cookies so no overlay required :)
 const searchParams = new URLSearchParams(location.search)

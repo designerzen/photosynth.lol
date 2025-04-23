@@ -473,6 +473,27 @@ aside > label[for="toggle-midi"]{
     // background-image:url("/source/assets/icons/font_increase_filled.svg");
 }
 
+[data-play-timbre]{
+    color: var(--col-text);
+    border:2px solid var(--col-text);
+    padding-left:calc( var(--pad) / 2 );
+    padding-right:calc( var(--pad) / 2 );
+    &:hover{
+        background-color: var(--col-plum);
+        border-color: var(--col-text);
+    }
+}
+
+[data-control-play]{
+    border: 1px solid white;
+    border-radius: 999px;
+    padding-right:2ch;
+    background-color: var(--col-accent);
+    background-color: color-mix( in oklch, var(--col-accent) 66%, transparent );
+    &:hover{
+        background-color: var(--col-accent);
+    }
+}
 
 #song-timbre-next,
 #song-timbre-previous,
