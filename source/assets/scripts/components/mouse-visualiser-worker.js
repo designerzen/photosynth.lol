@@ -127,7 +127,10 @@ function render() {
     }
 
     // clear previous shape
-    context.clearRect( currentX - HALF_MAX_RADIUS + X_OFFSET, currentY - HALF_MAX_RADIUS + Y_OFFSET, MAX_SIZE, MAX_SIZE )
+    const max = MAX_SIZE + 6
+    context.clearRect( currentX - 3 - HALF_MAX_RADIUS + X_OFFSET, currentY - 3 - HALF_MAX_RADIUS + Y_OFFSET, max, max )
+    // context.fillStyle = "rgba(0,255,0,0.8)"
+    // context.drawRect( currentX - HALF_MAX_RADIUS + X_OFFSET, currentY - HALF_MAX_RADIUS + Y_OFFSET, MAX_SIZE, MAX_SIZE )
 
     // clear full screen (greedy)
     // context.clearRect( 0, 0, canvas.width, canvas.height )

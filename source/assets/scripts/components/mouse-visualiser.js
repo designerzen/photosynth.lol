@@ -21,7 +21,7 @@ export class MouseVisualiser extends AbstractResizeable{
  
         const elementToObserve = window ?? document
 
-        elementToObserve.onmousemove = e => {
+        elementToObserve.addEventListener("mousemove", e => {
             const details = e.target // can e.something return what element the mouse cursor is over?
             const coords = this.getMouseCoords(canvas, e)
             this.mouseX = coords.x // ?? e.offsetX ?? e.layerX ?? e.clientX
@@ -29,17 +29,17 @@ export class MouseVisualiser extends AbstractResizeable{
             this.hoveredElement = details ? details.nodeName : ''
             this.sendMessage(1)
             // console.log("onmousemove", {details, coords})
-        }
+        })
     
-        elementToObserve.onmousedown = e => {
+        elementToObserve.addEventListener( "mousedown", e => {
             this.mouseDown = true
             this.sendMessage() 
-        }
+        })
 
-        elementToObserve.onmouseup = e => {
+        elementToObserve.addEventListener( "mouseup", e => {
             this.mouseDown = false
             this.sendMessage() 
-        }
+        })
     }
 
     /**
@@ -70,6 +70,7 @@ export class MouseVisualiser extends AbstractResizeable{
     resizeCanvasToDisplaySize( width, height, dpr ){
         console.info("resizeCanvasToDisplaySize", {width, height, dpr} )
         this.rect = this.element.getBoundingClientRect()
+
         super.resizeCanvasToDisplaySize(width, height, dpr)
     }
 
