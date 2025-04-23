@@ -33,16 +33,16 @@
     "@parcel/transformer-sass": "2.14.4",
     "@parcel/transformer-xml": "2.14.4",
     "fflate": "^0.8.2",
-    "oxlint": "^0.16.6",
+    "oxlint": "^0.16.7",
     "parcel": "2.14.4",
     "parcel-reporter-static-files-copy": "^1.5.3",
     "process": "^0.11.10",
     "sharp": "^0.33.5",
-    "standardized-audio-context": "^25.3.77",
-    "svgo": "^3.3.2",
-    "webmidi": "^3.1.12"
+    "svgo": "^3.3.2"
   },
   "dependencies": {
-    "share-menu": "^5.1.0"
+    "share-menu": "^5.1.0",
+    "standardized-audio-context": "^25.3.77",
+    "webmidi": "^3.1.12"
   }
 }
