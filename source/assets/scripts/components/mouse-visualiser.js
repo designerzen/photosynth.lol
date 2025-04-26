@@ -106,7 +106,7 @@ export class MouseVisualiser extends AbstractResizeable{
      * @param {number} velocity 
      */
     noteOn( note, velocity=1 ){
-        const payload = { type:"noteOn", colour:note.colour, velocity }
+        const payload = { type:"noteOn", colour:note.colour, velocity, playing:this.mouseDown }
         this.worker.postMessage(payload)  
     }
 
@@ -116,7 +116,7 @@ export class MouseVisualiser extends AbstractResizeable{
      * @param {Number} velocity 
      */
     noteOff( note, velocity=1 ){
-        const payload = { type:"noteOff", colour:note.colour, velocity }
+        const payload = { type:"noteOff", colour:note.colour, velocity, playing:this.mouseDown }
         this.worker.postMessage(payload)  
     }
 

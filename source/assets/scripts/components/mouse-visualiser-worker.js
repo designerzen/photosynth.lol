@@ -38,7 +38,7 @@ let countDown = 0
  * @param {Number} radius 
  * @returns 
  */
-function renderMouse(x, y, radius=MAX_RADIUS, nodeTypeHovered=null){
+function renderMouse(x, y, radius=MAX_RADIUS, nodeTypeHovered=null, mouseDown=false){
   
     // we can adjust the behaviour and style depending
     // on what element the mouse is over.
@@ -78,11 +78,6 @@ function renderMouse(x, y, radius=MAX_RADIUS, nodeTypeHovered=null){
         // draw parts of the PI!
         notes.forEach((data, colour, map) => {
 
-            // if (i>0)
-            // {
-            //     return
-            // }
-
             const segment = new Path2D()
             segment.moveTo(x, y)
             // arc(x, y, radius, startAngle, endAngle, counterclockwise)
@@ -95,6 +90,11 @@ function renderMouse(x, y, radius=MAX_RADIUS, nodeTypeHovered=null){
             last += radians
             // console.error(i++, "->", radians * (180/Math.PI),  {countDown, x, y, radius, colour, last, radians, notes} )
         })
+    }
+
+    if (mouseDown)
+    {
+        
     }
     
     // now draw the outlines...
@@ -150,8 +150,10 @@ function render() {
     // redraw the mouse position
     // if (radius > 0 )
     // {
-        renderMouse( currentX, currentY, radius, hoveredElement  )
+        renderMouse( currentX, currentY, radius, hoveredElement, mouseDown )
     // }
+
+
     
     // console.info("mouse visualiser", countDown, {mouseX, mouseY, currentX, currentY, radius}, easeOutSine( countDown / SHRINK_DURATION ) )
 
@@ -180,7 +182,7 @@ onmessage = (evt) => {
         case "noteOn":
             lastNoteColour = evt.data.colour
             notes.add( evt.data.colour )
-          
+            mouseDown = evt.data.playing
             countDown = SHRINK_DURATION
             radius = MAX_RADIUS
             // console.error("VIZ:noteOn", notes ) 
@@ -191,7 +193,7 @@ onmessage = (evt) => {
             // FIXME:
             notes.delete(evt.data.colour)
             // console.error("VIZ:noteOff", notes ) 
-         
+            mouseDown = evt.data.playing
             // console.info("VIZ:noteOff", evt.data, {lastNoteColour} )
             break
 
