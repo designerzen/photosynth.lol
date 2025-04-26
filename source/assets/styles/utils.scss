@@ -64,23 +64,6 @@ figure {
     break-after: column;
 }
 
-   
-// overlaying images...
-.stackable{	
-	> .sticky + *{
-		background-color: var(--col-bg);
-		// padding-bottom: calc( var(--pad) * 2 );
-		// padding-top:  calc( var(--pad) * 2 );
-		position: relative;
-	}
-    figure{
-        //padding-top: var(--pad);
-    }
-	figure.sticky{
-		background: transparent;
-	}
-
-}
 
 .page{
     width:100%;
@@ -94,15 +77,11 @@ figure {
 	position: relative;
 }
 
-.sticky{
-	position: sticky;
-    top:0;
-	// z-index: -1;
-}
-
-section .sticky ~ *:not(aside, .sticky){
-	background-color: inherit;
-	// padding-top: calc( 3 * var(--pad) );
+.fixed-width{
+	max-width: var(--max-section-width, 1000px); 
+	margin-left:auto;
+    margin-right:auto;
+	
 }
 
 .full-width{
@@ -124,6 +103,11 @@ section .sticky ~ *:not(aside, .sticky){
 .bg-clear{
 	background-color: transparent;
 }
+
+.bg{
+	background-color: var(--col-bg);
+}
+
 // 6 x 9 grid but we subdivide it for style
 .grid{
     display: grid;
@@ -265,6 +249,141 @@ img.flood{
 		}	
 	}
 }
+
+.text-scroller-vertical{
+	line-height: 1.2;
+	font-size: 22px;
+	display: grid;
+	grid-template-areas: "lead trail";
+	grid-template-columns: 1fr 1fr;
+	column-gap: 1ch;//var(--pad);
+	column-gap: 0.55ex;//var(--pad);
+	// row-gap: var(--pad);
+	margin-top: var(--pad);
+	// overflow: hidden;
+	
+	&::after{
+		content:'';
+		display: block;
+		grid-area: trail;
+		width: 100%;
+		height: max(5ch, 50vh);
+		position: sticky;
+
+		top: 0%;
+		transform: translateY(50vh);
+		// right:0;
+		background-image: linear-gradient(to bottom, transparent, var(--col-bg));
+		// background-color: red;
+		z-index: 1;
+	}
+
+	h5{
+		grid-area: lead;
+		position: sticky;
+		top:50%;
+		bottom:calc(50% - .5lh);
+		top: calc(50% - .5lh);
+		align-self: start;
+		justify-self: center;
+		font-size: inherit;
+		text-align: right;
+		justify-self: end;
+		transform: translateY(calc(-100% + 1lh));
+	}
+	
+	ul{
+		grid-area: trail;
+		list-style: none;
+		padding:0;
+		font-size: inherit;
+
+		display: flex;
+
+		flex-direction: column;
+		gap:66vh;//var(--pad);
+
+
+		li{
+			font-size: inherit;
+			padding-bottom: 2lh;
+			// min-height: 66vh;
+			top:50%;
+			top: calc(50% - .5lh);
+			// place-items: center;
+			// place-content: center;
+			// display: flex;
+			position: sticky;
+			background-color: var(--col-bg);
+			animation: Text-Scroller;
+			animation-range: calc(50% - .75lh) calc(50% + .75lh);
+			animation-timeline: view();
+			animation-fill-mode: both;
+			scroll-snap-align: center;
+
+			&:last-of-type{
+				
+			}
+		}
+	}
+}
+
+@media screen and (min-width:800px){
+
+	.text-scroller-vertical{
+		h5{
+			// height: 16.686%;	// hack
+			transform: none;
+		}
+		ul{
+			li{
+				padding-bottom: 0;
+			}
+		}
+	}
+}
+
+.text-scroller-vertical + *{
+	z-index: 2;
+}
+
+// sticky
+
+.sticky{
+	position: sticky;
+    top:0;
+	// z-index: -1;
+}
+
+section .sticky ~ *:not(aside, .sticky){
+	background-color: inherit;
+	// padding-top: calc( 3 * var(--pad) );
+}
+
+:is(h1, h2, h3, h4, h5, h6) > .sticky{
+display: block;
+// float:right;
+}
+
+   
+// overlaying images...
+.stackable{	
+	> .sticky + *{
+		background-color: var(--col-bg);
+		// padding-bottom: calc( var(--pad) * 2 );
+		// padding-top:  calc( var(--pad) * 2 );
+		position: relative;
+	}
+    figure{
+        //padding-top: var(--pad);
+    }
+	figure.sticky{
+		background: transparent;
+	}
+
+}
+
+
 
 [hidden]{
 	display:none !important;

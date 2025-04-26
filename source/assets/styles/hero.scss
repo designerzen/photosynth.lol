@@ -125,5 +125,8 @@
 #hero-mask{
     pointer-events: none;
     grid-area:mask;
+    z-index: 303;
+    height: 100vh;
+    height: 100dvh;
 }
 

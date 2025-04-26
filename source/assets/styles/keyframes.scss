@@ -21,9 +21,6 @@
     51%{
         transform: translateY(66%);
     }
-    // 52%{
-        
-    // }
     0%, 100%{
         transform: translateY(0);
         opacity: 1;
@@ -147,5 +144,15 @@
     }
     20%, 40%, 60%, 80%{
         transform:rotate( calc( -1 * var(--tilt, 12deg) ) );
+    }
+}
+
+// to create a scroll speed different to the scroll rate
+@keyframes Text-Scroller {
+    from{
+        transform: translateY(50%);
+    }
+    to{
+        transform: translateY(0);
     }
 }

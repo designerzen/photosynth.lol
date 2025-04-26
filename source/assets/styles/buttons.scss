@@ -284,7 +284,9 @@ button[data-control-play]{
 
 .button-read{
     --offset-right: calc( 44px + var(--pad));
-    background-color: var(--col-accent);
+    border-radius: 999px;
+    border:2px solid var(--col-accent);
+  
     background-image: url(/source/assets/icons/play_circle.svg);
     background-size: contain;
     background-position: center left;
@@ -304,6 +306,11 @@ button[data-control-play]{
 
     &[data-speaking]{
         background-image: url(/source/assets/icons/stop_circle.svg);
+    }
+
+    &:hover, &:active{
+        background-color: var(--col-accent);
+        // filter:brightness(100%) invert(100%);
     }
 }
 
@@ -389,7 +396,7 @@ a.skip-to-content{
         color:var(--col-white);
         padding:var(--pad);
         // max-width:88px;
-        max-width: calc(2 * 44px);
+        // max-width: calc(2 * 44px);
 
         &::after{
             display: none;
@@ -397,6 +404,14 @@ a.skip-to-content{
     }
     .button-read{
         --offset-right: calc(3 * 44px + var(--pad) * 2);
+    }
+}
+@media screen and (min-width:11200px) {
+    
+    a.back-to-top{
+        &::after{
+            display: inline-block;
+        }
     }
 }
 
@@ -549,13 +564,17 @@ aside > label[for="toggle-midi"]{
 
 
 label[for="button-happy"]{
-    
+    grid-area:happy;
 }
 
 #button-happy{
-    border-radius:40px 0 0  40px;
-    grid-area:happy;
+
+    --curve:48px;
+    border-radius:var(--curve) 0 0 var(--curve);
+   
     align-self: start;
+    text-align: left;
+    text-indent:48px;
     background-image: url(/source/assets/figures/happy.svg);
     transition: var(--time-quick, 90ms) transform linear;
     &:active{
@@ -568,14 +587,20 @@ label[for="button-happy"]{
 }
 
 label[for="button-sad"]{
-
+    grid-area:sad;
 }
 
 #button-sad{
-    border-radius:0 40px 40px 0;
-    grid-area:sad;
+    --curve:48px;
+    box-sizing: border-box;
+    padding: var(--pad);;
+    border-radius:0 var(--curve) var(--curve) 0;
+    
+    text-align: right;
+    text-indent:77px;
     background-image: url(/source/assets/figures/sad.svg);
     transition: var(--time-quick, 90ms) transform linear;
+
     &:active{
         transform: var(--button-active);
     }
