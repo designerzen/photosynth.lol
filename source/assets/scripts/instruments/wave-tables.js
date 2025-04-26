@@ -134,12 +134,17 @@ export const loadWaveTableFromJSON = (waveTableURI, waveTableString) => {
     const real = new Float32Array(waveTableString.real)
     const imag = new Float32Array(waveTableString.imag)
 
+    if (!waveTableString || !waveTableString.name)
+    {
+        throw Error("No waveTableString @ "+ waveTableURI )
+    }
+
     // --- Important Constraints ---
     // real[0] must be 0 (DC offset). We ensured this in generation.
     // imag[0] must be 0. We ensured this in generation.
     // The lengths of real and imag must be the same and >= 2.
     if (real.length !== imag.length || real.length < 2) {
-        console.error(`Invalid wave data for GM ${gmNumber}: ${waveTableString.name}`)
+        console.error(`Invalid wave data for GM ${waveTableString.gm_number}: ${waveTableString.name}`)
         return null
     }
 
@@ -321,16 +326,22 @@ export const loadWaveTableFromArchive = (waveTableArchiveURI, onProgress) => new
         }
         
         const fileNames = Object.keys(unzipped)
+   
+        const waveTables = [] 
+        
         // TODO: multiple streams?
-        const waveTables = fileNames.map( (fileName, index) => {
-            // Conversion to string and then JSON
-            const progress = index / fileNames.length
-            const file = unzipped[fileName]
-            const waveTable = JSON.parse( strFromU8( file ) )
-            const waveTableData = loadWaveTableFromJSON(fileName, waveTable)
-           
-            onProgress && onProgress(progress, fileName, waveTable )
-            return waveTableData
+        fileNames.forEach( (fileName, index) => {
+            if (fileName !== "manifest.json")
+            {
+                // Conversion to string and then JSON
+                const progress = index / fileNames.length
+                const file = unzipped[fileName]
+                const waveTable = JSON.parse( strFromU8( file ) )
+                const waveTableData = loadWaveTableFromJSON(fileName, waveTable)
+            
+                onProgress && onProgress(progress, fileName, waveTable )
+                waveTables.push(waveTableData )
+            }
         })
 
         resolve( waveTables )
