@@ -41,8 +41,10 @@ import { SongCanvas } from "./components/song-canvas.js"
 import { countdown } from "./countdown.js"
 import { getRandomSpell } from "./sfx.js"
 
+import {CANVAS_BLEND_MODE_DESCRIPTIONS, CANVAS_BLEND_MODES} from "./blendmodes.js"
+
 // Data locations
-import manifest from "/static/wave-tables/general-midi/manifest.json"
+import MANIFEST_URL from "url:/static/wave-tables/general-midi/manifest.json"
 
 // audio reqiures a user gesture to start...
 // so we hook into each musical event to check if the user has engaged
@@ -53,6 +55,7 @@ let showAllKeys = true
 
 // options
 const debug = true
+const useTimer = false
 const loadFromZips = true // !debug
 
 // read any saved themes from the URL ONLY (not from cookies so no overlay required :)
@@ -67,9 +70,6 @@ let audioContext = null
 let limiter = null
 let mixer = null
 
-let song = null
-let playingNote = null
-let playingChord = null
 
 // Shared DOM elements
 let hero
@@ -89,17 +89,31 @@ const ALL_KEYBOARD_NOTES = keyboardKeys.map((keyboardKeys,index)=> new Note( ind
 const KEYBOARD_NOTES = ALL_KEYBOARD_NOTES.slice( 41, 94 )
 // KEYBOARD_NOTES.forEach( (n,index) => console.info( n.toString(), index ) )
 
+const SCALES = [
+    "Major",
+    "Minor"
+]
+
+let isHappy = true          // is Major or Minor?
+let scale = SCALES[0]       // scale (eg. Major, Minor... etc)
+let mode = 0                // scale mode (eg. Dorian, Mixolydian... etc)
+let octave = 0              // octave (bass / mid / treble )
+let shape = "sine"          // oscillator shape or periodic wave id (eg. sine, square, sawtooth, triangle)
+let song = null
+let playingNote = null
+let playingChord = null
+
 const CHORDS = [
     createMajorChord, 
     createMinorChord,
     createFifthsChord
 ]
 
-const SCALES = [
-    "Major",
-    "Minor"
-]
-
+/**
+ * 
+ * @param {String} zipURL 
+ * @returns 
+ */
 const preloadWaveTablesFromZip = async (zipURL) => {
     const meter = document.getElementById("load-progress")
     const data = await loadWaveTableFromArchive(zipURL, (progress, fileName, file)=>{
@@ -111,11 +125,6 @@ const preloadWaveTablesFromZip = async (zipURL) => {
 }
 
 
-let isHappy = true          // is Major or Minor?
-let scale = SCALES[0]       // scale (eg. Major, Minor... etc)
-let mode = 0                // scale mode (eg. Dorian, Mixolydian... etc)
-let octave = 0                // octave (bass / mid / treble )
-let shape = "sine"          // oscillator shape (eg. sine, square, sawtooth, triangle)
 
 // console.info({ALL_KEYBOARD_NOTES, KEYBOARD_NOTES})
 
@@ -314,7 +323,7 @@ const chordOn = (noteModel, velocity=1, id=0, intervals=null, mode=0, idOffset=0
     const chord = createChord(ALL_KEYBOARD_NOTES, intervals ?? MAJOR_CHORD_INTERVALS, noteModel.noteNumber, mode, true, true )
     const velocityReduction = velocity / chord.length * 0.8
     const length = chord.length+idOffset
-    console.info("chordOn", chord, velocityReduction  )
+    console.info(idOffset, "chordOn", chord, velocityReduction  )
     for (let i=idOffset; i<length; i++){
         noteOn( chord[i], velocityReduction, id+i )
     }
@@ -362,6 +371,7 @@ const loadSong = (track=ASTLEY) => {
 const playNextNoteInSong = (songSequence, chordIntervals=MAJOR_CHORD_INTERVALS, scaleMode=0) => {
     const note = songSequence.getNextNote()
     const isChord = chordIntervals && chordIntervals.length > 1
+    // stop any currently playing notes
     if (playingNote)
     {
         console.info("Killing note", note, {songSequence, playingNote} )
@@ -394,6 +404,7 @@ const addMusicalMouseEventsToElement = (button, chord=null, musicalMode=null, on
                 chordOff( notePlaying, 1, 0, chord, scaleMode )
                 playingNote = null
             }
+            
         }, {once:true})
     })
 }
@@ -465,6 +476,8 @@ const setScale = (scaleType) => {
     circles && (circles.scale = scaleType)
     // console.info("Scale set to", scaleType )
 }
+
+
 
 /**
  * Set the musical mode for the scale (eg. Dorian, Mixolydian, etc)
@@ -777,6 +790,7 @@ const readOutLoud = () => {
     })
     say(e)
 }
+
 // LOGIC ==============================================================
 
 /**
@@ -811,9 +825,16 @@ const createAudioContext = async(event) => {
         // show the mouse visualiser primed to play note
         if (mouseVisualiser)
         {
-            previousNoteModel && mouseVisualiser.noteOff( previousNoteModel, 1 )
+            if (previousNoteModel)
+            {
+                const previousChord = createChord(ALL_KEYBOARD_NOTES, MAJOR_CHORD_INTERVALS, previousNoteModel.noteNumber, mode, true, true )
+                previousChord.forEach( note => mouseVisualiser.noteOff( note, 1 ) )
+                mouseVisualiser.noteOff( previousNoteModel, 1 )
+            }
+            
             // mouseVisualiser.chordOn( noteModel, 1, 0 )
-            mouseVisualiser.noteOn( noteModel, 1 )
+            const chord = createChord(ALL_KEYBOARD_NOTES, MAJOR_CHORD_INTERVALS, noteModel.noteNumber, mode, true, true )
+            chord.forEach( note => mouseVisualiser.noteOn( note, 1 ) )   
         }
     })
 
@@ -827,87 +848,94 @@ const createAudioContext = async(event) => {
 
     const playMetronomeBeat = (odd) => {
         console.info("playMetronomeBeat", !odd ? "even" : "odd")
-        audioSpellSource.pause()
-        audioSpellSources.forEach( audioSpellSource => audioSpellSource.src = getRandomSpell() )
-        audioSpellSource.currentTime = 0
-        audioSpellSource.play()
+        // audioSpellSource.pause()
+        // audioSpellSources.forEach( audioSpellSource => audioSpellSource.src = getRandomSpell() )
+        // audioSpellSource.currentTime = 0
+        // audioSpellSource.play()
     }
 
-    let beats = 0
-    const timingContext = new AudioContext()
-    const timer = new Timer({contexts:{audioContext:timingContext}, bpm:32 })
-    // console.info("timer", timer)
-    // await timer.loaded
-    // console.info("timer loaded", timer)
-    timer.swing = 0.5
-    timer.startTimer(e =>{
-        // 
-        const oddBeat = beats % 2 !== 0
-        switch(oddBeat)
-        {
-            // Even Beats
-            case false:
-                if (timer.isStartBar && timer.isAtStart)
-                {
-                    this.playMetronomeBeat(false)
-                    beats++
-                }
-                break
+    if (useTimer)
+    {
+        let beats = 0
+        const timingContext = new AudioContext()
+        const timer = new Timer({contexts:{audioContext:timingContext}, bpm:32 })
+        // console.info("timer", timer)
+        // await timer.loaded
+        // console.info("timer loaded", timer)
+        timer.swing = 0.5
+        timer.startTimer(e =>{
+            // 
+            const oddBeat = beats % 2 !== 0
+            switch(oddBeat)
+            {
+                // Even Beats
+                case false:
+                    if (timer.isStartBar && timer.isAtStart)
+                    {
+                        this.playMetronomeBeat(false)
+                        beats++
+                    }
+                    break
 
-            // Odd Beats
-            case true:
-                if (timer.isStartBar && timer.isSwungBeat)
-                {
-                    this.playMetronomeBeat(true)
-                    beats++
-                }
-                break
-        }
-    })
-
-  
-    // timer.setCallback(event => {
-    //     // console.log("timer event", event)
-    // })
-  
+                // Odd Beats
+                case true:
+                    if (timer.isStartBar && timer.isSwungBeat)
+                    {
+                        this.playMetronomeBeat(true)
+                        beats++
+                    }
+                    break
+            }
+        })
     
+        // timer.setCallback(event => {
+        //     // console.log("timer event", event)
+        // })
+            
+        // const timingContext = new AudioContext()
+        // // const timing = createTimingProcessor( timingContext )
+    
+        // await timingContext.audioWorklet.addModule(AUDIOTIMER_PROCESSOR_URI)
+        // const TimingAudioWorklet = await import("./timing/timing.audioworklet.js")
+        // const timing = new TimingAudioWorklet.default(timingContext)
+        // timing.onmessage = event => {
+        //     console.log("time message:", event)
+        // }
+        // timing.    timer.startTimer()
 
-    // const timingContext = new AudioContext()
-    // // const timing = createTimingProcessor( timingContext )
-  
-    // await timingContext.audioWorklet.addModule(AUDIOTIMER_PROCESSOR_URI)
-    // const TimingAudioWorklet = await import("./timing/timing.audioworklet.js")
-    // const timing = new TimingAudioWorklet.default(timingContext)
-    // timing.onmessage = event => {
-    //     console.log("time message:", event)
-    // }
-    // timing.    timer.startTimer()
 
-
-    // const timing = createTimingProcessor(audioContext)
-    // const timing = new TimingAudioWorkletNode(audioContext)
+        // const timing = createTimingProcessor(audioContext)
+        // const timing = new TimingAudioWorkletNode(audioContext)
+    }
 }
 
 /**
  * Preload all of the wave tables 
  */
 const backgroundLoad = async () => {
+
     // await preloadAllWaveTables()
 
     countdown(document.querySelector("[data-countdown]"))
     
     addNoises()
 
-    if (loadFromZips)
-    {
-        await preloadWaveTablesFromZip(WAVE_ARCHIVE_GENERAL_MIDI)
-        await preloadWaveTablesFromZip(WAVE_ARCHIVE_GOOGLE)
-    }else{
-        loadWaveTableFromManifest(manifest)
+    // Load data
+    try{
+        if (loadFromZips)
+        {
+            await preloadWaveTablesFromZip(WAVE_ARCHIVE_GENERAL_MIDI)
+            await preloadWaveTablesFromZip(WAVE_ARCHIVE_GOOGLE)
+        }else{
+            const request =await fetch(MANIFEST_URL)
+            const manifest = await request.json()
+            loadWaveTableFromManifest(manifest)
+        }
+    }catch(error){
+
     }
-   
+
     // update the UI with these new data sets...
-    
     const instrumentNames = getAllWaveTables()
     
     // load saved instrument if not the default
@@ -967,6 +995,16 @@ const start =  async () => {
     const wallpaperCanvas = document.getElementById("wallpaper")
     noteVisualiser = new NoteVisualiser( ALL_KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
     // noteVisualiser = new NoteVisualiser( KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
+    
+    let b = 23
+    //
+    const setNoteVisualiserBlendMode = value =>{
+        noteVisualiser.blendMode = CANVAS_BLEND_MODES[b%CANVAS_BLEND_MODES.length]  
+        console.info(b, "BLENDMODE",  noteVisualiser.blendMode, CANVAS_BLEND_MODE_DESCRIPTIONS[b] )
+    }
+
+    setNoteVisualiserBlendMode(b++)
+    setInterval( setNoteVisualiserBlendMode, 30000 )
 
     // bottom interactive piano
     keyboard = new SVGKeyboard( showAllKeys ? ALL_KEYBOARD_NOTES : KEYBOARD_NOTES, noteOn, noteOff )
@@ -994,14 +1032,28 @@ const start =  async () => {
     }
 
     // watch for when an element arrives in the window
-    monitorIntersections({}, (entry, inViewport )=>{
-
-        console.info(entry,inViewport ? "in viewport" : "exit" )
-
+    let observations = new Map()
+    const monitoredElements = monitorIntersections({}, (entry, inViewport )=>{
+        observations.set(entry.target, inViewport)
+        console.info(entry,inViewport ? "in viewport" : "exit", {observations} )
+    })
+    monitoredElements.forEach((element, index) => {
+       if (!observations.has(element))
+       {
+            observations.set(element, false)
+       }
     })
     
     addReadButtons()
-   
+
+    const audioSamplesInButtons = document.querySelectorAll('button > audio')
+    audioSamplesInButtons.forEach(audioSample => {
+        const button = audioSample.parentNode
+        button.addEventListener("click", e => {
+            audioSample.play()
+        })
+    })
+    console.error('audioSamplesInButtons', audioSamplesInButtons)
     // finally update the URL with the state
     updateURL()
 
