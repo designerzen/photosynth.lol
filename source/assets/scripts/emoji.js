@@ -187,8 +187,8 @@ export const TUNING_MODE_EMOJIS_MINOR = [
     EMOJI_PLEADING,			        // Start from second degree of minor
     EMOJI_CONFUSED,	            	// Start from third degree of minor
     EMOJI_FLUSHED,			        // Start from fourth degree of minor
-    EMOJI_ANNOYED,		// Start from fifth degree of minor
-    EMOJI_SCREAMING,			        // Start from sixth degree (same as natural minor)
+    EMOJI_ANNOYED,		            // Start from fifth degree of minor
+    EMOJI_SCREAMING,			    // Start from sixth degree (same as natural minor)
     EMOJI_GRIMACING			        // Start from seventh degree
 ]
 

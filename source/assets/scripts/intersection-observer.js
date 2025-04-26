@@ -44,6 +44,13 @@ export const monitorIntersections = ( intersectionOptions = DEFAULT_OBSERVATION_
                 // const hideKeyboard = entry.target.hasAttribute("data-hide-keyboard")
                 // console.info("intersection", {entry, ratio, boundingRect, intersectionRect, fullSizeKeyboard})  
 
+                const isSticky = entry.target.classList.contains("sticky")
+
+                if (isSticky)
+                {
+                    
+                }
+                
                 if (fullSizeKeyboard)
                 {
                     
@@ -73,4 +80,5 @@ export const monitorIntersections = ( intersectionOptions = DEFAULT_OBSERVATION_
     elementsToObserve.forEach(element => intersectionObserver.observe(element))
 
     // console.info("elementsToObserve", {elementsToObserve }) 
+    return elementsToObserve
 }
