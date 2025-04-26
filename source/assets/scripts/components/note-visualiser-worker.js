@@ -1,4 +1,3 @@
-import { CANVAS_BLEND_MODE_DESCRIPTIONS, CANVAS_BLEND_MODES } from "../blendmodes"
 import { VISUALISER_OPTIONS } from "../settings"
 
 let notes
@@ -28,9 +27,9 @@ const overlap = 1
 // size to overlap smear
 const gap = noteDepth - overlap
 
-// timer
+// timer & frame lock
 let counter = 0
-
+let lastRenderTime = 0
 
 /**
  * SCROLL / Smear horizontally
@@ -75,13 +74,13 @@ function renderHorizontal(time) {
     if (!clearBackground)
     {
         // Clear the region on the mirror where new content will be drawn
-        mirrorContext.clearRect(gap, lurch, mirror.width, mirror.height);
+        mirrorContext.clearRect(gap, lurch, mirror.width, mirror.height)
 
         // // Copy the canvas to the mirror
-        mirrorContext.drawImage(canvas, 0, 0, mirror.width, mirror.height, 0, 0, mirror.width, mirror.height);
+        mirrorContext.drawImage(canvas, 0, 0, mirror.width, mirror.height, 0, 0, mirror.width, mirror.height)
 
         // // Draw the mirror back onto the canvas
-        context.drawImage(mirror, 0, 0, mirror.width, mirror.height, gap, lurch, mirror.width, mirror.height);
+        context.drawImage(mirror, 0, 0, mirror.width, mirror.height, gap, lurch, mirror.width, mirror.height)
     
     }else{
 
@@ -104,17 +103,29 @@ function renderHorizontal(time) {
     }
 }
 
-function render() {
+const throttle = 1000 / 60
+
+function render(time) {
     
-    // context.clearRect(0, 0, canvas.width, canvas.height)
-   
-    vertical ? 
-        renderVertical(counter) : 
-        renderHorizontal(counter)
- 
-    counter = counter+1 % 999
-    // console.info("mirror render", counter )
-     
+    const dt = time - lastRenderTime
+
+    // Accumulate delta time
+    // we want to throttle this to only x events every second
+    if ( dt < throttle )
+    {
+        // console.log("throttled", {dt, throttle,time, previousTime} )
+    }else{
+        
+        // Update the previous time
+        lastRenderTime = time
+
+        vertical ? 
+            renderVertical(dt) : 
+            renderHorizontal(dt)
+
+        // console.log("unthrottled", {dt, throttle,time, previousTime} )
+    }
+
     // context.fillStyle = "#ff0000"
     // context.fillRect( 
     //     Math.random() * 400, 
@@ -139,11 +150,8 @@ const determineMirrorSize = (isVertical) => {
         { width:canvas.width - gap, height:canvas.height} 
 }
 
-let b = 23
-const setBlendMode = (blendMode=undefined)=> {
-    context.globalCompositeOperation = blendMode ?? CANVAS_BLEND_MODES[b%CANVAS_BLEND_MODES.length]
-    console.info(b, "BLENDMODE",  context.globalCompositeOperation, CANVAS_BLEND_MODE_DESCRIPTIONS[b] )
-    b++
+const setBlendMode = (blendMode)=> {
+    context.globalCompositeOperation = blendMode
 }
 
 onmessage = (evt) => {
@@ -166,8 +174,7 @@ onmessage = (evt) => {
 
         mirrorContext = mirror.getContext('2d')
 
-        // 
-        setBlendMode()
+        // setBlendMode()
         // canvas.addEventListener("click", setBlendMode )
         // mirror.addEventListener("click", setBlendMode )
         // setInterval( setBlendMode, 30000 )
@@ -175,9 +182,14 @@ onmessage = (evt) => {
         noteSize = determineNoteSize(vertical)
 
         loop = true
-        render()
+
+        requestAnimationFrame( time => {
+            lastRenderTime = time
+            render(time) 
+        })
+      
         // 
-        console.info("mirror created",  context.globalCompositeOperation, CANVAS_BLEND_MODE_DESCRIPTIONS[b] )
+        //console.info("mirror created",  context.globalCompositeOperation, CANVAS_BLEND_MODE_DESCRIPTIONS[b] )
         // console.info("mirror created", canvas.width, canvas.height , notes.length, {firstNoteNumber, mirror, canvas, context, mirrorContext, noteSize, notes })
         
         return
@@ -191,10 +203,7 @@ onmessage = (evt) => {
         
     switch (evt.data.type)
     {
-        case "blendMode":
-            setBlendMode(evt.data.blendMode)
-            break
-
+       
         case "noteOn":
             if (!clearBackground)
             {
@@ -235,6 +244,10 @@ onmessage = (evt) => {
             // console.info("VIZ:noteOff", evt.data, transposedNoteNumber )
             break
 
+        case "blendMode":
+            setBlendMode(evt.data.blendMode)
+            break
+    
         case "resize":
             // FIXME: If we are on a 4k screen this may be a huge width
             // so we should have a divison factor to scale the canvas for

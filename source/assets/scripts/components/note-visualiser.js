@@ -20,6 +20,17 @@ export default class NoteVisualiser extends AbstractResizeable{
     mouseX = 0
     mouseY = 0
 
+    #blendMode = 23
+
+    set blendMode(value){
+        this.#blendMode = value
+        this.worker.postMessage({type:"blendMode", blendMode:value})
+    }
+
+    get blendMode(){
+        return this.#blendMode
+    }
+
     get backgroundColour(){
         return getComputedStyle(this.canvas).getPropertyValue("background-color")
         return this.canvas.style.backgroundColor
