@@ -233,8 +233,12 @@ input[type=button].button{
 }
 
 details{
-    margin-bottom: var(--pad);
 
+    margin-top: var(--pad);
+    border-radius: var(--curve, 4px);
+    background-color: var(--col-stone-light);
+    box-shadow: var(--shadow);
+    
     summary{
         display: grid;
         grid-template-columns: 1fr 44px;

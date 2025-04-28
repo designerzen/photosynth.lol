@@ -563,7 +563,6 @@ img{
         "button"
         "details";
     
-    grid-template-columns: minmax(44px, 1fr) auto;
     gap:var(--pad);
 
     figcaption{
@@ -577,11 +576,13 @@ img{
     }
 }
 
-@media screen and (min-width:800px){
+@media screen and (min-width:505px){
     #details figure{
         grid-template-areas: 
             "caption caption"
             "button details";
+        grid-template-columns: minmax(44px, 1fr) 1fr;
+   
     }
 }
 
@@ -751,7 +752,7 @@ label[for="timbre-random"]{
     }
     // seperator
     label:first-of-type{
-        border-right:4px dotted var(--col-stone-light, white );
+        border-right:4px dotted var(--col-border, white );
     }
 }
 
@@ -1048,14 +1049,28 @@ a[href$="designerzen.com"]{
 
 .map{
     border:2px solid var(--col-accent, black);
+    border-radius: var(--curve,4px);
+    box-sizing: border-box;
     margin-top:var(--pad);
     max-height: 69vh;
     max-height: 69dvh;
 }
 
 .link-map{
-    align-self: flex-end;
+    align-self: flex-start;
     margin-bottom:var(--pad);
+    margin-left:var(--pad);
+    transform: translateY(calc( -100% - var(--pad)));
+display: inline-block;
+    padding: calc( var(--pad) / 2 ) var(--pad);
+    background-color: var(--col-bg);
+    border-radius: var(--curve);
+    box-shadow: var(--shadow);
+    &::before{
+        content: "👀";//"🤙";
+        font-family: 'noto-emoji';
+        margin-right: calc(var(--pad) / 2);
+    }
 }
 
 .logo{

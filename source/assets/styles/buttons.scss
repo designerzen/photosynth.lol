@@ -153,8 +153,8 @@ button,
 a.cta{
     z-index: 909;
     position: relative;
-    align-self: flex-end;
-    justify-self: end;
+    // align-self: flex-end;
+    // justify-self: end;
     touch-action: manipulation;
 }
 
@@ -284,17 +284,28 @@ button[data-control-play]{
 
 .button-read{
     --offset-right: calc( 44px + var(--pad));
-    border-radius: 999px;
+    border-radius: 999px 0 0 999px  ;
     border:2px solid var(--col-accent);
   
     background-image: url(/source/assets/icons/play_circle.svg);
     background-size: contain;
     background-position: center left;
+    width:calc(var(--pad) * 2);
+    
+    // this allows it to not create space in its sticky home
+    height:0;
+    min-height:calc(var(--pad) * 2);
+
     font-size:0;
     color:transparent;
-    top:calc( 2 * var(--pad) );
+
+    top:calc( 3 * var(--pad) );
+
     // right:calc( 2 * var(--pad) );
     left:calc( 100% - var(--offset-right,0));
+    left:100%;
+    transform: translateX(100%);
+
     position: absolute;
     position: sticky;
     box-sizing: border-box;
@@ -388,8 +399,9 @@ a.skip-to-content{
 }
 
 
-@media screen and (min-width:900px) {
+@media screen and (min-width:940px) {
     
+    // Text only version
     a.back-to-top{
         grid-template-columns: auto 1fr;
         font-size: inherit;
@@ -406,8 +418,9 @@ a.skip-to-content{
         --offset-right: calc(3 * 44px + var(--pad) * 2);
     }
 }
-@media screen and (min-width:11200px) {
+@media screen and (min-width:1200px) {
     
+    // add the icon back in
     a.back-to-top{
         &::after{
             display: inline-block;
@@ -454,8 +467,14 @@ aside > label[for="toggle-midi"]{
 #toggle-midi{
     --size:66px;
     grid-area: 1/1/-1/-1;
+    border:2px solid black;// var(--col-border);
+    // padding: 2px;
     border-radius: 999px;
     overflow: hidden;
+    &:hover{
+        border-color:var(--col-plum);
+        filter:brightness(100%) invert(100%);
+    }
 }
 
 #button-text-size-increase,

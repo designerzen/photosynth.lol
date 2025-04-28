@@ -15,7 +15,7 @@ body{
     &.underline{
         margin-bottom: var(--pad);
         padding-bottom: var(--pad);
-        border-bottom: 1px solid var(--col-warm-grey-light);
+        border-bottom: 1px solid var(--col-border);
     }
 }
 
@@ -91,6 +91,7 @@ h3{
 .h4,
 h4,
 legend,
+figcaption,
 :is(article,section,div) > p:first-of-type{ 
     font-size: var(--font-size-h4);
     line-height: 1.3
@@ -102,7 +103,6 @@ p.flood{
 .h5,
 summary,
 summary > :is(h3,h4,h5,h6),
-figcaption,
 h5 {
     font-size: var(--font-size-h5);
 }
@@ -198,13 +198,13 @@ blockquote{
     .h4,
     h4,
     legend,
+    figcaption,
     p:first-of-type {
         font-size: var(--font-size-h4-mobile);
     }
 
     .h5,
     summary,
-    figcaption,
     details p:first-of-type,
     h5 {
         font-size: var(--font-size-h5-mobile);
@@ -267,8 +267,8 @@ legend{
 
 // Set font weights :
 figcaption{
-    font-style: italic;
-    font-weight: bolder;
+    // font-style: italic;
+    // font-weight: bolder;
 }
 
 address{

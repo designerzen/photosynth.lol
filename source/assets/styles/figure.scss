@@ -8,6 +8,8 @@ figure{
     flex-direction: column;
     align-items: center;
     overflow: hidden;
+    padding-top: var(--pad);
+    padding-bottom: var(--pad);
  
     // there may be nested icons in figcaption for attributions etc
     > img{
@@ -37,11 +39,11 @@ figure{
 
 // as these overlay and stick...
 figure.sticky{
-    background: var(--col-bg);
+    // background: var(--col-bg);
     // ensure it sticks a little away from the top
-    top: var(--pad);
+    top: calc(var(--sticky-top) + var(--pad) * 2);
 
-    margin-bottom: calc( var(--pad) * 5);
+    margin-bottom: calc( var(--pad) * 6);
 
     img{
         max-width:min(420px, 66%);

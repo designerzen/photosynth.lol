@@ -20,6 +20,8 @@
     
     // absorb viewport height
     height: 100%;
+    height: fit-content;
+
     // allows 100vh to work on mobile safari (sometimes)
     min-height: 100vh;
     min-height: -webkit-fill-available;
@@ -54,7 +56,8 @@
 
 :where(body){ 
     // prevent collapse
-    min-height: 100%;
+    min-height: inherit;
+    height: inherit;
     // regular arrangement for vertical flow
     display: flex;
     flex-direction: column;
@@ -110,6 +113,11 @@ dd{
     margin:0;
 }
 
+th{
+    display: block;
+    margin-right: calc( var(--pad) / 2 );
+}
+
 th,
 dt{
     text-align: right;
@@ -162,8 +170,16 @@ abbr{
 
 
 aside{
-    margin-top:var(--pad);
+    
+    border-radius: var(--curve);
+    // --col-border:var(--col-stone);
+    // --col-border:var(--col-stone-light);
+    // margin-top:var(--pad);
     padding: calc(2 * var(--pad));
+    border-top:dashed var(--col-border) 2px;
+    border:dashed var(--col-border) 2px;
+    margin-left:var(--pad);
+    margin-right:var(--pad);
 }
 
 :where(blockquote){
@@ -386,7 +402,7 @@ svg[aria-hidden='true'] {
 
 form{
     background-color: var(--col-bg);
-    background-color: color-mix( in oklch, var(--col-bg) 38%, transparent );
+    background-color: color-mix( in oklch, var(--col-bg) 75%, transparent );
     border-radius:var(--curve);
 }
 

@@ -4,8 +4,9 @@
     padding:0;
     position: sticky;
     top:0;
-    z-index: 202;
-    grid-area: nav;
+    z-index: 909;
+    grid-area: 1/1/-1/-1;
+    margin-top: calc(-1 * (var(--pad) * 3 + 0lh));
     justify-self: center;
     pointer-events: auto;
     width: 100%;
@@ -99,7 +100,7 @@
 
         ul{
             --gap:clamp( 11px, 2vw, calc( 0.5 * var(--pad) ) );
-            justify-items: baseline;
+            //justify-items: baseline;
         }
 
         li a{
@@ -119,11 +120,11 @@
 
         ul{
             --gap:1px; //clamp( 11px, 5vw, calc( 1 * var(--pad) ) );
-            margin:var(--pad) calc( 2 * var(--pad) );
-            margin-left: 0;
-            border-radius: 99px;
+            // margin:var(--pad) calc( 2 * var(--pad) );
+            // margin-left: 0;
+            // border-radius: 99px;
             overflow: hidden;
-            padding:0 calc( 1.5 * var(--pad) );
+            // padding:0 calc( 1.5 * var(--pad) );
 
             li a{
                 // color:var(--col-plum);
@@ -141,26 +142,30 @@
 
 #menu-accessibility{
     order:-1;
-   
     width: 100%;
-    margin:0;
-    padding:0;
     z-index: 303;
     color: var(--col-text);
     background-color: var(--col-bg);
-    // add a small bottom clean border
-    border-bottom: 4px solid var(--col-bg);
+    // grid-area: 1/1/-1/-1;
 
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap:0 calc( var(--pad)  );
-    grid-area: 1/1/-1/-1;
+    grid-area:menu;
+    position: sticky;
+    top:0;
 
-    // as sometimes the radio buttons are taller that the other buttons...
-    // align-items: center;
-    align-items: stretch;
-
+    menu{
+        margin:0;
+        padding:0;
+        // add a small bottom clean border
+        border-top: 1px solid var(--col-bg);
+        border-bottom: 4px solid var(--col-bg);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        // as sometimes the radio buttons are taller that the other buttons...
+        // align-items: center;
+        align-items: stretch;
+        gap:0 calc( var(--pad)  );
+    }
 
     .skip-to-content-link{
         order:-1;
