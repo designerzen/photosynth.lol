@@ -6,7 +6,7 @@ import { setFont } from "./fonts"
 
 // NB. This polyfill will break AudioWorklets which we use for timing
 import { AudioContext as PonyAudioContext, OfflineAudioContext } from 'standardized-audio-context'
-import { enableMIDI, mapped, toChord, toNote } from "./audio"
+import { enableMIDI, mapped, midiEnabled, toChord, toggleMIDI, toNote } from "./audio"
 import { createChord, createFifthsChord, createMajorChord, createMinorChord, getModeAsIntegerOffset, getModeFromIntegerOffset, MAJOR_CHORD_INTERVALS, MINOR_CHORD_INTERVALS, TUNING_MODE_NAMES } from "./chords"
 import { registerMultiTouchSynth } from "./components/multi-touch-synth"
 import CircleSynth from "./components/circle-synth"
@@ -275,7 +275,7 @@ const noteOn = ( noteModel, velocity=1, id=0 ) => {
     mouseVisualiser && mouseVisualiser.noteOn( noteModel, velocity )
     recorder && recorder.noteOn( noteModel, velocity )
     miniNotation && miniNotation.noteOn( noteModel, velocity, audioContext.currentTime )
-    
+    midiEnabled && midi.noteOff( noteModel, velocity )
     // this should change the visualiser line colour
     shapeVisualiser.colour = noteModel.colour
 }
@@ -308,6 +308,7 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
     mouseVisualiser && mouseVisualiser.noteOff( noteModel, velocity )
     recorder && recorder.noteOff( noteModel, velocity )
     miniNotation && miniNotation.noteOff( noteModel, velocity, audioContext.currentTime )
+    midiEnabled && midi.noteOff( noteModel, velocity )
     shapeVisualiser.colour = false
 }
 
@@ -435,12 +436,18 @@ const createAudioVisualiser = (audioContext, source, song, visualiserOptions=VIS
         
     // const randomWaveButton = document.querySelector('#timbre-random')
     const randomWaveButtons = document.querySelectorAll('input[value="random"]')
+  
     randomWaveButtons.forEach( randomWaveButton => {
             
+        const radioButtons = randomWaveButton.closest("fieldset").querySelectorAll('input[type="radio"]')
+        randomWaveButton.value = getRandomWaveTableName() 
+
         randomWaveButton.addEventListener("click", e => {
-            const randomWave = getRandomWaveTableName() 
             //console.info("randomWaveButton", randomWave)
-            shape = setTimbre( randomWave )
+            shape = setTimbre( randomWaveButton.value )
+            randomWaveButton.value = getRandomWaveTableName() 
+            // clear all the nearby radio buttons
+            radioButtons.forEach( radioButton => radioButton.checked = false )
         })
     })
 }
@@ -648,14 +655,27 @@ const showMIDIToggle = () => {
     const sectionMIDIToggle = document.getElementById("midi-equipment")
     const buttonMIDIToggle = document.getElementById("toggle-midi")
     buttonMIDIToggle.addEventListener("click", async(e) => {
-        const midi = await enableMIDI()
-        if (!midi.supported)
+        let midiEnabled = await toggleMIDI()
+        if (!WebMidi.supported)
         {
-            buttonMIDIToggle.hidden = false
+            buttonMIDIToggle.hidden = true
+            midiEnabled = false
+            console.error("No midi support")
+        }else{
+             console.info("MIDI!", {midiEnabled})
+            console.info(midi.inputs)
+            console.info(midi.outputs)
+        }
+        if (WebMidi.inputs.length < 1) {
+            document.body.innerHTML+= "No device detected."
+            midiEnabled = false
+            buttonMIDIToggle.hidden = true
+        } else {
+            WebMidi.inputs.forEach((device, index) => {
+              // `${index}: ${device.name}`
+            })
         } 
-        console.info("MIDI!", midi, midi.supported)
-        console.info(midi.inputs)
-        console.info(midi.outputs)
+       buttonMIDIToggle.checked = midiEnabled
     })
     sectionMIDIToggle.hidden = false
     buttonMIDIToggle.parentNode.hidden = false
@@ -765,6 +785,7 @@ const setupShapeVisualiser = (instrumentNames) => {
         const timbre = e.target.value
         console.info("timbre", timbre)
         shape = setTimbre( timbre )
+       
     })
     timbrePrevious.addEventListener("click", e => {
         console.info("timbre previous", timbreSelect.value, timbreSelect.options.length )

@@ -73,6 +73,32 @@ export const mapped = (note, chord, channel) =>{
 }
 
 let midiDriver
+export let midiEnabled = false
+
+export const loadMIDIDriver = async () => {
+    const midi = await import("webmidi")
+    return WebMidi
+}
+
+export const toggleMIDI = async () => {
+    if (!midiEnabled)
+    {
+        try {    
+            await enableMIDI()
+        } catch (error) {
+             console.error(error)
+        }
+        return true
+    }else{
+        try {    
+            await disableMIDI()
+        } catch (error) {
+             console.error(error)
+        }
+        return false
+    }
+}
+
 export const enableMIDI = async () => {
     if (!midiDriver)
     {
@@ -80,6 +106,7 @@ export const enableMIDI = async () => {
     }
     try {    
        await WebMidi.enable()
+       midiEnabled = true
     } catch (error) {
         console.error(error)
     }
@@ -87,10 +114,11 @@ export const enableMIDI = async () => {
 }
 
 export const disableMIDI = async () => {
-
-}
-
-export const loadMIDIDriver = async () => {
-    const midi = await import("webmidi")
-    return WebMidi
+    try {    
+        await WebMidi.disable()
+        midiEnabled = false
+     } catch (error) {
+         console.error(error)
+     }
+     return WebMidi
 }
