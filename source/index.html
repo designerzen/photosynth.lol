@@ -53,7 +53,7 @@
                 Skip to the menu.
             </a> -->
         </hgroup>
-         
+<!--          
         <nav class="menu-main">
             <ul role="list">
                 <li><a href="#about">About</a></li>
@@ -64,124 +64,194 @@
                 <li><a href="#laboratory">Laboratory</a></li>
             </ul>
         </nav>
+     -->
+        <form id="menu-accessibility" hidden>
+            <menu>
+                <li class="skip-to-content-link">
+                    <a class="skip-to-content" href="#main-content">
+                        Skip accessibility menu and jump straight to the main content.
+                    </a>
+                </li>
+                <li class="text-size-link">
+                   
+                        <fieldset>
+                            <legend>Text Size</legend>
+                            <label for="button-text-size-increase"><span class="sr-only">Increase Font Size.</span>
+                                <button title="Increase Font Size" type="button" id="button-text-size-increase"><span class="sr-only">Text Size Increase.</span></button>
+                            </label>
+                    
+                            <label for="button-text-size-decrease"><span class="sr-only">Increase Font Size></span>
+                                <button title="Decrease Font Size" type="button" id="button-text-size-decrease"><span class="sr-only">Text Size Decrease.</span></button>
+                            </label>
+                        </fieldset>
+                </li>
+
+                <li class="font-link">
+                        <fieldset>
+                            <legend>Typeface</legend>
+
+                            <label for="font-default">
+                                <input name="font" id="font-default" type="radio" value="default" checked>
+                                Balanced<span class="sr-only"> font</span>
+                            </label>
+
+                            <label for="font-readable">
+                                <input name="font" id="font-readable" type="radio" value="readable">
+                                Readable<span class="sr-only"> font</span>
+                            </label>
+
+                            <label for="font-dsylexic">
+                                <input name="font" id="font-dsylexic" type="radio" value="dsylexic">
+                                Dsylexic<span class="sr-only"> font</span>
+                            </label>
+                        </fieldset>
+                </li>
+                
+                <li class="color-scheme-link">
+                        <fieldset>
+                            <legend>Colour Scheme</legend>
+
+                            <label for="palette-default">
+                                <input name="palette" id="palette-default" type="radio" value="default" checked>
+                                Balanced<span class="sr-only"> Colour Scheme.</span>
+                            </label>
+
+                            <label for="palette-contrast">
+                                <input name="palette" id="palette-contrast" type="radio" value="contrast">
+                                High<span class="sr-only"> Contrast Scheme.</span>
+                            </label>
+                            
+                            <label for="palette-monochrome">
+                                <input name="palette" id="palette-monochrome" type="radio" value="monochrome">
+                                Monochrome<span class="sr-only"> Colour Scheme.</span>
+                            </label>
+                                
+                            <label for="palette-colourful">
+                                <input name="palette" id="palette-colourful" type="radio" value="colourful">
+                                Colourful<span class="sr-only"> Scheme.</span>
+                            </label>
+                        </fieldset>
+                </li>
+
+                <li class="volume-control-link">
+                        <fieldset id="controls-volume">
+                            <legend class="sr-only">Control Volume</legend> 
+                        
+                            <label for="mute">
+                                <span class="sr-only">Toggle </span>Mute
+                                <input id="mute" type='checkbox'>
+                            </label>
+
+                            <label for="volume">
+                                Volume
+                                <input id="volume" type='range' value='100' min="0" max="100">
+                            </label>
+                        </fieldset>
+                </li>
+
+            </menu>
+        </form>
+
+        <!-- <img class="logo-royal-society-crest" width="100" height="100" src="/source/assets/logos/royal_society-crest.svg" alt=""> -->
+    </header>
+
     
-        
-        <menu id="menu-accessibility" hidden>
+    <nav class="menu-main">
+        <ul role="list">
+            <li><a href="#about">About</a></li>
+            <li><a href="#history">History</a></li>
+            <li><a href="#science">Science</a></li>
+            <li><a href="#event">Event</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#laboratory">Lab<span class="expansion">oratory</span></a></li>
+        </ul>
+    </nav>
+<!-- 
+    <form id="menu-accessibility" hidden>
+        <menu>
             <li class="skip-to-content-link">
                 <a class="skip-to-content" href="#main-content">
                     Skip accessibility menu and jump straight to the main content.
                 </a>
             </li>
             <li class="text-size-link">
-                <form>
-                    <fieldset>
-                        <legend>Text Size</legend>
-                        <label for="button-text-size-increase"><span class="sr-only">Increase Font Size.</span>
-                            <button title="Increase Font Size" type="button" id="button-text-size-increase"><span class="sr-only">Text Size Increase.</span></button>
-                        </label>
-                
-                        <label for="button-text-size-decrease"><span class="sr-only">Increase Font Size></span>
-                            <button title="Decrease Font Size" type="button" id="button-text-size-decrease"><span class="sr-only">Text Size Decrease.</span></button>
-                        </label>
-                    </fieldset>
-                </form>
+                <fieldset>
+                    <legend>Text Size</legend>
+                    <label for="button-text-size-increase"><span class="sr-only">Increase Font Size.</span>
+                        <button title="Increase Font Size" type="button" id="button-text-size-increase"><span class="sr-only">Text Size Increase.</span></button>
+                    </label>
+            
+                    <label for="button-text-size-decrease"><span class="sr-only">Increase Font Size></span>
+                        <button title="Decrease Font Size" type="button" id="button-text-size-decrease"><span class="sr-only">Text Size Decrease.</span></button>
+                    </label>
+                </fieldset>
             </li>
 
             <li class="font-link">
-                <form>
-                    <fieldset>
-                        <legend>Typeface</legend>
+                <fieldset>
+                    <legend>Typeface</legend>
 
-                        <label for="font-default">
-                            <input name="font" id="font-default" type="radio" value="default" checked>
-                            Balanced<span class="sr-only"> font</span>
-                        </label>
+                    <label for="font-default">
+                        <input name="font" id="font-default" type="radio" value="default" checked>
+                        Balanced<span class="sr-only"> font</span>
+                    </label>
 
-                        <label for="font-readable">
-                            <input name="font" id="font-readable" type="radio" value="readable">
-                            Readable<span class="sr-only"> font</span>
-                        </label>
+                    <label for="font-readable">
+                        <input name="font" id="font-readable" type="radio" value="readable">
+                        Readable<span class="sr-only"> font</span>
+                    </label>
 
-                        <label for="font-dsylexic">
-                            <input name="font" id="font-dsylexic" type="radio" value="dsylexic">
-                            Dsylexic<span class="sr-only"> font</span>
-                        </label>
-                    </fieldset>
-                </form>
+                    <label for="font-dsylexic">
+                        <input name="font" id="font-dsylexic" type="radio" value="dsylexic">
+                        Dsylexic<span class="sr-only"> font</span>
+                    </label>
+                </fieldset>
             </li>
             
             <li class="color-scheme-link">
-                <form>
-                    <fieldset>
-                        <legend>Colour Scheme</legend>
+                <fieldset>
+                    <legend>Colour Scheme</legend>
 
-                        <label for="palette-default">
-                            <input name="palette" id="palette-default" type="radio" value="default" checked>
-                            Balanced<span class="sr-only"> Colour Scheme.</span>
-                        </label>
+                    <label for="palette-default">
+                        <input name="palette" id="palette-default" type="radio" value="default" checked>
+                        Balanced<span class="sr-only"> Colour Scheme.</span>
+                    </label>
 
-                        <label for="palette-contrast">
-                            <input name="palette" id="palette-contrast" type="radio" value="contrast">
-                            High<span class="sr-only"> Contrast Scheme.</span>
-                        </label>
+                    <label for="palette-contrast">
+                        <input name="palette" id="palette-contrast" type="radio" value="contrast">
+                        High<span class="sr-only"> Contrast Scheme.</span>
+                    </label>
+                    
+                    <label for="palette-monochrome">
+                        <input name="palette" id="palette-monochrome" type="radio" value="monochrome">
+                        Monochrome<span class="sr-only"> Colour Scheme.</span>
+                    </label>
                         
-                        <label for="palette-monochrome">
-                            <input name="palette" id="palette-monochrome" type="radio" value="monochrome">
-                            Monochrome<span class="sr-only"> Colour Scheme.</span>
-                        </label>
-                            
-                        <label for="palette-colourful">
-                            <input name="palette" id="palette-colourful" type="radio" value="colourful">
-                            Colourful<span class="sr-only"> Scheme.</span>
-                        </label>
-                    </fieldset>
-                </form>
+                    <label for="palette-colourful">
+                        <input name="palette" id="palette-colourful" type="radio" value="colourful">
+                        Colourful<span class="sr-only"> Scheme.</span>
+                    </label>
+                </fieldset>
             </li>
 
             <li class="volume-control-link">
-                <form id="controls-volume">
-                    <fieldset>
-                        <legend class="sr-only">Control Volume</legend> 
-                    
-                        <label for="mute">
-                            <span class="sr-only">Toggle </span>Mute
-                            <input id="mute" type='checkbox'>
-                        </label>
+                <fieldset id="controls-volume">
+                    <legend class="sr-only">Control Volume</legend> 
+                
+                    <label for="mute">
+                        <span class="sr-only">Toggle </span>Mute
+                        <input id="mute" type='checkbox'>
+                    </label>
 
-                        <label for="volume">
-                            Volume
-                            <input id="volume" type='range' value='100' min="0" max="100">
-                        </label>
-                    </fieldset>
-                </form>
+                    <label for="volume">
+                        Volume
+                        <input id="volume" type='range' value='100' min="0" max="100">
+                    </label>
+                </fieldset>
             </li>
 
         </menu>
-       
-        <!-- <img class="logo-royal-society-crest" width="100" height="100" src="/source/assets/logos/royal_society-crest.svg" alt=""> -->
-        
-        <div id="share-menu" hidden>
-            <share-menu
-                id="share"
-                title="Share!"
-                text="Share this event"
-                url="https://photosynth/"
-                image="https://photosynth/assets/logos/photosynth-square.svg"
-                dialog-title="Share now"
-                copy-hint="Copy to clipboard"
-                handle="always"
-                no-backdrop
-                >
-                <share-target-email></share-target-email>
-                <share-target-facebook></share-target-facebook>
-                <share-target-telegram></share-target-telegram>
-            </share-menu>
-
-            <button class="button-share" onclick="share.share()">Share</button>
-        </div>
-
-    </header>
-
+    </form> -->
 
     <main id="main-content">
 
@@ -225,7 +295,7 @@
 
         <!--  -->
         <section id="teaser" class="shadow wavey" data-observe>
-           <article class="split page" data-readable>
+           <article class="split page bg" data-readable>
             
                 <header>
                     <h3 class="underline heading-icon">Drake Music presents, the <cite>Photo<wbr>SYNTH</cite>, the happiest way to make music!</h3>
@@ -247,15 +317,17 @@
                 </blockquote>
                 
                 <p>Makes creating music fun and easy (easy like a Sunday morning).</p> 
+ 
+                <p>Without any training you can instantly make great music using movements familiar to you.</p>
 
                 <p>Created alongside <a href="https://drakemusic.org">Drake Music Charity</a>, specialists in accessible technology, and with the help &amp; guidance of hundreds of differently-abled people, this mixed-reality pop music machine will put a smile on your face and make it musical =D</p>
-
+               
                 <p>
-                    <em>Finally, a purpose for your reflection!</em>
+                    <em>Find a purpose for your reflection!</em>
                 </p>
             </article>
             
-            <article class="page text-scroller-vertical"> 
+            <article class="text-scroller-vertical"> 
                 <h5>
                     The PhotoSYNTH is a        
                 </h5>
@@ -263,40 +335,40 @@
                     <li class="sticky">Multiplayer</li>
                     <li class="sticky">Collaborative</li>
                     <li class="sticky">Mixed Reality</li>
-                    <li class="sticky">Immersive</li>
+                    <li class="sticky">Sympathetic Synthesizer</li>
+                    <!-- <li class="sticky">Immersive</li> -->
                     <li class="sticky">Musical Instrument</li>
                     <li class="sticky">Science Project</li>
                 </ul>
             </article>
 
                 
-            <!-- MIDI Equipment ------------------------------------------- -->
-            <aside id="midi-equipment" class="" data-observe hidden>
-                <hgroup>
-                    <h5 class="heading-icon">This site is MIDI enabled for your listening pleasure</h5>
-                    <p>Connect your MIDI equipment now and press the button below</p>
-                </hgroup>
-                
-                <details>
-                    <summary><h5>Learn more about Web MIDI</h5></summary>
-                    <p> The universal language of synths and electronic musical instruments, MIDI (Musical Instrument Digital Interface) is a standard for communication between electronic musical devices using either a MIDI cable or, if your instruments supports it, USB cables.</p>
-                    <p>If you have any MIDI equipment, connect them now and 
-                        <label for="toggle-midi">press the enable MIDI button.</label>
-                    </p>
-                    <p>Any MIDI equipment will both control the instruments on this site, as well as be controlled by them. All MIDI channels are targetted.</p>
-                </details>
-
-                <label for="toggle-midi" hidden>
-                    Enable and disbale MIDI connection
-                    <input type="checkbox" id="toggle-midi" value="midi" class="cta">
-                </label>
-        
-
-            </aside>
 
         </section>
 
 
+        <!-- MIDI Equipment ------------------------------------------- -->
+        <aside id="midi-equipment" class="shadow" data-observe hidden>
+            <hgroup>
+                <h5 class="h3 heading-icon">This site is MIDI enabled for your listening pleasure</h5>
+                <p>Connect your MIDI equipment now and <label for="toggle-midi">press the button.</label></p>
+            </hgroup>
+            
+            <details>
+                <summary><h5>Learn more about Web MIDI</h5></summary>
+                <p>Musical Instrument Digital Interface or <abbr title="Musical Instrument Digital Interface">MIDI</abbr>, is the universal language of synths and electronic musical instruments. It is the main standard for communication between electronic musical devices using either a MIDI cable or, if your instruments supports it, USB cables.</p>
+                <p>If you have any MIDI equipment, connect them now and 
+                    <label for="toggle-midi">press the enable MIDI button.</label>
+                </p>
+                <p>Any MIDI equipment will both control the instruments on this site, as well as be controlled by them. All MIDI channels are targetted.</p>
+            </details>
+
+            <label for="toggle-midi" hidden>
+                Enable and disbale MIDI connection
+                <input type="checkbox" id="toggle-midi" value="midi" class="cta">
+            </label>
+    
+        </aside>
     
 
         <!-- About the event -->
@@ -305,15 +377,14 @@
                
             <!-- Event ------------------------------------------- -->
             <article id="event" class="page split" data-readable>
-          
-                <header>
-                    <h3 class="heading-icon">About</h3>
-                    <h4>Summer Science Exhibition</h4>
+           
+                <header class="underline">
+                    <h3 class="heading-icon">Summer Science Exhibition 2025</h3>
+                    <h4>Ever dreamed of being more musical? Well alright... Hold tight!</h4>
+                    <div data-countdown class="flood">
+                        <time datetime="2025-07-01 09:00">July 1<sup>st</sup>, 2025</time>
+                    </div>
                 </header>
-
-                <div data-countdown class="flood">
-                    <time datetime="2025-07-01 09:00">July 1<sup>st</sup>, 2025</time>
-                </div>
 
                 <p>The Summer Science Exhibition is a free six-day festival showcasing the science shaping our future and will be held at the Royal Society in London from 
                     <time datetime="2025-07-01 09:00">July 1<sup>st</sup></time>
@@ -322,33 +393,16 @@
                 </p>
             
                 <!-- <p>If you've ever dreamed of being more musical, you're not alone!</p> -->
-                <p>Ever dreamed of being more musical? Well alright... Hold tight!</p>
+                
+                <p>Come and join us this summer for a fun musical celebration of inclusive technologies and have a play with some of the newest instruments from the <a href="#amic">Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></a> and learn all about the science and research behind them.</p>
+                    <!-- <h4>Come and join us for a fun musical celebration of diversity, inclusive technology and science!</h4> -->
+            </article>
         
-                <p>Come along this summer to have a play with some of the newest instruments from the <a href="#amic">Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></a> and learn all about the science behind them.</p>
-                      
-               
-                <p class="flood">Imagine if there was a musical magic spell, what musical skills would you wish for? !</p>
-            </article>
-                    
-            <article id="venue" class="page">
-                <h5>Event Details</h5>
-                <iframe class="map" width="1080" height="540" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1344162225723267%2C51.50472238057011%2C-0.1302212476730347%2C51.506889393716634&amp;layer=mapnik"></iframe>
-                <a class="link-map" href="https://www.openstreetmap.org/?#map=18/51.505806/-0.132319">View Larger Map</a>
-            
-                <details>
-                    <summary><h6>Getting there</h6></summary>
-                    <p>
-                        Underground stations: Charing Cross and Piccadilly Circus
-                        Bus routes: 12, 13, 15 and 453.
-                        Coach station: Connections from Victoria coach station
-                        <a rel="noopener noreferrer" target="_blank" href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">See official recommendations</a>       
-                    </p>
-                </details>
-            </article>
-            
+            <!-- Description & Event details -->
             <aside id="details" class="page">
                 
                 <figure class="full-width bg-clear">
+                    
                     <figcaption id="button-cast-spell-caption">Summer Science Exhibition 2025 Details</figcaption>
 
                     <button 
@@ -383,21 +437,64 @@
                         </dd>
             
                         <dt>Location</dt>
-                        <dd>London</dd>
+                        <dd><a href="#venue">London</a></dd> 
         
                         <dt>Category</dt>
                         <dd>Exhibition</dd>
                     </dl>
-                 
+                   
                 </figure>
+                  
+                <div id="share-menu" hidden>
+                    <share-menu
+                        id="share"
+                        title="Share!"
+                        text="Share this event"
+                        url="https://photosynth/"
+                        image="https://photosynth/assets/logos/photosynth-square.svg"
+                        dialog-title="Share now"
+                        copy-hint="Copy to clipboard"
+                        handle="always"
+                        no-backdrop
+                        >
+                        <share-target-email></share-target-email>
+                        <share-target-facebook></share-target-facebook>
+                        <share-target-telegram></share-target-telegram>
+                    </share-menu>
+
+                    <button class="button-share" onclick="share.share()">Share</button>
+                </div>
             </aside>
 
+            
+            <!-- Venue -->
+            <article id="venue" class="page">
+                <header>
+                    <h4>Venue</h4>
+                </header>
+
+                <figure>
+                    <figcaption>
+                        6-9 Carlton House Terrace, London, SW1Y 5AG, United Kingdom
+                    </figcaption>
+                    <iframe class="map" width="1080" height="540" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1344162225723267%2C51.50472238057011%2C-0.1302212476730347%2C51.506889393716634&amp;layer=mapnik"></iframe>
+                    <a class="link-map" href="https://www.openstreetmap.org/?#map=18/51.505806/-0.132319">View Larger Map</a>
+                
+                    <details>
+                        <summary><h6>Getting there</h6></summary>
+                        <p>
+                            Underground stations: Charing Cross and Piccadilly Circus
+                            Bus routes: 12, 13, 15 and 453.
+                            Coach station: Connections from Victoria coach station
+                            <a rel="noopener noreferrer" target="_blank" href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">See official recommendations</a>       
+                        </p>
+                    </details>
+                </figure>
+
+            </article>
+            
             <article>
-               
-                <hgroup>
-                    <h3 class="heading-icon">Summer Exhibition 2025</h3>
-                    <h4>Come and join us for a fun musical celebration of diversity, inclusive technology and science!</h4>
-                </hgroup>
+              
 
                 <img class="icon float outside-leaning-polygon" width="100" height="100" src="/source/assets/icons/hearing-loop.svg" alt="Hearing loop enabled venue.">
           
@@ -408,7 +505,7 @@
                     and quiet spaces.
                 </p>
 
-                <figure>
+                <figure id="facilities">
                     <table>
                         <caption>Facilities</caption>
                         
@@ -446,75 +543,99 @@
                     <figcaption>Accessibility facilities</figcaption>
                 </figure>
 
-            </article>
-
-
-
-        </section>
-
-
-
-        <!-- SCIENCE -->
-        <section id="science" class="shadow bg-clear" data-observe>
-                     
-            <article class="page split" id="technology-explanation" data-readable>
-                            
-                <p>Developments in science, research, and development have resulted in exciting innovations that allow us to augment people's abilities in radical new ways using neural networking and machine learning.</p>
-                    
-                <p>By constantly refining, improving and evolving, thanks to feedback from loops of reinforced learning, and artificial intelligence that is trained to recognise patterns, we now have the neccessary tools to make it possible to elegantly interface with machines in natural and intuitive new ways.</p>
-
-                <p>Developed from the ground up to be accessible and inclusive, with the support and feedback from Drake
-                    Music and hundreds of disabled and differently-abled people met through #DMLabs throughout the years.
-                </p>
-
-                <p>By tracking your motions and emotions in real-time, this magic mirror converts your everyday movements
-                    into beautiful music - making it one of the easiest and most fun synthesizers to play, yet remains
-                    highly expressive and capable of high fidelity.</p>
-                <p>Rather than playing a musical instrument, the <cite>Photo<wbr>SYNTH</cite> plays you!</p>
-                <p>Without any training you can instantly make great music using movements familiar to you.</p>
-
-            
-                <p>Every articulation can become an audio revelation… Instant musical superpowers!</p>
-                
                 <a href="https://royalsociety.org/science-events-and-lectures/summer-science-exhibition/" class="cta">Learn more</a>
 
             </article>
 
-            <!-- Technology ------------------------------------------- -->
-            <article id="technology" class="stackable page" data-observe data-readable>
-                <header>
-                    <h3 class="heading-icon">Technology</h3>
-                    <h4 class="underline">How converting emotions into music works</h4>
-                </header>
-                <p>Computers are very good at recognising patterns. 
-                    If you keep showing a computer ducks, eventually it will realise what ducks have in common - a bill, wings, webbed feat, a distinct waddle and some quacks. 
-                    With practice it becomes an expert it duck detection.
-                </p>
-                <p>
-                    The same can be true for recognising human characteristics such as moods and emotions. 
-                    Being happy presents many clues and indications when studied, most obvious is smiling, but joy also brings wide eyes, and delight raises eyebrows.  
-            
-                    Frowns and furrowed brows indicate signs of melancholy and malaise.
-                </p><p>
-                    Both are easy to spot. Like ducks.
-                </p>
-                <p>
-                    A well-trained machine can read you like a book...
-                </p>
-                
-                <p class="flood">
-                    <em>But can it play you like a musical instrument?</em>
-                </p>
+        </section>
 
-                <p>Imagine a world where rather than having to learn a musical instrument, the musical instrument could learn how to play you...</p>
+  
+        <canvas id="visualiser" class="sticky" inert width=800 height=400></canvas>
+      
+        <!-- SCIENCE -->
+        <section id="science" class="shadow wavey" data-observe>
+                     
+            <!-- Introduction -->
+            <article class="page split" data-readable>
+            
+                <header class="underline">
+                    <h3 class="heading-icon">Science</h3>
+                    <h4>
+                        How converting emotions into music works
+                    </h4>
+                </header>
+
+                <p>Developments in science and research have resulted in exciting innovations that allow us to augment people's abilities in radical new ways using neural networking and machine learning.</p>
+                    
+                <p>By constantly refining, improving and evolving, thanks to feedback loops that provide data to reinforce learning, and artificial intelligence that is trained to recognise patterns, we now have the neccessary tools to make it possible to elegantly interface with machines in natural and intuitive new ways.</p>
+
+                <p>The PhotoSYNTH, and other AMIC instruments, are developed from the ground up to be accessible and inclusive, with the support, training and feedback from hundreds of disabled and differently-abled people. This ensures that every step is a step forwards, towards improvement.</p>
+
+                <p>By tracking your motions and emotions in real-time, this magic mirror converts your everyday movements into music, capturing the subtleties and nuances of your expressions.</p>
+                <p>Rather than playing a musical instrument, the <cite>Photo<wbr>SYNTH</cite> plays you!</p>
+            
+                <figure class="">
+                    <picture>
+                        <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=avif&width=1080" type="image/avif" />
+                        <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=webp&width=1080" type="image/webp" />
+                        <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" type="image/jpeg" />
+                        <img width=1080 loading="lazy" src="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" alt="The Holographic PhotoSYNTH being presented at the AMIC, Accessible Musical Instrument Collection." />
+                    </picture>
+                    <figcaption>Every articulation can become an audio revelation! Holographic PhotoSYNTH, AMIC, London UK.</figcaption> 
+                </figure>
                 
-                   
+            </article>
+    
+            <!-- Menu Table of Contents -->
+            <nav id="process" class="page">
+                <ol>
+                    <li>
+                        <a href="#capture-face">
+                        Capture snapshots of movements and expressions
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#technology">
+                        Convert them into a digital version that exists in 3d space
+                        </a>
+                    </li>   
+                    <li>
+                        <a href="#recognising-emotions">
+                        Recognise emotions, expressions and moods to try to determine the intention
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#waveforms">
+                        Generate music in response, that represents those same emotions and intentions
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#technology">
+                        Evoke the same emotions to convey the moods to the listener who is experiencing the music
+                        </a>
+                    </li>
+            </ol> 
+            </nav>
+
+            
+            <!-- Processes -->
+            <!-- 1. Capture face -->
+
+            <article id="capture-face" class="page">
+
+                <header class="underline">
+                    <h3 class="heading-icon">The process of capturing emotions and expressions</h3>
+                    <h4 >To convert them into other mediums</h4>
+                </header>
+
                 <p>
                     <dfn id="definition-photosynth">The <cite>Photo<wbr>SYNTH</cite></dfn> is a 
                     <dfn id="definition-mixed-reality">mixed-reality</dfn> audio synthesizer that uses real-time motion capture with
                     facial-landmark tracking to enhance your movements, and the movements of your friends, with radical new musical
-                    superpowers, instantly turning you into a pop-star and your friends into a band!
+                    superpowers, turning you instantly into a pop-star, and your friends into a band!
                 </p>
+
+                <p>To do this first we must use a camera to capture information...</p>
 
                 <figure id="diagram-face-scan" class="diagram sticky full-width bg-clear">
                     <img 
@@ -555,11 +676,11 @@
                         width="1024" height="1024"
                         src="/source/assets/diagrams/face-recognition.svg" 
                         alt="">
-                    <figcaption>Moods and emotions are determined</figcaption>
+                    <figcaption>Mood recognised</figcaption>
                 </figure>
             
                 <p class="wavey">These metrics are then used to create music that tries to represent and invoke the same moods and emotions.</p>
-               
+            
                 <figure id="diagram-face-mood-recognition" class="diagram sticky full-width bg-clear">
             
                     <img 
@@ -572,128 +693,58 @@
                     <figcaption>Mood has been recognised</figcaption>
                 </figure>
             
-                <blockquote class="sticky full-height">
-                    <p class="quote">Any sufficiently advanced technology is indistinguishable from magic.</p>
-                    <p class="citation">Arthur C Clarke<cite></cite></p>
-                </blockquote>
                 
             </article>
-        </section>
 
-        <!-- Funky audio analyser overlay -->   
-        <section id="waveforms" class="sticky full-height full-width" data-observe>
+            <!-- 2. Digitse Face ------------------------------------------- -->
+            <article id="technology" class="stackable page" data-observe data-readable>
+                
+                <header class="underline">
+                    <h3 class="heading-icon">Technology</h3>
+                    <h4>How to read a human being</h4>
+                </header>
+
+                <p class="wavey">These metrics are then used to create music that tries to represent and invoke the same moods and emotions.</p>
             
-            <audio id="audio-sample" src="/source/assets/audio/fx/spells/shine-magic-sound-4-sounds-190258.mp3" preload="auto"></audio>
+                
+                <p>Computers are very good at recognising patterns. 
+                    If you keep showing a computer ducks, eventually it will realise what ducks have in common - a bill, wings, webbed feat, a distinct waddle and some quacks. 
+                    With practice it becomes an expert it duck detection.
+                </p>
+                <p>
+                    The same can be true for recognising human characteristics such as moods and emotions. 
+                    Being happy presents many clues and indications when studied, most obvious is smiling, but joy also brings wide eyes, and delight raises eyebrows.  
             
-            <form action="/">
-              
-                <fieldset class="timbre-selector">
-                    <legend>Shape (Timbre)</legend>
-                    <label for="song-timbre-random">
-                        <!-- <input id="song-timbre-random" class="cta" type="button" value="random"> -->
-                        <button class="cta" id="song-timbre-random" type="button">Random</button>
-                        Random Wave
-                    </label>
-                    
-                    <label for="song-timbre-previous">
-                        Previous Shape
-                        <button class="cta" id="song-timbre-previous" type="button">Previous</button>
-                    </label>
-                    
-                    <label for="song-timbre-next">
-                        Next Shape
-                        <button class="cta" id="song-timbre-next" type="button">Next</button>
-                    </label>
-                    
-                    <label for="song-timbre-select">
-                        <select id="song-timbre-select" class="">
-                            <optgroup>
-                                <option value="sine">Sine</option>
-                                <option value="square">Square</option>
-                                <option value="sawtooth">Sawtooth</option>
-                                <option value="triangle">Triangle</option>
-                            </optgroup>
-                            <optgroup class="noises">
-                            </optgroup>
-                            <!-- <option value="noise">Noise</option> -->
-                        </select>
-                        Select a shape
-                    </label>
-                </fieldset>                
-            </form>
-            
-            <form id="emotion" action="/">    
-                <!-- Play next note from provided song -->
-                <fieldset class="song-controls">
-                    <legend>Song Controls</legend>
-                    <button data-control-play type="button" class="">Play Song</button>
-                </fieldset>
-                            
-                <fieldset class="anger-selector">
-                    <legend>Angry sounds</legend>
-                    <button type="button" data-play-timbre="Brown Noise">
-                        <span class="emoji" aria-hidden="true">😠</span>
-                        Mildly Angry
-                    </button>
-                    <button type="button" data-play-timbre="Pink Noise">
-                        <span class="emoji" aria-hidden="true">😡</span>
-                        Quite Angry
-                    </button>
-                    <button type="button" data-play-timbre="White Noise">
-                        <span class="emoji" aria-hidden="true">🤬</span>
-                        Very Angry
-                    </button>
-                </fieldset>
+                    Frowns and furrowed brows indicate signs of melancholy and malaise.
+                </p><p>
+                    Both happiness and sadness are easy to spot. Like ducks.
+                </p>
+                <i class="emoji">🦆 🦆 🦆</i>
+                <p>
+                    A well-trained machine can read you like a book...
+                </p>
+                
+                <p class="flood">
+                    <em>But can it play you like a musical instrument?</em>
+                </p>
 
-                <fieldset class="lovely-selector">
-                    <legend>Lovely sounds</legend>
-                    <button type="button" data-play-timbre="Sine">
-                        <span class="emoji" aria-hidden="true">🤗</span>
-                        Quite Lovely
-                    </button>
-                    <button type="button" data-play-timbre="Celleste">
-                        <span class="emoji" aria-hidden="true">😍</span>
-                        Moderately Lovely
-                    </button>
-                    <button type="button" data-play-timbre="Marimba">
-                        <span class="emoji" aria-hidden="true">🥰</span>
-                        Very Lovely
-                    </button>
-                </fieldset>
+            </article>
 
-                <fieldset class="octave-selector">
-                    
-                    <legend>Frequency</legend>
+            <!-- 3. Recognise emotions ------------------------------------------- -->
+            <article id="recognising-emotions"  class="page">
 
-                    <label for="octave-bass">
-                        <input id="octave-bass" name="octave" type="radio" value="3">
-                        <span class="notation">𝄢</span>
-                        Bass
-                    </label>
-                    
-                    <label for="octave-lead">
-                        <input id="octave-lead" name="octave" type="radio" value="4" checked>
-                        <span class="notation">𝄡</span>
-                        Lead
-                    </label>
+                <header class="underline">
+                    <h3 class="heading-icon">Technology</h3>
+                    <h4>How to read a human being</h4>
+                </header>
 
-                    <label for="octave-treble">
-                        <input id="octave-treble" name="octave" type="radio" value="5">
-                        <span class="notation">𝄞</span>
-                        Treble
-                    </label>
-                    
-                </fieldset>
-    <!--                
-                <label for="emotion-ionian"><span class="emoji">😐</span>Ionian</label>
-                <input id="emotion-ionian" type="radio" name="emotion" value="ionian">
-            
-                <label for="emotion-dorian"><span class="emoji">🥹</span>Dorian</label>
-                <input id="emotion-dorian" type="radio" name="emotion" value="dorian">
+                <p>Imagine a world where rather than having to learn a musical instrument, the musical instrument could learn how to play you...</p>
 
-                <label for="emotion-phrygian"><span class="emoji">🫤</span>Phrygian</label>
-                <input id="emotion-phrygian" type="radio" name="emotion" value="phrygian"> -->
-          
+                <blockquote class="sticky full-height">
+                    <p class="quote">Music is an unconscious exercise in mathematics in which the mind is unaware that it is calculating.</p>
+                    <p class="citation">Gottfried Wilhelm Leibniz <cite></cite></p>
+                </blockquote>
+                
                 <fieldset class="emotional-chord-player">
                     <legend>Emotional Shapes</legend>
                     <label for="button-happy">
@@ -707,111 +758,198 @@
                     </label>
                 </fieldset>
 
-            </form>
-            
-            <canvas id="visualiser" inert width=800 height=400></canvas>
-      
-
-
-            <!-- <article id="waveform-visualiser"  class="bg-clear shadow sticky full-height full-width" data-full-keyboard data-observe>
-                   
-                <header>
-                    <h3 class="heading-icon" data-timbre>Each Sound Has a Shape</h3>
-                    <h4>Sonic characteristics of Sound</h4>
-                </header>
-
-            </article> -->
-
-            <article id="process">
-                <p>
-                    capture snapshots of movements and expressions
-                    converting them into a digital version that exists in 3d space           
-                    recognise emotions, expressions and moods and try to determine the intention
-                    generate music in response, that represents those same emotions and intentions to convey the same moods
-                    evoke the same emotions in the listener who is experiencing the music
-                </p>
             </article>
-     
-            <article id="shapes" class="page bg-clear" data-full-keyboard data-observe data-readable>
+
+             <!-- 4. Generate music ------------------------------------------- -->
+            <article id="shapes" class="page" data-full-keyboard data-observe data-readable>
                 
                 <header>
                     <h3 class="heading-icon" data-timbre>The Shape of Sound</h3>
                     <h4>Unique Sonic characteristics</h4>
                 </header>
 
-                <p>Each sound has a distinct shape, similar to a fingerprint or snowflake. This affects how the sound travels, bounces off things, and what effect it will have on matter and how that is perceived by your ears (if at all) .</p>
-                 
-                <p>As sound moves it leaves remnants of itself on things it touches, imagine, if you like, sonic snail trails, vibrating and shedding frequencies and reverberations. These alter the acoustics and harmonics of the original sound and add character such as echo and reverb. </p>
-                <p>Sound travels at the same speeds as gases do, regardless of whether they are high or low pitched, however high frequencies can be directionalised, unlike bass that is omnipresent.</p>
-                <p>Round sounds such as the Sine wave sound soft and comfortable, whilst sharp, angular sounds, such as the Sawtooth wave, sound fierce and aggressive.</p>
-                <p>Often discordant and unpleasant sound is described as noise.</p>
-                
-                <p>Slow moving sounds are perceived as deep or bassy, whist the faster they vibrate, the higher pitched they sound.</p>
-               
-            </article>
-     
-        <!-- Research ------------------------------------------- -->
-            <article id="research" class="page split" data-readable  data-observe>
-                <header>
-                    <h3 class="heading-icon">Research</h3>
-                    <h4>"Some People"</h4>
-                </header>
+                <p>Each sound has a distinct shape, similar to a fingerprint or snowflake. This affects how the sound travels, bounces off things, what effect it will have on matter and how that is perceived by your ears (if at all) .</p>
                     
-                <p>
-                    Everybody is different and unique. 
-                    Some people have incredible memories and can vividly remember past events, whilst some people forget where they put their house keys every day. 
-                    Some people remain laser focussed while others' brains begin to womble off.
-                </p>
-                <p>
-                    <em>Everybody has their own talents and their limitations.</em>
-                </p>
-
-                <p><strong>Everybody is differently abled.</strong></p>
+                <p>As sound moves it leaves remnants of itself on things it touches, imagine, if you like, sonic snail trails, vibrating and shedding frequencies and reverberations. These alter the acoustics and harmonics of the original sound and add character such as an echo and reverb.</p>
+                <p>Sound travels at the same speeds as gases do, regardless of whether they are high or low pitched, instead pitch is correlated with the amount of times that the pattern repeats in a fixed time period, often refered to as its vibration or wavelength.</p>
+                 
+                <p>Slow repeating sounds are perceived as deep or bassy, whist the faster they vibrate, the more high pitched they sound.</p>
                 
-                <p>
-                    The diversity in human abilities has supported humanity by approaching problems from different perspectives and finding creative new ways of solving them.
-                </p>
-                <p>
-                    Diversity is a human strength, and differences are powerful.
-                </p>
-                <p>
-                    If everybody did the same things in the same fashion, 
-                    everything would be a sea of uneventful nothingness, 
-                    devoid of character, charm and appeal,  
-                    where nothing new or exciting ever happens.
-                </p>
-                <!-- <p>Creativity lies at the intersection of inspiration and expression, and innovations form to facilitate them.</p> -->
-                <p>
-                    Some people have a natural talent for music whilst others struggle to play a note.
-                </p>
+                    Due to this extra detail in the higher frequencies, our brains can determine their directionality, unlike bass that is omnipresent.</p>
+                
+                
+                <p>Round sounds such as the Sine wave sound soft and comfortable, whilst sharp, angular sounds, such as the Sawtooth wave, sound fierce and aggressive.</p>
+                
+                <p>Often discordant and unpleasant sound is described as noise.</p>
+                <p>There is much research into the topic but it is commonly thought that many of the emotional triggers caused by sound are rooted in our relationship with the distress crys and warning sounds of animals. The growl of a bear or the screech of the crow is part of the ecological audio landscape that has surrounded us for millenia, speaking to us before we had a language.</p> 
+               
+                
+                <blockquote class="sticky full-height">
+                    <p class="quote">Music is an unconscious exercise in metaphysics in which the mind is unaware that it is philosophizing.</p>
+                    <p class="citation">Arthur Schopenhauer<cite class="sr-only">The World as Will and Representation</cite></p>
+                </blockquote>
 
-                <p class="question">
-                    Can technology help us to create a world where everyone can enjoy jamming together?
-                </p>
-
-                <p>We should celebrate our differences through the universal language of music and dance!</p>
-                <!-- <p>Curiosity killed the cat, but also helped create world changing research.</p> -->
             </article>
 
-            <blockquote>
-                <p><em>What a wonderful world it would be!</em></p>
-            </blockquote>
-            
-        </section>
 
-        <!-- Chords & Patterns ------------------------------------------- -->
-        <section id="chords" class="bg-clear shadow" data-observe>
-            <article class="page" data-readable>
+            <!-- audio analyser food -->    
+            <article id="waveforms" class="sticky full-height full-width" data-observe>
+                
+                <header>
+
+                </header>
+
+                <p>Imagine there was a magical music spell, what musical skills would you wish for?</p>
+
+                <blockquote class="sticky full-height">
+                    <p class="quote">Music is an unconscious exercise in communication in which the mind is unaware that it is being guided.</p>
+                    <p class="citation sr-only">Zenon Olenski <cite></cite></p>
+                </blockquote>
+
+                <audio id="audio-sample" src="/source/assets/audio/fx/spells/shine-magic-sound-4-sounds-190258.mp3" preload="auto"></audio>
+                
+                <form action="/">
+                
+                    <fieldset class="timbre-selector">
+                        <legend>Shape (Timbre)</legend>
+                        <label for="song-timbre-random">
+                            <!-- <input id="song-timbre-random" class="cta" type="button" value="random"> -->
+                            <button class="cta" id="song-timbre-random" type="button">Random</button>
+                            Random Wave
+                        </label>
+                        
+                        <label for="song-timbre-previous">
+                            Previous Shape
+                            <button class="cta" id="song-timbre-previous" type="button">Previous</button>
+                        </label>
+                        
+                        <label for="song-timbre-next">
+                            Next Shape
+                            <button class="cta" id="song-timbre-next" type="button">Next</button>
+                        </label>
+                        
+                        <label for="song-timbre-select">
+                            <select id="song-timbre-select" class="">
+                                <optgroup>
+                                    <option value="sine">Sine</option>
+                                    <option value="square">Square</option>
+                                    <option value="sawtooth">Sawtooth</option>
+                                    <option value="triangle">Triangle</option>
+                                </optgroup>
+                                <optgroup class="noises">
+                                </optgroup>
+                                <!-- <option value="noise">Noise</option> -->
+                            </select>
+                            Select a shape
+                        </label>
+                    </fieldset>                
+                </form>
+                
+                <form id="emotion" action="/">    
+                    <!-- Play next note from provided song -->
+                    <fieldset class="song-controls">
+                        <legend>Song Controls</legend>
+                        <button data-control-play type="button" class="">Play Song</button>
+                    </fieldset>
+                                
+                    <fieldset class="anger-selector">
+                        <legend>Angry sounds</legend>
+                        <button type="button" data-play-timbre="Brown Noise">
+                            <span class="emoji" aria-hidden="true">😠</span>
+                            Mildly Angry
+                        </button>
+                        <button type="button" data-play-timbre="Pink Noise">
+                            <span class="emoji" aria-hidden="true">😡</span>
+                            Quite Angry
+                        </button>
+                        <button type="button" data-play-timbre="White Noise">
+                            <span class="emoji" aria-hidden="true">🤬</span>
+                            Very Angry
+                        </button>
+                    </fieldset>
+
+                    <fieldset class="lovely-selector">
+                        <legend>Lovely sounds</legend>
+                        <button type="button" data-play-timbre="Sine">
+                            <span class="emoji" aria-hidden="true">🤗</span>
+                            Quite Lovely
+                        </button>
+                        <button type="button" data-play-timbre="Celleste">
+                            <span class="emoji" aria-hidden="true">😍</span>
+                            Moderately Lovely
+                        </button>
+                        <button type="button" data-play-timbre="Marimba">
+                            <span class="emoji" aria-hidden="true">🥰</span>
+                            Very Lovely
+                        </button>
+                    </fieldset>
+
+                    <fieldset class="octave-selector">
+                        
+                        <legend>Frequency</legend>
+
+                        <label for="octave-bass">
+                            <input id="octave-bass" name="octave" type="radio" value="3">
+                            <span class="notation">𝄢</span>
+                            Bass
+                        </label>
+                        
+                        <label for="octave-lead">
+                            <input id="octave-lead" name="octave" type="radio" value="4" checked>
+                            <span class="notation">𝄡</span>
+                            Lead
+                        </label>
+
+                        <label for="octave-treble">
+                            <input id="octave-treble" name="octave" type="radio" value="5">
+                            <span class="notation">𝄞</span>
+                            Treble
+                        </label>
+                        
+                    </fieldset>
+        <!--                
+                    <label for="emotion-ionian"><span class="emoji">😐</span>Ionian</label>
+                    <input id="emotion-ionian" type="radio" name="emotion" value="ionian">
+                
+                    <label for="emotion-dorian"><span class="emoji">🥹</span>Dorian</label>
+                    <input id="emotion-dorian" type="radio" name="emotion" value="dorian">
+
+                    <label for="emotion-phrygian"><span class="emoji">🫤</span>Phrygian</label>
+                    <input id="emotion-phrygian" type="radio" name="emotion" value="phrygian"> -->
+            
+
+                </form>
+            
+
+                <!-- <article id="waveform-visualiser"  class="bg-clear shadow sticky full-height full-width" data-full-keyboard data-observe>
+                    
+                    <header>
+                        <h3 class="heading-icon" data-timbre>Each Sound Has a Shape</h3>
+                        <h4>Sonic characteristics of Sound</h4>
+                    </header>
+
+                </article> -->
+            </article>
+
+            <blockquote class="sticky full-height">
+                <p class="quote">Any sufficiently advanced technology is indistinguishable from magic.</p>
+                <p class="citation">Arthur C Clarke<cite></cite></p>
+            </blockquote>
+             
+            <!-- Chords & Patterns ------------------------------------------- -->
+            <article id="chords" class="bg page shadow" data-observe data-readable>
                 <header>
                     <h3 class="heading-icon">Shapes &amp; Patterns</h3>
                     <h4>Chords & Patterns</h4>
                 </header>
-            </article>
-            <article class="page">
+
+                <p>When a note is played, the air pulses in patterns.</p>
+                <p>It is the repetition of these patterns that make music.</p>
+         
                 <!-- This ID is used to scroll back to above the synth byt he link below it -->
                 <a id="link-chords" href="#link-chords" class="hidden-link">Bookmark the Circular Synth</a>
 
-                <figure id="circular-synthesizer" class="instrument-circular">
+                <figure id="circular-synthesizer" class="instrument-circular sticky">
                     <svg class="circle-of-fifths" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="-24 -24 454 454">
                         <title>Emotional Circle of Fifths Synthesizer</title>
                     
@@ -1045,6 +1183,53 @@
 
         <!-- DMLab ------------------------------------------- -->
         <section  id="laboratory" class="wavey shadow" data-observe>
+        
+            <!-- Research ------------------------------------------- -->
+            <article id="research" class="page split" data-readable  data-observe>
+                <header>
+                    <h3 class="heading-icon">Research</h3>
+                    <h4>"Some People"</h4>
+                </header>
+                    
+                <p>
+                    Everybody is different and unique. 
+                    Some people have incredible memories and can vividly remember past events, whilst some people forget where they put their house keys every day. 
+                    Some people remain laser focussed while others' brains begin to womble off.
+                </p>
+                <p>
+                    <em>Everybody has their own talents and their limitations.</em>
+                </p>
+
+                <p><strong>Everybody is differently abled.</strong></p>
+                
+                <p>
+                    The diversity in human abilities has supported humanity by approaching problems from different perspectives and finding creative new ways of solving them.
+                </p>
+                <p>
+                    Diversity is a human strength, and differences are powerful.
+                </p>
+                <p>
+                    If everybody did the same things in the same fashion, 
+                    everything would be a sea of uneventful nothingness, 
+                    devoid of character, charm and appeal,  
+                    where nothing new or exciting ever happens.
+                </p>
+                <!-- <p>Creativity lies at the intersection of inspiration and expression, and innovations form to facilitate them.</p> -->
+                <p>
+                    Some people have a natural talent for music whilst others struggle to play a note.
+                </p>
+
+                <p class="question">
+                    Can technology help us to create a world where everyone can enjoy jamming together?
+                </p>
+
+                <p>We should celebrate our differences through the universal language of music and dance!</p>
+                <!-- <p>Curiosity killed the cat, but also helped create world changing research.</p> -->
+            </article>
+
+            <blockquote>
+                <p><em>What a wonderful world it would be!</em></p>
+            </blockquote>
 
             <article class="page" data-readable>
 
@@ -1061,16 +1246,7 @@
                         
                     <p>Over 14 years, working directly with disabled artists and people with no musical abilities, DMLab has been researching ways to grant musical superpowers through research and technology.</p>
                 
-                    <figure class="sticky bumpers">
-                        <picture>
-                            <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=avif&width=1080" type="image/avif" />
-                            <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=webp&width=1080" type="image/webp" />
-                            <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" type="image/jpeg" />
-                            <img loading="lazy" src="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" alt="The Holographic PhotoSYNTH being presented at the AMIC, Accessible Musical Instrument Collection." />
-                        </picture>
-                        <figcaption>AMIC. Holographic PhotoSYNTH.</figcaption>
-                    </figure>
-                
+                 
                     <figure class="sticky bumpers">
                         <img loading="lazy" src="/source/assets/photos/alexander-baxevanis.jpg" alt="The Holographic PhotoSYNTH being presented at the Electromagnetic Fields Festival.">
                         <figcaption>
@@ -1199,7 +1375,7 @@
         <!-- History ------------------------------------------- -->
       
         <section id="playback" class="sticky bg-transparent full-height full-width" data-observe>
-            <canvas id="song-in-pixels" width="320" height="128"></canvas>
+            <canvas id="song-in-pixels" inert width="320" height="128"></canvas>
         </section>
 
         <section id="history" class="shadow" data-observe>
@@ -1211,20 +1387,7 @@
 
                 https://accessiblemusicalinstrumentcollection.org/case_studies/photosynth/
 
-                <blockquote class="sticky full-height">
-                    <p class="quote">Music is an unconscious exercise in mathematics in which the mind is unaware that it is calculating.</p>
-                    <p class="citation">Gottfried Wilhelm Leibniz <cite></cite></p>
-                </blockquote>
         
-                <blockquote class="sticky full-height">
-                    <p class="quote">Music is an unconscious exercise in metaphysics in which the mind is unaware that it is philosophizing.</p>
-                    <p class="citation">Arthur Schopenhauer, <cite>The World as Will and Representation</cite></p>
-                </blockquote>
-
-                <blockquote class="sticky full-height">
-                    <p class="quote">Music is an unconscious exercise in communication in which the mind is unaware that it is being guided.</p>
-                    <p class="citation">Zenon Olenski <cite></cite></p>
-                </blockquote>
 
 
                 <p>Created by</p>

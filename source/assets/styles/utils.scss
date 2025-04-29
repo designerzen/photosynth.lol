@@ -359,7 +359,7 @@ img.flood{
 
 .text-scroller-vertical{
 	line-height: 1.2;
-	font-size: 22px;
+	font-size: 2rem;
 	display: grid;
 	grid-template-areas: "lead trail";
 	grid-template-columns: auto auto;
@@ -462,12 +462,14 @@ img.flood{
 			// place-content: center;
 			// display: flex;
 			position: sticky;
+			width: 100%;
 			background-color: var(--col-bg);
-			animation: Text-Scroller;
-			animation-range: calc(50% - .75lh) calc(50% + .75lh);
-			animation-timeline: view();
-			animation-fill-mode: both;
+			// animation: Text-Scroller;
+			// animation-range: calc(50% - .75lh) calc(50% + .75lh);
+			// animation-timeline: view();
+			// animation-fill-mode: both;
 			scroll-snap-align: center;
+
 
 			&::before{
 				content:'';
