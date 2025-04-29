@@ -17,6 +17,8 @@ const OFFSET = 16
 const X_OFFSET = -MAX_RADIUS - OFFSET
 const Y_OFFSET = -MAX_RADIUS - OFFSET
 
+const START_RADIUS =  -Math.PI * 0.5
+
 let mouseDown = false 
 let mouseX = -1
 let mouseY = -1
@@ -59,22 +61,15 @@ function renderMouse(x, y, radius=MAX_RADIUS, nodeTypeHovered=null, mouseDown=fa
 
     x += X_OFFSET
     y += Y_OFFSET
-    // draw a circle at the mouse position
-    const path = new Path2D()
-    // arc(x, y, radius, startAngle, endAngle, counterclockwise)
-    path.arc(x, y, radius, 0, TAU, true)
-    path.closePath()
-
-    // context.fillStyle = lastNoteColour
-    // context.fill(path)
 
     if (notes.size > 0)
     {
         // now fill the other segments
         const radians = TAU / notes.size
-        let last = -Math.PI * 0.5
+        let last = START_RADIUS
        
         let i = 0
+
         // draw parts of the PI!
         notes.forEach((data, colour, map) => {
 
@@ -92,27 +87,39 @@ function renderMouse(x, y, radius=MAX_RADIUS, nodeTypeHovered=null, mouseDown=fa
         })
     }
 
-    if (mouseDown)
+    // only fill if mouse is pressed or the circle is shrinking out 
+    if (notes.size > 0 )
     {
+        // draw a circle at the mouse position
+       const colour = !mouseDown ?  'rgba(0,0,0,0.8)' : lastNoteColour ?? 'rgba(0,0,0,0.8)'
         
+        // arc(x, y, radius, startAngle, endAngle, counterclockwise)
+        const outline = new Path2D()
+        outline.arc(x, y, radius, 0, TAU, true)
+        outline.closePath()
+        
+        // now draw the outlines...
+        context.strokeStyle = colour
+        context.lineWidth = mouseDown ? STROKE : 8
+        // context.fill(path)
+        context.stroke(outline)
+
+        // draw a play icon in front of the pie
+        if (!mouseDown)
+        {
+            x += 6
+            const triangle = new Path2D()
+            const side = radius * 0.33
+            triangle.moveTo(x - side, y - side)
+            triangle.lineTo(x + side, y)
+            triangle.lineTo(x - side, y + side)
+            triangle.closePath()
+            context.fillStyle = colour
+            context.fill(triangle)
+            context.stroke(triangle)
+        }
     }
     
-    // now draw the outlines...
-    context.strokeStyle = !mouseDown ?  'rgba(0,0,0,0.8)' : lastNoteColour
-    context.lineWidth = mouseDown ? STROKE : 8
-    // context.stroke()
-    context.stroke(path)
-    
-    // only fill if mouse is pressed or the circle is shrinking out 
-    // if (mouseDown || countDown > 0)
-    // {
-    //     context.fillStyle = lastNoteColour ?? 'rgba(0,0,0,0.8)'
-    //     // console.info(countDown, "RENDER MOUSEMOVE", lastNoteColour, {mouseDown, x, y, canvas},  canvas.width, canvas.height )
-    // }else{
-    //     // console.info("skipping fill")
-    //     context.fillStyle = lastNoteColour ?? 'rgba(0,0,0,0.8)'
-    // }
-
     // console.error("HOVERED ELEMENT", nodeTypeHovered)
 }
 
@@ -132,9 +139,6 @@ function render() {
     // context.fillStyle = "rgba(0,255,0,0.8)"
     // context.drawRect( currentX - HALF_MAX_RADIUS + X_OFFSET, currentY - HALF_MAX_RADIUS + Y_OFFSET, MAX_SIZE, MAX_SIZE )
 
-    // clear full screen (greedy)
-    // context.clearRect( 0, 0, canvas.width, canvas.height )
-
     // shrink radius if mouse is not held down
     if (!mouseDown && countDown > 0)
     {
@@ -148,10 +152,10 @@ function render() {
     currentY += (mouseY - currentY) * FRICTION
 
     // redraw the mouse position
-    // if (radius > 0 )
-    // {
+    if (radius > MIN_RADIUS )
+    {
         renderMouse( currentX, currentY, radius, hoveredElement, mouseDown )
-    // }
+    }
 
 
     
