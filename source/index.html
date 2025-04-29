@@ -588,6 +588,10 @@
     
             <!-- Menu Table of Contents -->
             <nav id="process" class="page">
+                <header class="">
+                    <h3 class="heading-icon">The process of capturing emotions and expressions</h3>
+                    <h4 >To convert them into other mediums</h4>
+                </header>
                 <ol>
                     <li>
                         <a href="#capture-face">
@@ -617,15 +621,13 @@
             </ol> 
             </nav>
 
-            
             <!-- Processes -->
             <!-- 1. Capture face -->
-
             <article id="capture-face" class="page">
 
                 <header class="underline">
-                    <h3 class="heading-icon">The process of capturing emotions and expressions</h3>
-                    <h4 >To convert them into other mediums</h4>
+                    <h3 class="heading-icon">Digitising the human form &amp; expressions</h3>
+                    <h4 >Because seeing is believing.</h4>
                 </header>
 
                 <p>
@@ -731,7 +733,7 @@
             </article>
 
             <!-- 3. Recognise emotions ------------------------------------------- -->
-            <article id="recognising-emotions"  class="page">
+            <article id="recognising-emotions" class="page">
 
                 <header class="underline">
                     <h3 class="heading-icon">Technology</h3>
@@ -765,9 +767,10 @@
                 
                 <header>
                     <h3 class="heading-icon" data-timbre>The Shape of Sound</h3>
-                    <h4>Unique Sonic characteristics</h4>
+                    <h4>The Sound of Shapes</h4>
                 </header>
 
+                <p>Unique Sonic characteristics.</p>
                 <p>Each sound has a distinct shape, similar to a fingerprint or snowflake. This affects how the sound travels, bounces off things, what effect it will have on matter and how that is perceived by your ears (if at all) .</p>
                     
                 <p>As sound moves it leaves remnants of itself on things it touches, imagine, if you like, sonic snail trails, vibrating and shedding frequencies and reverberations. These alter the acoustics and harmonics of the original sound and add character such as an echo and reverb.</p>
@@ -781,7 +784,7 @@
                 <p>Round sounds such as the Sine wave sound soft and comfortable, whilst sharp, angular sounds, such as the Sawtooth wave, sound fierce and aggressive.</p>
                 
                 <p>Often discordant and unpleasant sound is described as noise.</p>
-                <p>There is much research into the topic but it is commonly thought that many of the emotional triggers caused by sound are rooted in our relationship with the distress crys and warning sounds of animals. The growl of a bear or the screech of the crow is part of the ecological audio landscape that has surrounded us for millenia, speaking to us before we had a language.</p> 
+                <p>There is much research into the topic but it is commonly thought that many of the emotional triggers caused by sound are rooted in our relationship with the distress crys and warning sounds of animals. The growl of a bear, the screech of the crow and the hiss of the cat is part of the ecological audio landscape that has surrounded us for millenia, speaking to us before we had a language.</p>  
                
                 
                 <blockquote class="sticky full-height">
@@ -790,10 +793,46 @@
                 </blockquote>
 
             </article>
-
+ 
+            <form action="/" class="sticky">
+                
+                <fieldset class="timbre-selector">
+                    <legend>Shape (Timbre)</legend>
+                    <label for="song-timbre-random">
+                        <!-- <input id="song-timbre-random" class="cta" type="button" value="random"> -->
+                        <button class="cta" id="song-timbre-random" type="button">Random</button>
+                        Random Wave
+                    </label>
+                    
+                    <label for="song-timbre-previous">
+                        Previous Shape
+                        <button class="cta" id="song-timbre-previous" type="button">Previous</button>
+                    </label>
+                    
+                    <label for="song-timbre-next">
+                        Next Shape
+                        <button class="cta" id="song-timbre-next" type="button">Next</button>
+                    </label>
+                    
+                    <label for="song-timbre-select">
+                        <select id="song-timbre-select" class="">
+                            <optgroup>
+                                <option value="sine">Sine</option>
+                                <option value="square">Square</option>
+                                <option value="sawtooth">Sawtooth</option>
+                                <option value="triangle">Triangle</option>
+                            </optgroup>
+                            <optgroup class="noises">
+                            </optgroup>
+                            <!-- <option value="noise">Noise</option> -->
+                        </select>
+                        Select a shape
+                    </label>
+                </fieldset>                
+            </form>
 
             <!-- audio analyser food -->    
-            <article id="waveforms" class="sticky full-height full-width" data-observe>
+            <article id="waveforms" class="page full-height full-width" data-observe>
                 
                 <header>
 
@@ -807,43 +846,7 @@
                 </blockquote>
 
                 <audio id="audio-sample" src="/source/assets/audio/fx/spells/shine-magic-sound-4-sounds-190258.mp3" preload="auto"></audio>
-                
-                <form action="/">
-                
-                    <fieldset class="timbre-selector">
-                        <legend>Shape (Timbre)</legend>
-                        <label for="song-timbre-random">
-                            <!-- <input id="song-timbre-random" class="cta" type="button" value="random"> -->
-                            <button class="cta" id="song-timbre-random" type="button">Random</button>
-                            Random Wave
-                        </label>
-                        
-                        <label for="song-timbre-previous">
-                            Previous Shape
-                            <button class="cta" id="song-timbre-previous" type="button">Previous</button>
-                        </label>
-                        
-                        <label for="song-timbre-next">
-                            Next Shape
-                            <button class="cta" id="song-timbre-next" type="button">Next</button>
-                        </label>
-                        
-                        <label for="song-timbre-select">
-                            <select id="song-timbre-select" class="">
-                                <optgroup>
-                                    <option value="sine">Sine</option>
-                                    <option value="square">Square</option>
-                                    <option value="sawtooth">Sawtooth</option>
-                                    <option value="triangle">Triangle</option>
-                                </optgroup>
-                                <optgroup class="noises">
-                                </optgroup>
-                                <!-- <option value="noise">Noise</option> -->
-                            </select>
-                            Select a shape
-                        </label>
-                    </fieldset>                
-                </form>
+               
                 
                 <form id="emotion" action="/">    
                     <!-- Play next note from provided song -->
