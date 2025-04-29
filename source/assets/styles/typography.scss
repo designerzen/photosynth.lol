@@ -92,7 +92,7 @@ h3{
 h4,
 legend,
 figcaption,
-:is(article,section,div) > p:first-of-type{ 
+:is(article,section,div) > p:first-of-type:not([class]){ 
     font-size: var(--font-size-h4);
     line-height: 1.3
 }
@@ -118,7 +118,7 @@ p{
     position: relative;
     margin:0;
 }
-details p:first-of-type{
+details p:first-of-type:not([class]){
     font-size: var(--font-size-h5);
 }
 
@@ -199,13 +199,13 @@ blockquote{
     h4,
     legend,
     figcaption,
-    p:first-of-type {
+    p:first-of-type:not([class]) {
         font-size: var(--font-size-h4-mobile);
     }
 
     .h5,
     summary,
-    details p:first-of-type,
+    details p:first-of-type:not([class]),
     h5 {
         font-size: var(--font-size-h5-mobile);
     }

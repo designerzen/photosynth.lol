@@ -299,7 +299,7 @@ button[data-control-play]{
     font-size:0;
     color:transparent;
 
-    top:calc( 3 * var(--pad) );
+    top:calc( 3 * var(--pad) + var(--sticky-top) );
 
     // right:calc( 2 * var(--pad) );
     left:calc( 100% - var(--offset-right,0));
@@ -332,14 +332,35 @@ button[data-control-play]{
 
 a.back-to-top,
 a.skip-to-content{
+    
+    --icon:url(/source/assets/icons/up-chevron.svg);
+    --anim: BackToTop;
+
     z-index: 1;
     display: grid;
     grid-template-columns: 0 1fr;
     font-size: 0;
-    padding:calc(var(--pad) / 4);
+   
     overflow: hidden;
     overflow: clip;
     color: transparent;
+    align-items: center;
+    justify-content: center;
+    justify-self: end;
+    align-self: end;
+
+    box-sizing: border-box;
+    padding: 0;
+    background-color: var(--col-accent);
+    margin-bottom:1px;
+    min-height: 100%;
+    box-sizing: content-box;
+    padding:calc(var(--pad) / 4);
+    padding-top:0;
+    padding-bottom:0;
+    
+    z-index: 868;
+    height: var(--sticky-top);
 
     &::after{
         content:'';
@@ -348,7 +369,7 @@ a.skip-to-content{
         min-height: 44px;
         display: inline-block;
         vertical-align: middle;
-        background-image: url(/source/assets/icons/up-chevron.svg);
+        background-image: var(--icon);
         background-repeat: no-repeat;
         background-size: contain;
         background-position: center;
@@ -361,70 +382,71 @@ a.skip-to-content{
     &:hover::after,
     &:active::after{
         // transform: translateY(-100%);
-        animation: BackToTop 0.42s ease-in-out;
+        animation: var(--anim) 0.42s ease-in-out;
     }   
 }
 
 a.back-to-top{
-    position: fixed;
-    top:0;//1px;
-    right:var(--pad);
-    justify-self: end;
+    --p:calc( (100vw - var(--max-section-width)) / 2 );
+    right:calc( var(--p));
+    transform: translateX(calc( var(--pad) + 100%));
+    
+    top:var(--sticky-top);//1px;
+    position: sticky;
+    // left:100%;
+   
     // margin-top:1px;
-    margin-bottom:1px;
-    box-sizing: border-box;
-    padding: 0;
-    z-index: 868;
+    order:-1;
 }
 
-a.skip-to-content{
-    background-color: var(--col-accent);
-    min-height: 100%;
-    box-sizing: content-box;
-    padding-top:0;
-    padding-bottom:0;
-        
-    &::after{
-        background-image: url(/source/assets/icons/down-chevron.svg);
-    }
 
-    &:hover{
-       
-    }
+a.skip-to-content{
+         
+    --icon:url(/source/assets/icons/down-chevron.svg);
 
     &:hover::after,
     &:active::after{
-        animation: BackToTop 0.66s ease-in-out reverse;
+        animation-direction:reverse;
     }
 }
 
-
-@media screen and (min-width:940px) {
+// when the screen is wider than --max-section-width
+@media screen and (min-width:920px) {
     
+    /*
     // Text only version
     a.back-to-top{
         grid-template-columns: auto 1fr;
         font-size: inherit;
         color:var(--col-white);
-        padding:var(--pad);
+        // padding:var(--pad);
         // max-width:88px;
         // max-width: calc(2 * 44px);
 
         &::after{
             display: none;
         }
-    }
+    }*/
     .button-read{
         --offset-right: calc(3 * 44px + var(--pad) * 2);
     }
 }
-@media screen and (min-width:1200px) {
+
+@media screen and (min-width:1000px) {
     
-    // add the icon back in
+ // add the icon back in and offset to the right of the content
+    a.skip-to-content,
     a.back-to-top{
         &::after{
             display: inline-block;
         }
+    }
+
+    a.back-to-top{
+        // --p:calc( (100vw - var(--max-section-width)) / 2 );
+        // right:calc( var(--pad) );
+        // left:calc( (100vw - var(--max-section-width) - var(--pad) ) / 2 );
+        // transform: translateX(100%);
     }
 }
 
@@ -509,7 +531,7 @@ aside > label[for="toggle-midi"]{
 
 [data-play-timbre]{
     color: var(--col-text);
-    border:2px solid var(--col-text);
+    border:1px solid var(--col-border, var(--col-text) );
     padding-left:calc( var(--pad) / 2 );
     padding-right:calc( var(--pad) / 2 );
     &:hover{
@@ -593,7 +615,7 @@ label[for="button-happy"]{
    
     align-self: start;
     text-align: left;
-    text-indent:48px;
+    text-indent:calc( var(--pad) * 2 );
     background-image: url(/source/assets/figures/happy.svg);
     transition: var(--time-quick, 90ms) transform linear;
     &:active{
@@ -611,6 +633,7 @@ label[for="button-sad"]{
 
 #button-sad{
     --curve:48px;
+    align-self: end;
     box-sizing: border-box;
     padding: var(--pad);;
     border-radius:0 var(--curve) var(--curve) 0;

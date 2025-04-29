@@ -7,6 +7,7 @@
     // --pad:42px;
     --pad:calc(8px + 1.5625vw);
 
+    // see buttons for to top and bottom
     --max-section-width:920px;  // 1080
 
     --image-width-hero:2122px;
@@ -69,7 +70,10 @@
     --shadow-button: inset 0 -4px #930015;
     --button-active:translateY(5%)  scale( 0.98 );
 
-    --sticky-top:75px;
+    --sticky-top:66px;
+    
+    --peek:44px;
+
     
 	// https://smoothshadows.com/#djEsMSw1LDAuMDQsNTcsMCwwLCMzMzMxMzIsI2U4ZTZkZiwjZmZmZmZmLDI%3D	
 	--shadow:  	

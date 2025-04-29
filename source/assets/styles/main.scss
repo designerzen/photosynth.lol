@@ -58,14 +58,14 @@ body{
 // header{
 #headline{
 
-    --peek:20px;
+    order:-3;
 
     box-sizing: border-box;
     color:var(--col-white);
   
     // TODO minus some bottom space for the "fold"
-    min-height:calc(100vh - var(--peek));
-    min-height:calc(100dvh - var(--peek));
+    min-height:calc(100vh - var(--peek) - var(--sticky-top) -var(--footer-height));
+    min-height:calc(100dvh - var(--peek) - var(--sticky-top) - var(--footer-height));
     // max-height:calc(100vh - var(--peek));
     // max-height:calc(100dvh - var(--peek));
     width: 100%;
@@ -175,8 +175,19 @@ body{
     }
 }
 
+.expansion{
+    font-size: 0;
+    color: transparent;
+}
+
+
 // Larger sizes
 @media screen and (min-width:800px){
+
+    .expansion{
+        display: inline;
+    }
+
     #headline {
         grid-template-areas: 
             "menu menu"
@@ -296,7 +307,7 @@ section p{
 
 main > section + section{
     // padding-top:calc( 12 * var(--pad) - 2px);
-    border-top: var(--pad) solid var(--col-accent);
+    
     margin-top:var(--pad);
 }
 
@@ -348,87 +359,6 @@ img{
     }
 }
 
-// #teaser,
-// .sticky + *:not(aside)
-.wavey{
-	--overhang:max(20vh,103px);
-    --scale:1;
-
-    --density:2;
-
-    // ensure the waves have space
-    // padding-bottom: calc( var(--overhang) / 2 );
-    margin-bottom: calc( var(--overhang) * 1.5 );
-    margin-top: calc( var(--overhang) * 1.5 );
-    
-    &::after,
-    &::before{
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: var(--overhang);
-        left:0;
-        display: block;
-        
-        background-color: inherit;
-        // background-repeat: no-repeat;
-        // background-position: top left;
-        // background-size: contain;
-        mask-size: calc(100% / var(--scale,1));
-        mask-repeat: repeat-x;
-
-        pointer-events: none;
-        // opacity: 0.94;
-        // filter:brightness(909);
-
-        overflow: hidden;
-        overflow: clip;
-        //z-index: -1;
-    }
-    
-    // wavy background and edges
-    &::before{
-        // margin-top:-10vh;
-        // top:calc( var(--overhang) * -1 );
-        // top: calc( var(--overhang) * -1 );
-        bottom:calc( 100% - 1px * var(--density,1) );
-        // background-image: url(/source/assets/wallpaper/wavey.svg);
-        mask-image: url(/source/assets/wallpaper/wavey-top.svg);
-        mask-position:center top;
-    }
-    // wavy background and edges
-    &::after{
-        top:calc( 100% - 1px * var(--density,1) );
-        // bottom:calc( var(--overhang) * -2 );
-        // background-image: url(/source/assets/wallpaper/wavey.svg);
-        mask-image: url(/source/assets/wallpaper/wavey-bottom.svg);
-        mask-position:center bottom;
-    }
-}
-
-.wavey.x2{
-   --scale:2;
-}
-.wavey.x3{
-    --scale:3;
-}
-.wavey.x4{
-    --scale:4;
-}
-
-.shadow.wavey{
-    &::before{
-        box-shadow: inherit;
-        box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-        
-    }
-    &::after{
-        box-shadow: inherit;
-        box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-        
-    }
-}
-
 #teaser{
     margin-top:calc( var(--overlap) * -2 );
     // margin-top:calc( var(--overhang) * -1 );
@@ -456,7 +386,10 @@ img{
     // left:0;
     // grid-area:1/1/-1/-1;
     // top:calc( var(--pad) );
-    top:var(--pad);
+    top:calc( var(--sticky-top) + var(--pad) );
+    top:calc( 100% - var(--sticky-top) - var(--pad) - var(--footer-height));
+    
+    transform: translateY(-100%);
     // bottom:var(--pad);
     // margin-top: calc(var(--pad) * 2);
     margin-left:auto;
@@ -530,8 +463,8 @@ img{
 #midi-equipment{
     display: grid;
     grid-template-areas: 
-        "header header"
-        "details toggle"
+        "header toggle"
+        "details details"
         ;
 
     grid-template-rows: 
@@ -1085,4 +1018,8 @@ display: inline-block;
 
 .license{
     
+}
+
+:target {
+    scroll-margin-block: max(5ex,  var(--sticky-top));
 }
