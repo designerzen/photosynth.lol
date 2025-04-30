@@ -4,6 +4,8 @@
 
 @use "./base.scss";
 
+@use "./icons.scss";
+
 @use "./royal-society.scss";
 
 @use "./fonts.scss";
@@ -26,7 +28,6 @@
 @use "./keyboard.scss";
 
 @use "./keyframes.scss";
-@use "./icons.scss";
 
 // finally we apply any themes
 @use "./themes.scss";

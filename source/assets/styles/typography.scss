@@ -70,24 +70,6 @@ h3{
     font-size: var(--font-size-h3);
     line-height: 1.2;
 }
-
-.heading-icon{
-    // ilnine icons
-    &::before{
-        --size:1lh;//1.25rem;
-        --i:var( --icon, url(/source/assets/icons/attribution_black_24dp.svg) );
-        content:'';
-        display: inline-block;
-        width:var(--size);
-        height:var(--size);
-        background:var(--i) center no-repeat;
-        background-size: contain;
-        margin-right: calc( var(--pad) / 4 );
-        vertical-align: bottom;
-        opacity: 0.75;
-    }
-}
-
 .h4,
 h4,
 legend,

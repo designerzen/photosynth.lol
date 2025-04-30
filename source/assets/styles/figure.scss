@@ -16,8 +16,8 @@ figure{
        
         width:auto;
         // min-width: 100%;
-        max-height: calc(100vh - var(--footer-height) - var(--pad) * 2 );
-        max-height: calc(100dvh - var(--footer-height) - var(--pad) * 2 );
+        max-height: calc(100vh - 2lh - var(--footer-height) - var(--sticky-top) - var(--pad) * 2 );
+        max-height: calc(100dvh - 2lh - var(--footer-height) - var(--sticky-top) - var(--pad) * 2 );
         margin-left: auto;
         margin-right: auto;
     }
@@ -41,7 +41,7 @@ figure{
 figure.sticky{
     // background: var(--col-bg);
     // ensure it sticks a little away from the top
-    top: calc(var(--sticky-top) + var(--pad) * 2);
+    top: calc(var(--sticky-top) + var(--pad) * 0);
 
     margin-bottom: calc( var(--pad) * 6);
 

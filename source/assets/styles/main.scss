@@ -64,10 +64,10 @@ body{
     color:var(--col-white);
   
     // TODO minus some bottom space for the "fold"
-    min-height:calc(100vh - var(--peek) - var(--sticky-top) -var(--footer-height));
-    min-height:calc(100dvh - var(--peek) - var(--sticky-top) - var(--footer-height));
-    // max-height:calc(100vh - var(--peek));
-    // max-height:calc(100dvh - var(--peek));
+    //  - var(--footer-height) 
+    min-height:calc(100vh - var(--sticky-top) - var(--peek) );
+    min-height:calc(100dvh - var(--sticky-top) - var(--peek));
+
     width: 100%;
 
     // display: flex;
@@ -521,6 +521,44 @@ img{
     }
 }
 
+// nav
+#process-links{
+
+}
+
+.grid-icon-menu{
+    list-style: none;
+    display: grid;
+    grid-template-areas: 
+        "icons"
+        "texts";
+
+    	// $end:49;
+	@for $i from 1 to 9 {
+		li:nth-of-type(#{$i}){
+			--i: calc(#{$i} - 1 );
+            grid-area: icons;
+		}
+	}
+
+    li a{
+        color:transparent;
+        img{
+            width:44px;
+            margin-left:calc( (44px + var(--pad)) * var(--i) );
+            margin-bottom:calc( ( var(--pad)) /2 );
+            background-color: var(--col-charcoal);
+            border-radius: 999px;
+            border:4px solid transparent;
+        }
+
+        &:hover,
+        &:focus{
+            border-color:var(--col-plum);
+            color:var(--col-plum);
+        }
+    }
+}
 
 #technology-explanation{
     figure > img{

@@ -27,7 +27,12 @@ html,
     font-family: 'ReadexPro', 'Proxima Nova', Georgia, sans-serif;
     font-weight: normal;
 }
+[data-font="brand"]{
+    font-family: 'Oxanium', sans-serif;
+    font-weight: normal;
+}
 
+.oxanium,
 svg text{
-    font-family: 'Oxanium', Georgia, sans-serif;
+    font-family: 'Oxanium', sans-serif;
 }

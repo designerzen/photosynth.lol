@@ -1,13 +1,15 @@
 @font-face {
     font-family: 'Oxanium';
     src: url('/source/assets/fonts/oxanium/Oxanium[wght].ttf') format('ttf');
-    font-style: normal;
-    font-display: swap;
+	font-weight: 100 900;
+	// font-stretch: 75% 125%;
+	font-style: normal;
+	font-display: swap;
 }
-@font-face {
-    font-family: 'Oxanium-Bold';
-    src: url('/source/assets/fonts/oxanium/Oxanium[wght].ttf') format('ttf');
-    font-style: normal;
-    font-display: swap;
-    font-weight: 900;
-}
+// @font-face {
+//     font-family: 'Oxanium-Bold';
+//     src: url('/source/assets/fonts/oxanium/Oxanium[wght].ttf') format('ttf');
+//     font-style: normal;
+//     font-display: swap;
+//     font-weight: 900;
+// }

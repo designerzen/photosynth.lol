@@ -285,7 +285,7 @@ button[data-control-play]{
 .button-read{
     --offset-right: calc( 44px + var(--pad));
     border-radius: 999px 0 0 999px  ;
-    border:2px solid var(--col-accent);
+    border:2px solid black ;// var(--col-accent);
   
     background-image: url(/source/assets/icons/play_circle.svg);
     background-size: contain;
@@ -302,13 +302,17 @@ button[data-control-play]{
     top:calc( 3 * var(--pad) + var(--sticky-top) );
 
     // right:calc( 2 * var(--pad) );
-    left:calc( 100% - var(--offset-right,0));
+    // left:calc( 100% - var(--offset-right,0));
     left:100%;
+
     transform: translateX(100%);
+    opacity: 0.8;
 
     position: absolute;
     position: sticky;
     box-sizing: border-box;
+
+    box-shadow: var(--shadow);
 
     // float: right;
     // margin-top:calc( 2 * var(--pad) );
@@ -326,9 +330,9 @@ button[data-control-play]{
 }
 
 // clear some room for the button
-[data-readable] .button-read + *:first-of-type{
-    padding-right:calc( var(--pad) * 3);
-}
+// [data-readable] .button-read + *:first-of-type{
+//     padding-right:calc( var(--pad) * 3);
+// }
 
 a.back-to-top,
 a.skip-to-content{
@@ -387,10 +391,9 @@ a.skip-to-content{
 }
 
 a.back-to-top{
-    --p:calc( (100vw - var(--max-section-width)) / 2 );
-    right:calc( var(--p));
     transform: translateX(calc( var(--pad) + 100%));
-    
+   
+    right:var(--right-hand-column); 
     top:var(--sticky-top);//1px;
     position: sticky;
     // left:100%;
@@ -429,8 +432,13 @@ a.skip-to-content{
     }*/
     .button-read{
         --offset-right: calc(3 * 44px + var(--pad) * 2);
+        // right:calc( 2 * var(--pad) );
+        right:calc( 100% + 3 * var(--pad) );
+        left:auto;
+        transform: translateX(-100%);
     }
 }
+
 
 @media screen and (min-width:1000px) {
     
@@ -447,6 +455,9 @@ a.skip-to-content{
         // right:calc( var(--pad) );
         // left:calc( (100vw - var(--max-section-width) - var(--pad) ) / 2 );
         // transform: translateX(100%);
+    }
+    .button-read{
+        transform: translateX( calc( -100% - var(--pad) * 2 ) ); 
     }
 }
 

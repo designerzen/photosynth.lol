@@ -105,6 +105,12 @@ body > .menu-main{
                 transform: var(--button-active);
                 box-shadow: var(--shadow);
             }
+            &[aria-current]{
+                font-weight: bolder;
+                text-decoration: underline;
+                text-underline-offset: 4px;
+                // background-color:var(--col-plum);
+            }
         }
     }
 }
@@ -205,11 +211,9 @@ body > .menu-main{
 
     .skip-to-content-link{
         position: absolute;
-        top:100%;
-        --p:calc( (100vw - var(--max-section-width)) / 2 );
-        right:calc( var(--p));
+        top:calc(100% + var(--sticky-top, 0) );
+        right:var(--right-hand-column);
         transform: translateX(calc( var(--pad) + 100%));
-    
     }
     .volume-control-link{
         order:0;
@@ -343,4 +347,5 @@ body > .menu-main{
 }
 #font-dsylexic{
     background-image: url(/source/assets/icons/emoji_emotions-24px.svg);
+    background-image: url(/source/assets/icons/diversity_2.svg);
 }

@@ -83,7 +83,8 @@
     overflow: clip;
     // pointer-events: none;
     z-index: 505;
-    img{
+    img,
+    svg{
         max-width:var(--image-width-hero);
     }    
 }

@@ -74,6 +74,8 @@
     
     --peek:44px;
 
+    --right-hand-column:var(--pad);//calc( (100vw - var(--max-section-width)) / 2 );
+
     
 	// https://smoothshadows.com/#djEsMSw1LDAuMDQsNTcsMCwwLCMzMzMxMzIsI2U4ZTZkZiwjZmZmZmZmLDI%3D	
 	--shadow:  	
@@ -82,6 +84,12 @@
         0px 0px 21px rgba(51, 49, 50, 0.02),
         0px 0px 36px rgba(51, 49, 50, 0.03),
         0px 0px 57px rgba(51, 49, 50, 0.04);
+}
+
+@media screen and (min-width:920px) {
+    :root{
+        --right-hand-column:calc( (100vw - var(--max-section-width)) / 2 );
+    }
 }
 
 

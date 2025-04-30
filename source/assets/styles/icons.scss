@@ -1,3 +1,30 @@
+
+.heading-icon{
+    // ilnine icons
+    &::before{
+        --size:1lh;//1.25rem;
+        --i:var( --icon, url(/source/assets/icons/attribution_black_24dp.svg) );
+        content:'';
+        display: inline-block;
+        width:var(--size);
+        height:var(--size);
+        background:var(--i) center no-repeat;
+        background-size: contain;
+        margin-right: calc( var(--pad) / 4 );
+        vertical-align: bottom;
+        opacity: 0.75;
+    }
+}
+
+table .heading-icon{
+    &::before{
+        --size:0.8lh;//1.25rem;
+        vertical-align: text-bottom;
+        margin-right: auto;
+        padding-right:calc(var(--pad) / 4);
+    }
+}
+
 // specific icons...
 a[href="#introduction"],
 #introduction .heading-icon{
@@ -5,20 +32,18 @@ a[href="#introduction"],
 }
 a[href="#teaser"],
 #teaser .heading-icon{
-    --icon:url(/source/assets/icons/audiotrack-24px.svg);
+    // --icon:url(/source/assets/icons/audiotrack-24px.svg);
+    --icon:url(/source/assets/icons/speaker-24px.svg);
 }
 a[href="#midi-equipment"],
 #midi-equipment .heading-icon{
     --icon:url(/source/assets/icons/cable.svg);
 }
-a[href="#about"],
+a[href="#event"],
 #about .heading-icon{
     --icon:url(/source/assets/icons/accessibility_new-24px.svg);
 }
-a[href="#chords"],
-#chords .heading-icon{
-    --icon:url(/source/assets/icons/piano-24px.svg);
-}
+
 a[href="#venue"]
 #venue .heading-icon{
     --icon:url(/source/assets/icons/fmd_good.svg);
@@ -33,11 +58,31 @@ a[href="#laboratory"],
 }
 a[href="#science"],
 #science .heading-icon{
-    --icon:url(/source/assets/icons/favorite-24px.svg);
+    // --icon:url(/source/assets/icons/science.svg);
+    --icon:url(/source/assets/icons/architecture.svg);
 }
+    a[href="#process"],
+    #process .heading-icon{
+        --icon:url(/source/assets/icons/run_circle.svg);
+    }
+    a[href="#capture-face"],
+    #capture-face .heading-icon{
+        --icon:url(/source/assets/icons/sentiment_satisfied_alt.svg);
+    }
+    a[href="#technology"],
+    #technology .heading-icon{
+        // --icon:url(/source/assets/icons/rocket.svg);
+        --icon:url(/source/assets/icons/smart_toy.svg);
+    }
+    a[href="#recognising-emotions"],
+    #recognising-emotions .heading-icon{
+        --icon:url(/source/assets/icons/smart_toy.svg);
+    }
+
+
 a[href="#research"],
 #research .heading-icon{
-    --icon:url(/source/assets/icons/favorite-24px.svg);
+    --icon:url(/source/assets/icons/show_chart.svg);
 }
 a[href="#history"],
 #history .heading-icon{
@@ -56,15 +101,56 @@ a[href="#waveform-visualiser"],
 #waveform-visualiser .heading-icon{
     --icon:url(/source/assets/icons/music_video.svg);
     --icon:url(/source/assets/icons/trip_origin.svg);
-   
     --icon:url(/source/assets/icons/waves.svg);
 }
+
 a[href="#shapes"],
 #shapes .heading-icon{
     --icon:url(/source/assets/icons/trip_origin.svg);
     --icon:url(/source/assets/icons/water.svg);
 }
+a[href="#recognising-emotions"],
+#recognising-emotions .heading-icon{
+    --icon:url(/source/assets/icons/interests.svg);
+    --icon:url(/source/assets/icons/grid_on.svg);
+}
+a[href="#chords"],
+#chords .heading-icon{
+    --icon:url(/source/assets/icons/piano-24px.svg);
+}
 a[href="#transport"],
 #transport .heading-icon{
     --icon:url(/source/assets/icons/hail.svg);
+}
+
+// as IDS always trump classes
+#main-content{
+
+    .wheelchair-accessible .heading-icon{
+        --icon:url(/source/assets/icons/accessible-24px.svg);
+    }
+    .hearing-loop .heading-icon{
+        --icon:url(/source/assets/icons/hearing.svg);
+    }
+
+    .accesible-floors .heading-icon{
+        --icon:url(/source/assets/icons/elevator.svg);
+    }
+    .signage .heading-icon{
+        --icon:url(/source/assets/icons/report.svg);
+        --icon:url(/source/assets/icons/follow_the_signs.svg);
+    }
+    .dogs .heading-icon{
+        --icon:url(/source/assets/icons/pets.svg);
+    }
+    .toilets .heading-icon{
+        --icon:url(/source/assets/icons/accessibility_new-24px.svg);
+    }
+    .quiet-space .heading-icon{
+        --icon:url(/source/assets/icons/noise_aware.svg);
+    }
+    .walk .heading-icon{
+        --icon:url(/source/assets/icons/directions_walk.svg);
+    }
+
 }

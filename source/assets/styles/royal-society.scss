@@ -240,9 +240,10 @@ details{
     box-shadow: var(--shadow);
     
     summary{
-        display: grid;
-        grid-template-columns: 1fr 44px;
-        grid-template-areas: "summary icon";
+        // display: grid;
+        // grid-template-columns: 1fr 44px;
+        // grid-template-areas: "summary icon";
+        display: flex;
         align-items: center;
         cursor: pointer;
         background-color: var(--col-stone-light);
@@ -268,8 +269,17 @@ details{
                 background-color var(--time-long, 90ms) ease-in-out;
             width:44px;
             height:44px;
-            grid-area: icon;
+            // grid-area: icon;
+            margin-left: auto;
             filter: invert(20%) sepia(32%) saturate(7261%) hue-rotate(330deg) brightness(88%) contrast(105%);
+        }
+
+        img{
+            filter:brightness(100%);
+            order:-1;
+        }
+        img:last-of-type{
+            margin-right:calc(var(--pad) / 4 );
         }
     }
     > ::marker{
@@ -287,6 +297,21 @@ details{
     }
 }
 
+details:hover{
+    summary{
+        background-color: var(--col-accent);
+        color:var(--col-stone-light);
+        
+        &::after{    
+            filter: invert(100%) sepia(18%) saturate(2%) hue-rotate(349deg) brightness(111%) contrast(101%);
+        }
+        
+        img{
+            filter:invert(100%);
+        }
+    }
+}
+
 details[open]{
 
     // border:2px solid var(--col-accent);
@@ -294,13 +319,17 @@ details[open]{
 
     summary{
         background-color: var(--col-red);
-        color:var(--col-stone-light);
+        color:var(--col-stone);
         border-width: 0;
         margin-bottom: var(--pad);
 
         &::after{    
             transform: rotate(180deg);
             filter: invert(100%) sepia(18%) saturate(2%) hue-rotate(349deg) brightness(111%) contrast(101%);
+        }
+        
+        img{
+            filter:invert(100%);
         }
     }
 }
