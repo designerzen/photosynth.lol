@@ -30,9 +30,11 @@
   "license": "ISC",
   "devDependencies": {
     "@parcel/config-default": "2.14.4",
+    "@parcel/packager-raw-url": "2.14.4",
     "@parcel/packager-xml": "2.14.4",
     "@parcel/transformer-jsonld": "2.14.4",
     "@parcel/transformer-sass": "2.14.4",
+    "@parcel/transformer-webmanifest": "2.14.4",
     "@parcel/transformer-xml": "2.14.4",
     "oxlint": "^0.16.8",
     "parcel": "2.14.4",
