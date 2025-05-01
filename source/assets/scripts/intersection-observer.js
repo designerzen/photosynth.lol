@@ -56,6 +56,16 @@ export const monitorIntersections = ( intersectionOptions = DEFAULT_OBSERVATION_
                     
                 }
 
+
+                // trigger the associated menu if an id exists
+                if (entry.target.id)
+                {
+                    const currentMenuItems = document.querySelectorAll(`[aria-current]`)
+                    const menuEntries = document.querySelectorAll(`a[href="#${entry.target.id}"]`)
+                    currentMenuItems.forEach(menuEntry => menuEntry.removeAttribute("aria-current", true))
+                    menuEntries.forEach(menuEntry => menuEntry.setAttribute("aria-current", true))
+                }
+
                 onInteraction && onInteraction(entry, true)
 
                 if (entry.target.classList)
@@ -69,10 +79,8 @@ export const monitorIntersections = ( intersectionOptions = DEFAULT_OBSERVATION_
             }else{
               
                 onInteraction && onInteraction(entry, false)
-                if (entry.target.classList)
-                {
-                    entry.target.classList.toggle("in-viewport", false)
-                }
+                entry.target.classList.toggle("in-viewport", false)
+                entry.target.removeAttribute("aria-current")
             }
         })
     }, intersectionOptions)
