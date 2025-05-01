@@ -76,6 +76,9 @@
 
     --right-hand-column:var(--pad);//calc( (100vw - var(--max-section-width)) / 2 );
 
+    //  - var(--footer-height) 
+    --visible-height-fallback:calc( 100vh - var(--sticky-top) - var(--peek) );
+    --visible-height:calc( 100dvh - var(--sticky-top) - var(--peek) );
     
 	// https://smoothshadows.com/#djEsMSw1LDAuMDQsNTcsMCwwLCMzMzMxMzIsI2U4ZTZkZiwjZmZmZmZmLDI%3D	
 	--shadow:  	

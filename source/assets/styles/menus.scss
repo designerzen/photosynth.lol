@@ -3,6 +3,7 @@ body > .menu-main{
     position: sticky;
     top:0;
 }
+
 .menu-main{
 
     margin:0 auto;
@@ -30,7 +31,6 @@ body > .menu-main{
         grid-auto-columns: min-content;
         grid-template-columns: repeat(auto-fit, minmax(44px, auto) );
         // grid-template-columns: repeat(auto-fit, minmax(44px, 1fr) );
-
         gap:0 var(--gap);
 
         list-style: none;
@@ -200,9 +200,18 @@ body > .menu-main{
         // add a small bottom clean border
         border-top: 1px solid var(--col-bg);
         border-bottom: 4px solid var(--col-bg);
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        // display: flex;
+        // justify-content: space-between;
+        // flex-wrap: wrap;
+
+        display: grid;
+        // flex-wrap: wrap;
+        grid-auto-flow: dense; // column;
+        grid-auto-columns: min-content;
+        grid-template-columns: repeat(auto-fit, minmax(44px, auto) );
+        // grid-template-columns: repeat(auto-fit, minmax(44px, 1fr) );
+        gap:0 var(--gap);
+
         // as sometimes the radio buttons are taller that the other buttons...
         // align-items: center;
         align-items: stretch;
@@ -263,9 +272,13 @@ body > .menu-main{
     }
     input[type="radio"] {
         --size: 44px;
+        box-sizing: border-box;
         background-color: transparent;
         background-repeat: no-repeat;
         background-position: center;
+        overflow: hidden;
+        width: var(--size);
+        height: var(--size);
     }
     #controls-volume fieldset{
         

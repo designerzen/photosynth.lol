@@ -100,6 +100,12 @@ ul{
 
 // Data & Tables
 
+dl{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:var(--pad);
+}
+
 dl.data-contact,
 dl.data-address{
     display: grid;

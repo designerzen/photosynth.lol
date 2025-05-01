@@ -89,6 +89,7 @@ h5 {
     font-size: var(--font-size-h5);
 }
 
+.gallery figcaption,
 .h6,
 h6 {
     font-size: var(--font-size-h6);
@@ -193,6 +194,7 @@ blockquote{
         font-size: var(--font-size-h5-mobile);
     }
 
+    .gallery figcaption,
     .h6,
     h6 {
         font-size: var(--font-size-h6-mobile);

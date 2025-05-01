@@ -134,6 +134,10 @@ p.full-height{
 	}
 }
 
+.bg-dark{
+	background-color: var(--col-charcoal);
+}
+
 .tongue{
 	border-top: var(--pad) solid var(--col-accent);
 }
@@ -145,6 +149,51 @@ p.full-height{
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(9, 1fr);
 }
+
+
+.grid-icon-menu{
+    list-style: none;
+    display: grid;
+
+    grid-template-areas: 
+        "icons"
+        "texts";
+
+	grid-template-columns: repeat(auto-fit, minmax(44px, 1fr));
+
+    	// $end:49;
+	@for $i from 1 to 9 {
+		li:nth-of-type(#{$i}){
+			--i: calc(#{$i} - 1 );
+            grid-area: icons;
+		}
+	}
+
+    li a{
+        color:transparent;
+		text-align: center;
+		display: block;
+        img{
+			--size:25%;
+			--gap:calc(var(--pad) / 2);
+            width:calc(var(--size) - var(--pad));
+            margin-left:calc( var(--size) * var(--i) + var(--gap)  );
+            margin-bottom:calc( var(--gap) );
+			margin-right:0;
+			padding: 0;
+            border-radius: 999px;
+            border:4px solid transparent;
+			box-sizing: border-box;
+        }
+
+        &:hover,
+        &:focus{
+            border-color:var(--col-plum);
+            color:var(--col-plum);
+        }
+    }
+}
+
 
 :is(
 	a, button
@@ -166,7 +215,9 @@ p.full-height{
 
 // #teaser,
 // .sticky + *:not(aside)
-.wavey{
+.wavey,
+.square,
+.sawtooth{
 	--overhang:max(7vh, 88px);
     --scale:1;
     --density:2;
@@ -225,22 +276,36 @@ p.full-height{
 	}
 }
 
+
+p.sawtooth,
+p.square,
 p.wavey{
 	padding-top: calc(var(--pad) * 4);
 	padding-bottom: calc(var(--pad) * 4);
 	background-color: var(--col-bg);
 }
 
-.wavey.x2{
+.sawtooth{
+	&::before{  mask-image: url(/source/assets/wallpaper/sawtooth-top.svg); }
+	&::after{  mask-image: url(/source/assets/wallpaper/sawtooth-bottom.svg); }
+}
+.square{
+	&::before{  mask-image: url(/source/assets/wallpaper/square-top.svg); }
+	&::after{  mask-image: url(/source/assets/wallpaper/square-bottom.svg); }
+}
+
+.x2{
    --scale:2;
 }
-.wavey.x3{
+.x3{
     --scale:3;
 }
-.wavey.x4{
+.x4{
     --scale:4;
 }
 
+.shadow.sawtooth,
+.shadow.square,
 .shadow.wavey{
 	--opacity:0.02;
 
@@ -372,11 +437,6 @@ img.flood{
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
-
-	// WE CANNOT USE overflow as this breaks sticky :(
-	// overflow: hidden;
-	// clip does work but isn't cross browser
-	overflow:clip;
 	
 	// Fade first item in
 	// &::before{
@@ -389,26 +449,6 @@ img.flood{
 	// 	background-image: linear-gradient(to bottom, transparent, var(--col-bg) 50%);
 	// 	z-index: 1;
 	// }
-
-	// Fade other items in
-	&::before{
-		content:'';
-		display: block;
-		grid-area: trail;
-		width: 100%;
-		height: max(5ch, 50vh);
-		position: sticky;
-
-		top: 0%;
-		// Prevent it from falling offf the bottom
-		bottom:0;
-
-		transform: translateY(50vh);
-		// right:0;
-		background-image: linear-gradient(to bottom, transparent, var(--col-bg));
-		// background-color: red;
-		z-index: 1;
-	}
 
 	// fade out bottom ones
 	&::after{
@@ -506,6 +546,36 @@ img.flood{
 	}
 }
 
+@supports (overflow: clip){
+
+	.text-scroller-vertical{	
+		// WE CANNOT USE overflow as this breaks sticky :(
+		// overflow: hidden;
+		// clip does work but isn't cross browser
+		overflow:clip;
+			
+		// Fade other items in
+		&::before{
+			content:'';
+			display: block;
+			grid-area: trail;
+			width: 100%;
+			height: max(5ch, 50vh);
+			position: sticky;
+
+			top: 0%;
+			// Prevent it from falling offf the bottom
+			bottom:0;
+
+			transform: translateY(50vh);
+			// right:0;
+			background-image: linear-gradient(to bottom, transparent, var(--col-bg));
+			// background-color: red;
+			z-index: 1;
+		}
+	}
+}
+
 @media screen and (min-width:800px){
 
 	.text-scroller-vertical{
@@ -561,7 +631,57 @@ img.flood{
 	figure.sticky{
 		background: transparent;
 	}
+}
 
+
+ul.gallery{
+	display: grid;
+	grid-template-columns: repeat(auto-fit,  minmax(44px, 1fr) );
+    gap: var(--pad);
+	grid-auto-flow: dense;
+	list-style: none;
+	padding: 0;
+
+	figure{
+		display: grid;
+		grid-template-areas: "stuff";
+		border:0;
+		padding:0;
+		margin: 0;
+		> picture,
+		> img{
+			grid-area:stuff;
+			max-width: 100%;
+		}
+		figcaption{
+			grid-area:stuff;
+			padding:0;
+			margin: 0;
+			background-color: transparent;
+			color: transparent;
+			z-index: 1;
+		}
+		&:hover{
+			figcaption{
+				color: var(--col-accent);
+			}
+		}
+	}
+	
+	&:nth-child(3n) {
+		grid-column: span 4;
+		background-color: #12cc12;
+	}
+ 
+	&:nth-child(5n) {
+		grid-column: span 3;
+		background-color: #f5ecec;
+	}
+ 
+	&:nth-child(7n) {
+		grid-column: span 2;
+		background-color: #f35810;
+	}
 }
 
 

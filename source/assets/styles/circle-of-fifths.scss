@@ -180,9 +180,9 @@
 svg.circle-of-fifths {
     
     // try to always give space for the keyboard at the base
-    max-height : calc( 100vh - var(--footer-height) );
-    max-height : calc( 100dvh - var(--footer-height) );
-
+    max-height : var(--visible-height-fallback);
+    max-height : var(--visible-height);
+   
     margin: auto;
 
     background-color: var(--col-stone-light);

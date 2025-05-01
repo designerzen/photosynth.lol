@@ -285,11 +285,19 @@ button[data-control-play]{
 
 .button-read{
     --offset-right: calc( 44px + var(--pad));
+    
+    // always push it beyond every child so that it doesn't
+    // get in the way of the layout
+    order:99999;
+    
     border-radius: 999px 0 0 999px  ;
     border:2px solid black ;// var(--col-accent);
 
     background-color: var(--col-bg);
-    background-image: url(/source/assets/icons/play_circle.svg);
+    // preload the stop!
+    background-image: 
+        url(/source/assets/icons/play_circle.svg),
+        url(/source/assets/icons/stop_circle.svg);
     background-size: contain;
     background-position: center left;
     width:calc(var(--pad) * 2);

@@ -96,6 +96,26 @@
     // margin-bottom: 20vh;
 }
 
+#hero-figure{
+    padding: 0;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;  
+}
+
+#hero-image{
+    max-height: calc( var(--visible-height-fallback) );
+    max-height: calc( var(--visible-height) );
+    fill:var(--col-accent);
+   
+    text{
+        font-family: 'Oxanium', 'ReadexPro', 'Proxima Nova', var(--font-family-metropolis), sans-serif;
+        font-weight:700; 
+        fill:inheerit;
+        // font-size: 100%;
+        // scale:0.8;
+    }
+}
 // #hero.active{
 
 //     &::before,

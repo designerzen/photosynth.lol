@@ -154,3 +154,21 @@ a[href="#transport"],
     }
 
 }
+
+.license.cc2{
+    font-size: 0;
+    color: transparent;
+    // <img src="/source/assets/icons/cc-icons-person.svg" alt="Creative Commons Attribution 2.0 Generic" width="22" height="22">
+    &::before{
+        --size:22px;
+        content:'';
+        display: inline-block;
+        vertical-align: middle;
+        background-image: url(/source/assets/icons/cc-icon.svg);
+        background-image: url(/source/assets/icons/cc-icons-person.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        width:var(--size);
+        height:var(--size);
+    }
+}
