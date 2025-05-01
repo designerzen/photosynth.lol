@@ -16,15 +16,15 @@
 // Custom fonts for accessibility --------------------------
 html,
 [data-font="default"] {
-    font-family: 'Proxima Nova', var(--font-family-metropolis), Georgia, sans-serif;
+    font-family: 'Proxima Nova', var(--font-family-metropolis), sans-serif;
 }
 
 [data-font="dsylexic"]{
-    font-family: 'OpenDyslexic', 'Proxima Nova', var(--font-family-metropolis), Georgia, sans-serif;
+    font-family: 'OpenDyslexic', 'Proxima Nova', var(--font-family-metropolis), sans-serif;
 }
 
 [data-font="readable"]{
-    font-family: 'ReadexPro', 'Proxima Nova', Georgia, sans-serif;
+    font-family: 'ReadexPro', 'Proxima Nova', sans-serif;
     font-weight: normal;
 }
 [data-font="brand"]{
@@ -34,5 +34,5 @@ html,
 
 .oxanium,
 svg text{
-    font-family: 'Oxanium', sans-serif;
+    font-family: 'Oxanium', 'ReadexPro', 'Proxima Nova', var(--font-family-metropolis), sans-serif;
 }
