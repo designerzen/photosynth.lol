@@ -37,7 +37,7 @@ body > .menu-main{
         // overflow: hidden;
         
         align-items: center;
-        justify-content: space-between;
+        justify-content: stretch;
         margin:0 auto;
         // border-radius:9px 9px 0 0;
         box-shadow: var(--shadow);
@@ -49,7 +49,9 @@ body > .menu-main{
             --size:calc(1lh + 4px); 
             
             position: relative;
-            
+            align-content: center;
+            justify-content: center;
+
             font-size: 75%;
 
             z-index: 1;
@@ -120,10 +122,18 @@ body > .menu-main{
 //   }
 
 // Larger sizes
-@media screen and (min-width:420px) {
+// @media screen and (min-width:420px) {
+//     .menu-main{
+//         ul{
+//             justify-content: space-between;
+//         }
+//     }
+// }
+@media screen and (min-width:480px) {
     .menu-main{
         ul{
-            justify-content: space-around;
+            --gap:11px;
+            // justify-content: space-around;
         }
     }
 }
@@ -133,7 +143,6 @@ body > .menu-main{
         ul{
             --gap:clamp( 11px, 2vw, calc( 0.5 * var(--pad) ) );
             //justify-items: baseline;
-           
         }
 
         li a{
@@ -222,7 +231,7 @@ body > .menu-main{
         position: absolute;
         top:calc(100% + var(--sticky-top, 0) );
         right:var(--right-hand-column);
-        transform: translateX(calc( var(--pad) + 100%));
+        transform: translateX(calc( var(--pad) + 100%)) translateY(100%);
     }
     .volume-control-link{
         order:0;

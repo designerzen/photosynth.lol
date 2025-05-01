@@ -82,7 +82,7 @@ $glassdoor: #0caa41;
 
 
 .social-media{
-
+    margin-left:auto;
     ul{
         display: flex;
         flex-wrap: wrap;
@@ -91,6 +91,7 @@ $glassdoor: #0caa41;
         align-items: center;
         justify-content: space-around;
         margin:0;
+      
         padding:0;
     }
     

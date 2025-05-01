@@ -122,13 +122,33 @@ dd{
 th{
     display: block;
     margin-right: calc( var(--pad) / 2 );
+    line-height: 1.2;
+}
+
+tr{
+    display: flex;
+    flex-direction: column;
+}
+tr + tr {
+    margin-top: calc( var(--pad) / 2 );
 }
 
 th,
 dt{
-    text-align: right;
-    color:var(--col-warm-grey, grey);
-    width: max-content;
+   
+    text-align: left;
+}
+
+@media screen and (min-width:800px){
+    tr{
+        flex-direction: row;
+    }
+    th,
+    dt{
+        color:var(--col-warm-grey, grey);
+        width: max-content;
+        text-align: right;
+    }
 }
 
 
@@ -179,16 +199,22 @@ abbr{
 aside{
     
     border-radius: var(--curve);
+    border:dashed var(--col-border) 2px;
+    // border-top:dashed var(--col-border) 2px;
+   
     // --col-border:var(--col-stone);
     // --col-border:var(--col-stone-light);
     // margin-top:var(--pad);
     padding: calc(2 * var(--pad));
-    border-top:dashed var(--col-border) 2px;
-    border:dashed var(--col-border) 2px;
     margin-left:calc( 2 * var(--pad));
     margin-right:calc( 2 * var(--pad));
     background-color: var(--col-bg);
     max-width: calc( var(--max-section-width) - var(--pad) * 4 );
+}
+
+.page aside{
+    margin:auto;
+    margin-top: calc(var(--pad) * 2);
 }
 
 :where(blockquote){

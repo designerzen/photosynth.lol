@@ -109,6 +109,11 @@ p.full-height{
     height: 100%;
 }
 
+.bg-translucent{
+	--alpha:66%;
+	background-color: color-mix(in srgb, var(--col-bg) var(--alpha,66%), transparent);
+}
+
 .bg-clear{
 	background-color: transparent;
 }
@@ -160,6 +165,7 @@ p.full-height{
         "texts";
 
 	grid-template-columns: repeat(auto-fit, minmax(44px, 1fr));
+	counter-reset: steps;
 
     	// $end:49;
 	@for $i from 1 to 9 {
@@ -173,6 +179,14 @@ p.full-height{
         color:transparent;
 		text-align: center;
 		display: block;
+		counter-increment: steps;
+		text-decoration: none;
+
+		&::before{
+			content:counter(steps) ". ";
+			
+		}
+
         img{
 			--size:25%;
 			--gap:calc(var(--pad) / 2);
@@ -224,8 +238,8 @@ p.full-height{
 
     // ensure the waves have space
     // padding-bottom: calc( var(--overhang) / 2 );
-    margin-bottom: calc( var(--overhang) * 1.5 );
-    margin-top: calc( var(--overhang) * 1.5 );
+    margin-bottom: calc( var(--overhang) * 1 );
+    margin-top: calc( var(--overhang) * 1 );
     
     &::after,
     &::before{
@@ -258,9 +272,10 @@ p.full-height{
         // top:calc( var(--overhang) * -1 );
         // top: calc( var(--overhang) * -1 );
         bottom:calc( 100% - 1px * var(--density,1) );
+		
         // background-image: url(/source/assets/wallpaper/wavey.svg);
         mask-image: url(/source/assets/wallpaper/wavey-top.svg);
-        mask-position:center top;
+		mask-position:center bottom;
     }
     // wavy background and edges
     &::after{
@@ -268,7 +283,7 @@ p.full-height{
         // bottom:calc( var(--overhang) * -2 );
         // background-image: url(/source/assets/wallpaper/wavey.svg);
         mask-image: url(/source/assets/wallpaper/wavey-bottom.svg);
-        mask-position:center bottom;
+        mask-position:center top;
     }
 
 	> :first-child{
