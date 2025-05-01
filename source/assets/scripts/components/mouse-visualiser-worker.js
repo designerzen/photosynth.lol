@@ -154,7 +154,7 @@ function render() {
     // redraw the mouse position
     if (radius > MIN_RADIUS )
     {
-        renderMouse( currentX, currentY, radius, hoveredElement, mouseDown )
+        renderMouse( Math.max(0, currentX), Math.max(0, currentY), radius, hoveredElement, mouseDown ) 
     }
 
 
