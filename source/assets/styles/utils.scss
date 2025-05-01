@@ -372,7 +372,11 @@ img.flood{
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
+
+	// WE CANNOT USE overflow as this breaks sticky :(
 	// overflow: hidden;
+	// clip does work but isn't cross browser
+	overflow:clip;
 	
 	// Fade first item in
 	// &::before{
@@ -396,6 +400,9 @@ img.flood{
 		position: sticky;
 
 		top: 0%;
+		// Prevent it from falling offf the bottom
+		bottom:0;
+
 		transform: translateY(50vh);
 		// right:0;
 		background-image: linear-gradient(to bottom, transparent, var(--col-bg));
@@ -403,6 +410,7 @@ img.flood{
 		z-index: 1;
 	}
 
+	// fade out bottom ones
 	&::after{
 		content:'';
 		display: block;
