@@ -104,7 +104,7 @@ export default class Timer {
 	callback
 
 	// we overwrite this with an audioContext if available
-	getNow = performance.now
+	getNow = () => performance.timeOrigin + performance.now()
 
 	/**
 	 * Can we use this timing method on this device?
