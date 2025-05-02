@@ -336,11 +336,19 @@ export const loadWaveTableFromArchive = (waveTableArchiveURI, onProgress) => new
                 // Conversion to string and then JSON
                 const progress = index / fileNames.length
                 const file = unzipped[fileName]
-                const waveTable = JSON.parse( strFromU8( file ) )
-                const waveTableData = loadWaveTableFromJSON(fileName, waveTable)
-            
-                onProgress && onProgress(progress, fileName, waveTable )
-                waveTables.push(waveTableData )
+
+                try{
+                    const waveTable = JSON.parse( strFromU8( file ) )
+                    const waveTableData = loadWaveTableFromJSON(fileName, waveTable)
+                
+                    onProgress && onProgress(progress, fileName, waveTable )
+                    waveTables.push(waveTableData )
+
+                }catch(error){
+
+                    // likely a JSON parsing error
+                    console.error("Error loading wave table", fileName, error)
+                }
             }
         })
 

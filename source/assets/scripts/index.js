@@ -80,7 +80,7 @@ let miniNotation
 let circles
 let keyboard 
 let recorder
-
+let timeKeeper
 
 const keyboardKeys = ( new Array(128) ).fill("")
 // Full keyboard with all notes including those we do not want the user to play
@@ -166,10 +166,43 @@ const getSynthForFinger = (finger=0)=>{
     return fingerSynths.get(finger)
 }
 
-const createMetronome = () => {
-    const timer = new Timer()
+/**
+ * Create a time keeper and call this method
+ * @param {Function} callback 
+ * @returns {Timer}
+ */
+const createMetronome = (callback) => {
+    let beats = 0
+    const timingContext = new AudioContext()
+    const timer = new Timer({contexts:{audioContext:timingContext}, bpm:32 })
+    // console.info("timer", timer)
+    // await timer.loaded
+    // console.info("timer loaded", timer)
+    timer.swing = 0.5
+    timer.startTimer(e =>{
+        const oddBeat = beats++ % 2 !== 0
+        callback && callback(oddBeat, e, timer)
+    })
     
     return timer
+
+    // timer.setCallback(event => {
+    //     // console.log("timer event", event)
+    // })
+        
+    // const timingContext = new AudioContext()
+    // // const timing = createTimingProcessor( timingContext )
+
+    // await timingContext.audioWorklet.addModule(AUDIOTIMER_PROCESSOR_URI)
+    // const TimingAudioWorklet = await import("./timing/timing.audioworklet.js")
+    // const timing = new TimingAudioWorklet.default(timingContext)
+    // timing.onmessage = event => {
+    //     console.log("time message:", event)
+    // }
+    // timing.    timer.startTimer()
+
+    // const timing = createTimingProcessor(audioContext)
+    // const timing = new TimingAudioWorkletNode(audioContext)
 }
 
 /**
@@ -868,68 +901,36 @@ const createAudioContext = async(event) => {
     })
 
     const drumSamples = document.querySelectorAll("#drums button audio")
-    const playMetronomeBeat = (odd) => {
+    const playMetronomeBeat = (oddBeat, timerEvent, timer ) => {
         const newBeat = drumSamples[ Math.floor(Math.random() * drumSamples.length) ]
         console.info("playMetronomeBeat", !odd ? "even" : "odd", newBeat)
         // audioSpellSource.pause()
         // audioSpellSources.forEach( audioSpellSource => audioSpellSource.src = getRandomSpell() )
         // audioSpellSource.currentTime = 0
         // audioSpellSource.play()
+        switch(oddBeat)
+        {
+            // Even Beats
+            case false:
+                if (timer.isStartBar && timer.isAtStart)
+                {
+                  
+                }
+                break
+
+            // Odd Beats
+            case true:
+                if (timer.isStartBar && timer.isSwungBeat)
+                {
+                   
+                }
+                break
+        }
     }
 
     if (useTimer)
     {
-        let beats = 0
-        const timingContext = new AudioContext()
-        const timer = new Timer({contexts:{audioContext:timingContext}, bpm:32 })
-        // console.info("timer", timer)
-        // await timer.loaded
-        // console.info("timer loaded", timer)
-        timer.swing = 0.5
-        timer.startTimer(e =>{
-            // 
-              console.info("timer", timer)
-            const oddBeat = beats % 2 !== 0
-            switch(oddBeat)
-            {
-                // Even Beats
-                case false:
-                    if (timer.isStartBar && timer.isAtStart)
-                    {
-                        playMetronomeBeat(false)
-                        beats++
-                    }
-                    break
-
-                // Odd Beats
-                case true:
-                    if (timer.isStartBar && timer.isSwungBeat)
-                    {
-                        playMetronomeBeat(true)
-                        beats++
-                    }
-                    break
-            }
-        })
-    
-        // timer.setCallback(event => {
-        //     // console.log("timer event", event)
-        // })
-            
-        // const timingContext = new AudioContext()
-        // // const timing = createTimingProcessor( timingContext )
-    
-        // await timingContext.audioWorklet.addModule(AUDIOTIMER_PROCESSOR_URI)
-        // const TimingAudioWorklet = await import("./timing/timing.audioworklet.js")
-        // const timing = new TimingAudioWorklet.default(timingContext)
-        // timing.onmessage = event => {
-        //     console.log("time message:", event)
-        // }
-        // timing.    timer.startTimer()
-
-
-        // const timing = createTimingProcessor(audioContext)
-        // const timing = new TimingAudioWorkletNode(audioContext)
+       timeKeeper = createMetronome(playMetronomeBeat)
     }
 }
 
@@ -939,22 +940,23 @@ const createAudioContext = async(event) => {
 const backgroundLoad = async () => {
 
     // await preloadAllWaveTables()
-
     countdown(document.querySelector("[data-countdown]"))
     
+    // add white pink brown noise to the timbres
     addNoises()
 
-    // Load data
+    // Load periodic wavetable data
     try{
         if (loadFromZips)
         {
             await preloadWaveTablesFromZip(WAVE_ARCHIVE_GENERAL_MIDI)
             await preloadWaveTablesFromZip(WAVE_ARCHIVE_GOOGLE)
         }else{
-            const request =await fetch(MANIFEST_URL)
+            const request = await fetch(MANIFEST_URL)
             const manifest = await request.json()
             loadWaveTableFromManifest(manifest)
         }
+
     }catch(error){
 
     }
