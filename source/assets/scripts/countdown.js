@@ -1,5 +1,5 @@
 
-const COUNTDOWN_TYPES = ["days", "hours", "minutes", "seconds"]
+const COUNTDOWN_TYPES = ["day", "hour", "minute", "second"]
 export const countdown = (element) => {   
 
     // grab all the time elements
@@ -38,7 +38,7 @@ export const countdown = (element) => {
         times.forEach( ( value, i ) => {
 
             const isLast = i === times.length - 1
-            const type = COUNTDOWN_TYPES[i]
+            const type = COUNTDOWN_TYPES[i] + (value > 1 ? "s" : "")
             const span = document.createElement("span")
             span.classList.add("countdown-"+type)
             span.textContent = "" + value + " " + type + ( isLast ? "." : ", " )
@@ -59,7 +59,7 @@ export const countdown = (element) => {
             if (oldValue !== newValue)
             {
                 const isLast = i === newTimes.length - 1
-                const type = COUNTDOWN_TYPES[i]
+                const type = COUNTDOWN_TYPES[i] + (newValue > 1 ? "s" : "")
                 countElement.textContent = "" + newValue + " " + type + ( isLast ? "." : ", " )
             }
         })
