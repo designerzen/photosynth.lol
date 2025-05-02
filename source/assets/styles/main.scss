@@ -674,10 +674,14 @@ label[for="timbre-random"]{
     // gap:var(--pad);
 
     border-radius: var(--curve);
-    border:dashed var(--col-border) 2px;
+    border:0;//dashed var(--col-border) 2px;
+    background-color: transparent;
 
     legend{
         float: left;
+        position: absolute;
+        bottom:0;
+        left:0;
     }
 
     label{

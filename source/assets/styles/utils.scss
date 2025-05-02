@@ -289,6 +289,29 @@ p.full-height{
 	> :first-child{
 		padding-top: 0;
 	}
+
+	&.overlap{
+
+		--factor:0.5; 
+		margin-bottom: calc( var(--overhang) * var(--factor,1) );
+		margin-top: calc( var(--overhang) * var(--factor,1) );
+
+		// &::before{
+		// 	margin-top:0;
+		// }
+	
+		// &::after{
+		// 	margin-bottom:0;
+		// }
+	}
+	
+	&.overlap-top{
+		margin-top: calc( var(--overhang) * var(--factor,1) );
+	}
+
+	&.overlap-bottom{
+		margin-bottom: calc( var(--overhang) * var(--factor,1) );
+	}
 }
 
 
@@ -656,6 +679,7 @@ ul.gallery{
 	grid-auto-flow: dense;
 	list-style: none;
 	padding: 0;
+	margin-top:var(--pad);
 
 	figure{
 		display: grid;
