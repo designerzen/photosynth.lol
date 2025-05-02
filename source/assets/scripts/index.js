@@ -55,7 +55,7 @@ let showAllKeys = true
 
 // options
 const debug = true
-const useTimer = false
+const useTimer = true
 const loadFromZips = true // !debug
 
 // read any saved themes from the URL ONLY (not from cookies so no overlay required :)
@@ -867,8 +867,10 @@ const createAudioContext = async(event) => {
         audioSpell.connect(limiter)
     })
 
+    const drumSamples = document.querySelectorAll("#drums button audio")
     const playMetronomeBeat = (odd) => {
-        console.info("playMetronomeBeat", !odd ? "even" : "odd")
+        const newBeat = drumSamples[ Math.floor(Math.random() * drumSamples.length) ]
+        console.info("playMetronomeBeat", !odd ? "even" : "odd", newBeat)
         // audioSpellSource.pause()
         // audioSpellSources.forEach( audioSpellSource => audioSpellSource.src = getRandomSpell() )
         // audioSpellSource.currentTime = 0
@@ -886,6 +888,7 @@ const createAudioContext = async(event) => {
         timer.swing = 0.5
         timer.startTimer(e =>{
             // 
+              console.info("timer", timer)
             const oddBeat = beats % 2 !== 0
             switch(oddBeat)
             {
@@ -893,7 +896,7 @@ const createAudioContext = async(event) => {
                 case false:
                     if (timer.isStartBar && timer.isAtStart)
                     {
-                        this.playMetronomeBeat(false)
+                        playMetronomeBeat(false)
                         beats++
                     }
                     break
@@ -902,7 +905,7 @@ const createAudioContext = async(event) => {
                 case true:
                     if (timer.isStartBar && timer.isSwungBeat)
                     {
-                        this.playMetronomeBeat(true)
+                        playMetronomeBeat(true)
                         beats++
                     }
                     break
@@ -968,7 +971,7 @@ const backgroundLoad = async () => {
     // waveform visualiser
     setupShapeVisualiser(instrumentNames)
 
-    console.error("DATA LOADED!", {instrumentNames} )
+    console.info("DATA LOADED!", {instrumentNames} )
     
     // now add the share button and share overlay
     await loadShareMenu()

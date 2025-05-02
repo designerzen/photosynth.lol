@@ -683,7 +683,8 @@ export default class Timer {
 			// FIXME:
 			accurateTiming:false
 		})
-		//console.log("Starting...", {audioContext, interval:timeBetween, timingWorker} )
+		
+		console.log("Starting...", {audioContext, interval:timeBetween, timingWorker} )
 
 		return {
 			time:currentTime, 
