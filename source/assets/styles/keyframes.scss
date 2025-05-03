@@ -135,22 +135,53 @@
     }
 }
 
+@keyframes FadeTo {
+    100% {
+        opacity: var(--opacity, 1);
+    }
+}
+
+@keyframes TranslateTo {
+    to{
+        transform: translate( var(--x,0), var(--y,0)) rotate(var(--tilt, var(--rotate, 0)));
+    }
+}
+
+@keyframes RockTranslated {
+    0%, 100%{
+        transform: translate( var(--x,0), var(--y,0)) rotate(0) scale( var( --scale,1));
+    }
+
+    33%{
+        transform: translate( var(--x,0), var(--y,0)) rotate(var(--tilt, var(--rotate, 0))) scale( var( --scale,1));
+    }
+    66%{
+        transform: translate( var(--x,0), var(--y,0)) rotate(calc( -1 * (var(--tilt, var(--rotate, 0))) ) ) scale( var( --scale,1));
+    }
+}
+
+@keyframes TranslateFrom {
+    from{
+        transform: translate( var(--x,0), var(--y,0)) rotate(var(--tilt, var(--rotate, 0)));
+    }
+}
+
 @keyframes Rock {
     0%,100%{
-        transform:rotate(0%);
+        transform: translate( var(--x,0), var(--y,0)) rotate(0%);
     }
     10%,30%,50%,70%,90%{
-        transform:rotate( var(--tilt, 12deg) );
+        transform: translate( var(--x,0), var(--y,0)) rotate( var(--tilt, 12deg) ) ;
     }
     20%, 40%, 60%, 80%{
-        transform:rotate( calc( -1 * var(--tilt, 12deg) ) );
+        transform: translate( var(--x,0), var(--y,0)) rotate( calc( -1 * var(--tilt, 12deg) ) ) ;
     }
 }
 
 // to create a scroll speed different to the scroll rate
 @keyframes Text-Scroller {
     from{
-        transform: translateY(50%);
+        transform: translateY(20%);
     }
     to{
         transform: translateY(0);

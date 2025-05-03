@@ -231,7 +231,9 @@ legend{
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-weight: 900;
+    font-weight: 800;
+    // try to make it look square
+    line-height: 1.27;
 
     // to make it square
     // &::after{

@@ -533,12 +533,16 @@ img{
     top:50%;
     transform: translateY(-50%);
     border:0;
+    
     button{
         border:2px solid var(--col-border);
         border-radius: var(--curve);
+        max-width: 44px;
+        color: transparent;
         &::before{
             display: inline-block;
             vertical-align: middle;
+            color: white;
         }
         &:hover,
         &:active{
@@ -551,7 +555,6 @@ img{
 #button-play-kick{
     &::before{
         content:'🦶';
-      
     }
 }
 #button-play-snare{
@@ -629,8 +632,16 @@ img{
    
 }
 
-.lovely-selector{
-   
+// .lovely-selector,
+fieldset{
+   display: flex;
+   flex-wrap: wrap;
+   gap:calc( var(--pad) / 2 );
+   justify-content: stretch;
+   p{
+    flex-shrink: 0;
+    flex-basis: 100%;
+   };
 }
 
 label[for="timbre-random"]{
@@ -662,9 +673,12 @@ label[for="timbre-random"]{
     display: grid;
     // smallest first
     grid-template-areas: 
-        "select select" 
-        "prev next" 
-        "random random";
+        "select select select" 
+        "prev next random";
+    // grid-template-areas: 
+    //     "select select" 
+    //     "prev next" 
+    //     "random random";
 
     grid-template-columns: repeat( auto-fit, minmax(88px, 1fr) );
     gap: 0 calc( var(--pad) / 2 );
@@ -721,9 +735,10 @@ label[for="timbre-random"]{
         
     .timbre-selector{
         --icon-size:33px;
-        grid-template-areas: 
-            "prev select next" 
-            ". random .";
+        // grid-template-areas: 
+        //     "prev select next" 
+        //     ". random .";
+        grid-template-areas: "prev select next random";
     }
 }
 
@@ -732,7 +747,7 @@ label[for="timbre-random"]{
     .timbre-selector{
         --icon-size:44px;
         
-        grid-template-areas: "prev select next random";
+      
     }
 }
 
@@ -793,9 +808,14 @@ footer{
 // Canvases & animations -------------------------------------------
 
 #mouse-visualiser{
-    z-index: 999;
+    z-index: 999; // at the front
+    position: fixed;
+    pointer-events: none;
+    top:0;
+    left:0;
+    height: 100%;
+    width:100%
 }
-
 
 #wallpaper{
     width: 100%;
@@ -862,19 +882,24 @@ footer{
 
 #visualiser{
     // z-index: 1;
-    z-index: 505;
+    z-index: -1;
     width: 100%;
     height: 100%;
     display: block;
-    max-height: 100vh;
-    max-height: 100dvh;
-    margin:auto;
-    grid-area:1/1/-1/-1;
+    height: 100vh;
+    height: 100dvh;
+    // grid-area:1/1/-1/-1;
     // grid-area:visualiser;
+    width: 100vw;
+    margin: 0;
+    // margin-left: -50%;
+    transform: translateX(calc( -50vw - 50%) );
+    //calc( (100vw - 100%)/-2 );
+    display: none;
 }
 
-#visualiser.in-viewport{
-   
+.in-viewport #visualiser{
+   display: block;
 }
 
 #waveforms{
@@ -884,16 +909,7 @@ footer{
 }
 
 
-// at the front
-#mouse-visualiser{
-    position: fixed;
-    z-index: 909;
-    pointer-events: none;
-    top:0;
-    left:0;
-    height: 100%;
-    width:100%
-}
+
 
 #song-in-pixels{
     // background-color: var(--col-bg);
