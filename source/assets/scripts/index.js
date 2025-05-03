@@ -45,10 +45,12 @@ import {CANVAS_BLEND_MODE_DESCRIPTIONS, CANVAS_BLEND_MODES} from "./blendmodes.j
 
 // Data locations
 import MANIFEST_URL from "url:/static/wave-tables/general-midi/manifest.json"
+import { getRandomDrumPattern, getRandomKitSequence, kitSequence } from "./timing/patterns.js"
 
 // audio reqiures a user gesture to start...
 // so we hook into each musical event to check if the user has engaged
 let hasUserEngaged = false
+let drumsPlaying = false
 
 // flag for showing the whole keyboard on screen rather than a trimmed size
 let showAllKeys = true
@@ -178,7 +180,7 @@ const createMetronome = (callback) => {
     // console.info("timer", timer)
     // await timer.loaded
     // console.info("timer loaded", timer)
-    timer.swing = 0.5
+    timer.swing = 0 //.5
     timer.startTimer(e =>{
         const oddBeat = beats++ % 2 !== 0
         callback && callback(oddBeat, e, timer)
@@ -894,16 +896,79 @@ const createAudioContext = async(event) => {
 
     miniNotation = new SongCanvas(document.getElementById("song-in-pixels"), recorder)
 
-    const audioSpellSources = document.querySelectorAll("audio")
-    audioSpellSources.forEach( audioSpellSource => {
-        const audioSpell = audioContext.createMediaElementSource(audioSpellSource)
-        audioSpell.connect(limiter)
+    const mixerRouting = new Map()
+    const audioSources = document.querySelectorAll("audio")
+    audioSources.forEach( audioSource => {
+        const audioSpell = audioContext.createMediaElementSource(audioSource)
+        const gainNode = audioContext.createGain()
+        gainNode.gain.value = 1
+        audioSpell.connect(gainNode)
+        gainNode.connect(limiter)
+        mixerRouting.set(audioSource, gainNode)
+        // audioSpell.connect(limiter)
     })
 
     const drumSamples = document.querySelectorAll("#drums button audio")
+    const kickDrum = drumSamples[ 0 ]
+    const snareDrum = drumSamples[ 1 ]
+    const hihat = drumSamples[ 2 ]
+    const shaker = drumSamples[ 3 ]
+
+    // let patterns = kitSequence()
+    let patterns = getRandomKitSequence()
+    const setRandomDrumPattern = () => {
+		patterns = getRandomKitSequence()
+	} 
+
+    let count = 0
     const playMetronomeBeat = (oddBeat, timerEvent, timer ) => {
-        const newBeat = drumSamples[ Math.floor(Math.random() * drumSamples.length) ]
-        console.info("playMetronomeBeat", !odd ? "even" : "odd", newBeat)
+        if ( !drumsPlaying || !timer.isStartBar )
+        {
+            return
+        }
+        const index = oddBeat ? Math.floor(Math.random() * drumSamples.length) : 0
+        const newBeat = drumSamples[ index ]
+    
+        const kickVelocity = patterns.kick.next() / 255
+        const snareVelocity = patterns.snare.next() / 255
+        const hatVelocity = patterns.hat.next() / 255
+
+        const kickVolume = mixerRouting.get(kickDrum)
+        kickVolume.gain.value = kickVelocity
+            
+        if (kickVelocity > 0)
+        {
+            kickDrum.pause()
+            kickDrum.play(0)
+        }
+
+        const snareVolume = mixerRouting.get(kickDrum)
+        snareVolume.gain.value = snareVelocity 
+        
+        if (snareVelocity > 0)
+        {
+            snareDrum.pause()
+            snareDrum.play(0)
+        }
+
+        const hatVolume = mixerRouting.get(kickDrum)
+        hatVolume.gain.value = hatVelocity 
+        
+        if (hatVelocity > 0)
+        {
+            hihat.pause()
+            hihat.play(0)
+        }
+
+        console.info("playMetronomeBeat", !oddBeat ? "even" : "odd", newBeat, {patterns} )
+        count++
+        if (count > 10)
+        {
+            count = 0
+            setRandomDrumPattern()
+        }
+
+        return
         // audioSpellSource.pause()
         // audioSpellSources.forEach( audioSpellSource => audioSpellSource.src = getRandomSpell() )
         // audioSpellSource.currentTime = 0
@@ -912,26 +977,48 @@ const createAudioContext = async(event) => {
         {
             // Even Beats
             case false:
-                if (timer.isStartBar && timer.isAtStart)
-                {
-                  
-                }
+                // if (timer.isStartBar )
+                // {
+                //     kickDrum.pause()
+                //     kickDrum.play(0)
+                // }
+
+                // if (timer.isStartBar && timer.isSwungBeat)
+                // {
+                //     snareDrum.pause()
+                //     snareDrum.play(0)
+                // }
                 break
 
             // Odd Beats
             case true:
+                if (timer.isStartBar )
+                {
+                    kickDrum.pause()
+                    kickDrum.play(0)
+                }
+
                 if (timer.isStartBar && timer.isSwungBeat)
                 {
-                   
+                    snareDrum.pause()
+                    snareDrum.play(0)
                 }
                 break
         }
+
+        // hihat.pause()
+        // hihat.play(0)
     }
 
     if (useTimer)
     {
        timeKeeper = createMetronome(playMetronomeBeat)
     }
+
+    const toggleDrums = document.getElementById("toggle-drums")
+    toggleDrums.addEventListener("change", e => {
+        drumsPlaying = toggleDrums.checked
+    })
 }
 
 /**
