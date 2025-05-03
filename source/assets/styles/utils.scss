@@ -161,6 +161,11 @@ p.full-height{
     --gap:calc(var(--pad) / 2);
     --size:calc( 100% / var(--quantity) );
 
+    border:var(--col-border) 2px dashed;
+    padding: var(--pad);
+    border-radius: var(--curve);
+    
+    position: relative;
     list-style: none;
     display: grid;
     gap: var(--gap, 0 ) var(--pad);
@@ -179,11 +184,28 @@ p.full-height{
 		}
 	}
 
+    &:not( :focus-within, :hover)::before{
+        content:"Menu";
+        // color: var(--col-plum);
+        font-size: 150%;  
+        text-align: left;
+        z-index: 0;
+        position: absolute;
+        top:var(--pad);
+        left:0;
+        right:0;
+        text-align: center;
+        // fade in after a delay
+        opacity: 0;
+        animation: FadeTo var(--time-quick, 90ms) linear 0.5s both;
+    }
+
     li{
         grid-area: icons;
     }
 
     li a{
+
         color:transparent;
 		text-align: center;
 		display: flex;
@@ -192,17 +214,21 @@ p.full-height{
 		text-decoration: none;
         gap:calc( var(--pad) / 2 );
         pointer-events: none;
+        transition: color var(--time-quick, 90ms) linear;
 
 		&::before{
             color: var(--col-plum);
+            // background-color: var(--col-bg);
             font-size: 200%;;
 			content:counter(steps) ".";
             visibility: hidden;
+            text-align: left;
+            z-index: 1;
 		}
 
         img{
-            pointer-events: all;
 			--x:calc( var(--pad) / 2 + (100% + var(--pad)) * var(--i) );
+            pointer-events: all;
             width:calc(var(--size) - var(--pad));
             // margin-left:calc( var(--size) * var(--i) + var(--gap)  );
             // margin-bottom:calc( var(--gap) );
@@ -220,7 +246,7 @@ p.full-height{
 
         &:hover,
         &:focus{
-            background-color:transparent;//var(--col-plum);
+           //var(--col-plum);
             border-color:var(--col-plum);
             color:var(--col-plum);
 
@@ -229,6 +255,7 @@ p.full-height{
             }
 
             img{
+                --scale:1.1;
                 border-color:var(--col-accent);
             }
         }
@@ -762,9 +789,5 @@ ul.gallery{
             transform: translate( var(--x,0), var(--y,0));
 			animation: RockTranslated var(--duration, 90ms) infinite var(--delay,0s) both ease-out;
 		}
-
-        .animation-rock\:on-hover:hover{
-            background-color: red;
-        }
 	}
 }

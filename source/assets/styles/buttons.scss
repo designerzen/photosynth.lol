@@ -156,6 +156,7 @@ a.cta{
     // align-self: flex-end;
     // justify-self: end;
     touch-action: manipulation;
+    flex-grow: 1;
 }
 
 // we need space around the button
@@ -303,8 +304,9 @@ button[data-control-play]{
     width:calc(var(--pad) * 2);
     
     // this allows it to not create space in its sticky home
-    height:0;
+    // height:0;
     min-height:calc(var(--pad) * 2);
+    float:right;
 
     font-size:0;
     color:transparent;
@@ -442,58 +444,6 @@ a.skip-to-content{
     }
 }
 
-// when the screen is wider than --max-section-width
-@media screen and (min-width:920px) {
-    
-    /*
-    // Text only version
-    a.back-to-top{
-        grid-template-columns: auto 1fr;
-        font-size: inherit;
-        color:var(--col-white);
-        // padding:var(--pad);
-        // max-width:88px;
-        // max-width: calc(2 * 44px);
-
-        &::after{
-            display: none;
-        }
-    }*/
-    .button-read{
-        --offset-right: calc(3 * 44px + var(--pad) * 2);
-        top:calc( 0 * var(--pad) + var(--sticky-top) );
-        // right:calc( 2 * var(--pad) );
-        right:calc( 100% + 3 * var(--pad) );
-        left:auto;
-        transform: translateX(-100%);
-        border-color:var(--col-stone);
-        margin-right: -1px;
-    }
-}
-
-
-@media screen and (min-width:1000px) {
-    
- // add the icon back in and offset to the right of the content
-    a.skip-to-content,
-    a.back-to-top{
-        &::after{
-            display: inline-block;
-        }
-    }
-
-    a.back-to-top{
-        // --p:calc( (100vw - var(--max-section-width)) / 2 );
-        // right:calc( var(--pad) );
-        // left:calc( (100vw - var(--max-section-width) - var(--pad) ) / 2 );
-        // transform: translateX(100%);
-    }
-    .button-read{
-        z-index: -1;
-        transform: translateX( calc( -100% - var(--pad) * 2 + 2px ) ); 
-    }
-}
-
 label[for="toggle-midi"]{
 // #toggle-midi{
     // position: absolute;
@@ -576,10 +526,18 @@ aside > label[for="toggle-midi"]{
 [data-play-timbre]{
     color: var(--col-text);
     border:1px solid var(--col-border, var(--col-text) );
-    padding-left:calc( var(--pad) / 2 );
-    padding-right:calc( var(--pad) / 2 );
+    padding:calc( var(--pad) / 2 );
+    // padding-left:calc( var(--pad) / 2 );
+    // padding-right:calc( var(--pad) / 2 );
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap:0 calc(var(--pad) / 4);
+
     &:hover{
-        background-color: var(--col-plum);
+        background-color: var(--col-accent);
         border-color: var(--col-text);
     }
 }
@@ -590,61 +548,10 @@ aside > label[for="toggle-midi"]{
     padding-right:2ch;
     background-color: var(--col-accent);
     background-color: color-mix( in oklch, var(--col-accent) 66%, transparent );
+    
     &:hover{
         background-color: var(--col-accent);
     }
-}
-
-#song-timbre-next,
-#song-timbre-previous,
-#song-timbre-random{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--curve, 4px);
-    min-width: 44px;
-    margin:0;
-    padding: var(--pad);
-    gap:calc(var(--pad) / 4 );
-    &::before{
-        content:'';
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        width:var(--icon-size, 44px);
-        height:var(--icon-size, 44px);
-        display: inline-block;
-        vertical-align: middle;
-        filter:brightness(0) invert(1);
-    }
-}
-
-#song-timbre-previous{
-    &::before{
-        background-image: url('/source/assets/icons/skip_previous.svg');   
-    }
-}
-
-#song-timbre-next{
-    &::before{
-        background-image: url('/source/assets/icons/skip_next.svg');
-    }
-}
-#song-timbre-random{
-    &::before{
-        background-image: url('/source/assets/icons/interests.svg');  
-        // background-image: url('/source/assets/icons/fast_forward_black_24dp.svg');  
-    }
-}
-
-
-#song-timbre-select{
-    border-radius: var(--curve, 4px);
-    background-color: var(--col-button-red);
-    color: var(--col-white);
-    box-shadow:var(--shadow-button);
 }
 
 
@@ -653,7 +560,6 @@ label[for="button-happy"]{
 }
 
 #button-happy{
-
     --curve:48px;
     border-radius:var(--curve) 0 0 var(--curve);
    
@@ -697,6 +603,58 @@ label[for="button-sad"]{
 }
 
 // TIMBRES ==============================================================
+
+#song-timbre-next,
+#song-timbre-previous,
+#song-timbre-random{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--curve, 4px);
+    min-width: 44px;
+    margin:0;
+    padding: var(--pad);
+    gap:calc(var(--pad) / 4 );
+    &::before{
+        content:'';
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        width:var(--icon-size, 44px);
+        height:var(--icon-size, 44px);
+        display: inline-block;
+        vertical-align: middle;
+        filter:brightness(0) invert(1);
+    }
+}
+
+#song-timbre-previous{
+    &::before{
+        background-image: url('/source/assets/icons/skip_previous.svg');   
+    }
+}
+
+#song-timbre-next{
+    &::before{
+        background-image: url('/source/assets/icons/skip_next.svg');
+    }
+}
+#song-timbre-random{
+    &::before{
+        background-image: url('/source/assets/icons/shuffle.svg');  
+        // background-image: url('/source/assets/icons/fast_forward_black_24dp.svg');  
+    }
+}
+
+#song-timbre-select{
+    border-radius: var(--curve, 4px);
+    background-color: var(--col-button-red);
+    color: var(--col-white);
+    box-shadow:var(--shadow-button);
+}
+
 
 label[for="timbre-sine"]{
     &::before{
@@ -766,5 +724,67 @@ label[for="timbre-sawtooth"]{
 
     &::after{
         transform: translateX(50%);
+    }
+}
+
+// Different Sizes ======================================================
+
+// when the screen is wider than --max-section-width
+@media screen and (min-width:920px) {
+    
+    /*
+    // Text only version
+    a.back-to-top{
+        grid-template-columns: auto 1fr;
+        font-size: inherit;
+        color:var(--col-white);
+        // padding:var(--pad);
+        // max-width:88px;
+        // max-width: calc(2 * 44px);
+
+        &::after{
+            display: none;
+        }
+    }*/
+
+    .button-read{
+        --offset-right: calc(3 * 44px + var(--pad) * 2);
+        top:calc( 0 * var(--pad) + var(--sticky-top) );
+        // right:calc( 2 * var(--pad) );
+        right:calc( 100% + 3 * var(--pad) );
+        left:auto;
+        transform: translateX(-100%);
+        border-color:var(--col-stone);
+        margin-right: -1px;
+    }
+
+    [data-play-timbre]{
+
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+}
+
+// with space in the gutters
+@media screen and (min-width:1000px) {
+    
+ // add the icon back in and offset to the right of the content
+    a.skip-to-content,
+    a.back-to-top{
+        &::after{
+            display: inline-block;
+        }
+    }
+
+    a.back-to-top{
+        // --p:calc( (100vw - var(--max-section-width)) / 2 );
+        // right:calc( var(--pad) );
+        // left:calc( (100vw - var(--max-section-width) - var(--pad) ) / 2 );
+        // transform: translateX(100%);
+    }
+
+    .button-read{
+        z-index: -1;
+        transform: translateX( calc( -100% - var(--pad) * 2 + 2px ) ); 
     }
 }
