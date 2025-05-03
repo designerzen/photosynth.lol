@@ -736,8 +736,6 @@
         </section>
 
   
-        <canvas id="visualiser" class="sticky" inert width=800 height=400></canvas>
-      
         <!-- SCIENCE -->
         <section id="science" class=" bg-clear" data-observe>
                      
@@ -760,6 +758,12 @@
                 <p>By tracking your motions and emotions in real-time, the PhotoSYNTH converts your everyday movements into music and captures the subtleties and nuances of your expressions and performance.</p>
                 <p>Rather than playing a musical instrument, the <cite>Photo<wbr>SYNTH</cite> plays you!</p>
             
+                <p>
+                    An expressive musical instrument is at the zenith of complicated fidelity, some are incredibly complicated machines that require time to master.
+                    The same techniques used to simplify the complex act of making music can be used for simplifying the control of other things.
+                    <!-- If you can control a complicated and traditionally deemed difficult musical instrument, you can easily control a car! -->
+                </p>
+
                 <figure class="">
                     <picture>
                         <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=avif&width=1080" type="image/avif" />
@@ -786,49 +790,50 @@
                     <li>
                         <a href="#capture-face">
                             <img 
-                            class="animation-rock"
+                            class="animation-rock:on-hover"
                             style="--delay:0s;"
                             loading="lazy"
                             width="44" height="44"
                             src="/source/assets/diagrams/face-winking.svg" 
                             alt="">
-                            Capture snapshots of movements and expressions
+                            Capture snapshots of movements &amp; expressions
                         </a>
                     </li>
                     <li>
                         <a href="#technology">
                             <img 
-                            class="animation-rock bg-dark"
+                            class="animation-rock:on-hover bg-dark"
                             style="--delay:0.1s;"
                             loading="lazy"
                             width="44" height="44"
                             src="/source/assets/diagrams/face-scanning.svg" 
                             alt="">    
-                            Convert them into a digital version that exists in 3d space
+                            Digitise them into 3D space 
                         </a>
                     </li>   
                     <li>
                         <a href="#recognising-emotions">
                             <img 
-                            class="animation-rock"
+                            class="animation-rock:on-hover"
                             style="--delay:0.2s;"
                             loading="lazy"
                             width="44" height="44"
                             src="/source/assets/diagrams/face-recognition.svg" 
                             alt="">
-                            Recognise emotions, expressions and moods to try to determine the intention
+                            Recognise expressions &amp; moods
                         </a>
                     </li>
                     <li>
                         <a href="#shapes">
                             <img 
-                            class="animation-rock"
+                            class="animation-rock:on-hover"
                             style="--delay:0.3s;"
                             loading="lazy"
                             width="44" height="44"
                             src="/source/assets/diagrams/face-recognised.svg" 
                             alt="">
-                            Generate music in response, that represents & evokes those same emotions and intentions
+                            Generate music in response to evoke those same emotions
+                            <!-- Generate music in response, that represents & evokes those same emotions and intentions -->
                         </a>
                     </li>
                     <!-- <li>
@@ -970,6 +975,9 @@
                 
             </article>
 
+            
+            <canvas id="visualiser" class="sticky" inert width=800 height=400></canvas>
+      
              <!-- 4. Generate music ------------------------------------------- -->
             <article id="shapes" class="page bg-translucent shadow" data-full-keyboard data-observe data-readable>
                 
@@ -977,29 +985,73 @@
                     <h3 class="heading-icon" data-timbre>The Shape of Sound</h3>
                     <h4>Unique Sonic characteristics - The Sound of Shapes</h4>
                 </header>
-                
-                <p>These metrics are then used to create music that tries to represent and invoke the same moods and emotions.</p>
-                
+               
                 <p>Each sound has a distinct shape, similar to a fingerprint or snowflake. This affects how the sound travels, bounces off things, what effect it will have on matter and how that is perceived by your ears (if at all) .</p>
                     
-                <p>As sound moves it leaves remnants of itself on things it touches, imagine, if you like, sonic snail trails, vibrating and shedding frequencies and reverberations. These alter the acoustics and harmonics of the original sound and add character such as an echo and reverb.</p>
-                <p>Sound travels at the same speeds as gases do, regardless of how they sound. Each note (or "pitch") is determined by the amount of times that the pattern repeats in a fixed time period, often refered to as its vibration or wavelength.</p>
+                <p>As sound moves it leaves remnants of itself on things it touches, like sonic snail trails in all directions, vibrating and shedding frequencies and reverberations. 
+                    These alter the acoustics and harmonics of the sound and add tone and character.
+                    If it has a fast repeating sound, playing thousands of times in a second, 
+                     that createssound is repeated at certain 
+                </p>
+                <p>When more than note exist in the same space they join together like jelly joining.</p>
+
+                <p>Sound travels at the same speeds as gases do, because that is how they travel, they are gas powered. 
+                    Instead, variation in sound comes from noise, and arranged noises. 
+                    Noises that rapidly repeat like patterns are called notes.
+                    Each note (also known as a pitch) is determined by the amount of times that the noise patterns repeat in a fixed time period, often refered to as its vibration, wavelength or frequency.</p>
                 <p>Slow repeating sounds are perceived as deep or bassy, whist the faster they vibrate, the more high pitched they sound.</p>
+               
+
+               
                 <p>Play with the keyboard below to see how the shape varies between high notes and low notes..</p>
                 
-                    Due to this extra detail in the higher frequencies, our brains can determine where they are coming from (their directionality) which is unlike bass that is omnipresent and all emcompassing.</p> 
+                <p>Due to this extra detail in the higher frequencies, our brains can determine where they are coming from (their directionality) which is unlike bass that is omnipresent and all emcompassing.</p> 
                 
                 
-                <p>Round sounds such as the Sine wave sound soft and comfortable, whilst sharp, angular sounds, such as the Sawtooth wave, sound fierce and aggressive.</p>
-                
-                
+                     
+                <fieldset class="lovely-selector">
+                    <legend>Lovely sounds</legend>
+                   
+                    <p>Round sounds such as the Sine wave sound soft and comfortable.</p> 
+                    <p>Layers of sine waves, preferably other nice sounding ones, create new shapes and waveforms.</p> 
+             
+                    <button type="button" data-play-timbre="Sine">
+                        <span class="emoji" aria-hidden="true">🤗</span>
+                        Quite Lovely
+                    </button>
+                    <button type="button" data-play-timbre="Celleste">
+                        <span class="emoji" aria-hidden="true">😍</span>
+                        Moderately Lovely
+                    </button>
+                    <button type="button" data-play-timbre="Marimba">
+                        <span class="emoji" aria-hidden="true">🥰</span>
+                        Very Lovely
+                    </button>
+                </fieldset>
+                    
+                             
+                <fieldset class="anger-selector">
+                    <legend>Angry sounds</legend>
+                    
+                    <p>Sharp, angular sounds, such as the Sawtooth wave, sound fierce and aggressive.</p>
+                    <p>The more discordant, loud and random the sound, the more angry it appears to be.</p>
 
-                <p>
-                    An expressive musical instrument is at the zenith of complicated fidelity, some are incredibly complicated machines that require time to master.
-                    The same techniques used to simplify the complex act of making music can be used for simplifying the control of other things.
-                    If you can control a complicated and traditionally deemed difficult musical instrument, you can easily control a car!
-                </p>
+                    <button type="button" data-play-timbre="Brown Noise">
+                        <span class="emoji" aria-hidden="true">😠</span>
+                        Mildly Angry
+                    </button>
+                    <button type="button" data-play-timbre="Pink Noise">
+                        <span class="emoji" aria-hidden="true">😡</span>
+                        Quite Angry
+                    </button>
+                    <button type="button" data-play-timbre="White Noise">
+                        <span class="emoji" aria-hidden="true">🤬</span>
+                        Very Angry
+                    </button>
+                </fieldset>
 
+                <p>Play around with the instrument selector to see how each one looks.</p>
+             
             </article>
  
             <form action="/" class="sticky">
@@ -1042,6 +1094,8 @@
             
             <aside id="drums" class="sticky">
             
+           
+    
                 <button 
                     type="button" 
                     id="button-play-kick">
@@ -1086,6 +1140,11 @@
                         <audio src="/source/assets/audio/drums/shaker.wav" preload="auto"></audio>
                 </button>
 
+                <label for="toggle-drums">
+                    <input type="checkbox" id="toggle-drums">
+                    Play Drum Kit Groove
+                </label>
+              
             </aside>
             
 
@@ -1139,38 +1198,6 @@
                         <button data-control-play type="button" class="">Play Song</button>
                     </fieldset>
                                 
-                    <fieldset class="anger-selector">
-                        <legend>Angry sounds</legend>
-                        <button type="button" data-play-timbre="Brown Noise">
-                            <span class="emoji" aria-hidden="true">😠</span>
-                            Mildly Angry
-                        </button>
-                        <button type="button" data-play-timbre="Pink Noise">
-                            <span class="emoji" aria-hidden="true">😡</span>
-                            Quite Angry
-                        </button>
-                        <button type="button" data-play-timbre="White Noise">
-                            <span class="emoji" aria-hidden="true">🤬</span>
-                            Very Angry
-                        </button>
-                    </fieldset>
-
-                    <fieldset class="lovely-selector">
-                        <legend>Lovely sounds</legend>
-                        <button type="button" data-play-timbre="Sine">
-                            <span class="emoji" aria-hidden="true">🤗</span>
-                            Quite Lovely
-                        </button>
-                        <button type="button" data-play-timbre="Celleste">
-                            <span class="emoji" aria-hidden="true">😍</span>
-                            Moderately Lovely
-                        </button>
-                        <button type="button" data-play-timbre="Marimba">
-                            <span class="emoji" aria-hidden="true">🥰</span>
-                            Very Lovely
-                        </button>
-                    </fieldset>
-
                 </form>
             
 
@@ -1512,9 +1539,7 @@
                         Bringing together people with technical knowledge and people with disabilities, and different abilities, to work together to research and develop new ways of interacting with technology in order to make music.</p> 
                    
                     <p>The PhotoSYNTH is a long term collaboration between Zenon Olenski (godfather of biometric music, designerzen, awesomething), DMLab, Drake Music's legendary research and development team, awesomething social enterprise and hundreds of disabled artists and musicians.</p> 
-                
-                    <a class="cta" href="https://accessiblemusicalinstrumentcollection.org/case_studies/photosynth/">Learn more on the AMIC Website</a>"
-
+             
                 </section>
 
                 <aside id="lab-venue-details">
@@ -1608,7 +1633,7 @@
             
             <article id="amic" class="page bg-clear" data-readable>
                 <header class="underline">
-                    <h3 class="heading-icon">Laboratory</h3>
+                    <h3 class="heading-icon">Engage</h3>
                     <h4>Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h4>
                 </header>
                 
@@ -1639,6 +1664,9 @@
 
                     Disabled musicians will be able to visit the collection, test out different instruments using an accessible workstation and (hopefully) find one which suits them. Makers can come and be inspired or see what has already been built. Academics can call upon it for research and teachers can explore options for their students.
                 </details>
+                   
+                <a class="cta" href="https://accessiblemusicalinstrumentcollection.org/case_studies/photosynth/">Learn more on the AMIC Website</a>
+
             </article>
 
         </section>
@@ -1715,7 +1743,7 @@
             <article class="page">
                 
                 <header>
-                    <h3 class="heading-icon">FAQ - Frequently Asked Questions</h3>
+                    <h3 class="heading-icon">Frequently Asked Questions, FAQ</h3>
                     <h4>Answers to common questions</h4>
                 </header>
                
