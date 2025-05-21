@@ -1,7 +1,7 @@
 {
   "name": "Celesta",
   "gm_number": 9,
-  "description": "Approximate PeriodicWave data...",
+  "description": "Originally from the google chrome experiments sample github repo. All right belong to them.",
   "real": [
     0.0,
     0.1017167957225341,
