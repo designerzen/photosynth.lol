@@ -64,6 +64,8 @@
         font-family: inherit;
     }
     .fifths-emotion-text{
+        // we have a hit area below it
+        pointer-events: none;
         font-family: 'noto-emoji', 'Noto Emoji', sans-serif;
     }
 }
@@ -170,15 +172,21 @@
 }
 
 
-
+// parent figure wrapper
 #circular-synthesizer{
     // margin-top: var(--pad);
-    margin-bottom: calc( 4 *var(--pad) );
+
+    // how much space before we show the controls
+    padding-bottom: calc( 4 *var(--pad) );
+    pointer-events: none;
+    border-radius: 9999px;
+    overflow: hidden;
+    overflow: clip;
 }
 
 // SVG
 svg.circle-of-fifths {
-    
+    pointer-events: all;
     // try to always give space for the keyboard at the base
     max-height : var(--visible-height-fallback);
     max-height : var(--visible-height);

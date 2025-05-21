@@ -109,21 +109,127 @@ p.full-height{
     height: 100%;
 }
 
+.viewport-width{
+    min-width: 100vw;
+    width: 100%;
+    margin:0 calc( -50vw + 50%) ;
+    // transform: translateX(100vw);
+}
+
+.bg-children{
+    --space:2;
+
+    margin-bottom: 0;
+    position: relative;
+
+    > *:not(section, button, article ){
+        min-width:100%;// calc(100% - 2 * var(--space) * var(--pad));
+        padding-left:calc(1 * var(--space) * var(--pad));
+        padding-right:calc(1 * var(--space) * var(--pad)); 
+        box-sizing: border-box;
+    }
+
+    > *:not(section, label, button, article, .bg-clear){
+        background-color: var(--col-bg);
+    }
+    
+    > header:first-of-type{
+        padding-top:calc(1 * var(--space) * var(--pad));
+    }
+    > :last-child{
+        padding-bottom:calc(1 * var(--space) * var(--pad));
+    }
+
+    .bg-clear{
+        // in clear mode we will have gaps or weird
+        // spaces so we fill those iin using borders
+        border-top: solid calc(2 * var(--pad)) var(--col-bg);
+        // border-bottom: solid calc(2 * var(--pad)) var(--col-bg);
+    
+    }
+    
+    // add a background fill at the end
+    .bg-clear + *{ 
+        border-top: solid calc(2 * var(--pad)) var(--col-bg);
+    }
+}
+
+// inside curves in transparent windows
+.bg-clear > .bg-clear,
+.bg-children > .bg-clear{
+    --cuve-size:99px;
+
+    &::before{
+        content: "";
+        position: absolute;
+        top:0;
+        left:0;
+        height: var(--cuve-size);
+        bottom: calc( -1 * var(--cuve-size));
+        width: calc( var(--cuve-size) / 2 );
+        border-top-left-radius: calc( var(--cuve-size) / 2 );
+        box-shadow: 0  calc( var(--cuve-size) / -2 ) 0 0 var(--col-bg);
+    }
+    &::after{
+        content: "";
+        position: absolute;
+        top:0;
+        right:0;
+        height: var(--cuve-size);
+        bottom: calc( -1 * var(--cuve-size));
+        width: calc( var(--cuve-size) / 2 );
+        border-top-right-radius:  calc( var(--cuve-size) / 2 );
+        box-shadow: 0  calc( var(--cuve-size) / -2 ) 0 0 var(--col-bg);
+    }
+}
+
+// special case of bg that actually sets the background of it's children
+.bg-holey{
+    // overflow: hidden;
+    // overflow: clip;
+    margin-top: 0;
+    padding:0;
+    background-color: transparent;
+
+    figure{
+        &::before {
+            content: "";
+            position: absolute;
+            
+            background-color: #0074D9;
+            bottom: -50px;
+            height: 50px;
+            width: 25px;
+            border-top-left-radius: 25px;
+            box-shadow: 0 -25px 0 0 #001f3f; /* This is where the magic happens! */
+        }
+    }
+}
+
+// for when you want to have sections of clear you need to start
+// with a clear background then set all elements unless explicitly stated
+.bg-clear-holey{
+    --space:2;
+    margin-right:calc(-1 * var(--space) * var(--pad)); 
+    margin-left:calc(-1 * var(--space) * var(--pad)); 
+}
+
 .bg-translucent{
 	--alpha:66%;
-	background-color: color-mix(in srgb, var(--col-bg) var(--alpha,66%), transparent);
+	background-color: color-mix(in srgb, var(--col-bg) var(--alpha,66%, transparent));
 }
 
 .bg-clear{
 	background-color: transparent;
+    // z-index: initial;
 }
 
 .bg{
 	background-color: var(--col-bg);
 
-	> *{
-		background-color: inherit;
-	}
+	// > *{
+	// 	background-color: inherit;
+	// }
 
 	.sticky.full-height + p{
 		&::before{
@@ -147,6 +253,12 @@ p.full-height{
 	border-top: var(--pad) solid var(--col-accent);
 }
 
+.box{
+    padding: var(--pad);
+    margin:var(--pad) 0;
+    clear: both;
+    border:var(--stroke, 1px) solid var(--col-accent);
+}
 
 // 6 x 9 grid but we subdivide it for style
 .grid{
@@ -280,22 +392,41 @@ p.full-height{
     //     0px 0px 15px rgba(51, 49, 50, 0.06),
     //     0px 0px 24px rgba(51, 49, 50, 0.08);
 }
+.hide-overflow{
+    --space:2;
+    overflow: hidden;
+    overflow: clip;
+    // prevents margins from overflowing
+    display: grid;
+    min-width: calc( 100% - var(--pad) * 2 * var(--space));
+    // min-width: 100%;;
+    // margin-left:calc(-1 * var(--space) * var(--pad));
+    // margin-right:calc(-1 * var(--space) * var(--pad));
+    padding-left:calc(var(--space) * var(--pad));
+    padding-right:calc(var(--space) * var(--pad));
+}
 
-// #teaser,
-// .sticky + *:not(aside)
+// To make holes so you can see through the background in 
+// CSS is very tricky but this works for single items 
+// when used with .hide-overflow above
+.flood-fill-parent{
+    box-shadow: var(--col-bg) 0 0 0 100vmax;
+}
+
+// waves top
 .wavey,
 .square,
-.sawtooth{
+.sawtooth,
+.wavey-top,
+.square-top,
+.sawtooth-top{
 	--overhang:max(7vh, 88px);
     --scale:1;
     --density:2;
 
     // ensure the waves have space
-    // padding-bottom: calc( var(--overhang) / 2 );
-    margin-bottom: calc( var(--overhang) * 1 );
-    margin-top: calc( var(--overhang) * 1 );
+    margin-top: calc( var(--overhang) * 1.5 );
     
-    &::after,
     &::before{
         content: '';
         position: absolute;
@@ -329,51 +460,104 @@ p.full-height{
 		
         // background-image: url(/source/assets/wallpaper/wavey.svg);
         mask-image: url(/source/assets/wallpaper/wavey-top.svg);
-		mask-position:center bottom;
+		mask-position:center top;
     }
+    
+	&.overlap{
+		--factor:0.5; 
+		margin-bottom: calc( var(--overhang) * var(--factor,1) );
+		margin-top: calc( var(--overhang) * var(--factor,1) );
+	}
+	
+	&.overlap-top{
+		margin-top: calc( var(--overhang) * var(--factor,1) );
+	}
+}
+
+
+
+// #teaser,
+// .sticky + *:not(aside)
+.wavey,
+.square,
+.wavey-bottom,
+.square-bottom,
+.sawtooth-bottom{
+	--overhang:max(7vh, 88px);
+    --scale:1;
+    --density:2;
+
+    // ensure the waves have space
+    // padding-bottom: calc( var(--overhang) / 2 );
+    margin-bottom: calc( var(--overhang) * 1.5 );
+
+    &::after{
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: var(--overhang);
+        left:0;
+        display: block;
+        
+        background-color: inherit;
+        // background-repeat: no-repeat;
+        // background-position: top left;
+        // background-size: contain;
+        mask-size: calc(100% / var(--scale,1));
+        mask-repeat: repeat-x;
+
+        pointer-events: none;
+        // opacity: 0.94;
+        // filter:brightness(909);
+
+        overflow: hidden;
+        overflow: clip;
+        //z-index: -1;
+    }
+
     // wavy background and edges
     &::after{
         top:calc( 100% - 1px * var(--density,1) );
         // bottom:calc( var(--overhang) * -2 );
         // background-image: url(/source/assets/wallpaper/wavey.svg);
         mask-image: url(/source/assets/wallpaper/wavey-bottom.svg);
-        mask-position:center top;
+        mask-position:center bottom;
     }
 
-	> :first-child{
-		padding-top: 0;
-	}
+	// > :first-child{
+	// 	padding-top: 0;
+	// }
 
 	&.overlap{
 
 		--factor:0.5; 
 		margin-bottom: calc( var(--overhang) * var(--factor,1) );
-		margin-top: calc( var(--overhang) * var(--factor,1) );
-
-		// &::before{
-		// 	margin-top:0;
-		// }
-	
-		// &::after{
-		// 	margin-bottom:0;
-		// }
 	}
 	
-	&.overlap-top{
-		margin-top: calc( var(--overhang) * var(--factor,1) );
-	}
-
 	&.overlap-bottom{
 		margin-bottom: calc( var(--overhang) * var(--factor,1) );
 	}
 }
 
+// if it inherits a clear background you won't see it!
+:is(.wavey, .square, .sawtooth).bg-clear,
+.bg-clear :is(.wavey, .square, .sawtooth) {
+    &::before,
+    &::after{
+        background-color: var(--col-bg);
+    }
+}
+
+:is(.wavey, .square, .sawtooth) + :is(.wavey, .square, .sawtooth){
+    margin-top:25vh;
+}
 
 p.sawtooth,
 p.square,
 p.wavey{
-	padding-top: calc(var(--pad) * 4);
-	padding-bottom: calc(var(--pad) * 4);
+	padding: calc(var(--pad) * 2);
+	padding-top: calc(var(--pad) * 2);
+	padding-bottom: calc(var(--pad) * 2);
 	background-color: var(--col-bg);
 }
 
@@ -382,7 +566,9 @@ p.wavey{
 	&::after{  mask-image: url(/source/assets/wallpaper/sawtooth-bottom.svg); }
 }
 .square{
-	&::before{  mask-image: url(/source/assets/wallpaper/square-top.svg); }
+	&::before{  
+        // mask-position:center bottom;
+        mask-image: url(/source/assets/wallpaper/square-top.svg); }
 	&::after{  mask-image: url(/source/assets/wallpaper/square-bottom.svg); }
 }
 
@@ -502,10 +688,21 @@ img.flood{
 	transform: translateY(5px);
 }
 
+// removes any element from the stacking order 
+// so that you can then send children to z-indexes 
+// in the global order, rather than the one that would
+// be created by having a fixed z-index
+.detach-z-index{
+    z-index: initial;
+    > * {
+        z-index: 2;
+    }
+}
+
 
 .text-scroller-vertical{
 	line-height: 1.2;
-	font-size: 2rem;
+	// font-size: 2rem;
 	display: grid;
 	grid-template-areas: "lead trail";
 	grid-template-columns: auto auto;
@@ -683,6 +880,9 @@ img.flood{
     top:var(--sticky-top, 0);
 	// z-index: -1;
 }
+.sticky.top{
+    top:0;
+}
 
 // section .sticky ~ *:not(aside, .sticky){
 // 	background-color: inherit;
@@ -711,6 +911,8 @@ img.flood{
     }
 	figure.sticky{
 		background: transparent;
+        // breathing space for sticky scrolling
+        padding-bottom:50vh;
 	}
 }
 
@@ -730,6 +932,7 @@ ul.gallery{
 		border:0;
 		padding:0;
 		margin: 0;
+        box-shadow: var(--shadow);
 		> picture,
 		> img{
 			grid-area:stuff;
@@ -742,6 +945,11 @@ ul.gallery{
 			background-color: transparent;
 			color: transparent;
 			z-index: 1;
+            position: absolute;
+            left:50%;
+            transform: translateX(-50%);
+            text-align: center;
+            // z-index: 909;
 		}
 		&:hover{
 			figcaption{
@@ -790,4 +998,26 @@ ul.gallery{
 			animation: RockTranslated var(--duration, 90ms) infinite var(--delay,0s) both ease-out;
 		}
 	}
+}
+
+
+
+
+@property --milliseconds {
+    inherits: false;
+    initial-value: 0;
+    syntax: '<integer>';
+}
+  
+.counting-loop {
+    counter-reset: ms var(--milliseconds);
+    animation: count 1s steps(100) infinite;
+    &:after {
+        content: Counter(ms);
+    }
+}
+@keyframes Counter {
+    to {
+        --milliseconds: 100;
+    }
 }

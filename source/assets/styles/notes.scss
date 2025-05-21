@@ -219,3 +219,10 @@
     opacity: 1;
     mix-blend-mode: soft-light;
 }
+
+[data-show-notes].in-viewport ~ .overlaid-notes{
+    display: none;
+}
+[data-hide-notes].in-viewport ~ .overlaid-notes{
+    display: none;
+}

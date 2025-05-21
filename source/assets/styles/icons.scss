@@ -18,8 +18,8 @@
 
 table .heading-icon{
     &::before{
-        --size: .98lh;
-        vertical-align: text-top;
+        --size: .94lh;
+        vertical-align: text-bottom;
         margin-right: auto;
         padding-right:calc(var(--pad) / 4);
     }

@@ -1,3 +1,4 @@
+
 :root{
     color-scheme: light dark;
 
@@ -41,23 +42,19 @@
     // directly from Royal Society website
     --font-size-base: calc(16px * var(--font-scale,1));
   
-    --font-size-h1: calc(48px * var(--font-scale,1));
-    --font-size-h1-mobile: calc(40px * var(--font-scale,1));
+    --font-size-h1: calc( var(--step-mobile-5, 40px ) * var(--font-scale,1) );
+    --font-size-h2: calc( var(--step-mobile-4, 28px ) * var(--font-scale,1) );
+    --font-size-h3: calc( var(--step-mobile-3, 24px ) * var(--font-scale,1) );
+    --font-size-h4: calc( var(--step-mobile-2, 18px ) * var(--font-scale,1) );
+    --font-size-h5: calc( var(--step-mobile-1, 16px ) * var(--font-scale,1) );
+    --font-size-h6: calc( var(--step-mobile-0, 14px ) * var(--font-scale,1) );
 
-    --font-size-h2: calc(40px * var(--font-scale,1));
-    --font-size-h2-mobile:  calc(28px * var(--font-scale,1));
-
-    --font-size-h3: calc(32px * var(--font-scale,1));
-    --font-size-h3-mobile:  calc(24px * var(--font-scale,1));
-
-    --font-size-h4: calc(24px * var(--font-scale,1));
-    --font-size-h4-mobile: calc(18px * var(--font-scale,1));
-
-    --font-size-h5: calc(18px * var(--font-scale,1));
-    --font-size-h5-mobile: calc(16px * var(--font-scale,1));
-
-    --font-size-h6: calc(16px * var(--font-scale,1));
-    --font-size-h6-mobile: calc(14px * var(--font-scale,1));
+    // --font-size-h1: var(--step-mobile-5, calc(40px * var(--font-scale,1) );
+    // --font-size-h2: var(--step-mobile-4, calc(28px * var(--font-scale,1)) );
+    // --font-size-h3: var(--step-mobile-3, calc(24px * var(--font-scale,1)) );
+    // --font-size-h4: var(--step-mobile-2, calc(18px * var(--font-scale,1)) );
+    // --font-size-h5: var(--step-mobile-1, calc(16px * var(--font-scale,1)) );
+    // --font-size-h6: var(--step-mobile-0, calc(14px * var(--font-scale,1)) );
 
     --time-quick:95ms;
     --time-medium:295ms;
@@ -80,6 +77,10 @@
     --visible-height-fallback:calc( 100vh - var(--sticky-top) - var(--peek) );
     --visible-height:calc( 100dvh - var(--sticky-top) - var(--peek) );
     
+    // --layer-top:909;
+    // --layer-top:800;
+    
+
 	// https://smoothshadows.com/#djEsMSw1LDAuMDQsNTcsMCwwLCMzMzMxMzIsI2U4ZTZkZiwjZmZmZmZmLDI%3D	
 	--shadow:  	
         0px 0px 2px rgba(51, 49, 50, 0.01),
@@ -92,6 +93,13 @@
 @media screen and (min-width:920px) {
     :root{
         --right-hand-column:calc( (100vw - var(--max-section-width)) / 2 );
+        --font-size-h1: calc( var(--step-5, 40px ) * var(--font-scale,1) );
+        --font-size-h2: calc( var(--step-4, 40px ) * var(--font-scale,1) );
+        --font-size-h3: calc( var(--step-3, 32px ) * var(--font-scale,1) );
+        --font-size-h4: calc( var(--step-2, 24px ) * var(--font-scale,1) );
+        --font-size-h5: calc( var(--step-1, 18px ) * var(--font-scale,1) );
+        --font-size-h6: calc( var(--step-0, 16px ) * var(--font-scale,1) );
+    
     }
 }
 

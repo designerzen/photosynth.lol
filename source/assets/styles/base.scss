@@ -85,6 +85,10 @@
     }
 }
 
+:where(article > header){
+    width: 100%;
+}
+
 :where(ol){ 
     margin-top:var(--pad);
     margin-bottom:var(--pad);
@@ -109,12 +113,14 @@ dl{
 dl.data-contact,
 dl.data-address{
     display: grid;
-    grid-template-columns: auto minmax(120px, 10fr);
+    grid-template-columns:repeat( auto-fill, minmax( calc(50% - var(--pad) *  1 ), 10fr) );
     gap:calc(var(--pad) / 2);
     align-items: baseline;
-
+    min-width: calc(50% - var(--pad) *  1 );
 }
-
+dl.data-contact{
+    grid-template-columns:1fr 5fr ;
+}
 dd{
     margin:0;
 }

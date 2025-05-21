@@ -184,6 +184,9 @@ body > .menu-main{
 
 
 #menu-accessibility{
+
+    --font-size: var(--step--2);
+
     order:-1;
     width: 100%;
     z-index: 303;
@@ -209,15 +212,16 @@ body > .menu-main{
         // add a small bottom clean border
         border-top: 1px solid var(--col-bg);
         border-bottom: 4px solid var(--col-bg);
-        // display: flex;
-        // justify-content: space-between;
-        // flex-wrap: wrap;
+      
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
 
-        display: grid;
-        // flex-wrap: wrap;
-        grid-auto-flow: dense; // column;
-        grid-auto-columns: min-content;
-        grid-template-columns: repeat(auto-fit, minmax(44px, auto) );
+        // display: grid;
+        // grid-auto-flow: dense; // column;
+        // grid-auto-columns: min-content;
+        // grid-template-columns: repeat(auto-fit, minmax(44px, auto) );
+    
         // grid-template-columns: repeat(auto-fit, minmax(44px, 1fr) );
         gap:0 var(--gap);
 
@@ -227,11 +231,16 @@ body > .menu-main{
         gap:0 calc( var(--pad)  );
     }
 
+    li{
+        display: inline;
+        font-size:var(--font-size-h6);
+    }
+
     .skip-to-content-link{
         position: absolute;
         top:calc(100% + var(--sticky-top, 0) );
         right:var(--right-hand-column);
-        transform: translateX(calc( var(--pad) + 100%)) translateY(100%);
+        
     }
     .volume-control-link{
         order:0;
@@ -251,6 +260,7 @@ body > .menu-main{
         gap:calc( var(--pad) / 2);
         border:0;
         padding:0;
+        margin:0;
         // padding:1px calc(var(--pad)/2) 1px calc(var(--pad)/8);
     }
     legend{
@@ -261,9 +271,12 @@ body > .menu-main{
         padding:0;
         // margin-right:calc( var(--pad) / 2 );
     }
+
     legend,
+    button,
+    select,
     label{
-        font-size: var(--font-size-h5);
+        font-size:var(--font-size);
     }
 
     form{
@@ -345,7 +358,7 @@ body > .menu-main{
 // individual theme radio buttons
 // label[for='palette-default'],
 #palette-default{
-    background-image:url(/source/assets/icons/yard-24px.svg);
+    background-image:url(/source/assets/icons/yard.svg);
 }
 
 #palette-contrast{
@@ -370,4 +383,10 @@ body > .menu-main{
 #font-dsylexic{
     background-image: url(/source/assets/icons/emoji_emotions-24px.svg);
     background-image: url(/source/assets/icons/diversity_2.svg);
+}
+
+@media screen and (min-width:1080px) {
+    a.skip-to-content-link{
+        transform: translateX(calc( var(--pad) + 100%)) translateY(100%);
+    }
 }
