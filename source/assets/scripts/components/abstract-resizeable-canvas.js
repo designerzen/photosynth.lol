@@ -2,6 +2,7 @@ export class AbstractResizeable{
 
     element
     worker
+    optional
 
     /**
      * 
@@ -19,6 +20,16 @@ export class AbstractResizeable{
         this.worker = new Worker(workerURI)
         this.worker.postMessage(payload, [canvasWorker])
         
+        // Add error listeners for the worker
+        this.worker.onerror = (error) => {
+            console.error("NoteVisualiser Worker Error:", error.message, error.filename, error.lineno, error);
+            // You might want to add logic here to try and recover or display a message
+        }
+
+        this.worker.onmessageerror = (event) => {
+            console.error("NoteVisualiser Worker Message Error:", event);
+        }
+      
         const resizeObserver = new ResizeObserver(this.onResize)
         resizeObserver.observe(canvas, {box: 'content-box'})
     }
@@ -34,7 +45,7 @@ export class AbstractResizeable{
         const displayWidth = Math.round(width * dpr)
         const displayHeight = Math.round(height * dpr)
         
-        console.error( "size",{ displayWidth, displayHeight, dpr, width, height })
+        //console.error( "size",{ displayWidth, displayHeight, dpr, width, height })
         // Get the size the browser is displaying the canvas in device pixels.
         // Check if the canvas is not the same size.
         const needResize = this.element.width !== displayWidth || this.element.height !== displayHeight

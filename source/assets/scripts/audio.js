@@ -77,25 +77,46 @@ export let midiEnabled = false
 
 export const loadMIDIDriver = async () => {
     const midi = await import("webmidi")
-    return WebMidi
+    console.error("loadMIDIDriver", midi.WebMidi )
+    return midi.WebMidi
 }
 
 export const toggleMIDI = async () => {
     if (!midiEnabled)
     {
         try {    
-            await enableMIDI()
+            return await enableMIDI()
         } catch (error) {
              console.error(error)
         }
-        return true
     }else{
         try {    
-            await disableMIDI()
+            return await disableMIDI()
         } catch (error) {
              console.error(error)
         }
-        return false
+    }
+}
+
+// 
+const midiMap = new Map()
+
+const onMIDIMessage = event => {
+    console.info("MIDI Event", event)
+    switch( event )
+    {
+        case "connected":
+            
+            break
+        case "disconnected":
+            break
+        case "portschanged":
+            break
+        case "midiaccessgranted":
+            break
+        case "error":
+            console.error("MIDI FAIL", event)
+            break
     }
 }
 
@@ -103,22 +124,33 @@ export const enableMIDI = async () => {
     if (!midiDriver)
     {
         midiDriver = await loadMIDIDriver()
+        midiDriver.addListener("error", onMIDIMessage)
+        midiDriver.addListener("connected", onMIDIMessage)
+        midiDriver.addListener("disconnected", onMIDIMessage)
+        midiDriver.addListener("portschanged", onMIDIMessage)
+        midiDriver.addListener("midiaccessgranted", onMIDIMessage)
     }
     try {    
-       await WebMidi.enable()
+       await midiDriver.enable()
        midiEnabled = true
     } catch (error) {
         console.error(error)
     }
-    return WebMidi
+    return midiDriver
 }
 
 export const disableMIDI = async () => {
     try {    
-        await WebMidi.disable()
+        await midiDriver.disable()
+        midiDriver.removeListener("error", onMIDIMessage)
+        midiDriver.removeListener("connected", onMIDIMessage)
+        midiDriver.removeListener("disconnected", onMIDIMessage)
+        midiDriver.removeListener("portschanged", onMIDIMessage)
+        midiDriver.removeListener("midiaccessgranted", onMIDIMessage)
         midiEnabled = false
+
      } catch (error) {
          console.error(error)
      }
-     return WebMidi
+     return midiDriver
 }

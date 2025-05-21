@@ -130,7 +130,8 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
     }
 
     canvas.addEventListener("mousedown", onInteractionBegin, { signal: controller.signal, passive })
-    canvas.addEventListener("mousemove", onInteractionMoving, { signal: controller.signal, passive })
+    canvas.addEventListener("pointermove", onInteractionMoving, { signal: controller.signal, passive })
+    // canvas.addEventListener("mousemove", onInteractionMoving, { signal: controller.signal, passive })
     canvas.addEventListener("mouseup", onInteractionEnd, { signal: controller.signal, passive })
     window.addEventListener("mouseenter", onInteractionContinue, { signal: controller.signal, passive })
     window.addEventListener("mouseout", onInteractionEnd, { signal: controller.signal, passive })

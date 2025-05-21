@@ -118,7 +118,13 @@ export const addReadButtons = () => {
 
     const readableElements = document.querySelectorAll("[data-readable]")
     readableElements.forEach( element => {
-        element.innerHTML = `<button class="button-read" type="button" data-button-speak>Read out this section</button>` + element.innerHTML
+        element.innerHTML = `
+        <label class="label-button-read" >
+            Voice-over :
+            <button class="button-read" type="button" data-button-speak>
+                Read out this section
+            </button>
+        </label>` + element.innerHTML
     })
 
     const speakOutLoudButtons = document.querySelectorAll('[data-button-speak]')

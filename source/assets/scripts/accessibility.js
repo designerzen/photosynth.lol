@@ -11,7 +11,6 @@ export const addTextScalingFacilities = (initialFontSize=1, onFontSizeChange) =>
     
     let fontScale = initialFontSize
     const fontScaleBy = 0.1
-
   
     const setFontScale = scale => {
         if (fontScale !== scale)
@@ -35,6 +34,6 @@ export const addTextScalingFacilities = (initialFontSize=1, onFontSizeChange) =>
 
     buttonFontSizeDecrease.addEventListener("click", e =>{
         e.preventDefault()
-        setFontScale( toPrecision(fontScale - fontScaleBy, 1) )
+        setFontScale( toPrecision(fontScale - fontScaleBy, 2) )
     })
 }

@@ -103,6 +103,7 @@ function renderHorizontal(time) {
     }
 }
 
+// LOCK TO 60Hz
 const throttle = 1000 / 60
 
 function render(time) {
@@ -203,7 +204,6 @@ onmessage = (evt) => {
         
     switch (evt.data.type)
     {
-       
         case "noteOn":
             if (!clearBackground)
             {

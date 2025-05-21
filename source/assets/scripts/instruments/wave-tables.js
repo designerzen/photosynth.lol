@@ -1,10 +1,11 @@
-import { WAVE_FORM_NAMES_GENERAL_MIDI, WAVE_TABLE_LOCATIONS_GENERAL_MIDI } from "./tables/wave-table-general-midi"
-import { WAVE_FORM_NAMES_GOOGLE, WAVE_TABLE_LOCATIONS_GOOGLE } from "./tables/wave-table-google"
-import { generateImageFromWaveTable, loadWaveTableFromImage } from "./wave-table-utils"
+// import { WAVE_FORM_NAMES_GENERAL_MIDI, WAVE_TABLE_LOCATIONS_GENERAL_MIDI } from "./tables/wave-table-general-midi"
+// import { WAVE_FORM_NAMES_GOOGLE, WAVE_TABLE_LOCATIONS_GOOGLE } from "./tables/wave-table-google"
+// import { generateImageFromWaveTable, loadWaveTableFromImage } from "./wave-table-utils"
+
+import {OSCILLATORS} from "./synth-oscillator.js"
 
 // external dependencies
 import { unzip, strFromU8 } from 'fflate'
-
 
 const waveTables = new Map()
 const waveTableFileNames = new Map()
@@ -205,9 +206,13 @@ export const getRandomWaveTableName = () => {
 }
 
 // get all the map's keys
-export const getAllWaveTables = () => Array.from(waveTables.keys()) // ALL_WAVE_FORM_NAMES
+export const getAllWaveTables = () => {
+    const p = Array.from(waveTables.keys())
+    p.unshift(...OSCILLATORS)
+    return p
+ } // ALL_WAVE_FORM_NAMES
 
-
+ 
 export const getWaveTable =async (timbre) => {
 
     if (waveTables.has(timbre))

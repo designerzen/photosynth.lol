@@ -684,7 +684,7 @@ export default class Timer {
 			accurateTiming:false
 		})
 		
-		console.log("Starting...", { interval:timeBetween, timingWorker} )
+		// console.log("Starting...", { interval:timeBetween, timingWorker} )
 
 		return {
 			time:currentTime, 

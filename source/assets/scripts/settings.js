@@ -1,3 +1,6 @@
+
+
+
 export const PALETTE = {
 
     // Primary colours ------------------------------------------
@@ -93,8 +96,11 @@ export const PALETTE = {
 }
 
 
+// If we use a blendmode to hide clean paths,
+// we can swap out the background colour for one
+// that will be converted into transparency such as black
 export const VISUALISER_OPTIONS = {
-    backgroundColour:PALETTE.stoneLight,
+    backgroundColour:"#fff", //PALETTE.stoneLight,
     lineColour:PALETTE.red,
     lineWidth:3
 }

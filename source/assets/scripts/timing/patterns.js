@@ -73,6 +73,8 @@ export const pattern = ( sequence, offset=0 )=>{
 			index = newIndex >= length ? 0 : newIndex
 			return sequence[index]
 		},
+		setVelocityAtStep: (step, velocity) => sequence[step] = velocity,
+		getVelocityAtStep: step => sequence[step],
 		setStep: step => index = step,
 		getStep: () => index,
 		getLength: () => length,

@@ -8,7 +8,7 @@ export default class SynthOscillator{
 
     options = {
         gain:0.3,
-        attack:0.3,
+        attack:0.05,
         shape:OSCILLATORS[0],
         minDuration:1,
         arpeggioDuration:0.2,
@@ -168,7 +168,7 @@ export default class SynthOscillator{
         
         if (options.shape)
         {
-            console.info("SynthOscillator::",{options})
+            // console.info("SynthOscillator::",{options})
             this.shape = options.shape
         }
         
@@ -183,7 +183,7 @@ export default class SynthOscillator{
         this.active = false
     }
 
-    createOscillator( frequency=440 ){
+    createOscillator( frequency=440, startTime = this.audioContext.currentTime  ){
         if( this.oscillator ){
             this.destroyOscillator(this.oscillator)
         }
@@ -198,11 +198,10 @@ export default class SynthOscillator{
         }
 
         this.shape = this.options.shape // OSCILLATORS[Math.floor(Math.random() * OSCILLATORS.length)]
-          
         
         this.oscillator.frequency.value = frequency
         this.oscillator.connect(this.gainNode)
-        this.oscillator.start()
+        this.oscillator.start(startTime)
         this.active = true
     }
 
@@ -219,7 +218,7 @@ export default class SynthOscillator{
                 this.oscillator.frequency.setValueAtTime( frequencies[index], startTime )
                 startTime += this.options.arpeggioDuration
 
-                console.info("start time", startTime )
+                // console.info("start time", startTime )
                 // this.oscillator.frequency.linearRampToValueAtTime( frequency + interval, startTime )
             })            
         }
@@ -246,7 +245,7 @@ export default class SynthOscillator{
         // fade in envelope
         const amplitude = velocity * this.options.gain
         this.gainNode.gain.cancelScheduledValues(startTime)
-        this.gainNode.gain.setValueAtTime( 0, startTime )
+        this.gainNode.gain.setValueAtTime( 0, this.now  )
 		this.gainNode.gain.linearRampToValueAtTime( amplitude, startTime + this.options.attack )
 
 		// Shape the note
@@ -257,7 +256,7 @@ export default class SynthOscillator{
 
         if (!this.isNoteDown)
         {
-            this.createOscillator( frequency )	
+            this.createOscillator( frequency, startTime )	
         }else{
             // reuse
             this.frequency = frequency

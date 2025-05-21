@@ -23,6 +23,7 @@ export default class AudioVisualiser{
     dataArray 
 
     count = 0
+    alpha = 256
 
     isTimeDomain = false
 
@@ -109,6 +110,8 @@ export default class AudioVisualiser{
 
         this.count = (this.count + 1) % 4096
 
+        let volume = 0
+
         // console.info("updating visualiser", this.dataArray)
         for (let i=0; i<this.bufferLength; ++i)
         {
@@ -124,7 +127,10 @@ export default class AudioVisualiser{
                 this.path.lineTo(x, y)
             }
             x += sliceWidth
+            volume += ratio
         }
+
+        // console.log(volume)
 
         // close
         // this.path.lineTo(this.width, this.height)
@@ -135,11 +141,16 @@ export default class AudioVisualiser{
         // choose colour and size
         this.ctx.lineWidth = this.options.lineWidth
 
-        if (this.options.lineColour && this.count > 1028 )
+        // SILENCE?
+        if ( volume === 256 )
         {
             // cycle colours
-            this.ctx.strokeStyle = `hsla(${this.count%256}, 90%, 20%, 0.9)`
+            this.ctx.strokeStyle = `hsla(${this.count%256}, 90%, 20%, ${ Math.max( 0, this.alpha / 256) })`
+            this.alpha -= 16
+            
         }else{
+
+            this.alpha = 256
             this.ctx.strokeStyle = this.options.lineColour
         }
         

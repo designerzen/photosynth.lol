@@ -29,7 +29,7 @@ import { addReadButtons, handlePasswordProtection, selectRadioButton, setCurrent
 import { CICRLE_INTERVALS, DEFAULT_PASSWORD, PALETTE, VISUALISER_OPTIONS } from "./settings"
 import { ASTLEY, getCompondSong, getRandomSong } from "./songs"
 import WAVE_ARCHIVE_GENERAL_MIDI from "url:/static/wave-tables/general-midi.zip"
-import WAVE_ARCHIVE_GOOGLE from "url:/static/wave-tables/google.zip"
+// import WAVE_ARCHIVE_GOOGLE from "url:/static/wave-tables/google.zip"
 import { MouseVisualiser } from "./components/mouse-visualiser"
 import { MelodyRecorder } from "./melody-recorder"
 import { debounce } from "./utils.js"
@@ -83,6 +83,9 @@ let circles
 let keyboard 
 let recorder
 let timeKeeper
+
+let midiDeviceInput
+let midiDeviceOutput
 
 const keyboardKeys = ( new Array(128) ).fill("")
 // Full keyboard with all notes including those we do not want the user to play
@@ -310,9 +313,13 @@ const noteOn = ( noteModel, velocity=1, id=0 ) => {
     mouseVisualiser && mouseVisualiser.noteOn( noteModel, velocity )
     recorder && recorder.noteOn( noteModel, velocity )
     miniNotation && miniNotation.noteOn( noteModel, velocity, audioContext.currentTime )
-    midiEnabled && midi.noteOff( noteModel, velocity )
-    // this should change the visualiser line colour
+   // this should change the visualiser line colour
     shapeVisualiser.colour = noteModel.colour
+
+    if (midiEnabled && midiDeviceOutput){
+        midiDeviceOutput.playNote( noteModel.noteName, {attack:velocity }) 
+        console.info("MIDI NOTE ON", noteModel )
+    }
 }
    
 /**
@@ -342,9 +349,13 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
     noteVisualiser && noteVisualiser.noteOff( noteModel, velocity )
     mouseVisualiser && mouseVisualiser.noteOff( noteModel, velocity )
     recorder && recorder.noteOff( noteModel, velocity )
-    miniNotation && miniNotation.noteOff( noteModel, velocity, audioContext.currentTime )
-    midiEnabled && midi.noteOff( noteModel, velocity )
+    miniNotation && miniNotation.noteOff( noteModel, velocity, audioContext.currentTime ) 
     shapeVisualiser.colour = false
+
+    if (midiEnabled && midiDeviceOutput){
+        midiDeviceOutput.stopNote( noteModel.noteName )
+        console.info("MIDI NOTE OFF", noteModel )
+    }
 }
 
 /**
@@ -463,6 +474,12 @@ const createAudioVisualiser = (audioContext, source, song, visualiserOptions=VIS
     }
     updateVis()
 
+    const pickSongButtons = document.querySelectorAll("[data-control-next-song]")
+    pickSongButtons.forEach( pickSongButton => {
+        // random song!
+        getRandomSong()
+    })
+
     // allow the user to click the visualiser to play a song...
     const playButtons = document.querySelectorAll('[data-control-play]')
     playButtons.forEach( playButton => {
@@ -475,15 +492,38 @@ const createAudioVisualiser = (audioContext, source, song, visualiserOptions=VIS
     randomWaveButtons.forEach( randomWaveButton => {
             
         const radioButtons = randomWaveButton.closest("fieldset").querySelectorAll('input[type="radio"]')
-        randomWaveButton.value = getRandomWaveTableName() 
+        const initialRandomTableName = getRandomWaveTableName()
+        randomWaveButton.value = initialRandomTableName
+        // randomWaveButton.textContent = initialRandomTableName 
 
         randomWaveButton.addEventListener("click", e => {
             //console.info("randomWaveButton", randomWave)
             shape = setTimbre( randomWaveButton.value )
             randomWaveButton.value = getRandomWaveTableName() 
+           
             // clear all the nearby radio buttons
             radioButtons.forEach( radioButton => radioButton.checked = false )
         })
+    })
+
+    const buttonSelectRandomTimbre = document.getElementById("song-timbre-random")
+    buttonSelectRandomTimbre.addEventListener("click", e => {
+        shape = setTimbre( getRandomWaveTableName() )
+        // clear all the nearby radio buttons
+        // buttonSelectRandomTimbre.innerText = shape
+    })
+   
+    // drum sequencer
+
+    // percussion
+    const detailsPercussion = document.querySelector("#percussion")
+    detailsPercussion.addEventListener("toggle", event => {
+        if (detailsPercussion.open)
+        {
+            
+        }else{
+
+        }
     })
 }
 
@@ -687,30 +727,63 @@ const loadShareMenu = () => {
  * Show the MIDI toggle button (ensure that MIDI is enabled first!)
  */
 const showMIDIToggle = () => {
+    const MIDIStatus = document.getElementById("midi-status")
     const sectionMIDIToggle = document.getElementById("midi-equipment")
     const buttonMIDIToggle = document.getElementById("toggle-midi")
     buttonMIDIToggle.addEventListener("click", async(e) => {
-        let midiEnabled = await toggleMIDI()
-        if (!WebMidi.supported)
+        let midiDriver = await toggleMIDI()
+        let available = true
+
+        if (!midiDriver || !midiDriver.supported)
         {
             buttonMIDIToggle.hidden = true
-            midiEnabled = false
+            available = false
             console.error("No midi support")
-        }else{
-             console.info("MIDI!", {midiEnabled})
-            console.info(midi.inputs)
-            console.info(midi.outputs)
+            
+            return
         }
-        if (WebMidi.inputs.length < 1) {
-            document.body.innerHTML+= "No device detected."
-            midiEnabled = false
-            buttonMIDIToggle.hidden = true
-        } else {
-            WebMidi.inputs.forEach((device, index) => {
-              // `${index}: ${device.name}`
+      
+        MIDIStatus.textContent = "MIDI Available! "
+        
+        // just use the first instument?
+        if (midiDriver.inputs.length > 0)
+        {
+            const midiDevice = midiDriver.inputs[0]
+            MIDIStatus.textContent += "Connected to input device " + midiDevice.name +" - play some notes to hear them. "
+            console.info("MIDI Input found " + midiDevice.name, midiDevice )
+            midiDeviceInput = midiDevice
+            midiDriver.inputs.forEach((device, index) => {
+                // `${index}: ${device.name}`
+                device.addListener("noteon", e => {
+                    // create a note object that matches
+                    new Note(0)
+                    console.log("MIDI Message", index, e,  e.note.identifier)
+                })
+                console.log("MIDI Device", device, {midiDeviceInput} )
             })
+        }else{
+            MIDIStatus.textContent = "No MIDI devices detected."
+            available = false
+            buttonMIDIToggle.hidden = true
+        }
+        
+        if (midiDriver.outputs.length > 0)
+        {
+            const midiDevice =  midiDriver.outputs[0]
+            MIDIStatus.textContent += "Connected to output device " + midiDevice.name
+            midiDeviceOutput = midiDevice
+            console.info("MIDI Output found " + midiDevice.name, midiDevice )
+        }
+        
+        if (midiDriver.inputs.length < 1) {
+           
+        } else {
+            
         } 
-       buttonMIDIToggle.checked = midiEnabled
+
+     
+
+       buttonMIDIToggle.checked = available
     })
     sectionMIDIToggle.hidden = false
     buttonMIDIToggle.parentNode.hidden = false
@@ -898,16 +971,17 @@ const createAudioContext = async(event) => {
 
     const mixerRouting = new Map()
     const audioSources = document.querySelectorAll("audio")
-    audioSources.forEach( audioSource => {
-        const audioSpell = audioContext.createMediaElementSource(audioSource)
+    audioSources.forEach( audioElement => {
+        const audioSource = audioContext.createMediaElementSource(audioElement)
         const gainNode = audioContext.createGain()
-        gainNode.gain.value = 1
-        audioSpell.connect(gainNode)
+    gainNode.gain.value = 1
+        audioSource.connect(gainNode)
         gainNode.connect(limiter)
         mixerRouting.set(audioSource, gainNode)
         // audioSpell.connect(limiter)
     })
 
+    const drumSequencer = document.querySelector("#drum-sequencer > li > ol")
     const drumSamples = document.querySelectorAll("#drums button audio")
     const kickDrum = drumSamples[ 0 ]
     const snareDrum = drumSamples[ 1 ]
@@ -920,18 +994,62 @@ const createAudioContext = async(event) => {
 		patterns = getRandomKitSequence()
 	} 
 
+    // display the pattern using the checkboxes
+    const drumSequnceBaseElements = [
+        "kick",
+        "snare",
+        "hat",
+        // "shaker"
+        "clap"
+    ]
+    drumSequnceBaseElements.forEach( drumType => {
+        const sourceCheckbox = document.getElementById("drum-sequence-"+drumType)
+        const fragment = document.createDocumentFragment()
+        const active = patterns[drumType]
+        
+        for (let i=0; i<16; i++){
+            const velocity = active.getVelocityAtStep(i)
+            console.warn("Step", i, velocity)
+            const checkbox = document.createElement("input")
+            checkbox.type = "checkbox"
+            checkbox.name = "kick-sequence-"+i
+            checkbox.value = i
+            checkbox.checked = velocity === 0 ? false : true
+            checkbox.addEventListener("change", e => {
+                const pattern = parseInt(e.target.value)
+                active.setVelocityAtStep( pattern, e.target.checked ? 255 : 0 )
+                console.info(velocity, "drum-sequence", {pattern, drumType, velocity, active}) 
+                // setRandomDrumPattern()
+            })
+            const label = document.createElement("label")
+            label.textContent = drumType
+            const li = document.createElement("li")
+            label.appendChild(checkbox)
+            li.appendChild(label)
+            fragment.appendChild(li)
+        }
+         
+        // swap them out
+        sourceCheckbox.closest("ol").replaceChild(fragment, sourceCheckbox.parentNode.parentNode )
+    })
+
+
     let count = 0
     const playMetronomeBeat = (oddBeat, timerEvent, timer ) => {
         if ( !drumsPlaying || !timer.isStartBar )
         {
             return
         }
-        const index = oddBeat ? Math.floor(Math.random() * drumSamples.length) : 0
-        const newBeat = drumSamples[ index ]
+        // const index = oddBeat ? Math.floor(Math.random() * drumSamples.length) : 0
+        // const newBeat = drumSamples[ index ]
+
+        drumSequencer.style.setProperty('--i', 9)
     
         const kickVelocity = patterns.kick.next() / 255
         const snareVelocity = patterns.snare.next() / 255
         const hatVelocity = patterns.hat.next() / 255
+
+        console.info("Velocities", timerEvent, {kickVelocity, snareVelocity, hatVelocity})
 
         const kickVolume = mixerRouting.get(kickDrum)
         kickVolume.gain.value = kickVelocity
@@ -960,7 +1078,7 @@ const createAudioContext = async(event) => {
             hihat.play(0)
         }
 
-        console.info("playMetronomeBeat", !oddBeat ? "even" : "odd", newBeat, {patterns} )
+        console.info("playMetronomeBeat", !oddBeat ? "even" : "odd",  {patterns} )
         count++
         if (count > 10)
         {
@@ -1037,7 +1155,7 @@ const backgroundLoad = async () => {
         if (loadFromZips)
         {
             await preloadWaveTablesFromZip(WAVE_ARCHIVE_GENERAL_MIDI)
-            await preloadWaveTablesFromZip(WAVE_ARCHIVE_GOOGLE)
+            // await preloadWaveTablesFromZip(WAVE_ARCHIVE_GOOGLE)
         }else{
             const request = await fetch(MANIFEST_URL)
             const manifest = await request.json()
@@ -1056,11 +1174,13 @@ const backgroundLoad = async () => {
 
     // NB. This is the full list that may not be loaded yet?
     // all possible data files for instrument sounds
+    
    
+    console.info("DATA LOADED!", {instrumentNames} )
+    
     // waveform visualiser
     setupShapeVisualiser(instrumentNames)
 
-    console.info("DATA LOADED!", {instrumentNames} )
     
     // now add the share button and share overlay
     await loadShareMenu()
@@ -1116,8 +1236,8 @@ const start =  async () => {
         console.info(b, "BLENDMODE",  noteVisualiser.blendMode, CANVAS_BLEND_MODE_DESCRIPTIONS[b] )
     }
 
-    setNoteVisualiserBlendMode(b++)
-    setInterval( setNoteVisualiserBlendMode, 30000 )
+    // setNoteVisualiserBlendMode(b++)
+    // setInterval( setNoteVisualiserBlendMode, 30000 )
 
     // bottom interactive piano
     keyboard = new SVGKeyboard( showAllKeys ? ALL_KEYBOARD_NOTES : KEYBOARD_NOTES, noteOn, noteOff )

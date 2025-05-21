@@ -21,7 +21,8 @@ export class MouseVisualiser extends AbstractResizeable{
  
         const elementToObserve = window ?? document
 
-        elementToObserve.addEventListener("mousemove", e => {
+        // elementToObserve.addEventListener("mousemove", e => {
+        elementToObserve.addEventListener("pointermove", e => {
             const details = e.target // can e.something return what element the mouse cursor is over?
             const coords = this.getMouseCoords(canvas, e)
             this.mouseX = coords.x // ?? e.offsetX ?? e.layerX ?? e.clientX

@@ -79,6 +79,24 @@ export const MAJOR_CHORD_INTERVALS = [0,4,3]
  */
 export const MINOR_CHORD_INTERVALS = [0,3,4]
 
+
+/**
+ * https://en.wikipedia.org/wiki/Blues_scale
+ */
+export const MINOR_HEXATONIC_BLUES_CHORD_INTERVALS = [0,3,4]
+export const MAJOR_HEXATONIC_BLUES_CHORD_INTERVALS = [0,3,4]
+
+export const MINOR_HEPTATONIC_BLUES_CHORD_INTERVALS = [0,3,4]
+export const MAJOR_HEPTATONIC_BLUES_CHORD_INTERVALS = [0,3,4]
+
+export const MINOR_NONATONIC_BLUES_CHORD_INTERVALS = [0,3,4]
+export const MAJOR_NONATONIC_BLUES_CHORD_INTERVALS = [0,3,4]
+
+
+
+
+
+
 /**
  * FIXME: 
  * Intervals: 1, 2, b3, 4, 5, 6, b7
