@@ -81,15 +81,31 @@ figure {
 	position: relative;
 }
 
+// Sets whatever element to be the EXACT same size
+// as the viewport which will try to prevent overflow
+.viewport-height {
+    height: 100%;
+}
+
+.viewport-width{
+    // min-width: 100vw;
+    // width: 100%;
+    // margin:0 calc( -50vw + 50%) ;
+
+    // transform: translateX(100vw);
+}
+
+// fix to a set width and then centralise
 .fixed-width{
 	max-width: var(--max-section-width, 1000px); 
 	margin-left:auto;
     margin-right:auto;
-	
 }
 
+// fill the entire width of the screen
 .full-width{
-    max-width: 100%;
+    width: 100%;
+    max-width: 100vw;
 	padding-left:0;
 	padding-right:0;
 }
@@ -105,15 +121,17 @@ p.full-height{
 	place-items: center;
 }
 
-.viewport-height {
-    height: 100%;
-}
-
-.viewport-width{
-    min-width: 100vw;
-    width: 100%;
-    margin:0 calc( -50vw + 50%) ;
-    // transform: translateX(100vw);
+// this will try and make the iamge as big as possible
+// without cropping
+img.flood{
+	height: calc( 100% - var(--footer-height,0) - var(--sticky-top, 0));
+	width: auto;
+	max-height: 100%;
+	max-width: 100vw;
+	position: absolute;
+	left: 50%;
+	top:0;
+	transform: translateX(-50%);
 }
 
 .bg-children{
@@ -258,6 +276,11 @@ p.full-height{
     margin:var(--pad) 0;
     clear: both;
     border:var(--stroke, 1px) solid var(--col-accent);
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
 }
 
 // 6 x 9 grid but we subdivide it for style
@@ -392,6 +415,7 @@ p.full-height{
     //     0px 0px 15px rgba(51, 49, 50, 0.06),
     //     0px 0px 24px rgba(51, 49, 50, 0.08);
 }
+
 .hide-overflow{
     --space:2;
     overflow: hidden;
@@ -606,15 +630,6 @@ p.wavey{
     }
 }
 
-img.flood{
-	height: calc( 100% - var(--footer-height,0) - var(--sticky-top, 0));
-	width: auto;
-	max-height: 100%;
-	position: absolute;
-	left: 50%;
-	top:0;
-	transform: translateX(-50%);
-}
 
 // split into collumns
 .split,

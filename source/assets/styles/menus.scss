@@ -1,3 +1,5 @@
+@use "vars";
+
 body > .menu-main{
     order:-2;
     position: sticky;
@@ -122,14 +124,15 @@ body > .menu-main{
 //   }
 
 // Larger sizes
-// @media screen and (min-width:420px) {
+// @media screen and (min-width:$min-width-3) { // This commented out query is not changed
 //     .menu-main{
 //         ul{
 //             justify-content: space-between;
 //         }
 //     }
 // }
-@media screen and (min-width:480px) {
+
+@media screen and (min-width: vars.$min-width-3) {
     .menu-main{
         ul{
             --gap:11px;
@@ -137,7 +140,8 @@ body > .menu-main{
         }
     }
 }
-@media screen and (min-width:600px) {
+
+@media screen and (min-width: vars.$min-width-2) {
     .menu-main{
 
         ul{
@@ -154,7 +158,7 @@ body > .menu-main{
 }
 
 // Largest sizes
-@media screen and (min-width:800px){
+@media screen and (min-width: vars.$max-width) {
 
     .menu-main{
         // width: fit-content;
@@ -179,9 +183,6 @@ body > .menu-main{
         }
     }
 }
-
-
-
 
 #menu-accessibility{
 
@@ -385,8 +386,3 @@ body > .menu-main{
     background-image: url(/source/assets/icons/diversity_2.svg);
 }
 
-@media screen and (min-width:1080px) {
-    a.skip-to-content-link{
-        transform: translateX(calc( var(--pad) + 100%)) translateY(100%);
-    }
-}

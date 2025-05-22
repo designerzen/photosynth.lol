@@ -1,3 +1,5 @@
+@use "vars";
+
 // Basic margin resets
 :where(
     html,body,
@@ -145,7 +147,7 @@ dt{
     text-align: left;
 }
 
-@media screen and (min-width:800px){
+@media screen and (min-width: vars.$min-width-2) { // Please verify if $min-width-2 (e.g., 800px) is correct or use the appropriate variable from _vars.scss
     tr{
         flex-direction: row;
     }

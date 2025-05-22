@@ -149,7 +149,7 @@ p.flood{
 legend,
 summary,
 summary > :is(h3,h4,h5,h6),
-:is(article,section,div) > p:first-of-type:not([class])
+:is(article,section,div) > p:first-of-type:not([class]),
 h5 {
     font-size: var(--font-size-h5);
     font-weight: bolder;

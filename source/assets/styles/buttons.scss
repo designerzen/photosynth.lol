@@ -1,4 +1,5 @@
 @use "./ease";
+@use "./vars";
 
 [role="button"]{
     cursor: pointer;
@@ -407,84 +408,6 @@ button[data-control-play]{
 //     padding-right:calc( var(--pad) * 3);
 // }
 
-a.back-to-top,
-a.skip-to-content{
-    
-    --icon:url(/source/assets/icons/up-chevron.svg);
-    --anim: BackToTop;
-
-    z-index: 1;
-    display: grid;
-    grid-template-columns: 0 1fr;
-    font-size: 0;
-   
-    overflow: hidden;
-    overflow: clip;
-    color: transparent;
-    align-items: center;
-    justify-content: center;
-    justify-self: end;
-    align-self: end;
-
-    box-sizing: border-box;
-    padding: 0;
-    background-color: var(--col-accent);
-    margin-bottom:1px;
-    min-height: 100%;
-    box-sizing: content-box;
-    padding:calc(var(--pad) / 4);
-    padding-top:0;
-    padding-bottom:0;
-    
-    z-index: 868;
-    height: var(--sticky-top);
-
-    &::after{
-        content:'';
-        order:-99;
-        min-width: 44px;
-        min-height: 44px;
-        display: inline-block;
-        vertical-align: middle;
-        background-image: var(--icon);
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-        filter: invert(100%) contrast(92%);
-        // transition: 
-        //     var(--time-quick, 90ms) opacity ease-in-out,
-        //     var(--time-quick, 90ms) transform ease-in-out;
-    }
-
-    &:hover::after,
-    &:active::after{
-        // transform: translateY(-100%);
-        animation: var(--anim) 0.42s ease-in-out;
-    }   
-}
-
-a.back-to-top{
-  
-    right:var(--right-hand-column); 
-    top:calc(1px + var(--sticky-top));
-    position: sticky;
-    // left:100%;
-   
-    // margin-top:1px;
-    order:-1;
-}
-
-
-a.skip-to-content{
-         
-    --icon:url(/source/assets/icons/down-chevron.svg);
-
-    &:hover::after,
-    &:active::after{
-        animation-direction:reverse;
-    }
-}
-
 label[for="toggle-midi"]{
 // #toggle-midi{
     // position: absolute;
@@ -786,10 +709,83 @@ label[for="timbre-sawtooth"]{
     }
 }
 
+a.back-to-top,
+a.skip-to-content{
+    
+    --icon:url(/source/assets/icons/up-chevron.svg);
+    --anim: BackToTop;
+    
+    z-index: 868;
+
+    display: grid;
+    grid-template-columns: 0 1fr;
+    font-size: 0;
+   
+    overflow: hidden;
+    overflow: clip;
+    color: transparent;
+    align-items: center;
+    justify-content: center;
+    justify-self: end;
+    align-self: end;
+    box-sizing: content-box;
+   
+    background-color: var(--col-accent);
+    margin-bottom:1px;
+    min-height: 100%;
+    height: var(--sticky-top);
+    padding:calc(var(--pad) / 4);
+    padding-top:0;
+    padding-bottom:0;
+    
+    &::after{
+        content:'';
+        order:-99;
+        min-width: 44px;
+        min-height: 44px;
+        display: inline-block;
+        vertical-align: middle;
+        background-image: var(--icon);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        filter: invert(100%) contrast(92%);
+        // transition: 
+        //     var(--time-quick, 90ms) opacity ease-in-out,
+        //     var(--time-quick, 90ms) transform ease-in-out;
+    }
+
+    &:hover::after,
+    &:active::after{
+        // transform: translateY(-100%);
+        animation: var(--anim) 0.42s ease-in-out;
+    }   
+}
+
+a.skip-to-content{
+         
+    --icon:url(/source/assets/icons/down-chevron.svg);
+
+    &:hover::after,
+    &:active::after{
+        animation-direction:reverse;
+    }
+}
+
+a.back-to-top{
+  
+    right: var(--right-hand-column);
+    top:calc(1px + var(--sticky-top));
+    position: sticky;
+    // left:100%;
+   
+    // margin-top:1px;
+    order:-1;
+}
 // Different Sizes ======================================================
 
 // when the screen is wider than --max-section-width
-@media screen and (min-width:920px) {
+@media screen and (min-width:vars.$max-width) {
     
     /*
     // Text only version
@@ -851,7 +847,7 @@ label[for="timbre-sawtooth"]{
         // right:calc( var(--pad) );
         // left:calc( (100vw - var(--max-section-width) - var(--pad) ) / 2 );
         // transform: translateX(100%);
-        transform: translateX(calc( var(--pad) + 100%));
+        // transform: translateX(calc( var(--pad) + 100%));
     }
     .label-button-read{
         z-index: -1;

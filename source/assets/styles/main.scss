@@ -1,9 +1,15 @@
+@use "_vars.scss";
+
+// * {
+//     outline:2px solid rgba(255,0,0,0.5);
+// }
+
 html {
     display: grid;
     min-height: 100%;
     color: var(--col-text);  
-    max-width: 100vw;
-    overflow-x: hidden;
+    // max-width: 100vw;
+    // overflow-x: hidden;
    
     // TODO: remove this
     // &::before{
@@ -184,7 +190,7 @@ body{
 
 
 // Larger sizes
-@media screen and (min-width:800px){
+@media screen and (min-width: vars.$min-width-2){ // Please verify if $min-width-2 (e.g., 800px) is correct or use the appropriate variable from _vars.scss
 
     .expansion{
         display: inline;
@@ -538,7 +544,7 @@ table{
     }
 }
 
-@media screen and (min-width:505px){
+@media screen and (min-width:vars.$min-width-3){
     #details figure{
         grid-template-areas: 
             "caption caption"
@@ -917,14 +923,14 @@ tbody{
 }
 
 
-@media screen and (min-width:480px){
+@media screen and (min-width:vars.$min-width-3){
         
     .timbre-selector{
         grid-template-columns: 2fr 3fr 2fr 1fr;
     }
 }
 
-@media screen and (min-width:580px){
+@media screen and (min-width:vars.$min-width-2){
         
     .timbre-selector{
         --icon-size:33px;
@@ -938,7 +944,7 @@ tbody{
     }
 }
 
-@media screen and (min-width:800px){
+@media screen and (min-width:vars.$min-width-1){
         
     // all buttons have text
     .timbre-selector{
