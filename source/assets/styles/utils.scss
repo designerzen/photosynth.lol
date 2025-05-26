@@ -1,3 +1,4 @@
+@use "./_vars.scss";
 /*
 	Improved screen reader only CSS class
 	@author Gaël Poupard
@@ -437,25 +438,29 @@ img.flood{
     box-shadow: var(--col-bg) 0 0 0 100vmax;
 }
 
-// waves top
+// SHARED
 .wavey,
 .square,
 .sawtooth,
 .wavey-top,
 .square-top,
-.sawtooth-top{
-	--overhang:max(7vh, 88px);
+.sawtooth-top,
+.wavey-bottom,
+.square-bottom,
+.sawtooth-bottom{
+
+    // this needs to always be larger than the graphic's jags
+    // which is 25% of it's height
+	--overhang:clamp(44px, 4vh, 66px);
+	
     --scale:1;
     --density:2;
-
-    // ensure the waves have space
-    margin-top: calc( var(--overhang) * 1.5 );
     
     &::before{
         content: '';
         position: absolute;
         width: 100%;
-        height: var(--overhang);
+        height: calc( var(--overhang) / var(--scale,1));
         left:0;
         display: block;
         
@@ -474,6 +479,18 @@ img.flood{
         overflow: clip;
         //z-index: -1;
     }
+}
+
+// TOP WAVEY BITS ONLY
+// waves top
+.wavey,
+.square,
+.sawtooth,
+.wavey-top,
+.square-top,
+.sawtooth-top{
+    // ensure the waves have space
+    margin-top: calc( var(--overhang) * 1.5 );
     
     // wavy background and edges
     &::before{
@@ -499,45 +516,18 @@ img.flood{
 }
 
 
-
+// BOTTOM WAVEY BITS ONLY
 // #teaser,
-// .sticky + *:not(aside)
 .wavey,
 .square,
+.sawtooth,
 .wavey-bottom,
 .square-bottom,
 .sawtooth-bottom{
-	--overhang:max(7vh, 88px);
-    --scale:1;
-    --density:2;
 
     // ensure the waves have space
     // padding-bottom: calc( var(--overhang) / 2 );
     margin-bottom: calc( var(--overhang) * 1.5 );
-
-    &::after{
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: var(--overhang);
-        left:0;
-        display: block;
-        
-        background-color: inherit;
-        // background-repeat: no-repeat;
-        // background-position: top left;
-        // background-size: contain;
-        mask-size: calc(100% / var(--scale,1));
-        mask-repeat: repeat-x;
-
-        pointer-events: none;
-        // opacity: 0.94;
-        // filter:brightness(909);
-
-        overflow: hidden;
-        overflow: clip;
-        //z-index: -1;
-    }
 
     // wavy background and edges
     &::after{
@@ -548,12 +538,7 @@ img.flood{
         mask-position:center bottom;
     }
 
-	// > :first-child{
-	// 	padding-top: 0;
-	// }
-
 	&.overlap{
-
 		--factor:0.5; 
 		margin-bottom: calc( var(--overhang) * var(--factor,1) );
 	}
@@ -572,13 +557,26 @@ img.flood{
     }
 }
 
-:is(.wavey, .square, .sawtooth) + :is(.wavey, .square, .sawtooth){
-    margin-top:25vh;
+:is(.wavey,
+.square,
+.sawtooth,
+.wavey-bottom,
+.square-bottom,
+.sawtooth-bottom) 
++ 
+:is(.wavey,
+.square,
+.sawtooth,
+.wavey-top,
+.square-top,
+.sawtooth-top){
+    // margin-top:50vh;
 }
 
 p.sawtooth,
 p.square,
 p.wavey{
+    margin-top: calc( var(--overhang) * 1 );
 	padding: calc(var(--pad) * 2);
 	padding-top: calc(var(--pad) * 2);
 	padding-bottom: calc(var(--pad) * 2);
@@ -590,6 +588,7 @@ p.wavey{
 	&::after{  mask-image: url(/source/assets/wallpaper/sawtooth-bottom.svg); }
 }
 .square{
+    --scale:4;
 	&::before{  
         // mask-position:center bottom;
         mask-image: url(/source/assets/wallpaper/square-top.svg); }
@@ -606,11 +605,26 @@ p.wavey{
     --scale:4;
 }
 
-.shadow.sawtooth,
-.shadow.square,
-.shadow.wavey{
+// shadowed elemeents that area also masked
+// will cause the box shadow to be missahped
+// so we instead fall back to using filters
+:is(
+    .wavey,
+.square,
+.sawtooth,
+.wavey-bottom,
+.square-bottom,
+.sawtooth-bottom
+.wavey-top,
+.square-top,
+.sawtooth-top
+).shadow{
 	--opacity:0.02;
 
+    // cancel any existing shadows
+    box-shadow: none;
+
+    // create a filtered bx shadow
 	filter: 
 		drop-shadow( 0px 0px 2px rgba(51, 49, 50, calc( var(--opacity) + 0.01)) )
 		drop-shadow( 0px 0px 9px rgba(51, 49, 50, calc( var(--opacity) + 0.02)) )
@@ -620,15 +634,45 @@ p.wavey{
 
     &::before{
         box-shadow: inherit;
-        box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+       // box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
         
     }
+
+    // ????
     &::after{
         box-shadow: inherit;
-        box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-        
+        //box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     }
 }
+
+@media screen and (min-width:vars.$min-width-2) {
+    .wavey,
+    .square,
+    .sawtooth,
+    .wavey-top,
+    .square-top,
+    .sawtooth-top,
+    .wavey-bottom,
+    .square-bottom,
+    .sawtooth-bottom {
+        --overhang: clamp(88px, 9vh, 99px);
+    }
+}
+@media screen and (min-width:vars.$min-width-1) {
+    .wavey,
+    .square,
+    .sawtooth,
+    .wavey-top,
+    .square-top,
+    .sawtooth-top,
+    .wavey-bottom,
+    .square-bottom,
+    .sawtooth-bottom {
+        --overhang: clamp(128px, 12vh, 120px);
+    }
+}
+
+
 
 
 // split into collumns
@@ -697,6 +741,11 @@ p.wavey{
         var(--g) bottom/100% 200%;
 }
 
+:is(h1, h2, h3, h4, h5, h6,p, figcaption).middle{
+    text-align: center;
+}
+
+
 .hidden-link{
 	font-size: 0;
 	color: transparent;
@@ -717,7 +766,7 @@ p.wavey{
 
 .text-scroller-vertical{
 	line-height: 1.2;
-	// font-size: 2rem;
+	font-size: var(--font-size-h5);
 	display: grid;
 	grid-template-areas: "lead trail";
 	grid-template-columns: auto auto;
@@ -1003,14 +1052,18 @@ ul.gallery{
 
 // only animate when in viewport
 @media screen and (prefers-reduced-motion: no-preference) {
-	.in-viewport{
+    .animation-rock\:on-hover{
+        transition: transform var(--time-quick) ease-out;
+    }
+
+    .in-viewport{
 		.animation-rock,
         .animation-rock\:on-hover:hover{
 			--tilt:22deg;
 			--duration:calc( 1 * 6s );
 			transform-origin: center;
             transform: translate( var(--x,0), var(--y,0));
-			animation: RockTranslated var(--duration, 90ms) infinite var(--delay,0s) both ease-out;
+			//animation: RockTranslated var(--duration, 90ms) infinite var(--delay,0s) both ease-out;
 		}
 	}
 }

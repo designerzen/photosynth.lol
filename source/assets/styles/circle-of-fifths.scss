@@ -1,3 +1,5 @@
+@use "_vars.scss";
+
 // DIV wrapper for SVG and FORM
 .instrument-circular{
     scroll-snap-type: y proximity;
@@ -77,11 +79,50 @@
     }
 }
 
- // try to align these to the right
-.emotion-selector{
-    
-    justify-content: flex-end;
 
+// try to align these to the right
+// form that overlays the fifths circle
+.emotion-selector{
+    border-radius: var(--curve, 4px);
+    overflow: hidden;
+    position: relative;
+   
+    margin:0;
+    margin-left:var(--pad);
+    margin-right:var(--pad);
+    display: flex;
+    flex-wrap: wrap;
+    // justify-content: flex-end;
+    align-items: center;
+    justify-content: center;
+
+    gap:var(--gap, var(--pad, 1rem));
+
+    .button-close{
+        position: absolute;
+        top:0;
+        right:calc( var(--pad) * 1.5 );
+        z-index: 909;
+    }
+    // padding: var(--pad);
+    // padding-top: calc( var(--pad) * 2 );
+    // &::before{
+    //     content: '';
+    //     background-color: var(--col-bg);
+    //     inset:0;
+    //     position: absolute;
+    //     opacity: 0.9;
+    //     z-index: 0;
+    // }
+    fieldset{
+        position: relative;
+        z-index: 1;
+        margin:0;
+        // border-radius: 0;
+      
+    }
+
+    
     fieldset{
         // display: grid;
         // grid-template-columns: repeat(auto-fill, minmax(66px, 1fr));
@@ -103,14 +144,14 @@
 
             // for 3 equal columns, out of 100%, 
             // we subtract the 2 (= 3 - 1) grid gaps and divide by 3 
-            flex: 1 1 calc((100% - 2 * var(--pad) ) / 3);
+            // flex: 1 1 calc((100% - 2 * var(--pad) ) / 3);
 
             // for 2 equal columns, out of 100%, 
             // we subtract the 1 (= 2 - 1) grid gaps and divide by 2  
-            &:nth-child(3n):nth-last-child(2), 
-            &:nth-child(3n + 1):last-child {
-                flex-basis: calc(50% - .5 * var(--pad) ); 
-            }
+            // &:nth-child(3n):nth-last-child(2), 
+            // &:nth-child(3n + 1):last-child {
+            //     flex-basis: calc(50% - .5 * var(--pad) ); 
+            // }
         }
     }
     
@@ -121,7 +162,7 @@
 }
 
 // When wider, we overlay certain elements
-@media screen and (min-width:800px){
+@media screen and (min-width:vars.$min-width-1){
     .instrument-circular{
         fieldset{
             border: 0;

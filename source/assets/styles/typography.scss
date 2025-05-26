@@ -124,13 +124,13 @@ h2 {
     line-height: 1.2;
 }
 
-.h2,
-blockquote,
-blockquote p  {
+.h2 {
     font-size: var(--font-size-h2);
     line-height: 1.2;
 }
 
+blockquote,
+blockquote p ,
 .h3,
 h3{
     font-size: var(--font-size-h3);
@@ -146,15 +146,15 @@ p.flood{
 }
 
 .h5,
-legend,
-summary,
-summary > :is(h3,h4,h5,h6),
 :is(article,section,div) > p:first-of-type:not([class]),
 h5 {
     font-size: var(--font-size-h5);
     font-weight: bolder;
 }
 
+summary,
+summary > :is(h3,h4,h5,h6),
+legend,
 figcaption,
 .h6,
 h6 {
@@ -163,7 +163,7 @@ h6 {
 }
 
 p{
-    font-size: var(--font-size-h6);
+    font-size: var(--font-size-p);
     orphans:3;
     position: relative;
     margin:0;
@@ -273,6 +273,9 @@ caption{
     //     // width: 100%;
     //     // height: 0;
     // }
+}
+label .emoji{
+    font-size: 4cqi;
 }
 
 .notation{

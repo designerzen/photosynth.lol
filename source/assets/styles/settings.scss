@@ -1,3 +1,4 @@
+@use "vars";
 
 :root{
     color-scheme: light dark;
@@ -9,7 +10,7 @@
     --pad:calc(8px + 1.5625vw);
 
     // see buttons for to top and bottom
-    --max-section-width:920px;  // 1080
+    --max-section-width:#{vars.$max-width};  // 1080
 
     --image-width-hero:2122px;
 
@@ -48,6 +49,7 @@
     --font-size-h4: calc( var(--step-mobile-2, 18px ) * var(--font-scale,1) );
     --font-size-h5: calc( var(--step-mobile-1, 16px ) * var(--font-scale,1) );
     --font-size-h6: calc( var(--step-mobile-0, 14px ) * var(--font-scale,1) );
+    --font-size-p: calc( var(--step-mobile--1, 14px ) * var(--font-scale,1) );
 
     // --font-size-h1: var(--step-mobile-5, calc(40px * var(--font-scale,1) );
     // --font-size-h2: var(--step-mobile-4, calc(28px * var(--font-scale,1)) );
@@ -90,7 +92,7 @@
         0px 0px 57px rgba(51, 49, 50, 0.04);
 }
 
-@media screen and (min-width:920px) {
+@media screen and (min-width:vars.$min-width) {
     :root{
         --right-hand-column:calc( (100vw - var(--max-section-width)) / 2 );
         --font-size-h1: calc( var(--step-5, 40px ) * var(--font-scale,1) );
@@ -99,16 +101,19 @@
         --font-size-h4: calc( var(--step-2, 24px ) * var(--font-scale,1) );
         --font-size-h5: calc( var(--step-1, 18px ) * var(--font-scale,1) );
         --font-size-h6: calc( var(--step-0, 16px ) * var(--font-scale,1) );
-    
+    }
+}
+@media screen and (min-width:vars.$max-width-plus-button) {
+    :root{
+        // --right-hand-column:calc( (100vw - var(--max-section-width)) / 2 - 66px );
     }
 }
 
-
+// NO ANIMATION -----------------------------------------------------------------
 @media screen and (reduced-motion: reduce) {
     :root{
         --time-quick:1ms;
         --time-medium:1ms;
         --time-long:1ms;
     }
-    
 }

@@ -1,7 +1,10 @@
 @use "./ease";
 
 .piano-key{
-	transition: fill var(--time-quick, 90ms) linear;
+	transition: 
+        opacity var(--time-quick, 90ms) linear,
+        fill var(--time-quick, 90ms) linear;
+
     border-radius: 10%;
 
 	.piano-key-name{
@@ -9,12 +12,19 @@
 	}
 
 	&:hover{
-		fill:var(--col-warm-grey);
-		
+		// fill:var(--col-warm-grey);
+        opacity: 0.5;
 		.piano-key-name{
 			visibility: visible;
 		}		
 	}	
+    &.active{
+		// fill:var( --col-accent, var(--shade-brand, red) );
+	}
+    &.active:hover{
+		// fill:var( --col-accent, var(--shade-brand, red) );
+	}
+
 	&:focus{
 		outline: none;
 	}
@@ -23,15 +33,7 @@
 		outline: none;
 		stroke-width:4px;
 		stroke:var(--col-accent);
-	}
-
-    &.active{
-		fill:var( --col-accent, var(--shade-brand, red) );
-	}
-    &.active:hover{
-		fill:var( --col-accent, var(--shade-brand, red) );
-	}
-
+	} 
 }
 
 .piano-key-white{
@@ -84,7 +86,9 @@
 
 	min-height:calc( 100px +  var(--footer-height));
 	//width: min(100%, 100vw);
-	// max-width: min(100%, 100vw);
+	
+    max-width: 100vw;
+    max-width: 100dvw;
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
@@ -95,6 +99,7 @@
 	transition: bottom var(--time-medium, 90ms) ease.$easeOutBack; 
 	pointer-events: none;
 
+    background-color: black;
 	// transform: translateX(-50%);
 
 	.piano-keys{
@@ -105,6 +110,8 @@
 		transform: translateY( calc( var(--c) ) ) translateX( var(--overhang) );
  		transition: transform var(--time-medium, 90ms) ease.$easeOutBack; 
 		
+        will-change: auto;
+
 		margin:auto;
 		margin-bottom: 0;
 		
@@ -112,7 +119,7 @@
 		// left:50%;
 
 		// make sure that it cannot be taller than 1/4 of the viewport height
-		max-height:min(148px, 25vh);
+		max-height:min(148px, 33vh);
 
 		// ensure that it never shrinks to unusable size
 		min-width:max( 100%, calc( 128 * 11px) );

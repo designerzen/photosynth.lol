@@ -2,5 +2,8 @@ $min-width-4:320px;
 $min-width-3:480px;
 $min-width-2:680px;
 $min-width-1:800px;
-$min-width:1080px;
+$min-width:900px;
+// $min-width:1080px;
 $max-width:$min-width;
+
+$max-width-plus-button:$max-width + 44px * 2;

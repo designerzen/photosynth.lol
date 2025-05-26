@@ -234,6 +234,11 @@ input[type=button].button{
 
 details{
 
+    &::details-content {
+        border: 5px dashed hotpink;
+        display: none;
+    }
+
     margin-top: var(--pad);
     border-radius: var(--curve, 4px);
     background-color: var(--col-stone-light);
@@ -245,15 +250,16 @@ details{
         // grid-template-areas: "summary icon";
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         cursor: pointer;
         background-color: var(--col-stone-light);
         color:var(--col-red);
         padding: var(--pad) calc(var(--pad)/2) var(--pad)  var(--pad) ;
         font-weight:bold;
-   
+
         border-radius: var(--curve, 4px);
         
-        border:2px solid var(--col-accent);
+        border:var(--stroke,1px) solid var(--col-accent);
 
         &::after{
             content:'';
@@ -314,6 +320,10 @@ details:hover{
 
 details[open]{
 
+    
+    &::details-content {
+        display: block;
+    }
     // border:2px solid var(--col-accent);
     // border-radius: var(--curve, 4px);
 
@@ -322,6 +332,8 @@ details[open]{
         color:var(--col-stone);
         border-width: 0;
         margin-bottom: var(--pad);
+
+        animation:Fade var(--time-medium) linear 0s 1 both;
 
         &::after{    
             transform: rotate(180deg);

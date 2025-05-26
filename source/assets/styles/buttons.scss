@@ -303,44 +303,45 @@ a.cta{
     }
 }
 
-.button-play,
-button[data-control-play]{
-    &::before{
-        content:'';
-        font-size:inherit;
-        background-image: url(/source/assets/icons/play_arrow.svg);
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-        width: var(--size, 1lh);
-        height: var(--size, 1lh);
-        display: inline-block;
-        vertical-align: middle;
-        // padding:0 calc(var(--pad)/2);
-        margin-right:calc( var(--pad) / 4 );
-        filter:brightness(100%) invert(100%);
-    }
-}
 
 .label-button-read{
     position: absolute;
     position: sticky;
     font-size: 0;
     background-color: transparent;
-    z-index: 3;
-    // transform: translateX(100%);
-    margin-right:calc( -2 * var(--pad) );
-    top:calc( 3 * var(--pad) + var(--sticky-top) );
-
+  
+    // make sure we don't take up any vertical space
+    // width:0;
+    height:0;
+    overflow: visible;
+    display: block;
+    // margin-top:calc( 2 * var(--pad) + var(--sticky-top) );
+   
+    // off screen a little bit
+    margin-left:calc( -2 * var(--pad) - 3px);
+    margin-right:calc( -2 * var(--pad));
+ 
+    transform: scale(0.9);
+    transform-origin: center left;
+    
+    top:calc( 2 * var(--pad) + var(--sticky-top) );
     // right:calc( 2 * var(--pad) );
     // left:calc( 100% - var(--offset-right,0));
-    left:100%;
-    shape-outside: circle(50%);
+    // left:100%;
+
+    padding: 0;  
+    z-index: 3;
+    
+    // shape-outside: circle(50%);
     // float:right;
-    // float: right;
-    // margin-top:calc( 2 * var(--pad) );
-    // margin-right:calc( 2 * var(--pad) );
 }
+// just to make it zero sized
+.sticky-content-wrapper {
+    // This div will have the actual height based on its content.
+    // Style this as your visible sticky header.
+    display: block;
+}
+
 .button-read{
     --offset-right: calc( 44px + var(--pad));
     
@@ -352,6 +353,7 @@ button[data-control-play]{
     top:0;
     
     border-radius: 999px 0 0 999px  ;
+    border-radius: 0 999px 999px 0 ;
     border:2px solid var(--col-charcoal) ;// var(--col-accent);
 
     background-color:var(--col-charcoal) ;
@@ -366,7 +368,9 @@ button[data-control-play]{
     // this allows it to not create space in its sticky home
     // height:0;
     min-height:calc(var(--pad) * 2);
-  
+    // no wider than the gutter
+    max-width:calc(var(--pad) * 2);
+    transform: translateY(100%);
     font-size:0;
     color:transparent;
 
@@ -508,12 +512,33 @@ aside > label[for="toggle-midi"]{
     }
 }
 
+.button-play,
+button[data-control-play]{
+    &::before{
+        content:'';
+        font-size:inherit;
+        background-image: url(/source/assets/icons/play_arrow.svg);
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: var(--size, 1lh);
+        height: var(--size, 1lh);
+        display: inline-block;
+        vertical-align: middle;
+        // padding:0 calc(var(--pad)/2);
+        margin-right:calc( var(--pad) / 4 );
+        filter:brightness(100%) invert(100%);
+    }
+}
+
 [data-control-play]{
-    border: 1px solid white;
+    border-top: var(--stroke,1px) solid white;
+    border-bottom: var(--stroke,1px) solid white;
     border-radius: 0;//999px;
     padding-right:2ch;
+    min-height: 66px;
     background-color: var(--col-accent);
-    background-color: color-mix( in oklch, var(--col-accent) 66%, transparent );
+    // background-color: color-mix( in oklch, var(--col-accent) 66%, transparent );
     
     &:hover{
         background-color: var(--col-accent);
@@ -784,10 +809,10 @@ a.back-to-top{
 }
 // Different Sizes ======================================================
 
-// when the screen is wider than --max-section-width
 @media screen and (min-width:vars.$max-width) {
     
     /*
+    --right-hand-column
     // Text only version
     a.back-to-top{
         grid-template-columns: auto 1fr;
@@ -802,39 +827,22 @@ a.back-to-top{
         }
     }*/
 
-    .label-button-read{
-        --offset-right: calc(3 * 44px + var(--pad) * 2);
-        top:calc( 0 * var(--pad) + var(--sticky-top) );
-        // right:calc( 2 * var(--pad) );
-        // right:calc( 100% + 3 * var(--pad) );
-        // right:calc( 100%  );
-        right:auto;
-        
-        left:0;
-        margin:0;
-        margin-left:calc( -2 * var(--pad) );
-        // float:left;
-        transform-origin: left center;
-        // transform: translateX( calc(-100%) ) scale(0.9);
-    }
-    .button-read{
-      // transform: translateX( -50vw);
-        border-color:var(--col-stone);
-        margin-right: -1px;
-        border-radius: 0 999px 999px 0;
-    }
-
     [data-play-timbre]{
-
         flex-wrap: wrap;
         flex-direction: row;
     }
 }
 
 // with space in the gutters
-@media screen and (min-width:1080px) {
+@media screen and (min-width:vars.$max-width) {
     
- // add the icon back in and offset to the right of the content
+    .label-button-read{
+        // z-index: -1;
+        // float:right;
+        // transform: translateX( calc( -100% - var(--pad) * 2 + 2px ) ); 
+    }
+    
+    // add the icon back in and offset to the right of the content
     a.skip-to-content,
     a.back-to-top{
         &::after{
@@ -849,9 +857,33 @@ a.back-to-top{
         // transform: translateX(100%);
         // transform: translateX(calc( var(--pad) + 100%));
     }
+}
+
+// BIGGEST SIZE - max width + gutters
+// when the screen is wider than --max-section-width
+// we need to add some things together
+@media screen and (min-width:vars.$max-width-plus-button) {
     .label-button-read{
-        z-index: -1;
-        // float:right;
-        // transform: translateX( calc( -100% - var(--pad) * 2 + 2px ) ); 
+        --offset-right: calc(3 * 44px + var(--pad) * 2);
+        top:calc( 0 * var(--pad) + var(--sticky-top) );
+        // right:calc( 2 * var(--pad) );
+        // right:calc( 100% + 3 * var(--pad) );
+        // right:calc( 100%  );
+        right:calc(100% + var(--pad) * 2 );
+        
+        left:auto;
+        // margin:0;
+        // margin-left:calc( -2 * var(--pad) );
+        // float:left;
+        // transform-origin: left center;
+        // transform: translateX( calc(-100%) );// scale(0.9);
+        // transform: translateX( calc(-2 * var(--pad) ) );// scale(0.9);
+    }
+    .button-read{
+      // transform: translateX( -50vw);
+        border-color:var(--col-stone);
+        // margin-right: -1px;
+        // border-radius: 0 999px 999px 0;
+        border-radius: 999px 0 0 999px;
     }
 }
