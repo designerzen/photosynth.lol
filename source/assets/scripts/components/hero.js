@@ -20,11 +20,13 @@ export default class Hero extends AbstractInteractive{
         this.addInteractivity( this.keyElements, noteOn, noteOff )  
     }
 
-    // Add 10 notes to the DOM in the specific element
+    // Add X notes to the DOM in the specific element
+    // NB. THESE RUIN GPU PERFORMANCE
     addNotesToDOM( parent, quantity ){
         const elements = []
         const fragment = document.createDocumentFragment()
         const group = document.createElement("div")
+
         for (let index=0; index<quantity; ++index){
             const i = document.createElement("i")
             i.className = "note-animated"
@@ -43,7 +45,7 @@ export default class Hero extends AbstractInteractive{
     }
 
     /**
-     * 
+     * Note ON
      * @param {Note} note 
      * @param {Number} velocity 
      * @param {String} id 
@@ -52,23 +54,26 @@ export default class Hero extends AbstractInteractive{
 
         const noteElement = this.keyElements[this.noteIndex]
       
-        // change note to the correct colour
-        noteElement.style.setProperty( "--col-accent", "var("+this.notes[note.noteNumber].asCSSVar+")" )
-        // noteElement.style.setProperty( "--path", "var("+this.notes[note.noteNumber].asCSSVar+")" )
-        // this.hero.style.setProperty( "--col-accent", "var("+this.notes[note.noteNumber].asCSSVar+")" )
+        if (noteElement)
+        {
+            // change note to the correct colour
+            noteElement.style.setProperty( "--col-accent", "var("+this.notes[note.noteNumber].asCSSVar+")" )
+            // noteElement.style.setProperty( "--path", "var("+this.notes[note.noteNumber].asCSSVar+")" )
+            // this.hero.style.setProperty( "--col-accent", "var("+this.notes[note.noteNumber].asCSSVar+")" )
 
-        noteElement.classList.remove("active", "inactive")
-        // this.hero.classList.remove("active")
-        // this.figure.classList.remove("active")
- 
-        this.noteIndex = (this.noteIndex + 1) % this.keyElements.length
+            noteElement.classList.remove("active", "inactive")
+            // this.hero.classList.remove("active")
+            // this.figure.classList.remove("active")
+    
+            this.noteIndex = (this.noteIndex + 1) % this.keyElements.length
 
-        // i.textContent = this.notes[note.noteNumber].noteName
-        requestAnimationFrame(()=>{
-            noteElement.classList.toggle("active", true)
-            // this.hero.classList.add("active")
-            // this.figure.classList.add("active")
-        })
+            // i.textContent = this.notes[note.noteNumber].noteName
+            requestAnimationFrame(()=>{
+                noteElement.classList.toggle("active", true)
+                // this.hero.classList.add("active")
+                // this.figure.classList.add("active")
+            })       
+        }
     }
 
     /**

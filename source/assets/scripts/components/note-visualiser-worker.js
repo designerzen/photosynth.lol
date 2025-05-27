@@ -153,6 +153,7 @@ const determineMirrorSize = (isVertical) => {
 
 const setBlendMode = (blendMode)=> {
     context.globalCompositeOperation = blendMode
+    debugger
 }
 
 onmessage = (evt) => {
@@ -170,7 +171,7 @@ onmessage = (evt) => {
 
         const mirrorDimensions = determineMirrorSize(vertical)
       
-        // clone the canvas
+        // clone the canvas..
         mirror = new OffscreenCanvas( mirrorDimensions.width, mirrorDimensions.height )
 
         mirrorContext = mirror.getContext('2d')

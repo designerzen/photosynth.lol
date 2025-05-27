@@ -54,7 +54,18 @@ export default class SVGKeyboard extends AbstractInteractive{
 		this.htmlElement.innerHTML = svg
 		this.titleElement = this.htmlElement.querySelector("title")
 		this.keyElements = Array.from(this.htmlElement.querySelectorAll(".piano-key"))
-		this.firstNoteNumber = notes[0].noteNumber
+       
+        this.keyMap = new Map()
+        this.keyElements.forEach( (value, index) => {
+            // const key = this.htmlElement.querySelector('[data-number="'+noteNumber+'"]')
+            this.keyMap.set( parseInt(value.dataset.number), value )
+        })
+        
+        // console.error( this.keyElements  )
+        // console.error( this.keyMap )
+        // debugger
+       
+       this.firstNoteNumber = notes[0].noteNumber
 		this.svgString = svg
 		this.addInteractivity( this.keyElements, noteOn, noteOff)
 	}
@@ -229,7 +240,7 @@ export default class SVGKeyboard extends AbstractInteractive{
 	 */
 	setKeyAsActive( noteModel ){
 		const noteNumber = noteModel.noteNumber
-		const key = this.htmlElement.querySelector('[data-number="'+noteNumber+'"]')
+        const key = this.keyMap.get( noteNumber ) ?? this.htmlElement.querySelector('[data-number="'+noteNumber+'"]')
 		// const key = this.keyElements[noteNumber - this.firstNoteNumber]
 		if (key)
 		{
@@ -246,7 +257,7 @@ export default class SVGKeyboard extends AbstractInteractive{
 	 */
 	setKeyAsInactive( noteModel ){
 		const noteNumber = noteModel.noteNumber
-		const key = this.htmlElement.querySelector('[data-number="'+noteNumber+'"]')
+        const key = this.keyMap.get( noteNumber ) ?? this.htmlElement.querySelector('[data-number="'+noteNumber+'"]')
 		// const key = this.keyElements[noteNumber - this.firstNoteNumber]
 		if (key)
 		{

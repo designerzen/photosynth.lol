@@ -1,5 +1,7 @@
 export default class AbstractInteractive{
 
+    activeNotes = new Map()
+
     constructor(){}
 
 	/**
@@ -22,8 +24,12 @@ export default class AbstractInteractive{
 		
 			let previousNote 
 		
+            // can come from a touch a mouse click or a keyboard enter press
 			const onPianoInteractionStarting = (event) => {
 
+                const id = 1    // always one for mouse
+                console.log("on interaction", event)
+                
 				// Keypresses other than Enter and Space should not trigger a command
 				if (
 					event instanceof KeyboardEvent &&
@@ -57,6 +63,7 @@ export default class AbstractInteractive{
 				
 				const starting = noteOn(note, pressure, this)
 				previousNote = note
+                this.activeNotes.set( id, note )
                 
                 this.isTouching = true
 				
@@ -98,8 +105,10 @@ export default class AbstractInteractive{
 			}
 		
 			button.addEventListener("touchstart", onPianoInteractionStarting, {signal: controller.signal,passive}) 
-			button.addEventListener("mousedown", onPianoInteractionStarting, {signal: controller.signal,passive})
+          
+            button.addEventListener("mousedown", onPianoInteractionStarting, {signal: controller.signal,passive})
 			
+            /*
 			// if the user has finger down but they change keys...
 			button.addEventListener("mouseenter", event => {
 			
@@ -122,8 +131,11 @@ export default class AbstractInteractive{
 					// console.warn("REQUEST CHANGE IGNORED")
 				}
 			}, {signal: controller.signal, passive})
-		
+		    */
+
+            // Mouse OUT - turn off note
 			button.addEventListener("mouseleave", event => {
+                const id = 1    // always one for mouse
 				if (!passive && event.preventDefault)
 				{
 					event.preventDefault()
@@ -134,6 +146,8 @@ export default class AbstractInteractive{
                     noteOff(previousNote,1,this)
 					previousNote = null
                 }
+
+                this.activeNotes.delete( id )
 
 				// this.isTouching = false
 				// document.querySelector(`.indicator[data-note="${noteName}"]`)?.classList?.toggle("active", false)

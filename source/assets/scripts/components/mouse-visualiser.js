@@ -69,9 +69,7 @@ export class MouseVisualiser extends AbstractResizeable{
      * @param {Number} dpr 
      */
     resizeCanvasToDisplaySize( width, height, dpr ){
-        console.info("resizeCanvasToDisplaySize", {width, height, dpr} )
         this.rect = this.element.getBoundingClientRect()
-
         super.resizeCanvasToDisplaySize(width, height, dpr)
     }
 

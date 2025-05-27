@@ -24,6 +24,7 @@ let mouseX = -1
 let mouseY = -1
 let currentX = 0
 let currentY = 0
+let scaleFactor = 1
 let hoveredElement = null
 
 let radius = MAX_RADIUS
@@ -154,7 +155,7 @@ function render() {
     // redraw the mouse position
     if (radius > MIN_RADIUS )
     {
-        renderMouse( Math.max(0, currentX), Math.max(0, currentY), radius, hoveredElement, mouseDown ) 
+        renderMouse( Math.max(0, currentX), Math.max(0, currentY), radius / scaleFactor, hoveredElement, mouseDown ) 
     }
 
 
@@ -215,6 +216,7 @@ onmessage = (evt) => {
             // higher than 2048 then divide the size by 2 and use CSS to scale it
             canvas.width = evt.data.displayWidth
             canvas.height = evt.data.displayHeight
+            scaleFactor = evt.data.scaleFactor
             break
     }
 }
