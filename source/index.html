@@ -3,7 +3,8 @@
 <include src="./source/partials/head.html"></include>
 <body>   
     <include src="./source/partials/header.html"></include>
-
+    <include src="./source/partials/nav.html"></include>
+         
     <!-- Main Content -->
     <main id="main-content">
 
@@ -11,8 +12,7 @@
         <section id="introduction" class="full-width full-height" inert data-observe>
             
             <include src="./source/partials/hero.html"></include>
-            <include src="./source/partials/nav.html"></include>
-         
+           
             <!-- Background wavy mask hero-mask-wavy-top-only.svg
             <div id="hero-mask" class="sticky full-width page">
                 <img class="flood"
@@ -556,7 +556,7 @@
         
             
             <!-- 4. Generate music ------------------------------------------- -->
-            <article id="shapes" class="shadow bg-children" data-full-keyboard data-observe data-readable>
+            <article id="shapes" class="shadow bg-children wavey" data-full-keyboard data-observe data-readable>
                 
                 <header class="underline">
                     <h3 class="heading-icon" data-timbre>The Shape of Sound</h3>
@@ -622,7 +622,7 @@
                         </button>
                     </fieldset>
 
-                    <p>Play around with the instrument selector to see how each one looks.</p>
+                    <p>Play around with the instrument selector below to see how each one looks and sounds.</p>
 
                     
                 
@@ -821,7 +821,7 @@
             </details>
 
             <!-- audio analyser food -->    
-            <article id="waveforms" class="page full-height shadow  bg" data-observe>
+            <article id="waveforms" class="page full-height shadow wavey bg" data-observe>
                 
                 <header>
 
@@ -908,6 +908,7 @@
                 <p>Below are some of the most famous chords that all have a mathematical connection. See if you can figure them out by observing the keyboard below during the next section.</p>
             </article>
 
+            <article id="circle-of-fifths-sythnesizer" class="z-top">
                 <!-- This ID is used to scroll back to above the synth byt he link below it -->
                 <a id="link-chords" href="#link-chords" class="hidden-link">Bookmark the Circular Synth</a>
 
@@ -1139,6 +1140,7 @@
                     <!-- <a href="#circular-synthesizer" class="cta">Return to the circular synthesizer</a> -->
 
                 </form>
+            </article>       
             
             </article>
 
