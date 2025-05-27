@@ -1,6 +1,5 @@
-
 const COUNTDOWN_TYPES = ["day", "hour", "minute", "second"]
-export const countdown = (element) => {   
+export const countdown = (element, completedText="July 1st - 6th 2025", period=1000) => {   
 
     // grab all the time elements
     const timeElements = element.querySelectorAll("time")
@@ -10,12 +9,14 @@ export const countdown = (element) => {
 
     let date
     let times
+    let interval
 
-    const getTime = date => {
-       
+    const getRemaining = date => {
         const now = new Date()
+        return Math.max(0, date.getTime() - now.getTime() )
+    }
 
-        const remainingMs = Math.max(0, date.getTime() - now.getTime() )
+    const getTime = remainingMs => {
        
         const totalSeconds = Math.floor(remainingMs / 1000)
         const totalMinutes = Math.floor(totalSeconds / 60)
@@ -52,18 +53,26 @@ export const countdown = (element) => {
     element.appendChild(counter)
 
     const update = () => {
-        const newTimes = getTime(date) 
-        countElements.forEach( (countElement, i) => {
-            const newValue = newTimes[i]
-            const oldValue = times[i]
-            if (oldValue !== newValue)
-            {
-                const isLast = i === newTimes.length - 1
-                const type = COUNTDOWN_TYPES[i] + (newValue > 1 ? "s" : "")
-                countElement.textContent = "" + newValue + " " + type + ( isLast ? "." : ", " )
-            }
-        })
+        const remainingMS = getRemaining(date)
+
+        if (remainingMS > 0)
+        {
+            const newTimes = getTime(remainingMS) 
+            countElements.forEach( (countElement, i) => {
+                const newValue = newTimes[i]
+                const oldValue = times[i]
+                if (oldValue !== newValue)
+                {
+                    const isLast = i === newTimes.length - 1
+                    const type = COUNTDOWN_TYPES[i] + (newValue > 1 ? "s" : "")
+                    countElement.textContent = "" + newValue + " " + type + ( isLast ? "." : ", " )
+                }
+            })
+        }else{
+            clearInterval(interval)
+            counter.textContent = completedText
+        }
     }
 
-    setInterval(update, 1000)
+    interval = setInterval(update, period)
 }
