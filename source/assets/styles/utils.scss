@@ -57,12 +57,18 @@
 
 header, hgroup,
 h1, h2, h3, h4, h5, 
-blockquote, hr, details, aside, figure, form, blockquote, .flood {
+blockquote, hr, details, aside, figure, form, blockquote, 
+.flood, .box {
     column-span: all; 
 }
 
 figure {
     break-after: column;
+}
+
+
+.z-top{
+    z-index: 99999;
 }
 
 .bumpers{
@@ -437,241 +443,6 @@ img.flood{
 .flood-fill-parent{
     box-shadow: var(--col-bg) 0 0 0 100vmax;
 }
-
-// SHARED
-.wavey,
-.square,
-.sawtooth,
-.wavey-top,
-.square-top,
-.sawtooth-top,
-.wavey-bottom,
-.square-bottom,
-.sawtooth-bottom{
-
-    // this needs to always be larger than the graphic's jags
-    // which is 25% of it's height
-	--overhang:clamp(44px, 4vh, 66px);
-	
-    --scale:1;
-    --density:2;
-    
-    &::before{
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: calc( var(--overhang) / var(--scale,1));
-        left:0;
-        display: block;
-        
-        background-color: inherit;
-        // background-repeat: no-repeat;
-        // background-position: top left;
-        // background-size: contain;
-        mask-size: calc(100% / var(--scale,1));
-        mask-repeat: repeat-x;
-
-        pointer-events: none;
-        // opacity: 0.94;
-        // filter:brightness(909);
-
-        overflow: hidden;
-        overflow: clip;
-        //z-index: -1;
-    }
-}
-
-// TOP WAVEY BITS ONLY
-// waves top
-.wavey,
-.square,
-.sawtooth,
-.wavey-top,
-.square-top,
-.sawtooth-top{
-    // ensure the waves have space
-    margin-top: calc( var(--overhang) * 1.5 );
-    
-    // wavy background and edges
-    &::before{
-        // margin-top:-10vh;
-        // top:calc( var(--overhang) * -1 );
-        // top: calc( var(--overhang) * -1 );
-        bottom:calc( 100% - 1px * var(--density,1) );
-		
-        // background-image: url(/source/assets/wallpaper/wavey.svg);
-        mask-image: url(/source/assets/wallpaper/wavey-top.svg);
-		mask-position:center top;
-    }
-    
-	&.overlap{
-		--factor:0.5; 
-		margin-bottom: calc( var(--overhang) * var(--factor,1) );
-		margin-top: calc( var(--overhang) * var(--factor,1) );
-	}
-	
-	&.overlap-top{
-		margin-top: calc( var(--overhang) * var(--factor,1) );
-	}
-}
-
-
-// BOTTOM WAVEY BITS ONLY
-// #teaser,
-.wavey,
-.square,
-.sawtooth,
-.wavey-bottom,
-.square-bottom,
-.sawtooth-bottom{
-
-    // ensure the waves have space
-    // padding-bottom: calc( var(--overhang) / 2 );
-    margin-bottom: calc( var(--overhang) * 1.5 );
-
-    // wavy background and edges
-    &::after{
-        top:calc( 100% - 1px * var(--density,1) );
-        // bottom:calc( var(--overhang) * -2 );
-        // background-image: url(/source/assets/wallpaper/wavey.svg);
-        mask-image: url(/source/assets/wallpaper/wavey-bottom.svg);
-        mask-position:center bottom;
-    }
-
-	&.overlap{
-		--factor:0.5; 
-		margin-bottom: calc( var(--overhang) * var(--factor,1) );
-	}
-	
-	&.overlap-bottom{
-		margin-bottom: calc( var(--overhang) * var(--factor,1) );
-	}
-}
-
-// if it inherits a clear background you won't see it!
-:is(.wavey, .square, .sawtooth).bg-clear,
-.bg-clear :is(.wavey, .square, .sawtooth) {
-    &::before,
-    &::after{
-        background-color: var(--col-bg);
-    }
-}
-
-:is(.wavey,
-.square,
-.sawtooth,
-.wavey-bottom,
-.square-bottom,
-.sawtooth-bottom) 
-+ 
-:is(.wavey,
-.square,
-.sawtooth,
-.wavey-top,
-.square-top,
-.sawtooth-top){
-    // margin-top:50vh;
-}
-
-p.sawtooth,
-p.square,
-p.wavey{
-    margin-top: calc( var(--overhang) * 1 );
-	padding: calc(var(--pad) * 2);
-	padding-top: calc(var(--pad) * 2);
-	padding-bottom: calc(var(--pad) * 2);
-	background-color: var(--col-bg);
-}
-
-.sawtooth{
-	&::before{  mask-image: url(/source/assets/wallpaper/sawtooth-top.svg); }
-	&::after{  mask-image: url(/source/assets/wallpaper/sawtooth-bottom.svg); }
-}
-.square{
-    --scale:4;
-	&::before{  
-        // mask-position:center bottom;
-        mask-image: url(/source/assets/wallpaper/square-top.svg); }
-	&::after{  mask-image: url(/source/assets/wallpaper/square-bottom.svg); }
-}
-
-.x2{
-   --scale:2;
-}
-.x3{
-    --scale:3;
-}
-.x4{
-    --scale:4;
-}
-
-// shadowed elemeents that area also masked
-// will cause the box shadow to be missahped
-// so we instead fall back to using filters
-:is(
-    .wavey,
-.square,
-.sawtooth,
-.wavey-bottom,
-.square-bottom,
-.sawtooth-bottom
-.wavey-top,
-.square-top,
-.sawtooth-top
-).shadow{
-	--opacity:0.02;
-
-    // cancel any existing shadows
-    box-shadow: none;
-
-    // create a filtered bx shadow
-	filter: 
-		drop-shadow( 0px 0px 2px rgba(51, 49, 50, calc( var(--opacity) + 0.01)) )
-		drop-shadow( 0px 0px 9px rgba(51, 49, 50, calc( var(--opacity) + 0.02)) )
-		drop-shadow( 0px 0px 21px rgba(51, 49, 50, calc( var(--opacity) + 0.02)) )
-		drop-shadow( 0px 0px 36px rgba(51, 49, 50, calc( var(--opacity) + 0.03)) )
-		drop-shadow( 0px 0px 57px rgba(51, 49, 50, calc( var(--opacity) + 0.04)) );
-
-    &::before{
-        box-shadow: inherit;
-       // box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-        
-    }
-
-    // ????
-    &::after{
-        box-shadow: inherit;
-        //box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    }
-}
-
-@media screen and (min-width:vars.$min-width-2) {
-    .wavey,
-    .square,
-    .sawtooth,
-    .wavey-top,
-    .square-top,
-    .sawtooth-top,
-    .wavey-bottom,
-    .square-bottom,
-    .sawtooth-bottom {
-        --overhang: clamp(88px, 9vh, 99px);
-    }
-}
-@media screen and (min-width:vars.$min-width-1) {
-    .wavey,
-    .square,
-    .sawtooth,
-    .wavey-top,
-    .square-top,
-    .sawtooth-top,
-    .wavey-bottom,
-    .square-bottom,
-    .sawtooth-bottom {
-        --overhang: clamp(128px, 12vh, 120px);
-    }
-}
-
 
 
 
@@ -1063,7 +834,7 @@ ul.gallery{
 			--duration:calc( 1 * 6s );
 			transform-origin: center;
             transform: translate( var(--x,0), var(--y,0));
-			//animation: RockTranslated var(--duration, 90ms) infinite var(--delay,0s) both ease-out;
+			animation: RockTranslated var(--duration, 90ms) infinite var(--delay,0s) both ease-out;
 		}
 	}
 }

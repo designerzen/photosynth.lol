@@ -177,6 +177,10 @@ details p:first-of-type:not([class]){
     font-size: var(--font-size-h5);
 }
 
+p + p{
+    margin-top: calc(var(--pad));
+}
+
 
 blockquote{
     display: grid; 

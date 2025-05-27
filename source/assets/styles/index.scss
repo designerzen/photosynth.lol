@@ -15,6 +15,9 @@
 
 @use "./notes.scss";
 
+// Is this causing lag?
+@use "./bumpers.scss";
+
 @use "./menus.scss";
 @use "./buttons.scss";
 @use "./figure.scss";

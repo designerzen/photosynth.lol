@@ -88,6 +88,8 @@ input[type=radio]{
         font-size: 0;
         &::before{
             content:'';
+            align-self:center;
+            justify-self: center;
             color:var(--col-accent);
             font-size: var(--font-size-h4);
             background-image: url("/source/assets/icons/up-chevron.svg");
@@ -460,11 +462,13 @@ aside > label[for="toggle-midi"]{
     --size:66px;
     grid-area: 1/1/-1/-1;
     border:2px solid black;// var(--col-border);
+    background-color:var(--col-accent);
     // padding: 2px;
     border-radius: 999px;
     overflow: hidden;
     &:hover{
         border-color:var(--col-plum);
+        background-color:var(--col-white);
         // filter:brightness(100%) invert(100%);
     }
 }
@@ -689,8 +693,14 @@ label[for="button-sad"]{
 }
 
 #song-timbre-select{
+    
     display: flex;
     text-align: center;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+
     font-size:var( --step--2, 22px);
     padding-left:var(--pad);
     // padding-top:calc( (var(--icon-size) )/ 2 + var(--pad));
