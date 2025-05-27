@@ -1,538 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="default" data-scale="major">
+<include src="./source/partials/head.html"></include>
+<body>   
+    <include src="./source/partials/header.html"></include>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Royal Society &amp; DMLab | Summer Science Exhibition 2025 | PhotoSYNTH - Smile Powered Music!</title>
-    <link href="/source/assets/styles/index.scss" rel="stylesheet">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="icon" type="image/png" href="/source/assets/icons/favicon-16x16.png" sizes="16x16">
-    <link rel="icon" type="image/png" href="/source/assets/icons/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/source/assets/icons/favicon.svg" />
-    <link rel="shortcut icon" href="/source/assets/icons/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/source/assets/icons/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="PhotoSYNTH" />
-    <link rel="manifest" href="/source/site.webmanifest" />
-
-    <link rel="canonical" href="https://photosynth.lol/">
-   
-    <meta name="description" content="A free six-day festival showcasing the science shaping our future.">
-   
-    <meta name="RS:PageVersion" content="0">
-    <meta name="RS:PageType" content="ContentPage;">
-    <meta name="RS:ContentName" content="Summer Science Exhibition 2025">
-    <meta name="RS:PublishedDate" content="00010101">
-
-    <meta property="fb:app_id" content="1227409314066422">
-    <meta property="og:url" content="https://royalsociety.org/science-events-and-lectures/summer-science-exhibition/">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Summer Science Exhibition 2025 | Royal Society">
-    <meta property="og:description" content="A free six-day festival showcasing the science shaping our future.">
-    <meta property="og:image" content="/source/assets/figures/instant-musical-superpowers-red-square.svg">
-    <meta property="og:locale" content="en_GB">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@royalsociety">
-    <meta name="twitter:url" content="https://royalsociety.org/science-events-and-lectures/summer-science-exhibition/">
-    <meta name="twitter:title" content="Summer Science Exhibition 2025 | Royal Society | Drake Music">
-    <meta name="twitter:description" content="A free six-day festival showcasing the science shaping our future.">
-    <meta name="twitter:image" content="/source/assets/figures/instant-musical-superpowers-red-square.svg">
-     <!-- <meta itemprop="name" content="Summer Science Exhibition 2025 | Royal Society | Drake Music"> -->
-   
-    <meta name="color-scheme" content="dark light">
-
-    <link type="text/plain" rel="author" href="./humans.txt">
-
-	<link rel="sitemap" href="./sitemap-index.xml" />
-
-    <script src="./assets/scripts/index.js" type="module"></script>
-
-</head>
-
-<body>
-
-  
-    <header id="headline">
-        <hgroup>
-            <h1>Smile Powered Pop Music with the <cite>Photo<wbr>SYNTH</cite> and friends!</h1>
-            <h2>Royal Society Summer Science Exhibition 2025</h2>
-            <a class="sr-only" href="#main-content">
-                Skip directly to the main content.
-            </a>
-            <!-- <a class="sr-only" href="#menu-main">
-                Skip to the menu.
-            </a> -->
-        </hgroup>
-<!--          
-        <nav class="menu-main">
-            <ul role="list">
-                <li><a href="#about">About</a></li>
-                <li><a href="#history">History</a></li>
-                <li><a href="#science">Science</a></li>
-                <li><a href="#event">Event</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#laboratory">Laboratory</a></li>
-            </ul>
-        </nav>
-     -->
-        <form id="menu-accessibility" hidden>
-            <menu>
-                <li class="skip-to-content-link">
-                    <a class="skip-to-content" href="#main-content">
-                        Skip accessibility menu and jump straight to the main content.
-                    </a>
-                </li>
-                <li class="text-size-link">
-                   
-                        <fieldset>
-                            <legend>Text Size</legend>
-                            <label for="button-text-size-increase"><span class="sr-only">Increase Font Size.</span>
-                                <button title="Increase Font Size" type="button" id="button-text-size-increase"><span class="sr-only">Text Size Increase.</span></button>
-                            </label>
-                    
-                            <label for="button-text-size-decrease"><span class="sr-only">Increase Font Size></span>
-                                <button title="Decrease Font Size" type="button" id="button-text-size-decrease"><span class="sr-only">Text Size Decrease.</span></button>
-                            </label>
-                        </fieldset>
-                </li>
-
-                <li class="font-link">
-                        <fieldset>
-                            <legend>Typeface</legend>
-
-                            <label for="font-default">
-                                <input name="font" id="font-default" type="radio" value="default" checked>
-                                Balanced<span class="sr-only"> font</span>
-                            </label>
-
-                            <label for="font-readable">
-                                <input name="font" id="font-readable" type="radio" value="readable">
-                                Readable<span class="sr-only"> font</span>
-                            </label>
-
-                            <label for="font-dsylexic">
-                                <input name="font" id="font-dsylexic" type="radio" value="dsylexic">
-                                Dsylexic<span class="sr-only"> font</span>
-                            </label>
-                        </fieldset>
-                </li>
-                
-                <li class="color-scheme-link">
-                        <fieldset>
-                            <legend>Colour Scheme</legend>
-
-                            <label for="palette-default">
-                                <input name="palette" id="palette-default" type="radio" value="default" checked>
-                                Balanced<span class="sr-only"> Colour Scheme.</span>
-                            </label>
-
-                            <label for="palette-contrast">
-                                <input name="palette" id="palette-contrast" type="radio" value="contrast">
-                                High<span class="sr-only"> Contrast Scheme.</span>
-                            </label>
-                            
-                            <label for="palette-monochrome">
-                                <input name="palette" id="palette-monochrome" type="radio" value="monochrome">
-                                Monochrome<span class="sr-only"> Colour Scheme.</span>
-                            </label>
-                                
-                            <label for="palette-colourful">
-                                <input name="palette" id="palette-colourful" type="radio" value="colourful">
-                                Colourful<span class="sr-only"> Scheme.</span>
-                            </label>
-                        </fieldset>
-                </li>
-
-                <li class="volume-control-link">
-                        <fieldset id="controls-volume">
-                            <legend class="sr-only">Control Volume</legend> 
-                        
-                            <label for="mute">
-                                <span class="sr-only">Toggle </span>Mute
-                                <input id="mute" type='checkbox'>
-                            </label>
-
-                            <label for="volume">
-                                Volume
-                                <input id="volume" type='range' value='100' min="0" max="100">
-                            </label>
-                        </fieldset>
-                </li>
-
-            </menu>
-        </form>
-
-        <!-- <img class="logo-royal-society-crest" width="100" height="100" src="/source/assets/logos/royal_society-crest.svg" alt=""> -->
-    </header>
-
-    
-    <nav class="menu-main">
-        <ul role="list">
-            <li><a href="#introduction">About</a></li>
-            <li><a href="#event">Event</a></li>
-            <li><a href="#science">Science</a></li>
-            <li><a href="#research">Research</a></li>
-            <li><a href="#laboratory">Lab<span class="expansion">oratory</span></a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#history">History</a></li>
-           
-        </ul>
-    </nav>
-<!-- 
-    <form id="menu-accessibility" hidden>
-        <menu>
-            <li class="skip-to-content-link">
-                <a class="skip-to-content" href="#main-content">
-                    Skip accessibility menu and jump straight to the main content.
-                </a>
-            </li>
-            <li class="text-size-link">
-                <fieldset>
-                    <legend>Text Size</legend>
-                    <label for="button-text-size-increase"><span class="sr-only">Increase Font Size.</span>
-                        <button title="Increase Font Size" type="button" id="button-text-size-increase"><span class="sr-only">Text Size Increase.</span></button>
-                    </label>
-            
-                    <label for="button-text-size-decrease"><span class="sr-only">Increase Font Size></span>
-                        <button title="Decrease Font Size" type="button" id="button-text-size-decrease"><span class="sr-only">Text Size Decrease.</span></button>
-                    </label>
-                </fieldset>
-            </li>
-
-            <li class="font-link">
-                <fieldset>
-                    <legend>Typeface</legend>
-
-                    <label for="font-default">
-                        <input name="font" id="font-default" type="radio" value="default" checked>
-                        Balanced<span class="sr-only"> font</span>
-                    </label>
-
-                    <label for="font-readable">
-                        <input name="font" id="font-readable" type="radio" value="readable">
-                        Readable<span class="sr-only"> font</span>
-                    </label>
-
-                    <label for="font-dsylexic">
-                        <input name="font" id="font-dsylexic" type="radio" value="dsylexic">
-                        Dsylexic<span class="sr-only"> font</span>
-                    </label>
-                </fieldset>
-            </li>
-            
-            <li class="color-scheme-link">
-                <fieldset>
-                    <legend>Colour Scheme</legend>
-
-                    <label for="palette-default">
-                        <input name="palette" id="palette-default" type="radio" value="default" checked>
-                        Balanced<span class="sr-only"> Colour Scheme.</span>
-                    </label>
-
-                    <label for="palette-contrast">
-                        <input name="palette" id="palette-contrast" type="radio" value="contrast">
-                        High<span class="sr-only"> Contrast Scheme.</span>
-                    </label>
-                    
-                    <label for="palette-monochrome">
-                        <input name="palette" id="palette-monochrome" type="radio" value="monochrome">
-                        Monochrome<span class="sr-only"> Colour Scheme.</span>
-                    </label>
-                        
-                    <label for="palette-colourful">
-                        <input name="palette" id="palette-colourful" type="radio" value="colourful">
-                        Colourful<span class="sr-only"> Scheme.</span>
-                    </label>
-                </fieldset>
-            </li>
-
-            <li class="volume-control-link">
-                <fieldset id="controls-volume">
-                    <legend class="sr-only">Control Volume</legend> 
-                
-                    <label for="mute">
-                        <span class="sr-only">Toggle </span>Mute
-                        <input id="mute" type='checkbox'>
-                    </label>
-
-                    <label for="volume">
-                        Volume
-                        <input id="volume" type='range' value='100' min="0" max="100">
-                    </label>
-                </fieldset>
-            </li>
-
-        </menu>
-    </form> -->
-
+    <!-- Main Content -->
     <main id="main-content">
-
-        <meter id="load-progress" min="0" max="1" value="0" hidden></meter>
 
         <!-- Introduction data-full-keyboard -->
         <section id="introduction" class="full-width full-height" inert data-observe>
             
-            <article id="hero" class="sticky full-width full-height page">
-                
-                <header>
-                    <h3 class="sr-only">Smile Powered Music!</h3>
-                    <h4 class="sr-only">Converting happiness into music</h4>
-                </header>
-
-                <figure id="hero-figure" inert  role="figure" aria-label="">
-                    <!-- <img 
-                        class="flood"
-                        width="9000" height="2160"
-                        src="./assets/figures/hero-royal-society-smile-powered.svg" 
-                        alt="The Photosynth, smile powered music."> -->
-                        <!-- <svg 
-                            class="flood"
-                            xmlns="http://www.w3.org/2000/svg" 
-                            xml:space="preserve" 
-                            style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5" 
-                            viewBox="0 0 3840 2160">
-
-                            <path d="M1743.09 299.417c0-41.024-28.49-74.331-63.57-74.331H217.419c-35.085 0-63.57 33.307-63.57 74.331V3208.46c0 41.02 28.485 74.33 63.57 74.33H1679.52c35.08 0 63.57-33.31 63.57-74.33V299.417Z" style="fill:rgba(235,235,235,.7)" transform="matrix(.826 0 0 .70641 1136.56 -159.004)"/>
-                            <path d="M94.173 29.051a2.374 2.374 0 0 0-2.374-2.373H8.201a2.374 2.374 0 0 0-2.374 2.373c0 24.38 19.793 44.173 44.173 44.173 24.38 0 44.173-19.793 44.173-44.173ZM53.472 39.849c-.306-.559-.627-2.383-.632-2.715l-.001-.1c0-2.842 1.741-5.333 4.152-5.333l.064.001c5.056.106 12.414 9.597 12.414 17.609 0 10.426-8.724 18.89-19.469 18.89-10.745 0-19.469-8.464-19.469-18.89 0-8.012 5.905-17.472 12.414-17.609l.064-.001c2.411 0 4.152 2.491 4.152 5.333l-.001.1c-.005.333-.326 2.156-.631 2.715-.711 1.302-1.909 2.799-1.928 2.819-1.143 1.217-2.415 2.375-3.41 3.675-1.29 1.685-2.159 3.586-2.159 5.948 0 6.2 4.915 11.233 10.968 11.233s10.967-5.033 10.967-11.233c0-2.396-.857-4.216-2.153-5.87-.96-1.225-2.206-2.347-3.372-3.684a19.133 19.133 0 0 1-1.97-2.888Z" style="fill:#8d3525" transform="matrix(13.1271 0 0 13.1904 1263.645 419.35)"/>
-                            <ellipse cx="851.651" cy="833.592" rx="132.017" ry="318.098" style="fill:#8d3525" transform="matrix(.69464 0 0 .698 1145.783 -115.526)"/>
-                            <path d="m1821.03 876.34 243.92-164.707" style="fill:none;stroke:#8e3525;stroke-width:131.64px" transform="matrix(.69464 0 0 .698 775.165 -139.24)"/>
-                            <path d="m1821.03 876.34 243.92-164.707" style="fill:none;stroke:#8e3525;stroke-width:131.4px" transform="scale(.69465 .698) rotate(64.03 2538.52 1669.003)"/>
-                            <path d="m1821.03 876.34 243.92-164.707" style="fill:none;stroke:#8e3525;stroke-width:131.35px" transform="matrix(.57569 .39061 -.38874 .57846 1332.458 -745.804)"/>
-                            <text x="1062.59" y="3442.28" style="font-size:231.98px;" transform="scale(.78079 .78455) rotate(17.806 6270.342 5866.19)">S</text>
-                            <text x="1215.14" y="3490.36" style="font-size:231.98px;" transform="matrix(.77141 .12121 -.12063 .77513 1205.935 -1272.7)">U</text>
-                            <text x="1398.04" y="3516.72" style="font-size:231.98px;" transform="matrix(.78077 -.00492 .0049 .78453 756.308 -1151.36)">P</text>
-                            <text x="1569.43" y="3514.19" style="font-size:231.98px;" transform="matrix(.77137 -.12151 .12093 .77508 363.313 -934.314)">E</text>
-                            <text x="1730.81" y="3488.14" style="font-size:231.98px;" transform="matrix(.74393 -.23819 .23705 .74752 10.432 -616.86)">R</text>
-                            <text x="1212.87" y="3881.18" style="font-size:344.146px;" transform="scale(.78079 .78455) rotate(20.225 6328.814 4445.746)">P</text>
-                            <text x="1435.09" y="3962.93" style="font-size:344.146px;" transform="matrix(.76278 .1675 -.1667 .76646 1085.15 -1528.964)">O</text>
-                            <text x="1690.71" y="4020.68" style="font-size:344.146px;" transform="matrix(.77983 .0389 -.0387 .78359 555.941 -1422.15)">W</text>
-                            <text x="2036.82" y="4032.31" style="font-size:344.146px;" transform="matrix(.77644 -.08267 .08227 .78018 75.79 -1174.274)">E</text>
-                            <text x="2260.66" y="4008.85" style="font-size:344.146px;" transform="matrix(.7595 -.18196 .1811 .76316 -279.146 -863.148)">R</text>
-                            <text x="2494.72" y="3951.73" style="font-size:344.146px;" transform="matrix(.73041 -.27723 .2759 .73393 -565.942 -468.629)">S</text>
-                            <text x="1468.31" y="4365.8" style="font-size:107.068px;" transform="scale(.78079 .78455) rotate(20.468 6898.773 3884.09)">J</text>
-                            <text x="1530.8" y="4389.15" style="font-size:107.068px;" transform="matrix(.74033 .24927 -.24808 .7439 1286.947 -1716.842)">U</text>
-                            <text x="1602.46" y="4413.06" style="font-size:107.068px;" transform="matrix(.74804 .22482 -.22375 .75165 1176.051 -1728.758)">L</text>
-                            <text x="1650.37" y="4427.58" style="font-size:107.068px;" transform="scale(.78079 .78455) rotate(15.325 8907.767 4110.995)">Y</text>
-                            <text x="1740.99" y="4451.76" style="font-size:107.068px;" transform="matrix(.76095 .17572 -.17488 .76462 949.21 -1730.886)">2</text>
-                            <text x="1802.38" y="4465.85" style="font-size:107.068px;" transform="matrix(.76559 .15406 -.15332 .76927 848.275 -1723.15)">0</text>
-                            <text x="1864.21" y="4478.22" style="font-size:107.068px;" transform="matrix(.76958 .13243 -.1318 .7733 747.275 -1710.156)">2</text>
-                            <text x="1926.21" y="4488.81" style="font-size:107.068px;" transform="scale(.78079 .78455) rotate(8.141 15568.74 4749.41)">5</text>
-                            <text x="2015.01" y="4500.96" style="font-size:107.068px;" transform="scale(.78079 .78455) rotate(5.869 20919.723 5237.221)">S</text>
-                            <text x="2078.8" y="4507.58" style="font-size:107.068px;" transform="scale(.78079 .78455) rotate(4.134 28893.206 5958.806)">U</text>
-                            <text x="2154.11" y="4513.21" style="font-size:107.068px;" transform="scale(.78079 .78455) rotate(2.013 57142.203 8511.085)">M</text>
-                            <text x="2251.23" y="4516.59" style="font-size:107.068px;" transform="matrix(.78077 -.00483 .0048 .78454 114.483 -1502.746)">M</text>
-                            <text x="2348.21" y="4515.73" style="font-size:107.068px;" transform="matrix(.78011 -.03258 .03243 .78387 -8.677 -1434.123)">E</text>
-                            <text x="2413.77" y="4513.09" style="font-size:107.068px;" transform="matrix(.77882 -.0556 .05533 .78258 -108.808 -1370.588)">R</text>
-                            <text x="2510.72" y="4505.66" style="font-size:107.068px;" transform="scale(.78079 .78455) rotate(-6.41 -14629.068 1983.82)">E</text>
-                            <text x="2576.18" y="4498.35" style="font-size:107.068px;" transform="matrix(.77304 -.11021 .10968 .77677 -337.28 -1194.769)">X</text>
-                            <text x="2645.69" y="4488.52" style="font-size:107.068px;" transform="matrix(.76908 -.13536 .1347 .77279 -437.49 -1102.776)">H</text>
-                            <text x="2721.34" y="4474.99" style="font-size:107.068px;" transform="matrix(.76552 -.15438 .15364 .76921 -509.81 -1024.942)">I</text>
-                            <text x="2754.73" y="4468.52" style="font-size:107.068px;" transform="matrix(.7616 -.17288 .17205 .76526 -579.787 -951.267)">B</text>
-                            <text x="2823.89" y="4452.69" style="font-size:107.068px;" transform="matrix(.75742 -.1905 .18959 .76107 -642.01 -871.197)">I</text>
-                            <text x="2856.95" y="4444.59" style="font-size:107.068px;" transform="matrix(.75289 -.20785 .20686 .75651 -703.522 -795.254)">T</text>
-                            <text x="2921.02" y="4426.78" style="font-size:107.068px;" transform="matrix(.74793 -.2252 .22412 .75153 -759.98 -709.73)">I</text>
-                            <text x="2953.75" y="4417.25" style="font-size:107.068px;" transform="scale(.78079 .78455) rotate(-18.149 -2998.91 2906.605)">O</text>
-                            <text x="3026.96" y="4393.26" style="font-size:107.068px;" transform="matrix(.73251 -.27158 .27028 .73604 -905.12 -478.516)">N</text>
-                            <text x="1687.56" y="3946.45" style="font-size:100px;" transform="scale(.78079 .78455) rotate(13.619 7307.084 3370.6)">S</text>
-                            <text x="1745.48" y="3960.68" style="font-size:100px;" transform="scale(.78079 .78455) rotate(12.115 8067.383 3396.586)">M</text>
-                            <text x="1834.18" y="3979.39" style="font-size:100px;" transform="matrix(.76667 .14849 -.14778 .77037 631.452 -1266.759)">I</text>
-                            <text x="1865.36" y="3985.51" style="font-size:100px;" transform="matrix(.76892 .13629 -.13563 .77262 580.21 -1257.513)">L</text>
-                            <text x="1920.43" y="3995.29" style="font-size:100px;" transform="matrix(.77138 .1214 -.12082 .7751 518.27 -1246.22)">E</text>
-                            <text x="2005.82" y="4008.35" style="font-size:100px;" transform="matrix(.77456 .09887 -.0984 .7783 424.371 -1224.067)">P</text>
-                            <text x="2070.09" y="4016.55" style="font-size:100px;" transform="matrix(.77652 .08195 -.08156 .78026 353.927 -1203.238)">O</text>
-                            <text x="2141.51" y="4024.21" style="font-size:100px;" transform="scale(.78079 .78455) rotate(4.448 19397.717 3643.08)">W</text>
-                            <text x="2237.8" y="4031.48" style="font-size:100px;" transform="matrix(.77973 .04086 -.04067 .78349 183.825 -1137.983)">E</text>
-                            <text x="2299.03" y="4034.72" style="font-size:100px;" transform="matrix(.78039 .02515 -.02503 .78415 119.402 -1107.02)">R</text>
-                            <text x="2364.85" y="4036.83" style="font-size:100px;" transform="matrix(.78073 .00971 -.00966 .78449 56.653 -1073.551)">E</text>
-                            <text x="2426.33" y="4037.65" style="font-size:100px;" transform="matrix(.78076 -.00609 .00606 .78453 -6.894 -1035.97)">D</text>
-                            <text x="2521.03" y="4036.51" style="font-size:100px;" transform="matrix(.7803 -.02773 .0276 .78406 -92.68 -978.933)">S</text>
-                            <text x="2580.77" y="4034.4" style="font-size:100px;" transform="matrix(.77962 -.0428 .04259 .78338 -151.31 -935.684)">Y</text>
-                            <text x="2643.27" y="4031.04" style="font-size:100px;" transform="matrix(.77851 -.05983 .05954 .78227 -216.507 -883.476)">N</text>
-                            <text x="2717.88" y="4025.25" style="font-size:100px;" transform="matrix(.77702 -.07698 .0766 .78076 -280.628 -826.377)">T</text>
-                            <text x="2779.74" y="4019.2" style="font-size:100px;" transform="matrix(.77518 -.09389 .09344 .77891 -342.44 -767.192)">H</text>
-                            <text x="2851" y="4010.56" style="font-size:100px;" transform="matrix(.7729 -.11127 .11074 .77662 -404.123 -701.784)">E</text>
-                            <text x="2911.9" y="4001.83" style="font-size:100px;" transform="scale(.78079 .78455) rotate(-9.279 -5329.75 3194.044)">S</text>
-                            <text x="2970.84" y="3992.09" style="font-size:100px;" transform="scale(.78079 .78455) rotate(-10.159 -4552.32 3196.316)">I</text>
-                            <text x="3002.18" y="3986.59" style="font-size:100px;" transform="matrix(.76626 -.15064 .14992 .76995 -536.535 -540.396)">Z</text>
-                            <text x="3062.93" y="3974.7" style="font-size:100px;" transform="matrix(.76281 -.16738 .16658 .76649 -589.53 -466.37)">E</text>
-                            <text x="3122.8" y="3961.69" style="font-size:100px;" transform="matrix(.7589 -.18448 .1836 .76255 -641.477 -387.594)">R</text>
-                            <text x="690.356" y="2870.18" style="font-size:491.988px;" transform="matrix(.24145 0 0 .24261 1830.49 -463.167)">MUSICAL</text>
-                            <text x="655.385" y="636.188" style="font-size:170.833px;" transform="matrix(.30443 -.72253 .71876 .3063 819.665 609.644)">I</text>
-                            <text x="676.563" y="599.824" style="font-size:170.833px;" transform="matrix(.46334 -.6314 .62817 .46604 794.789 446.753)">N</text>
-                            <text x="766.379" y="528.319" style="font-size:170.833px;" transform="matrix(.63785 -.45214 .44992 .64143 811.784 234.3)">S</text>
-                            <text x="849.666" y="495.624" style="font-size:170.833px;" transform="matrix(.74133 -.24546 .24438 .7454 843.506 24.104)">T</text>
-                            <text x="943.326" y="487.841" style="font-size:170.833px;" transform="matrix(.78057 -.00094 .0012 .78477 926.637 -221.882)">A</text>
-                            <text x="1044" y="511.839" style="font-size:170.833px;" transform="matrix(.73451 .26582 -.26416 .73838 1112.678 -497.62)">N</text>
-                            <text x="1138.2" y="577.337" style="font-size:170.833px;" transform="matrix(.61687 .48106 -.47828 .62004 1402.57 -717.16)">T</text>
-                            <g transform="translate(3617.684 1947.869) scale(.01886)">
-                              <clipPath id="a">
-                                <path d="M0 0h1024v1024H0z"/>
-                              </clipPath>
-                              <g clip-path="url(#a)">
-                                <path d="M891.27 380.782H645.133v94.678c0 52.272-42.389 94.678-94.676 94.7-52.29 0-94.662-42.405-94.662-94.678 0-52.288 42.372-94.678 94.662-94.678h94.676V95.127l-.818-.268c-41.648-13.194-84.385-19.784-130.398-19.784C272.604 75.1 77 270.7 77 512s195.6 436.9 436.9 436.9c221.605 0 404.672-164.968 433.094-378.787H701.93l189.34-189.331Z" style="fill:#fff;fill-rule:nonzero;stroke:#8e3525;stroke-width:49px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4"/>
-                              </g>
-                            </g>
-                        </svg> -->
-                        <svg id="hero-image" class="flood" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5" clip-rule="evenodd" viewBox="0 0 1313 2160">
-                            <defs>
-                                <path id="reuse-0" fill="none" stroke="#d31245" stroke-width="131.64" d="m1821.03 876.34 243.92-164.707"/>
-                            
-                                <path style="fill:none;" d="M968.182 465.393h1324.41v2163.24H968.182Z" />
-                                <clipPath id="_clip1">
-                                    <path d="M968.182 465.393h1324.41v2163.24H968.182Z" />
-                                </clipPath>
-                                <g clip-path="url(#_clip1)">
-                                    <g transform="matrix(1.4757,0,0,20.9308,-165.846,-27791.8)">
-                                
-                                        <path id="hero-image-text-field-a" style="fill:rgb(255,4,4);stroke:black;stroke-width:0.09px;"
-                                            d="M365.062 1385.79a850.678 50.525 0 1 0 1701.356 0a850.678 50.525 0 1 0 -1701.356 0" />
-                                    </g>
-                                    <g id="Smile-Powered-Synthesizer" serif:id="Smile Powered Synthesizer"
-                                        transform="matrix(1.93072,0,0,20.9799,-719.022,-27547.9)">
-                                        <path id="hero-image-text-field-b" style="fill:rgb(236,255,57);stroke:black;stroke-width:0.07px;"
-                                            d="M365.062 1385.79a850.678 50.525 0 1 0 1701.356 0a850.678 50.525 0 1 0 -1701.356 0" />
-                                    </g>
-                                    <g transform="matrix(1.78907,0,0,24.6978,-546.813,-32975.2)">
-                                        <path id="hero-image-text-field-c" style="fill:rgb(66,255,57);stroke:black;stroke-width:0.29px;"
-                                            d="M365.062 1385.79a850.678 50.525 0 1 0 1701.356 0a850.678 50.525 0 1 0 -1701.356 0" />
-                                    </g>
-                                    <g transform="matrix(1.02831,0,0,17.0504,378.071,-22408.4)">
-                                        <path id="hero-image-text-field-d" style="fill:rgb(110,98,255);stroke:black;stroke-width:8.59px;"
-                                            d="M365.062 1385.79a850.678 50.525 0 1 0 1701.356 0a850.678 50.525 0 1 0 -1701.356 0" />
-                                    </g>
-                                    <g transform="matrix(0.646394,-0.171392,0.350404,1.29407,545.49,168.022)">
-                                        <path id="hero-image-text-field-e" style="fill:rgb(0,104,124);"
-                                            d="M599.385 688.647a378.937 196.467 0 1 0 757.874 0a378.937 196.467 0 1 0 -757.874 0" />
-                                    </g>
-                                    <g transform="matrix(0.838744,0,0,0.706413,832.698,310.027)">
-                                        <path id="hero-image-text-field-f" style="fill:rgb(237,231,221);"
-                                            d="M1743.09,299.417C1743.09,258.393 1714.6,225.086 1679.52,225.086L217.419,225.086C182.334,225.086 153.849,258.393 153.849,299.417L153.849,3208.46C153.849,3249.48 182.334,3282.79 217.419,3282.79L1679.52,3282.79C1714.6,3282.79 1743.09,3249.48 1743.09,3208.46L1743.09,299.417Z" />
-                                    </g>
-                                </g>
-                                </g>      </defs>
-
-                             <!-- Curved text -->
-                                    <!-- <text>
-                                        <textPath class="curved-text-tone" font-size="22" alignment-baseline="top" startOffset="22%" xlink:href="#hero-image-text-field-a">
-                                            Testing Curve A
-                                        </textPath>
-                                    </text>
-                                    <text>
-                                        <textPath class="curved-text-tone" font-size="22" alignment-baseline="top" startOffset="22%" xlink:href="#hero-image-text-field-b">
-                                            Testing Curve B
-                                        </textPath>
-                                    </text>
-                                    <text>
-                                        <textPath class="curved-text-tone" font-size="22" alignment-baseline="top" startOffset="22%" xlink:href="#hero-image-text-field-c">
-                                            Testing Curve C
-                                        </textPath>
-                                    </text>
-                                    <text>
-                                        <textPath class="curved-text-tone" font-size="22" alignment-baseline="top" startOffset="22%" xlink:href="#hero-image-text-field-c">
-                                            Testing Curve D
-                                        </textPath>
-                                    </text>
-                                    <text>
-                                        <textPath class="curved-text-tone" font-size="22" alignment-baseline="top" startOffset="22%" xlink:href="#hero-image-text-field-e">
-                                            Testing Curve E
-                                        </textPath>
-                                    </text>
-                                    <text>
-                                        <textPath class="curved-text-tone" font-size="22" alignment-baseline="top" startOffset="22%" xlink:href="#hero-image-text-field-f">
-                                            Testing Curve F
-                                        </textPath>
-                                    </text> -->
-                    
-                            <path class="wallpaper" fill="#ede7dd" d="M1312.716 52.508c0-28.98-23.533-52.508-52.51-52.508H52.51C23.529 0-.001 23.528-.001 52.508v2054.986c0 28.977 23.53 52.508 52.51 52.508h1207.698c28.976 0 52.509-23.531 52.509-52.508V52.508Z"/>
-                            <path class="eye" d="M1236.22 802.544c0-17.28-13.954-31.3-31.163-31.3h-1097.4c-17.21 0-31.163 14.02-31.163 31.3 0 321.582 259.824 582.66 579.863 582.66 320.039 0 579.863-261.078 579.863-582.66Zm-534.286 142.43c-4.017-7.373-8.23-31.432-8.296-35.812-.013-.435-.013-.87-.013-1.319 0-37.487 22.854-70.344 54.504-70.344.288 0 .564 0 .84.013 66.37 1.398 162.96 126.588 162.96 232.27 0 137.523-114.521 249.166-255.572 249.166-141.05 0-255.572-111.643-255.572-249.166 0-105.682 77.516-230.463 162.96-232.27.276-.013.552-.013.84-.013 31.65 0 54.504 32.857 54.504 70.344 0 .436 0 .87-.013 1.32-.066 4.392-4.28 28.438-8.283 35.811-9.334 17.174-25.06 36.92-25.31 37.184-15.003 16.053-31.701 31.327-44.763 48.475-16.934 22.226-28.341 47.3-28.341 78.456 0 81.78 64.52 148.168 143.978 148.168 79.458 0 143.965-66.387 143.965-148.168 0-31.604-11.25-55.61-28.263-77.427-12.602-16.159-28.958-30.958-44.264-48.594-.985-1.174-14.755-17.635-25.86-38.094Z"/>
-                            <ellipse class="eye" cx="851.651" cy="833.592" rx="132.017" ry="318.098" transform="matrix(.69464 0 0 .698 -117.855 -115.526)"/>
-                            <use xlink:href="#reuse-0" stroke-width="131.64" transform="matrix(.69464 0 0 .698 -488.473 -139.24)"/>
-                            <use xlink:href="#reuse-0" stroke-width="131.4" transform="scale(.69465 .698) rotate(64.03 1628.963 214.242)"/>
-                            <use xlink:href="#reuse-0" stroke-width="131.35" transform="matrix(.57569 .39061 -.38874 .57846 68.82 -745.804)"/>
-                            <text x="690.356" y="2870.18" font-size="491.988" transform="matrix(.24145 0 0 .24261 566.845 -463.167)">MUSICAL</text>
-                            <text x="1062.59" y="3442.28" font-size="231.98" transform="matrix(.74339 .2399 -.23876 .74697 371.47 -1283.85)">S</text>
-                            <text x="1215.14" y="3490.36" font-size="231.98" transform="matrix(.77141 .12121 -.12063 .77513 -57.708 -1272.7)">U</text>
-                            <text x="1398.04" y="3516.72" font-size="231.98" transform="matrix(.78077 -.00492 .0049 .78453 -507.335 -1151.36)">P</text>
-                            <text x="1569.43" y="3514.19" font-size="231.98" transform="scale(.78079 .78455) rotate(-8.91 -8219.133 6804.65)">E</text>
-                            <text x="1730.81" y="3488.14" font-size="231.98" transform="scale(.78079 .78455) rotate(-17.674 -3331.2 4768.864)">R</text>
-                            <text x="1212.87" y="3881.18" font-size="344.146" transform="scale(.78079 .78455) rotate(20.225 5519.604 -91.369)">P</text>
-                            <text x="1435.09" y="3962.93" font-size="344.146" transform="matrix(.76278 .1675 -.1667 .76646 -178.491 -1528.964)">O</text>
-                            <text x="1690.71" y="4020.68" font-size="344.146" transform="matrix(.77983 .0389 -.0387 .78359 -707.7 -1422.15)">W</text>
-                            <text x="2036.82" y="4032.31" font-size="344.146" transform="scale(.78079 .78455) rotate(-6.049 -14925.429 13649.209)">E</text>
-                            <text x="2260.66" y="4008.85" font-size="344.146" transform="matrix(.7595 -.18196 .1811 .76316 -1542.788 -863.148)">R</text>
-                            <text x="2494.72" y="3951.73" font-size="344.146" transform="matrix(.73041 -.27723 .2759 .73393 -1829.584 -468.629)">S</text>
-                            <text x="1530.48" y="4388.98" font-size="107.068" transform="matrix(.73992 .2505 -.2493 .74348 29.282 -1716.837)">F</text>
-                            <text x="1590.71" y="4409.41" font-size="107.068" transform="matrix(.74733 .22719 -.2261 .75094 -77.288 -1726.86)">O</text>
-                            <text x="1664.25" y="4431.62" font-size="107.068" transform="scale(.78079 .78455) rotate(14.847 8346.078 -2074.37)">R</text>
-                            <text x="1758.43" y="4455.98" font-size="107.068" transform="matrix(.7625 .16885 -.16804 .76617 -346.527 -1728.673)">Y</text>
-                            <text x="1823.91" y="4470.47" font-size="107.068" transform="matrix(.7675 .14411 -.14342 .7712 -462.072 -1716.861)">O</text>
-                            <text x="1899.36" y="4484.54" font-size="107.068" transform="matrix(.7719 .11805 -.11749 .77562 -583.711 -1697.855)">U</text>
-                            <text x="2000.74" y="4499.31" font-size="107.068" transform="matrix(.77633 .08369 -.08329 .78007 -743.824 -1660.988)">A</text>
-                            <text x="2072.77" y="4507.08" font-size="107.068" transform="scale(.78079 .78455) rotate(4.228 27482.951 -16015.953)">N</text>
-                            <text x="2152.67" y="4512.94" font-size="107.068" transform="scale(.78079 .78455) rotate(2.296 49581 -32489.326)">D</text>
-                            <text x="2254.01" y="4516.37" font-size="107.068" transform="matrix(.78079 -.00077 .00077 .78455 -1130.944 -1511.946)">Y</text>
-                            <text x="2321.12" y="4516.36" font-size="107.068" transform="matrix(.7804 -.0248 .02468 .78416 -1238.011 -1454.368)">O</text>
-                            <text x="2397.93" y="4513.91" font-size="107.068" transform="matrix(.77917 -.0504 .05015 .78293 -1349.987 -1385.535)">U</text>
-                            <text x="2473.38" y="4509.03" font-size="107.068" transform="matrix(.77713 -.0758 .07545 .78088 -1458.618 -1309.633)">R</text>
-                            <text x="2570.03" y="4499.11" font-size="107.068" transform="matrix(.77337 -.10791 .1074 .7771 -1591.59 -1202.794)">F</text>
-                            <text x="2633.18" y="4490.44" font-size="107.068" transform="matrix(.76988 -.13065 .13003 .7736 -1682.64 -1120.461)">R</text>
-                            <text x="2702.49" y="4478.55" font-size="107.068" transform="matrix(.7668 -.14779 .14708 .7705 -1748.405 -1051.384)">I</text>
-                            <text x="2735.91" y="4472.33" font-size="107.068" transform="matrix(.76322 -.1655 .1647 .7669 -1816.027 -981.935)">E</text>
-                            <text x="2800.32" y="4458.56" font-size="107.068" transform="matrix(.75753 -.19006 .18915 .76118 -1905.67 -877.27)">N</text>
-                            <text x="2877.89" y="4439.15" font-size="107.068" transform="matrix(.7503 -.2171 .21606 .75391 -1998.836 -752.911)">D</text>
-                            <text x="2949.76" y="4418.37" font-size="107.068" transform="matrix(.74312 -.24073 .23957 .7467 -2074.893 -636.39)">S</text>
-                            <text x="3010.71" y="4398.51" font-size="107.068" transform="scale(.78079 .78455) rotate(-19.135 -3434.484 7717.28)">!</text>
-                            <text x="1626.85" y="3930.25" font-size="100" transform="matrix(.75372 .2048 -.2038 .75735 -401.079 -1277.093)">•</text>
-                            <text x="1687.56" y="3946.45" font-size="100" transform="scale(.78079 .78455) rotate(13.619 6497.875 -3405.998)">S</text>
-                            <text x="1745.48" y="3960.68" font-size="100" transform="scale(.78079 .78455) rotate(12.115 7258.174 -4228.699)">M</text>
-                            <text x="1834.18" y="3979.39" font-size="100" transform="matrix(.76667 .14849 -.14778 .77037 -632.188 -1266.759)">I</text>
-                            <text x="1865.36" y="3985.51" font-size="100" transform="matrix(.76892 .13629 -.13563 .77262 -683.43 -1257.513)">L</text>
-                            <text x="1920.43" y="3995.29" font-size="100" transform="matrix(.77138 .1214 -.12082 .7751 -745.369 -1246.22)">E</text>
-                            <text x="2005.82" y="4008.35" font-size="100" transform="matrix(.77456 .09887 -.0984 .7783 -839.269 -1224.067)">P</text>
-                            <text x="2070.09" y="4016.55" font-size="100" transform="matrix(.77652 .08195 -.08156 .78026 -909.713 -1203.238)">O</text>
-                            <text x="2141.51" y="4024.21" font-size="100" transform="scale(.78079 .78455) rotate(4.448 18588.508 -17194.254)">W</text>
-                            <text x="2237.8" y="4031.48" font-size="100" transform="matrix(.77973 .04086 -.04067 .78349 -1079.814 -1137.983)">E</text>
-                            <text x="2299.03" y="4034.72" font-size="100" transform="matrix(.78039 .02515 -.02503 .78415 -1144.238 -1107.02)">R</text>
-                            <text x="2364.85" y="4036.83" font-size="100" transform="matrix(.78073 .00971 -.00966 .78449 -1206.987 -1073.551)">E</text>
-                            <text x="2426.33" y="4037.65" font-size="100" transform="matrix(.78076 -.00609 .00606 .78453 -1270.534 -1035.97)">D</text>
-                            <text x="2521.03" y="4036.51" font-size="100" transform="matrix(.7803 -.02773 .0276 .78406 -1356.32 -978.933)">S</text>
-                            <text x="2580.77" y="4034.4" font-size="100" transform="matrix(.77962 -.0428 .04259 .78338 -1414.95 -935.684)">Y</text>
-                            <text x="2643.27" y="4031.04" font-size="100" transform="matrix(.77851 -.05983 .05954 .78227 -1480.147 -883.476)">N</text>
-                            <text x="2717.88" y="4025.25" font-size="100" transform="matrix(.77702 -.07698 .0766 .78076 -1544.268 -826.377)">T</text>
-                            <text x="2779.74" y="4019.2" font-size="100" transform="matrix(.77518 -.09389 .09344 .77891 -1606.08 -767.192)">H</text>
-                            <text x="2851" y="4010.56" font-size="100" transform="matrix(.7729 -.11127 .11074 .77662 -1667.763 -701.784)">E</text>
-                            <text x="2911.9" y="4001.83" font-size="100" transform="scale(.78079 .78455) rotate(-9.279 -6138.96 13166.076)">S</text>
-                            <text x="2970.84" y="3992.09" font-size="100" transform="matrix(.76855 -.13838 .13771 .77225 -1759.543 -590.627)">I</text>
-                            <text x="3002.18" y="3986.59" font-size="100" transform="matrix(.76626 -.15064 .14992 .76995 -1800.175 -540.396)">Z</text>
-                            <text x="3062.93" y="3974.7" font-size="100" transform="matrix(.76281 -.16738 .16658 .76649 -1853.17 -466.37)">E</text>
-                            <text x="3122.8" y="3961.69" font-size="100" transform="matrix(.7589 -.18448 .1836 .76255 -1905.117 -387.594)">R</text>
-                            <text x="3210.91" y="3939.86" font-size="100" transform="matrix(.75372 -.2048 .2038 .75735 -1962.2 -286.1)">•</text>
-                            <text x="655.385" y="636.188" font-size="170.833" transform="matrix(.30443 -.72253 .71876 .3063 -443.978 609.644)">I</text>
-                            <text x="676.563" y="599.824" font-size="170.833" transform="matrix(.46334 -.6314 .62817 .46604 -468.854 446.753)">N</text>
-                            <text x="766.379" y="528.319" font-size="170.833" transform="matrix(.63785 -.45214 .44992 .64143 -451.86 234.3)">S</text>
-                            <text x="849.666" y="495.624" font-size="170.833" transform="matrix(.74133 -.24546 .24438 .7454 -420.137 24.104)">T</text>
-                            <text x="943.326" y="487.841" font-size="170.833" transform="matrix(.78057 -.00094 .0012 .78477 -337.006 -221.882)">A</text>
-                            <text x="1044" y="511.839" font-size="170.833" transform="matrix(.73451 .26582 -.26416 .73838 -150.965 -497.62)">N</text>
-                            <text x="1138.2" y="577.337" font-size="170.833" transform="matrix(.61687 .48106 -.47828 .62004 138.926 -717.16)">T</text>
-                          </svg>
-                          
-
-                        <figcaption class="sr-only">Instant Musical Superpowers, for you and your friends!</figcaption>
-                </figure>
-                
-            </article>
-
-            <!-- Background wavy mask -->
+            <include src="./source/partials/hero.html"></include>
+            <include src="./source/partials/nav.html"></include>
+         
+            <!-- Background wavy mask hero-mask-wavy-top-only.svg
             <div id="hero-mask" class="sticky full-width page">
                 <img class="flood"
                     width="9000" height="2160"
-                    src="./assets/figures/hero-mask-wavy-top-only.svg" 
+                    src="./assets/figures/hero-mask-wavy.svg"  
                     alt="">
-            </div>
+            </div> -->
 
             <!-- Warnings & Tips for use --> 
             <aside class="warning">
-                <h4>Warning</h4>
+                <h4 class="h6">Warning</h4>
                 <p>Please be very careful using this website if you are photosensitive</p>
             </aside> 
 
@@ -548,11 +39,11 @@
                 </header>
 
                 <p>The smile powered synthesizer that grants you and your friends radical new musical superpowers.</p>
-                <p>Rather than playing a musical instrument, the PhotoSYNTH plays you!</p>
                 <p>This magic mirror tracks your movements, moods and expressions and converts them into music — giving your reflection a musical purpose!</p> 
                 <p>It is fun and easy to make a musical masterpiece, especially if you collaborate with friends.</p>  
-
-                <p>Designed from the ground up to be the most accessible musical instrument possible with the sole intention of empowering everybody to make lovely music! Express yourself!</p>
+                <p>Rather than playing a musical instrument, this musical instrument plays you!</p>
+                
+                <p>Designed from the ground up to be the most accessible musical instrument possible with the sole intention of empowering everybody to make lovely music! <em>Express yourself!</em></p>
                 
                 <blockquote class="full-height">
                     <p class="quote">
@@ -561,17 +52,13 @@
                     </p>
                     <!-- <p class="citation">Snow White<cite></cite></p> -->
                 </blockquote>
-               
+            
                 <p>Without any training you can instantly make great music using movements familiar to you. Easy... Like a Sunday morning</p>
                 <p>Created alongside <a href="https://drakemusic.org">Drake Music Charity</a>, specialists in accessible technology, and with the help &amp; guidance of hundreds of differently-abled people, this mixed-reality pop music machine will put a smile on your face and make it musical =D</p>
-               
-                <p>
-                    <em>Find a purpose for your reflection!</em>
-                </p>
+            
             </article>
             
-
-            <article class="text-scroller-vertical"> 
+           <article class="text-scroller-vertical"> 
                 <h5>
                     The PhotoSYNTH is a        
                 </h5>
@@ -580,12 +67,10 @@
                     <li class="sticky">Collaborative</li>
                     <li class="sticky">Mixed Reality</li>
                     <li class="sticky">Sympathetic Synthesizer</li>
-                    <!-- <li class="sticky">Immersive</li> -->
                     <li class="sticky">Musical Instrument</li>
                     <li class="sticky">Science Project</li>
                 </ul>
             </article>
-
                 
             <aside>
                 <p>
@@ -599,7 +84,7 @@
         <!-- MIDI Equipment ------------------------------------------- -->
         <aside id="midi-equipment" class="shadow" data-observe hidden>
             <hgroup>
-                <h5 class="h3 heading-icon">This site is MIDI enabled for your listening pleasure</h5>
+                <h5 class=" heading-icon">This site is MIDI enabled for your listening pleasure</h5>
                 <p id="midi-status">Connect your MIDI equipment now and <label for="toggle-midi">press the button.</label></p>
             </hgroup>
             
@@ -623,10 +108,10 @@
 
         <!-- About the event -->
         <section id="event" class="wavey shadow" data-observe >
-               
+            
             <!-- Event ------------------------------------------- -->
             <article id="summary" class="page split" data-readable>
-           
+        
                 <header class="underline">
                     <h3 class="heading-icon">Summer Science Exhibition 2025</h3>
                     <h4>Ever dreamed of being more musical?<br>Well alright... Hold tight!</h4>
@@ -637,7 +122,7 @@
 
                 <p>The Summer Science Exhibition is a free six-day festival showcasing the science shaping our future and will be held at the Royal Society in London from 
                     <time datetime="2025-07-01 09:00">July 1<sup>st</sup></time>
-                     to 
+                    to 
                     <time datetime="2025-07-07 09:00">July 6<sup>th</sup>, 2025</time>.
                 </p>
             
@@ -645,12 +130,12 @@
                 
                 <p>Come and join us this summer for a fun musical celebration of inclusive technologies and have a play with some of the newest instruments from the <a href="#amic">Accessible Music Instrument Collection</a> and learn all about the science and research behind them.</p>
                 
-                <p class="box">
+                <p class="box h6">
                     <img class="icon float outside-leaning-polygon" width="100" height="100" src="/source/assets/icons/hearing-loop.svg" alt="Hearing loop enabled venue.">
 
-                    The exhibition will feature a series of interactive installations, hands-on demonstrations and talks.
+                    The exhibition will feature a series of interactive installations, hands-on demonstrations, musical performances and talks.
                 </p>
-               
+            
                     <!-- <h4>Come and join us for a fun musical celebration of diversity, inclusive technology and science!</h4> -->
             </article>
         
@@ -698,9 +183,9 @@
                         <dt>Category</dt>
                         <dd>Exhibition</dd>
                     </dl>
-                   
+                
                 </figure>
-               
+            
             </aside>
 
             <!-- Venue -->
@@ -765,11 +250,39 @@
                                 <td>There is a quiet room on the ground floor next to the marble hall. <em>Please ask the reception desk if you need access to this space.</em></td>
                             </tr>
                         </table>
+                                    
+                        <aside id="share-menu" hidden>
+                            <share-menu
+                                id="share"
+                                title="Share!"
+                                text="Share this event"
+                                url="https://photosynth/"
+                                image="https://photosynth/assets/logos/photosynth-square.svg"
+                                dialog-title="Share now"
+                                copy-hint="Copy to clipboard"
+                                handle="always"
+                                no-backdrop
+                                >
+                                <share-target-email></share-target-email>
+                                <share-target-facebook></share-target-facebook>
+                                <share-target-telegram></share-target-telegram>
+                            </share-menu>
+
+                            <label>
+                                Quick share
+                                <button class="button-share cta" onclick="share.share()">Share this site
+                                    <img src="/source/assets/diagrams/qr-photosynth_lol.svg" width=256 height=256 alt="QR code for sharing this site"/>
+                                </button>
+                            </label>
+                        </aside>
                     
                     </figure>
                 </details>
 
-                <figure role="figure" aria-label="" >
+                
+                <details>
+                    <summary><h6>Getting there</h6></summary>
+                <figure role="figure" class="venue-address" aria-label="" >
                     
                     <iframe class="map" width="1080" height="540" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1344162225723267%2C51.50472238057011%2C-0.1302212476730347%2C51.506889393716634&amp;layer=mapnik"></iframe>
                     <a class="link-map" href="https://www.openstreetmap.org/?#map=18/51.505806/-0.132319">View Larger Map</a>
@@ -779,52 +292,24 @@
                         </address>                       
                     </figcaption>
 
-                    <details>
-                        <summary><h6>Getting there</h6></summary>
                         <p>
                             Underground stations: Charing Cross and Piccadilly Circus
                             Bus routes: 12, 13, 15 and 453.
                             Coach station: Connections from Victoria coach station
                             <a rel="noopener noreferrer" target="_blank" href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">See official recommendations</a>       
                         </p>
-                    </details>
+                   
                 </figure>
             
                 <a href="https://royalsociety.org/science-events-and-lectures/summer-science-exhibition/" class="cta">Learn more at the Royal Society</a>
-
+            </details>
             </article>
 
-            <aside id="share-menu" hidden>
-                <share-menu
-                    id="share"
-                    title="Share!"
-                    text="Share this event"
-                    url="https://photosynth/"
-                    image="https://photosynth/assets/logos/photosynth-square.svg"
-                    dialog-title="Share now"
-                    copy-hint="Copy to clipboard"
-                    handle="always"
-                    no-backdrop
-                    >
-                    <share-target-email></share-target-email>
-                    <share-target-facebook></share-target-facebook>
-                    <share-target-telegram></share-target-telegram>
-                </share-menu>
-
-                <label>
-                    Quick share
-                    <button class="button-share cta" onclick="share.share()">Share this site</button>
-                </label>
-
-                <img src="/source/assets/diagrams/qr-photosynth_lol.svg" width=256 height=256 alt="QR code for sharing this site"/>
-            </aside>
-
         </section>
-   
+
     <!-- Waveform visualiser -->
     <!-- <canvas id="visualiser" class="sticky viewport-width" inert width=800 height=400></canvas> -->
             
-     
         <!-- SCIENCE -->
         <section id="science" class="detach-z-index bg-clear" data-observe data-hide-notes>
                             
@@ -846,8 +331,7 @@
                 This ensures that every step is a step forwards, towards improvement.</p>
 
                 <p>By tracking your motions and emotions in real-time, the PhotoSYNTH converts your everyday movements into music and captures the subtleties and nuances of your expressions and performance.</p>
-                <p>Rather than playing a musical instrument, the <cite>Photo<wbr>SYNTH</cite> plays you!</p>
-            
+
                 <p>
                     An expressive musical instrument is at the zenith of complicated fidelity, some are incredibly complicated machines that require time to master.
                     The same techniques used to simplify the complex act of making music can be used for simplifying the control of other things.
@@ -870,12 +354,12 @@
     
             <!-- Menu Table of Contents -->
             <nav id="process-links" class="page">
-               
+            
                 <header class="">
                     <h3 class="heading-icon">The process of capturing emotions and expressions</h3>
                     <h4 >In order to convert them into other mediums</h4>
                 </header>
-               
+            
                 <ol class="grid-icon-menu">
                     <li>
                         <a href="#capture-face">
@@ -938,11 +422,11 @@
 
             <!-- Processes -->
             <!-- 1. Capture face -->
-            <article id="capture-face" class="bg-translucent shadow bg-children">
+            <article id="capture-face" class="bg-translucent shadow bg-children wavey-top">
 
                 <header class="underline">
                     <h3 class="heading-icon">Digitising the human form</h3>
-                    <h4></h4>
+                    <h4>"Computer vision"</h4>
                 </header>
 
                 <p>
@@ -963,7 +447,9 @@
                     <figcaption id="diagram-face-scan-label">Face as observed by the camera</figcaption>
                 </figure>
 
-                <p class="wavey-top">By observing the contours of the </p>
+                <p class="wavey-top">
+                    Using a machine learning algoritmn trained on millions of faces from all directions, the computer can examine the image for features it may recognise.... a nose, mouth, an eye... and 
+                </p>
 
                 <!-- Background mask & warnings -->
                 <figure id="diagram-face-scan-overlay" class="diagram sticky full-width bg-clear" role="figure" aria-label="diagram-face-scan-overlay-label">
@@ -978,16 +464,16 @@
                     <figcaption id="diagram-face-scan-overlay-label">Facial landmarks are detected and tracked</figcaption>
                 </figure>
 
-                <p class="wavey">Using facial landmarks as references, the user's facial expressions and mood are determinded.</p>
+                <p class="wavey-top">Using facial landmarks as references, the user's facial expressions and mood are determinded.</p>
 
                 <!-- </article> -->
-                <article id="technology" class="bg-children square stackable shadoow wavey" data-observe data-readable>
+                <article id="technology" class="bg-children square stackable shadow  wavey" data-observe data-readable>
                     
                 <!-- 2. Digitse Face ------------------------------------------- -->
             
                     <header class="underline" id="technology" class="" data-observe>
                         <h3 class="heading-icon">How to read a human being</h3>
-                        <h4>Step 2 : Computer Vision</h4>
+                        <h4>Find a purpose for your reflection</h4>
                     </header>
 
                     <p>Computers are very good at recognising patterns. 
@@ -1015,12 +501,12 @@
                         <figcaption id="diagram-face-landmarks-overlay-label">Mood recognised</figcaption>
                     </figure>
                 
-                
-                    <i class="emoji">🦆🦆🦆</i>
-
                     <p>
                         A well-trained machine can read you like a book...
                     </p>
+
+                
+                    <i class="emoji">🦆</i>
 
                     <p class="flood">
                         <em>But can it play you like a musical instrument?</em>
@@ -1060,6 +546,7 @@
                         alt="Mood has been recognised">
                     <figcaption id="diagram-face-mood-recognition-label">Mood has been recognised</figcaption>
                 </figure>
+
                 
             </article>
 
@@ -1068,14 +555,14 @@
             <canvas id="visualiser" class="sticky viewport-width" inert width=800 height=400></canvas>
         
             
-             <!-- 4. Generate music ------------------------------------------- -->
+            <!-- 4. Generate music ------------------------------------------- -->
             <article id="shapes" class="shadow bg-children" data-full-keyboard data-observe data-readable>
                 
                 <header class="underline">
                     <h3 class="heading-icon" data-timbre>The Shape of Sound</h3>
                     <h4>Unique Sonic characteristics - The Sound of Shapes</h4>
                 </header>
-               
+            
                 <p>Each sound has a distinct shape, similar to a fingerprint or snowflake. This affects how the sound travels, bounces off things, what effect it will have on matter and how that is perceived by your ears (if at all) .</p>
                     
 
@@ -1084,7 +571,7 @@
                     Noises that rapidly repeat like patterns are called notes.
                     Each note (also known as a pitch) is determined by the amount of times that the noise patterns repeat in a fixed time period, often refered to as its vibration, wavelength or frequency.</p>
                 <p>Slow repeating sounds are perceived as deep or bassy, whist the faster they vibrate, the more high pitched they sound.</p>
-               
+            
                 <p>Play with the keyboard below to see how the shape varies between high notes and low notes..</p>
                 
                 <p>Due to this extra detail in the higher frequencies, our brains can determine where they are coming from (their directionality) which is unlike bass that is omnipresent and all emcompassing.</p> 
@@ -1142,11 +629,11 @@
                 </section>
 
             </article>
- 
+
             <form id="timbres" action="/" class="sticky top">
                 
                 <fieldset class="timbre-selector">
-                    <legend class="">Shape (Timbre)</legend>
+                    <legend class="">Sound Shapes, also known as timbres</legend>
                     <label for="song-timbre-random">
                         <!-- <input id="song-timbre-random" class="cta" type="button" value="random"> -->
                         <button class="" id="song-timbre-random" type="button">Random</button>
@@ -1248,10 +735,10 @@
                 
             </aside>
             
-            <details id="percussion">
+            <details id="percussion" hidden>
                 <summary><h4>Percussion</h4></summary>
                 <!-- <legend></legend> -->
-                <form action="/"">
+                <form action="/">
                     <fieldset id="drum-sequences">
                         <legend>Drum Sequencer</legend>
                         
@@ -1334,7 +821,7 @@
             </details>
 
             <!-- audio analyser food -->    
-            <article id="waveforms" class="page full-height shadoow bg" data-observe>
+            <article id="waveforms" class="page full-height shadow  bg" data-observe>
                 
                 <header>
 
@@ -1363,9 +850,9 @@
                         <button class="button-image" id="button-sad" type="button">Sad</button>
                     </label>
                 </fieldset>
-           
+        
                 
-                <blockquote class="sticky full-height">
+                <blockquote class="full-height">
                     <p class="quote">Music is an unconscious exercise in mathematics in which the mind is unaware that it is calculating.</p>
                     <p class="citation">Gottfried Wilhelm Leibniz <cite></cite></p>
                 </blockquote>
@@ -1375,7 +862,7 @@
             
                 <p>The dulset tones of "mumese" are universal, a high pithed, softer sounding way to communicate with children and cute animals.</p>
                 
-                <blockquote class="sticky full-height">
+                <blockquote class="full-height">
                     <p class="quote">Music is an unconscious exercise in communication in which the mind is unaware that it is being guided.</p>
                     <p class="citation sr-only">Zenon Olenski <cite></cite></p>
                 </blockquote>
@@ -1395,9 +882,9 @@
                 <p class="quote">Any sufficiently advanced technology is indistinguishable from magic.</p>
                 <p class="citation">Arthur C Clarke<cite></cite></p>
             </blockquote>
-             
+            
             <!-- Chords & Patterns ------------------------------------------- -->
-            <article id="chords" class="bg-children shadow" data-observe data-readable>
+            <article id="chords" class="bg-children shadow wavey" data-observe data-readable>
                 <header>
                     <h3 class="heading-icon">Shapes &amp; Patterns</h3>
                     <h4>Chords & Patterns</h4>
@@ -1647,12 +1134,12 @@
                         <input id="emotion-fearful" type="radio" name="emotion" value="fearful"> -->
 
                     </fieldset>
-                 
+                
                     <a href="#link-chords" class="icon-chevron cta ghost full-width">Return to the circular synthesizer</a>
                     <!-- <a href="#circular-synthesizer" class="cta">Return to the circular synthesizer</a> -->
 
                 </form>
-              
+            
             </article>
 
         </section>
@@ -1716,10 +1203,10 @@
             </article>
 
             <!-- AMIC ------------------------------------------- -->
-              
+            
             <article class="page" id="laboratory" observe>
 
-                 <section class="split">
+                <section class="split">
 
                     <header class="underline">
                         <h3 class="heading-icon">#DMLab</h3>
@@ -1727,7 +1214,7 @@
                     </header>
 
                     <p>A Celebration of diversity & Inclusion.</p>
-                   
+                
                     <p>
                         Over 14 years, working directly with researchers, scientists, technologists, disabled artists and even people with no musical abilities, #DMLab has been researching ways to grant musical superpowers through research and technology.
                     </p>
@@ -1736,15 +1223,15 @@
                         The DMLab workshop originally started in London over a decade ago and is still running today but there is also now a Manchester branch. 
                         Bringing together people with technical knowledge and people with disabilities, and different abilities, to work together to research and develop new ways of interacting with technology in order to make music.
                     </p> 
-                   
-                  
+                
+                
                 </section>
 
                 <aside id="lab-venue-details">
 
                     <h5>#DMLab Events and Workshops</h5>
 
-                     <dl id="lab-venue-london" class="data-address">
+                    <dl id="lab-venue-london" class="data-address">
                     
                         <dt>London Venue</dt>
                         <dd>DMLab RichMix</dd>
@@ -1835,10 +1322,10 @@
                     <h4>Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h4>
                 </header>
                 
-                <figure id="photo-amic" class="bumpers" role="figure" aria-label="photo-amic-label">
-                    <img loading="lazy" src="/source/assets/photos/John Kelly Presenting some accessible musical instruments.jpg" alt="John Kelly playing some accessible musical instruments.">
+                <figure id="photo-amic" class="" role="figure" aria-label="photo-amic-label">
+                    <img loading="lazy" width=1500 height=1000 src="/source/assets/photos/John Kelly Presenting some accessible musical instruments.jpg" alt="John Kelly playing some accessible musical instruments.">
                     <figcaption id="photo-amic-label">
-                        John Kelly Presenting some accessible musical instruments
+                        Rock n roll legend, John Kelly on stage playing some accessible musical instruments
                     </figcaption>
                 </figure>
                 
@@ -1869,16 +1356,16 @@
 
                     Disabled musicians will be able to visit the collection, test out different instruments using an accessible workstation and (hopefully) find one which suits them. Makers can come and be inspired or see what has already been built. Academics can call upon it for research and teachers can explore options for their students.
                 </details>
-                   
+                
                 <a class="cta" href="https://accessiblemusicalinstrumentcollection.org/case_studies/photosynth/">Learn more on the AMIC Website</a>
 
             </article>
 
         </section>
 
-   
+
         <!-- History ------------------------------------------- -->
-      
+    
         <!-- <section id="playback" class="sticky bg-transparent full-height full-width" data-observe>
             <canvas id="song-in-pixels" inert width="320" height="128"></canvas>
         </section> -->
@@ -1945,25 +1432,25 @@
                     <h3 class="heading-icon">Frequently Asked Questions, FAQ</h3>
                     <h4>Answers to common questions</h4>
                 </header>
-               
+            
                 <details name="questions">
                     <summary><h5>What else can we expect</h5></summary>
                     <p>
-                       Apart from showcasing some exciting music technology from the AMIC, including the PhotoSYNTH and mi mu gloves, you might see some members of the London Philharmonic Orchestra, perhaps even a pop star or two! It always pays to expect the unexpected though, and there will be more surprises announced closer to the event.
+                    Apart from showcasing some exciting music technology from the AMIC, including the PhotoSYNTH and mi mu gloves, you might see some members of the London Philharmonic Orchestra, perhaps even a pop star or two! It always pays to expect the unexpected though, and there will be more surprises announced closer to the event.
                     </p>
                 </details>
-               
+            
                 <details name="questions">
                     <summary><h5>What are Mi Mu gloves?</h5></summary>
                     <p>
-                       Mi Mu gloves are special handworn controllers that allow you to interface with music technology using your hands and arms.
-                       <a rel="noopener noreferrer" target="_blank" href="https://mimugloves.com/">See their official website</a>       
+                    Mi Mu gloves are special handworn controllers that allow you to interface with music technology using your hands and arms.
+                    <a rel="noopener noreferrer" target="_blank" href="https://mimugloves.com/">See their official website</a>       
                     </p>
                 </details>
                 <details name="questions">
                     <summary><h5>Where can I learn more about the research?</h5></summary>
                     <p>
-                       There are a number of research papers written about this topic including :
+                    There are a number of research papers written about this topic including :
                     </p>
                     <ul role="list">
                         <li><a rel="noopener noreferrer" target="_blank" href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/986301/Human_Augmentation_SIP_access2.pdf">Musical Avatars</a></li>
@@ -1976,7 +1463,7 @@
                     <summary><h5>Cool website! How did you make it?</h5></summary>
                     <p>
                         This website was designed and created by <a href="https://designerzen.com" target="_blank">designerzen</a> of Awesomething social enterprise.
-                        Hand coded using HMTL, CSS and Javascript, using Web-Audio and the Web-MIDI APIs.
+                        Hand coded in HMTL, CSS and Javascript, using Web-Audio and the Web-MIDI APIs and Canvas for some of the visuals.
                         <a href="https://github.com/designerzen/photosynth.lol" target="_blank">The source code is available on github</a>
                     </p>
                 </details>
@@ -1989,9 +1476,11 @@
         <canvas id="wallpaper"></canvas>
 
     </main>
-
-
-
+    
+    <label hidden>
+        Load Progress
+        <meter id="load-progress" min="0" max="1" value="0"></meter>
+    </label>
 
     <!-- Bottom section -->
     <footer data-observe data-full-keyboard>
@@ -1999,11 +1488,10 @@
 
         <article id="affiliates">
             <!-- <h5 class="h3">Brought to you by</h5> -->
-            <h5 class="h4">A timely collaborative duet between</h5>
-           
-
+            <h5 class="h4 middle">A timely duet between</h5>
+        
             <ul role="list">
-  
+
                 <!-- <li><a href="https://www.drakemusic.org/pages-that-are-currently-not-live-on-the-site/instrument-led-projects/photosynth-by-zenon-olenski/" -->
                 <li><a href="https://www.drakemusic.org/"
                         rel="noopener noreferrer" target="_blank">
@@ -2024,7 +1512,7 @@
                         
                     </a>
                 </li>
-                 <!-- <li><a href="https://accessiblemusicalinstrumentcollection.org/" rel="noopener noreferrer" target="_blank">
+                <!-- <li><a href="https://accessiblemusicalinstrumentcollection.org/" rel="noopener noreferrer" target="_blank">
                         <figure role="figure" aria-label="" >
                             <figcaption><small>Available at</small>Accessible Musical Instrument Collection</figcaption>
                             <img src="/source/assets/logos/amic.svg" alt="Accessible Misical Instrument Collection">
@@ -2067,5 +1555,4 @@
     </form>
 
 </body>
-
 </html>
