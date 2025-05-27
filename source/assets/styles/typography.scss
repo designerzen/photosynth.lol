@@ -178,7 +178,7 @@ details p:first-of-type:not([class]){
 }
 
 p + p{
-    margin-top: calc(var(--pad));
+    padding-top: calc(var(--pad));
 }
 
 

@@ -26,90 +26,90 @@ table .heading-icon{
 }
 
 // specific icons...
-a[href="#introduction"],
+a[href$="#introduction"],
 #introduction .heading-icon{
     --icon:url(/source/assets/icons/audiotrack-24px.svg);
 }
-a[href="#teaser"],
+a[href$="#teaser"],
 #teaser .heading-icon{
     // --icon:url(/source/assets/icons/audiotrack-24px.svg);
     --icon:url(/source/assets/icons/speaker-24px.svg);
 }
-a[href="#midi-equipment"],
+a[href$="#midi-equipment"],
 #midi-equipment .heading-icon{
     --icon:url(/source/assets/icons/cable.svg);
 }
-a[href="#event"],
+a[href$="#event"],
 #about .heading-icon{
     --icon:url(/source/assets/icons/accessibility_new-24px.svg);
 }
 
-a[href="#venue"]
+a[href$="#venue"]
 #venue .heading-icon{
     --icon:url(/source/assets/icons/fmd_good.svg);
 }
-a[href="#technology"],
+a[href$="#technology"],
 #technology .heading-icon{
     --icon:url(/source/assets/icons/speaker-24px.svg);
 }
-a[href="#laboratory"],
+a[href$="#laboratory"],
 #laboratory .heading-icon{
     --icon:url(/source/assets/icons/biotech.svg);
 }
-a[href="#science"],
+a[href$="#science"],
 #science .heading-icon{
     // --icon:url(/source/assets/icons/science.svg);
     --icon:url(/source/assets/icons/architecture.svg);
 }
-    a[href="#process"],
+    a[href$="#process"],
     #process .heading-icon{
         --icon:url(/source/assets/icons/run_circle.svg);
     }
-    a[href="#capture-face"],
+    a[href$="#capture-face"],
     #capture-face .heading-icon{
         --icon:url(/source/assets/icons/sentiment_satisfied_alt.svg);
     }
-    a[href="#technology"],
+    a[href$="#technology"],
     #technology .heading-icon{
         // --icon:url(/source/assets/icons/rocket.svg);
         --icon:url(/source/assets/icons/smart_toy.svg);
     }
-    a[href="#recognising-emotions"],
+    a[href$="#recognising-emotions"],
     #recognising-emotions .heading-icon{
         --icon:url(/source/assets/icons/smart_toy.svg);
     }
 
 
-a[href="#research"],
+a[href$="#research"],
 #research .heading-icon{
     --icon:url(/source/assets/icons/show_chart.svg);
 }
-a[href="#history"],
+a[href$="#history"],
 #history .heading-icon{
     --icon:url(/source/assets/icons/access_time.svg);
 }
-a[href="#event"],
+a[href$="#event"],
 #event .heading-icon{
     --icon:url(/source/assets/icons/event.svg);
     // --icon:url(/source/assets/icons/accessible-24px.svg);
 }
-a[href="#faq"],
+a[href$="#faq"],
 #faq .heading-icon{
     --icon:url(/source/assets/icons/help_black_24dp.svg);
 }
-a[href="#waveform-visualiser"],
+a[href$="#waveform-visualiser"],
 #waveform-visualiser .heading-icon{
     --icon:url(/source/assets/icons/music_video.svg);
     --icon:url(/source/assets/icons/trip_origin.svg);
     --icon:url(/source/assets/icons/waves.svg);
 }
 
-a[href="#shapes"],
+a[href$="#shapes"],
 #shapes .heading-icon{
     --icon:url(/source/assets/icons/trip_origin.svg);
     --icon:url(/source/assets/icons/water.svg);
 }
-a[href="#recognising-emotions"],
+a[href$="#recognising-emotions"],
 #recognising-emotions .heading-icon{
     --icon:url(/source/assets/icons/interests.svg);
     --icon:url(/source/assets/icons/grid_on.svg);
@@ -118,7 +118,7 @@ a[href="#chords"],
 #chords .heading-icon{
     --icon:url(/source/assets/icons/piano-24px.svg);
 }
-a[href="#transport"],
+a[href$="#transport"],
 #transport .heading-icon{
     --icon:url(/source/assets/icons/hail.svg);
 }
