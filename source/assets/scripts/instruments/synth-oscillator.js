@@ -71,7 +71,7 @@ export default class SynthOscillator{
                 if (OSCILLATORS.includes(value))
                 {
                     // 1. the oscillator type
-                    console.info("SynthOscillator::STANDARD"+ this.options, value)
+                    // console.info("SynthOscillator::STANDARD"+ this.options, value)
                     if ( this.oscillator )
                     {
                         this.oscillator.type = value
@@ -83,7 +83,7 @@ export default class SynthOscillator{
                     // 2. attempt to load in customWave JSON data from a URI
                     this.loadWaveTable(value).then( waves => {
                         this.setWaveTable( waves )
-                        console.info("SynthOscillator::CUSTOM URI"+this.options, value, {waves} )
+                        // console.info("SynthOscillator::CUSTOM URI"+this.options, value, {waves} )
                     } )     
                 } 
                 break
@@ -91,7 +91,7 @@ export default class SynthOscillator{
             case 'object':
                 // 3. customWave data with real and imag arrays
                 this.setWaveTable( value )
-                console.info("SynthOscillator::CUSTOM DATA"+this.options, value )
+                // console.info("SynthOscillator::CUSTOM DATA"+this.options, value )
                 break
 
             default: 
@@ -245,7 +245,7 @@ export default class SynthOscillator{
         // fade in envelope
         const amplitude = velocity * this.options.gain
         this.gainNode.gain.cancelScheduledValues(startTime)
-        this.gainNode.gain.setValueAtTime( 0, this.now  )
+        this.gainNode.gain.setValueAtTime( 0, startTime  )
 		this.gainNode.gain.linearRampToValueAtTime( amplitude, startTime + this.options.attack )
 
 		// Shape the note
