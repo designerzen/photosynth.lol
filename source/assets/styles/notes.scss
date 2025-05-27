@@ -209,6 +209,7 @@
 
 // Variations in the notes as different sections are opened
 
+
 // push notes behind again
 #waveforms.in-viewport ~ .overlaid-notes{
     opacity: 0.25;
@@ -226,3 +227,4 @@
 [data-hide-notes].in-viewport ~ .overlaid-notes{
     display: none;
 }
+    

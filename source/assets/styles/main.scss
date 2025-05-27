@@ -144,7 +144,7 @@ body{
         z-index: 202;
         display: flex;
         flex-direction: column;
-        gap:calc( var(--pad)) ;
+        gap:calc( var(--pad) / 2 ) ;
     }
 
     canvas{
@@ -336,9 +336,9 @@ main > section + section{
     margin-top:var(--pad);
 }
 
-section p + p{
-    padding-top:calc( var(--pad)  );
-}
+// section p + p{
+//     padding-top:calc( var(--pad) /2  );
+// }
 
 p.flood{
     // padding-top:0;//calc( var(--pad) / 2 );
@@ -648,7 +648,7 @@ main > section.sticky + section{
   
     // width: min-content;
 
-    z-index: 3;
+    z-index: 1999;
 
     fieldset{
         display: flex;
@@ -658,13 +658,25 @@ main > section.sticky + section{
         padding:0;
         border:0;
         gap:0;
+        width: fit-content;
+    }
+
+    legend{
+        float:left;
+        padding: 0;
+        margin: 0;
+        order:999;
     }
 
     button{
         //border:2px solid var(--col-border);
         // border-radius: var(--curve);
-        max-width: 44px;
+        max-width: 66px;
+        min-height: 66px;
         color: transparent;
+        background-color: var(--col-white);
+        border-radius: 0;
+        padding:0;
 
         &::before{
             display: inline-block;
@@ -1035,6 +1047,7 @@ footer{
             padding-bottom: var(--pad);
         }
         fieldset > *{
+                margin-top: -18%;
             pointer-events: auto;
         }
     }
@@ -1133,7 +1146,10 @@ footer{
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 #affiliates{
-
+    margin-top: -18%;
+    figure > img{
+        min-height: auto;
+    }
     ul{
         list-style: none;
         display: grid;
@@ -1234,7 +1250,7 @@ figcaption{
 .smallprint{
     // padding-left: var(--pad);
     // padding-right: var(--pad);
-    --size:1lh; // 1 line-height
+    --size:0.8lh; // 1 line-height
     line-height: 1.2;
     max-width: vars.$max-width;
     // margin-left:auto;

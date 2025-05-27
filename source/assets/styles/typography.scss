@@ -112,15 +112,19 @@ option{
 // }
 
 // Same sizes as Royal Society :D
-.h1,
+
 h1 {
-    font-size: clamp( 22px, 5vw, var(--font-size-h1) );
+    font-size: clamp( 22px, 5vw, 33px);
     font-weight: 900;
     line-height: 1.2;
 }
 
+.h1 {
+    font-size: var(--font-size-h1) ;
+}
+
 h2 {
-    font-size: clamp( 18px, 4vw, var(--font-size-h2) );
+    font-size: clamp( 18px, 4vw, 28px);
     line-height: 1.2;
 }
 
@@ -152,6 +156,7 @@ h5 {
     font-weight: bolder;
 }
 
+img,
 summary,
 summary > :is(h3,h4,h5,h6),
 legend,
@@ -274,8 +279,10 @@ caption{
     //     // height: 0;
     // }
 }
+
+
 label .emoji{
-    font-size: 4cqi;
+    font-size: max(4cqi, 66px);
 }
 
 .notation{

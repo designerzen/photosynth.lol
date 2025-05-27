@@ -84,11 +84,19 @@ input[type=radio]{
         // margin-right:var(--pad);
     }
     &.icon-chevron{
+        --size:44px;
         font-size: 0;
         &::before{
-            content:'⌃';
+            content:'';
             color:var(--col-accent);
             font-size: var(--font-size-h4);
+            background-image: url("/source/assets/icons/up-chevron.svg");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: var(--size);
+            height: var(--size);
+            display: block;
         }        
     }
 
@@ -477,6 +485,12 @@ aside > label[for="toggle-midi"]{
         // make black
         filter:brightness(0);
     }
+    &:hover,&:active{
+        background-color: var(--col-plum);
+        &::before{
+            filter:brightness(100%) invert(100%);
+        }
+    }
 }
 
 #button-text-size-decrease{
@@ -492,6 +506,34 @@ aside > label[for="toggle-midi"]{
     }
     // background-image:url("/source/assets/icons/font_increase_filled.svg");
 }
+
+
+#toggle-mute{
+    appearance: none;
+    border:0;
+    outline: 0;
+
+    min-width: 44px;
+    min-height: 44px;
+    padding:0;
+    margin:0;
+    cursor: pointer;
+
+  
+    background-image: url(/source/assets/icons/volume_off-24px.svg);
+    background-size: contain;
+
+    // how to invert colours?
+    &:hover{
+        filter: invert(1);
+        background-color: hsl(169deg, 80%, 45%);
+    }
+   
+    &:checked{
+        background-image: url(/source/assets/icons/volume_mute-24px.svg);
+    }
+}
+
 
 [data-play-timbre]{
     color: var(--col-text);
@@ -647,6 +689,7 @@ label[for="button-sad"]{
 }
 
 #song-timbre-select{
+    display: flex;
     text-align: center;
     font-size:var( --step--2, 22px);
     padding-left:var(--pad);
@@ -660,6 +703,7 @@ label[for="button-sad"]{
     margin:0;
     // height: 100%;
     width: 100%;
+    min-height: 44px;
    // border:var(--stroke,1px) solid var(--col-accent);
 }
 

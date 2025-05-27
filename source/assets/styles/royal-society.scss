@@ -235,8 +235,9 @@ input[type=button].button{
 details{
 
     &::details-content {
-        border: 5px dashed hotpink;
         display: none;
+        opacity: 0;
+        transition: opacity var(--time-long) linear;
     }
 
     margin-top: var(--pad);
@@ -320,10 +321,11 @@ details:hover{
 
 details[open]{
 
-    
     &::details-content {
         display: block;
+        opacity: 1;
     }
+
     // border:2px solid var(--col-accent);
     // border-radius: var(--curve, 4px);
 

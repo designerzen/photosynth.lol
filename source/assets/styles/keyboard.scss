@@ -7,6 +7,8 @@
 
     border-radius: 10%;
 
+    will-change: fill;
+
 	.piano-key-name{
 		visibility: hidden;
 	}
@@ -87,8 +89,9 @@
 	min-height:calc( 100px +  var(--footer-height));
 	//width: min(100%, 100vw);
 	
-    max-width: 100vw;
-    max-width: 100dvw;
+    max-width: min( 100%, 100vw );
+    max-width: min( 100%, 100dvw );
+
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
@@ -99,7 +102,7 @@
 	transition: bottom var(--time-medium, 90ms) ease.$easeOutBack; 
 	pointer-events: none;
 
-    background-color: black;
+    // background-color: black;
 	// transform: translateX(-50%);
 
 	.piano-keys{
@@ -109,8 +112,10 @@
 		pointer-events: all;
 		transform: translateY( calc( var(--c) ) ) translateX( var(--overhang) );
  		transition: transform var(--time-medium, 90ms) ease.$easeOutBack; 
-		
-        will-change: auto;
+         position: absolute;
+         bottom: 0;
+
+       
 
 		margin:auto;
 		margin-bottom: 0;
