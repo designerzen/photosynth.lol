@@ -1,3 +1,5 @@
+const DEFAULT_MOUSE_ID = 1
+
 export default class AbstractInteractive{
 
     activeNotes = new Map()
@@ -25,10 +27,12 @@ export default class AbstractInteractive{
 			let previousNote 
 		
             // can come from a touch a mouse click or a keyboard enter press
-			const onPianoInteractionStarting = (event) => {
+			const onInteractionStarting = (event) => {
 
                 const id = 1    // always one for mouse
-                console.log("on interaction", event)
+                const touches = evt.changedTouches
+
+                console.log("on interaction", {event, id, touches})
                 
 				// Keypresses other than Enter and Space should not trigger a command
 				if (
@@ -61,7 +65,7 @@ export default class AbstractInteractive{
 				
 				// console.info("REQUEST START", {note, noteName, GENERAL_MIDI_INSTRUMENTS})
 				
-				const starting = noteOn(note, pressure, this)
+				const starting = noteOn(note, pressure, id)
 				previousNote = note
                 this.activeNotes.set( id, note )
                 
@@ -103,15 +107,19 @@ export default class AbstractInteractive{
 				
 				// document.querySelector(`.indicator[data-note="${noteName}"]`)?.classList?.toggle("active", false)
 			}
-		
-			button.addEventListener("touchstart", onPianoInteractionStarting, {signal: controller.signal,passive}) 
+            
+            // button.addEventListener("mousemove", handleMove)
+            // button.addEventListener("touchmove", handleMove)
+			button.addEventListener("touchstart", e => onInteractionStarting(e, e.id), {signal: controller.signal,passive}) 
           
-            button.addEventListener("mousedown", onPianoInteractionStarting, {signal: controller.signal,passive})
+            // MOUSE =================================================================
+
+            // MOUSE DOWN - turn on note and cache event
+            button.addEventListener("mousedown", e => onInteractionStarting(e, DEFAULT_MOUSE_ID), {signal: controller.signal,passive})
 			
-            /*
 			// if the user has finger down but they change keys...
 			button.addEventListener("mouseenter", event => {
-			
+              
 				if (!passive && event.preventDefault)
 				{
 					event.preventDefault()
@@ -125,17 +133,15 @@ export default class AbstractInteractive{
 										
 					// console.info("REQUEST CHANGE", {note, noteName,GENERAL_MIDI_INSTRUMENTS})
 					// pitch bend!
-					noteOn(note, 1, this)
+					noteOn(note, 1, DEFAULT_MOUSE_ID)
 					previousNote = note
 				}else{
 					// console.warn("REQUEST CHANGE IGNORED")
 				}
 			}, {signal: controller.signal, passive})
-		    */
-
+		    
             // Mouse OUT - turn off note
 			button.addEventListener("mouseleave", event => {
-                const id = 1    // always one for mouse
 				if (!passive && event.preventDefault)
 				{
 					event.preventDefault()
@@ -147,12 +153,13 @@ export default class AbstractInteractive{
 					previousNote = null
                 }
 
-                this.activeNotes.delete( id )
+                this.activeNotes.delete( DEFAULT_MOUSE_ID )
 
 				// this.isTouching = false
 				// document.querySelector(`.indicator[data-note="${noteName}"]`)?.classList?.toggle("active", false)
 			}, {signal: controller.signal, passive })
 		
+            // handled by document mouse up
 			// button.addEventListener("mouseup", event => {
 			// 	console.error(button, event)
 			// 	this.isTouching = false
