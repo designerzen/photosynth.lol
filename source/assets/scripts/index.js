@@ -6,7 +6,8 @@ import { setFont } from "./fonts"
 
 // NB. This polyfill will break AudioWorklets which we use for timing
 import { AudioContext as PonyAudioContext, OfflineAudioContext } from 'standardized-audio-context'
-import { enableMIDI, mapped, midiEnabled, toChord, toggleMIDI, toNote } from "./audio"
+import MIDIManager from "./midi.js"
+import { mapped, toChord, toNote } from "./audio"
 import { createChord, createFifthsChord, createMajorChord, createMinorChord, getModeAsIntegerOffset, getModeFromIntegerOffset, MAJOR_CHORD_INTERVALS, MINOR_CHORD_INTERVALS, TUNING_MODE_NAMES } from "./chords"
 import { registerMultiTouchSynth } from "./components/multi-touch-synth"
 import CircleSynth from "./components/circle-synth"
@@ -26,14 +27,14 @@ import { monitorIntersections } from "./intersection-observer"
 import { addReadButtons, handlePasswordProtection, selectRadioButton, setCurrentYear, updateScaleUI, updateTimbreUI } from "./ui"
 
 // data
-import { CICRLE_INTERVALS, DEFAULT_PASSWORD, PALETTE, VISUALISER_OPTIONS } from "./settings"
+import { getSettings, CICRLE_INTERVALS, DEFAULT_PASSWORD, PALETTE, VISUALISER_OPTIONS } from "./settings"
 import { ASTLEY, getCompondSong, getRandomSong } from "./songs"
 import WAVE_ARCHIVE_GENERAL_MIDI from "url:/static/wave-tables/general-midi.zip"
 // import WAVE_ARCHIVE_GOOGLE from "url:/static/wave-tables/google.zip"
 import { MouseVisualiser } from "./components/mouse-visualiser"
 import { MelodyRecorder } from "./melody-recorder"
 import { debounce } from "./utils.js"
-import Timer from "./timing/timer.js"
+import Timer, { convertBPMToPeriod, convertPeriodToBPM, tapTempo } from "./timing/timer.js"
 // import TimingAudioWorkletNode, { createTimingProcessor } from "./timing/timing.audioworklet.js"
 
 import AUDIOTIMER_PROCESSOR_URI from 'url:./timing/timing.audioworklet-processor.js'
@@ -46,19 +47,16 @@ import {CANVAS_BLEND_MODE_DESCRIPTIONS, CANVAS_BLEND_MODES} from "./blendmodes.j
 // Data locations
 import MANIFEST_URL from "url:/static/wave-tables/general-midi/manifest.json"
 import { getRandomDrumPattern, getRandomKitSequence, kitSequence } from "./timing/patterns.js"
+import { GamePadManager } from "./gamepad.js"
 
-// audio reqiures a user gesture to start...
+const SETTINGS = getSettings()
+console.error("SETTINGS", SETTINGS)
+
+// audio requires a user gesture to start...
 // so we hook into each musical event to check if the user has engaged
 let hasUserEngaged = false
 let drumsPlaying = false
 
-// flag for showing the whole keyboard on screen rather than a trimmed size
-let showAllKeys = true
-
-// options
-const debug = true
-const useTimer = true
-const loadFromZips = true // !debug
 
 // read any saved themes from the URL ONLY (not from cookies so no overlay required :)
 const searchParams = new URLSearchParams(location.search)
@@ -71,6 +69,9 @@ const fingerSynths = new Map()
 let audioContext = null
 let limiter = null
 let mixer = null
+let stats
+
+const midiManager = new MIDIManager()
 
 
 // Shared DOM elements
@@ -86,6 +87,8 @@ let timeKeeper
 
 let midiDeviceInput
 let midiDeviceOutput
+
+const notesPlaying = new Map()
 
 const keyboardKeys = ( new Array(128) ).fill("")
 // Full keyboard with all notes including those we do not want the user to play
@@ -188,7 +191,11 @@ const createMetronome = (callback) => {
         const oddBeat = beats++ % 2 !== 0
         callback && callback(oddBeat, e, timer)
     })
-    
+
+    // const timing = await import("./timing/timer.js")
+    // const timer = new Timer()
+    // console.error("DATA LOADED!", {timing} )
+
     return timer
 
     // timer.setCallback(event => {
@@ -252,7 +259,7 @@ const addAccessibilityFunctionality = ()=> {
         setVolume(input / 100 )
     })
 
-    const muteCheckbox = document.getElementById("mute")
+    const muteCheckbox = document.getElementById("toggle-mute")
     muteCheckbox.addEventListener("change", e => {
         toggleMute(e.target.checked, volumeSlider)
     })
@@ -305,18 +312,28 @@ const noteOn = ( noteModel, velocity=1, id=0 ) => {
         return
     }
 
+    if (notesPlaying.has( noteModel ))
+    {
+        //console.warn("NoteOn Already playing", noteModel)
+        return
+    }
+ 
     const synth = getSynthForFinger(id)
-    synth && synth.noteOn( noteModel, velocity )                                                                                                            
+    synth && synth.noteOn( noteModel, velocity )           
+    notesPlaying.set( noteModel )                                                                                                 
     keyboard && keyboard.setKeyAsActive( noteModel )    // highlight the keys on the keyboard!    
     hero && hero.noteOn( noteModel )
     noteVisualiser && noteVisualiser.noteOn( noteModel, velocity )
     mouseVisualiser && mouseVisualiser.noteOn( noteModel, velocity )
     recorder && recorder.noteOn( noteModel, velocity )
     miniNotation && miniNotation.noteOn( noteModel, velocity, audioContext.currentTime )
-   // this should change the visualiser line colour
-    shapeVisualiser.colour = noteModel.colour
-
-    if (midiEnabled && midiDeviceOutput){
+    // this should change the visualiser line colour
+    if (shapeVisualiser)
+    {
+        shapeVisualiser.colour = noteModel.colour
+    } 
+   
+    if (midiManager.enabled && midiDeviceOutput){
         midiDeviceOutput.playNote( noteModel.noteName, {attack:velocity }) 
         console.info("MIDI NOTE ON", noteModel )
     }
@@ -342,6 +359,7 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
         return
     }
 
+    notesPlaying.delete( noteModel )
     const synth = getSynthForFinger(id)
     synth && synth.noteOff( noteModel, velocity )
     keyboard && keyboard.setKeyAsInactive( noteModel )   // unhighlight the keys on the keyboard
@@ -350,9 +368,13 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
     mouseVisualiser && mouseVisualiser.noteOff( noteModel, velocity )
     recorder && recorder.noteOff( noteModel, velocity )
     miniNotation && miniNotation.noteOff( noteModel, velocity, audioContext.currentTime ) 
-    shapeVisualiser.colour = false
+  
+    if (shapeVisualiser)
+    {
+        shapeVisualiser.colour = false
+    } 
 
-    if (midiEnabled && midiDeviceOutput){
+    if (midiManager.enabled && midiDeviceOutput){
         midiDeviceOutput.stopNote( noteModel.noteName )
         console.info("MIDI NOTE OFF", noteModel )
     }
@@ -727,62 +749,127 @@ const loadShareMenu = () => {
  * Show the MIDI toggle button (ensure that MIDI is enabled first!)
  */
 const showMIDIToggle = () => {
+    
     const MIDIStatus = document.getElementById("midi-status")
     const sectionMIDIToggle = document.getElementById("midi-equipment")
     const buttonMIDIToggle = document.getElementById("toggle-midi")
     buttonMIDIToggle.addEventListener("click", async(e) => {
-        let midiDriver = await toggleMIDI()
+        
         let available = true
-
-        if (!midiDriver || !midiDriver.supported)
+        await midiManager.toggle()
+        if (!midiManager.available)
         {
             buttonMIDIToggle.hidden = true
             available = false
             console.error("No midi support")
-            
             return
         }
-      
+
+        // TODO: play a connection theme to show MIDI is controlled
+        // INSPECTOR_GADGET
+
+        // let midiDriver = await toggleMIDI()
+          
+        // await midiManager.load()
         MIDIStatus.textContent = "MIDI Available! "
         
         // just use the first instument?
-        if (midiDriver.inputs.length > 0)
+        if (midiManager.hasInputDevices)
         {
-            const midiDevice = midiDriver.inputs[0]
+            // previous clock time
+            let lastClockTimestamp = -1
+
+            // How many ticks have occured yet
+            let intervals = 0
+            
+            const timer = new Timer()
+            const trigger = timer.bypass(true)
+
+            midiManager.monitorAllInputs(event => {
+               
+                switch(event.message.type){
+                    case "clock":
+                        
+                        // How long has elapsed according to our clock
+                        const timestamp = event.timestamp
+                        const elapsedSinceLastClock = timestamp - lastClockTimestamp
+                        lastClockTimestamp = timestamp
+                        
+                        // work out the BPOM from the clock...
+                       
+                        // const BPM = convertPeriodToBPM( period * 24 )
+                        // console.log("MIDI CLOCK", BPM, period, elapsedSinceLastClock, timestamp )
+                      
+                        // calculated
+                        const period = tapTempo(true, 10000, 3)
+                        const timeBetweenPeriod = elapsedSinceLastClock
+                        // Expected time stamp
+                        const expected = intervals++ * timeBetweenPeriod
+                        // how much spill over the expected timestamp is there
+                        const lag = timestamp % timeBetweenPeriod
+                        // should be 0 if the timer is working...
+                        const drift = timestamp - expected
+                        // deterministic intervals not neccessary
+                        const level = Math.floor(timestamp / timeBetweenPeriod )
+
+                        trigger( 
+                            timestamp, 
+                            expected, 
+                            drift, 
+                            level, 
+                            intervals, 
+                            lag 
+                        ) 
+
+                        break       
+                }
+
+                switch(event.type){
+
+              
+                    case "noteon":
+                        console.log("MIDI noteon", event, event.note.identifier)
+                        noteOn( event.note.number, event.value )
+                        break       
+
+                    case "noteoff":                     
+                        console.log("MIDI noteoff", event, event.note.identifier)
+                        noteOff( event.note.number, event.value )
+                        break     
+
+                    default:
+                        //console.log("MIDI Message", event)
+                }
+            })
+            const midiDevice = midiManager.inputs[0]
             MIDIStatus.textContent += "Connected to input device " + midiDevice.name +" - play some notes to hear them. "
             console.info("MIDI Input found " + midiDevice.name, midiDevice )
             midiDeviceInput = midiDevice
-            midiDriver.inputs.forEach((device, index) => {
-                // `${index}: ${device.name}`
-                device.addListener("noteon", e => {
-                    // create a note object that matches
-                    new Note(0)
-                    console.log("MIDI Message", index, e,  e.note.identifier)
-                })
-                console.log("MIDI Device", device, {midiDeviceInput} )
-            })
+            // midiDriver.inputs.forEach((device, index) => {
+            //     // `${index}: ${device.name}`
+            //     device.addListener("noteon", e => {
+            //         // create a note object that matches
+            //         new Note(0)
+            //         console.log("MIDI Message", index, e,  e.note.identifier)
+            //     })
+            //     console.log("MIDI Device", device, {midiDeviceInput} )
+            // })
+
         }else{
-            MIDIStatus.textContent = "No MIDI devices detected."
+
+            MIDIStatus.textContent = "No MIDI devices detected. Connect one and try again."
             available = false
             buttonMIDIToggle.hidden = true
         }
         
-        if (midiDriver.outputs.length > 0)
+        if (midiManager.hasOutputDevices)
         {
-            const midiDevice =  midiDriver.outputs[0]
+            const midiDevice = midiManager.outputs[0]
             MIDIStatus.textContent += "Connected to output device " + midiDevice.name
             midiDeviceOutput = midiDevice
             console.info("MIDI Output found " + midiDevice.name, midiDevice )
         }
         
-        if (midiDriver.inputs.length < 1) {
-           
-        } else {
-            
-        } 
-
-     
-
        buttonMIDIToggle.checked = available
     })
     sectionMIDIToggle.hidden = false
@@ -867,7 +954,7 @@ const setupRadioButtons = () => {
  * Timbre selector and shape creator
  * @param {Array<String>} instrumentNames 
  */
-const setupShapeVisualiser = (instrumentNames) => {
+const setupTimbreSelector = (instrumentNames) => {
 
     const timbreSongButtons = document.querySelectorAll("[data-play-timbre]")
     timbreSongButtons.forEach(button => {
@@ -886,21 +973,15 @@ const setupShapeVisualiser = (instrumentNames) => {
     const chordSad = document.getElementById("button-sad")
     
     instrumentNames.forEach( name => {
-        //  <hr>
         timbreSelect.add(new Option(name, name))
     })
     timbreSelect.addEventListener("change", e => {
-        const timbre = e.target.value
-        console.info("timbre", timbre)
-        shape = setTimbre( timbre )
-       
+        shape = setTimbre( e.target.value ) 
     })
     timbrePrevious.addEventListener("click", e => {
-        console.info("timbre previous", timbreSelect.value, timbreSelect.options.length )
         shape = setTimbre( getTimbre(instrumentNames, shape, -1 ) )
     })
     timbreNext.addEventListener("click", e => {
-        console.info("timbre next", timbreSelect.value, timbreSelect.options.length )
         shape = setTimbre( getTimbre(instrumentNames, shape, 1 ) )
     })
 
@@ -919,6 +1000,119 @@ const readOutLoud = () => {
     })
     say(e)
 }
+
+// Connect to any gamepads that might be available
+const addGamePads = (drumSamples) => {
+    
+    const kickDrum = drumSamples[ 0 ]
+    const snareDrum = drumSamples[ 1 ]
+    const hihat = drumSamples[ 2 ]
+    const shaker = drumSamples[ 3 ]
+
+	const gamepadHeld = new Map()
+	const gamePadManager = new GamePadManager()
+
+	gamePadManager.addEventListener( (button, value, gamePad, heldFor ) => {
+		
+		switch(button)
+		{
+			// ignore caching these
+			case GAME_PAD_CONNECTED:
+			case GAME_PAD_DISCONNECTED:
+			case COMMANDS.LEFT_STICK_Y: 
+			case COMMANDS.LEFT_STICK_X: 
+			case COMMANDS.RIGHT_STICK_Y: 
+			case COMMANDS.RIGHT_STICK_X:
+			// case COMMANDS.UP: 
+			// case COMMANDS.DOWN: 
+			// case COMMANDS.LEFT: 
+			// case COMMANDS.RIGHT: 
+				break
+		
+			default: 
+				if (value)
+				{
+					
+				}
+		}
+		
+		switch(button)
+		{
+			case GAME_PAD_CONNECTED:
+				console.info("Gamepad connected", button, value, gamePad )
+				break
+
+			case GAME_PAD_DISCONNECTED:
+				console.info("Gamepad disconnected", button, value, gamePad )
+				break
+
+			// open sidebar
+			case COMMANDS.START: 
+			// if select is also being held....
+				if (gamePad.select){
+
+				}
+				console.info("Gamepad start", value, { gamePad, gamepadHeld } )
+				break
+			
+			case COMMANDS.SELECT: 
+				// check to see if another key is held down...
+				if (gamePad.start){
+					
+				}
+				
+				console.info("Gamepad select", value, { gamePad, gamepadHeld, heldFor } )
+				break
+			
+			case COMMANDS.A: 
+				console.info("Gamepad A", value, { gamePad, gamepadHeld, heldFor } )
+                kickDrum.click()
+				break
+			
+			case COMMANDS.B: 
+				console.info("Gamepad B", value, { gamePad, gamepadHeld, heldFor } )
+				snareDrum.click()
+                break
+			
+			case COMMANDS.X: 
+				console.info("Gamepad X", value, { gamePad, gamepadHeld, heldFor } )
+                hihat.click()
+				break
+			
+			case COMMANDS.Y: 
+				console.info("Gamepad Y", value, { gamePad, gamepadHeld, heldFor } )
+				shaker.click()
+                break
+			
+			// If we are in a certain mode...
+			// adapt 
+			case COMMANDS.LB: 
+				console.info("Gamepad LB", value, { gamePad, gamepadHeld, heldFor } )
+				
+                break
+			
+			case COMMANDS.LB: 
+				console.info("Gamepad LB", value, { gamePad, gamepadHeld, heldFor } )
+				break
+
+			case COMMANDS.RB: 
+				console.info("Gamepad RB", value, { gamePad, gamepadHeld, heldFor } )
+				break
+
+			case COMMANDS.LT: 
+				console.info("Gamepad LT", value, { gamePad, gamepadHeld, heldFor } )
+				break
+
+			case COMMANDS.RT: 
+				console.info("Gamepad RT", value, { gamePad, gamepadHeld, heldFor } )
+				break
+
+			default:
+				console.info("Gamepad", { gamePadManager, button, value, gamePad, heldFor } )
+		}
+	})
+}
+
 
 // LOGIC ==============================================================
 
@@ -948,8 +1142,11 @@ const createAudioContext = async(event) => {
     limiter.connect(mixer)
     mixer.connect( audioContext.destination )
     
-    createAudioVisualiser( audioContext, mixer, song, { ...VISUALISER_OPTIONS, backgroundColour:false } )
-
+    if (SETTINGS.showAudioVisualiser)
+    {
+        createAudioVisualiser( audioContext, mixer, song, {...VISUALISER_OPTIONS, backgroundColour:false } )
+    }
+   
     registerMultiTouchSynth( ALL_KEYBOARD_NOTES, chordOn, chordOff, (noteModel,previousNoteModel, p) => {
         // show the mouse visualiser primed to play note
         if (mouseVisualiser)
@@ -967,14 +1164,17 @@ const createAudioContext = async(event) => {
         }
     })
 
-    miniNotation = new SongCanvas(document.getElementById("song-in-pixels"), recorder)
-
+    if (SETTINGS.saveNotesInMiniNotation)
+    {
+        miniNotation = new SongCanvas(document.getElementById("song-in-pixels"), recorder)
+    }
+  
     const mixerRouting = new Map()
     const audioSources = document.querySelectorAll("audio")
     audioSources.forEach( audioElement => {
         const audioSource = audioContext.createMediaElementSource(audioElement)
         const gainNode = audioContext.createGain()
-    gainNode.gain.value = 1
+        gainNode.gain.value = 1
         audioSource.connect(gainNode)
         gainNode.connect(limiter)
         mixerRouting.set(audioSource, gainNode)
@@ -987,6 +1187,12 @@ const createAudioContext = async(event) => {
     const snareDrum = drumSamples[ 1 ]
     const hihat = drumSamples[ 2 ]
     const shaker = drumSamples[ 3 ]
+
+    // add control devices
+    if (SETTINGS.useGamepads)
+    {
+         addGamePads( drumSamples )
+    }
 
     // let patterns = kitSequence()
     let patterns = getRandomKitSequence()
@@ -1002,6 +1208,7 @@ const createAudioContext = async(event) => {
         // "shaker"
         "clap"
     ]
+    
     drumSequnceBaseElements.forEach( drumType => {
         const sourceCheckbox = document.getElementById("drum-sequence-"+drumType)
         const fragment = document.createDocumentFragment()
@@ -1128,7 +1335,7 @@ const createAudioContext = async(event) => {
         // hihat.play(0)
     }
 
-    if (useTimer)
+    if (SETTINGS.useTimer)
     {
        timeKeeper = createMetronome(playMetronomeBeat)
     }
@@ -1139,20 +1346,42 @@ const createAudioContext = async(event) => {
     })
 }
 
+const monitorViewportEntries = () => {
+
+    // watch for when an element arrives in the window
+    let observations = new Map()
+    const monitoredElements = monitorIntersections({}, (entry, inViewport )=>{
+        observations.set(entry.target, inViewport)
+        console.info(entry,inViewport ? "in viewport" : "exit", {observations} )
+    })
+    monitoredElements.forEach((element, index) => {
+       if (!observations.has(element))
+       {
+            observations.set(element, false)
+       }
+    })
+    
+}
+
+
 /**
- * Preload all of the wave tables 
+ * Preload all of the wave tables and things that can be
+ * loaded in the background without choking anything
  */
 const backgroundLoad = async () => {
 
-    // await preloadAllWaveTables()
-    countdown(document.querySelector("[data-countdown]"))
+    if (SETTINGS.showCountdown)
+    {
+        countdown(document.querySelector("[data-countdown]"))
+    }
     
     // add white pink brown noise to the timbres
+    // await preloadAllWaveTables()
     addNoises()
 
     // Load periodic wavetable data
     try{
-        if (loadFromZips)
+        if (SETTINGS.loadFromZips)
         {
             await preloadWaveTablesFromZip(WAVE_ARCHIVE_GENERAL_MIDI)
             // await preloadWaveTablesFromZip(WAVE_ARCHIVE_GOOGLE)
@@ -1163,31 +1392,64 @@ const backgroundLoad = async () => {
         }
 
     }catch(error){
-
+        throw Error("Couldn't load custom periodic wave data")
     }
 
     // update the UI with these new data sets...
+    // NB. This is the full list that may not be loaded yet?
+    // all possible data files for instrument sounds
     const instrumentNames = getAllWaveTables()
     
     // load saved instrument if not the default
     setTimbre(shape)
 
-    // NB. This is the full list that may not be loaded yet?
-    // all possible data files for instrument sounds
-    
-   
-    console.info("DATA LOADED!", {instrumentNames} )
-    
     // waveform visualiser
-    setupShapeVisualiser(instrumentNames)
+    setupTimbreSelector(instrumentNames)
 
-    
     // now add the share button and share overlay
     await loadShareMenu()
 
-    // const timing = await import("./timing/timer.js")
-	// const timer = new Timer()
-    // console.error("DATA LOADED!", {timing} )
+    if (SETTINGS.showStats)
+    {
+        try{
+            const Stats = (await import('stats.js'))
+            // const Stats = (await import('stats-gl')).default
+            
+            const statsOptions = {
+                trackGPU: false,
+                trackHz: true,
+                trackCPT: false,
+                logsPerSecond: 2,
+                graphsPerSecond: 3,	// (30)
+                samplesLog: 4, 
+                samplesGraph: 10, 
+                precision: 2, 
+                horizontal: true,
+                minimal: true, 
+                mode: 0
+            }
+
+            stats = new Stats(statsOptions)
+           
+        }catch(error){
+            console.error(error)
+        }
+
+        document.body.appendChild( stats.dom )
+
+        const updateStats = () => {
+            stats.begin()
+            stats.end()
+            // stats.update()
+            requestAnimationFrame(updateStats)
+        }
+        
+        updateStats()
+    }
+   
+    if (SETTINGS.debug){
+        console.log("PhotoSYNTH.LOL ALL loaded : ", {stats, instrumentNames})
+    }
 }
 
 /**
@@ -1200,8 +1462,11 @@ const start =  async () => {
     // }
 
     // record each user note!
-    recorder = new MelodyRecorder()
-
+    if (SETTINGS.recordNotes)
+    {
+          recorder = new MelodyRecorder()
+    }
+  
     // load in our note sequences
     song = loadSong( getCompondSong() )
 
@@ -1222,37 +1487,38 @@ const start =  async () => {
     fetchStateFromRadioButtons() 
     
     // top interactive smiling graphic
-    hero = new Hero(ALL_KEYBOARD_NOTES, noteOn, noteOff)
+    hero = new Hero(ALL_KEYBOARD_NOTES, noteOn, noteOff, SETTINGS.showNotes ? SETTINGS.notes : 0)
      
-    // sequencer style note visualiser (2 varieties)
-    const wallpaperCanvas = document.getElementById("wallpaper")
-    noteVisualiser = new NoteVisualiser( ALL_KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
-    // noteVisualiser = new NoteVisualiser( KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
-    
-    let b = 23
-    //
-    const setNoteVisualiserBlendMode = value =>{
-        noteVisualiser.blendMode = CANVAS_BLEND_MODES[b%CANVAS_BLEND_MODES.length]  
-        console.info(b, "BLENDMODE",  noteVisualiser.blendMode, CANVAS_BLEND_MODE_DESCRIPTIONS[b] )
+    if (SETTINGS.showNoteVisualiser){
+        // sequencer style note visualiser (2 varieties)
+        const wallpaperCanvas = document.getElementById("wallpaper")
+        noteVisualiser = new NoteVisualiser( ALL_KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
+        // noteVisualiser = new NoteVisualiser( KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
+        
+        // FIXME: Is this causing poor performance?
+        let b = 23
+        const setNoteVisualiserBlendMode = value =>{
+            noteVisualiser.blendMode = CANVAS_BLEND_MODES[b%CANVAS_BLEND_MODES.length]  
+            console.info(b, "BLENDMODE",  noteVisualiser.blendMode, CANVAS_BLEND_MODE_DESCRIPTIONS[b] )
+        }
+        // setNoteVisualiserBlendMode(b++)
+        // setInterval( setNoteVisualiserBlendMode, 30000 )
     }
 
-    // setNoteVisualiserBlendMode(b++)
-    // setInterval( setNoteVisualiserBlendMode, 30000 )
-
     // bottom interactive piano
-    keyboard = new SVGKeyboard( showAllKeys ? ALL_KEYBOARD_NOTES : KEYBOARD_NOTES, noteOn, noteOff )
-    
-    // const headerElement = document.getElementById("headline")  
-    // headerElement.appendChild(keyboard.asElement)
-    // const keyboard2 = new SVGKeyboard(KEYBOARD_NOTES, noteOn, noteOff )
+    if (SETTINGS.showKeyboard){
+        keyboard = new SVGKeyboard( SETTINGS.showAllKeys ? ALL_KEYBOARD_NOTES : KEYBOARD_NOTES, noteOn, noteOff )
 
-    const keyboardElement = document.body.appendChild( keyboard.asElement )
-    keyboardElement.addEventListener("dblclick", e => setTimbre( getRandomWaveTableName() ) )
-   
-    // we can turn the mouse cursor into a note indicator
-    const mouseCanvas = document.getElementById("mouse-visualiser")
-    mouseVisualiser = new MouseVisualiser(mouseCanvas)
- 
+        const keyboardElement = document.body.appendChild( keyboard.asElement )
+        keyboardElement.addEventListener("dblclick", e => setTimbre( getRandomWaveTableName() ) )
+    }
+
+    // we can turn the mouse cursor into a note indicator   
+    if (SETTINGS.showMouseNotes){
+       const mouseCanvas = document.getElementById("mouse-visualiser")
+        mouseVisualiser = new MouseVisualiser(mouseCanvas)
+    }
+
     // circular fifths synth
     circles = createCircularSynth( mode, octave )
 
@@ -1264,21 +1530,18 @@ const start =  async () => {
         showMIDIToggle()
     }
 
-    // watch for when an element arrives in the window
-    let observations = new Map()
-    const monitoredElements = monitorIntersections({}, (entry, inViewport )=>{
-        observations.set(entry.target, inViewport)
-        console.info(entry,inViewport ? "in viewport" : "exit", {observations} )
-    })
-    monitoredElements.forEach((element, index) => {
-       if (!observations.has(element))
-       {
-            observations.set(element, false)
-       }
-    })
+    if (SETTINGS.monitorIntersections)
+    {
+    	monitorViewportEntries()
+    }else{
+        document.body.classList.add("no-intersections")
+    }
     
-    addReadButtons()
-
+    if (SETTINGS.showVoiceOver)
+    {
+        addReadButtons()
+    }
+   
     const audioSamplesInButtons = document.querySelectorAll('button > audio')
     audioSamplesInButtons.forEach(audioSample => {
         const button = audioSample.parentNode
@@ -1286,21 +1549,22 @@ const start =  async () => {
             audioSample.play()
         })
     })
-    console.error('audioSamplesInButtons', audioSamplesInButtons)
+    // console.error('audioSamplesInButtons', audioSamplesInButtons)
+    
     // finally update the URL with the state
     updateURL()
 
     // try and load in some instrument data sets in the background...
     requestAnimationFrame(backgroundLoad)
 
-    if (debug){
-        console.log("PhotoSYNTH.LOL loaded")
-        console.log("keyboard", {keyboard, keyboardElement} )
-        console.log("mouseVisualiser", {mouseVisualiser, mouseCanvas} )
-        console.log("noteVisualiser", {noteVisualiser, wallpaperCanvas} )
-        console.log("hero", {hero} )
-        console.log("song", {song} )
-        console.log("recorder", {recorder} )
+    if (SETTINGS.debug){
+        console.log("PhotoSYNTH.LOL PART loaded : ")
+        hero && console.log("hero", {hero} )
+        keyboard && console.log("keyboard", {keyboard} )
+        mouseVisualiser && console.log("mouseVisualiser", {mouseVisualiser} )
+        noteVisualiser && console.log("noteVisualiser", {noteVisualiser} )
+        recorder && console.log("recorder", {recorder} )
+        song && console.log("song", {song} )
     }
 }
 

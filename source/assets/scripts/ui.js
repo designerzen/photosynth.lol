@@ -120,10 +120,12 @@ export const addReadButtons = () => {
     readableElements.forEach( element => {
         element.innerHTML = `
         <label class="label-button-read" >
-            Voice-over :
+        <div class="sticky-content-wrapper">   
+        Voice-over :
             <button class="button-read" type="button" data-button-speak>
                 Read out this section
             </button>
+            </div>
         </label>` + element.innerHTML
     })
 

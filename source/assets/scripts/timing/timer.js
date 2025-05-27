@@ -38,6 +38,13 @@ const DEFAULT_TIMER_OPTIONS = {
 export const convertBPMToPeriod = bpm => 60000 / parseFloat(bpm)
 
 /**
+ * Convert a period in ms to a BPM
+ * @param {Number} period millisecods
+ * @returns {Number} time in milliseconds
+ */
+export const convertPeriodToBPM = period => 60000 / parseFloat(period)
+
+/**
  * TODO: Implement lienar regression like nayuki
  * https://www.nayuki.io/page/tap-to-measure-tempo-javascript
  * Converts a series of method calls into a tempo estimate.
@@ -51,7 +58,7 @@ const TAP_TIMEOUT = 10000
 const MINIMUM_TEMPOS = 2
 export const tapTempo = (autoReset=true, timeOut=TAP_TIMEOUT, minimumTaps = MINIMUM_TEMPOS) => {
     
-    const currentTime = now()
+    const currentTime = performance ? performance.now() : Date.now()
 
     if ( autoReset && beatTimes.length > 0 && currentTime - beatTimes[beatTimes.length-1] > timeOut )
     {
@@ -555,7 +562,7 @@ export default class Timer {
 			switch(data.event)
 			{
 				case EVENT_READY:
-					console.log("EVENT_READY", {time, data}) 
+					//console.log("EVENT_READY", {time, data}) 
 					break
 
 				case EVENT_STARTING:

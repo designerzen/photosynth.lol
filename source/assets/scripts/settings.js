@@ -1,3 +1,4 @@
+import { monitorIntersections } from "./intersection-observer"
 
 
 
@@ -125,4 +126,39 @@ export const CICRLE_INTERVALS = {
     diminishedTriad:[0,6,3],
     diminishedSeventh:[0,3,3,3],
     augmented:[0,4,4]
+}
+
+// flag for showing the whole keyboard on screen rather than a trimmed size
+export const DEFAULT_SETTINGS = {
+    showAllKeys : true,
+    showAudioVisualiser : true,
+    showNoteVisualiser : true,
+    showMouseNotes : true,
+    showVoiceOver: true,
+    showCountdown : true,
+    showKeyboard : true,
+    showStats : true,
+    showNotes: true, 
+    notes: 10,
+    monitorIntersections:true,
+    recordNotes : true,
+    saveNotesInMiniNotation : true,
+    useTimer : false,
+    useGamepads : true,
+    loadFromZips : true,
+    debug : true
+}
+
+export const SETTING_KEYS = Object.keys(DEFAULT_SETTINGS)
+export const getSettings = () => {
+    const searchParams = new URLSearchParams(window.location)
+    const SETTINGS = {...DEFAULT_SETTINGS}
+    for (const [key, value] of searchParams) {
+        if (SETTING_KEYS.includes(key))
+        {
+            SETTINGS[key] = value
+        }
+    }
+    
+    return SETTINGS
 }

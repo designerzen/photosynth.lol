@@ -74,7 +74,7 @@ export const monitorIntersections = ( intersectionOptions = DEFAULT_OBSERVATION_
                 }
 
                 // document.body.classList.toggle("inert", inert)
-                pianoElement.classList.toggle("show-full-keyboard", fullSizeKeyboard)
+                pianoElement && pianoElement.classList.toggle("show-full-keyboard", fullSizeKeyboard)
               
             }else{
               

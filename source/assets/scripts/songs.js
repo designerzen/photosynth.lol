@@ -60,6 +60,9 @@ export const EYE_OF_THE_TIGER = `c c c a# c c g# c c a# c c c`
 
 export const MEDLEY = `a a C a g c g g# g f g a# C`
 
+export const INSPECTOR_GADGET = `c d D f g D F d f`
+
+
 const repeatSong = (song, repetitions=1) => {
     const output = new Array(repetitions)
     return output.map( p => song ).join(" ")
