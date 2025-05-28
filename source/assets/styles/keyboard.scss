@@ -21,10 +21,10 @@
 		}		
 	}	
     &.active{
-		// fill:var( --col-accent, var(--shade-brand, red) );
+		fill:var( --col-accent, var(--shade-brand, red) );
 	}
     &.active:hover{
-		// fill:var( --col-accent, var(--shade-brand, red) );
+		fill:var( --col-accent, var(--shade-brand, red) );
 	}
 
 	&:focus{

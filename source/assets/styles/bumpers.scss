@@ -18,6 +18,10 @@
     --mask-position: center top;
     --scale:1;
     --density:2;
+
+    // we need something like posisiotn relative for the before and after tags to locate properly
+    position: relative;
+
     // color:rgb(237, 231, 221);
     &::before,
     &::after{
@@ -32,7 +36,7 @@
         mask-size: calc(100% / var(--scale,1));
         mask-repeat: repeat-x;
         mask-image: var(--mask);
-		mask-position:var(--mask-position);
+		mask-position: var(--mask-position);
 
         // OR 
         // background-color: transparent;
@@ -84,8 +88,14 @@
 	&.overlap-top{
 		margin-top: calc( var(--overhang) * var(--factor,1) );
 	}
-}
 
+    // if it also has this util class we must also 
+    &.bg-children{
+        &::before{
+            background-color: var(--col-bg);
+        }
+    }
+}
 
 // BOTTOM WAVEY BITS ONLY
 // #teaser,
@@ -104,7 +114,6 @@
     &::after{
         --mask: url(/source/assets/wallpaper/wavey-bottom.svg);
         --mask-position:center bottom;
-
         top:calc( 100% - 1px * var(--density,1) );
         display: block;
         // bottom:calc( var(--overhang) * -2 );
@@ -132,19 +141,23 @@
 }
 
 
-:is(.wavey,
-.square,
-.sawtooth,
-.wavey-bottom,
-.square-bottom,
-.sawtooth-bottom) 
+:is(
+    .wavey,
+    .square,
+    .sawtooth,
+    .wavey-bottom,
+    .square-bottom,
+    .sawtooth-bottom
+) 
 + 
-:is(.wavey,
-.square,
-.sawtooth,
-.wavey-top,
-.square-top,
-.sawtooth-top){
+:is(
+    .wavey,
+    .square,
+    .sawtooth,
+    .wavey-top,
+    .square-top,
+    .sawtooth-top
+){
     // margin-top:50vh;
 }
 
@@ -163,7 +176,7 @@ p.wavey{
 	&::after{  --mask: url(/source/assets/wallpaper/sawtooth-bottom.svg); }
 }
 .square{
-    --scale:4;
+    --scale:2;
 	&::before{  
         // mask-position:center bottom;
         --mask: url(/source/assets/wallpaper/square-top.svg); }
@@ -180,10 +193,8 @@ p.wavey{
     --scale:4;
 }
 
-
-
 // shadowed elemeents that area also masked
-// will cause the box shadow to be missahped
+// will cause the box shadow to be mishaped
 // so we instead fall back to using filters
 :is(
     .wavey,
@@ -206,6 +217,8 @@ p.wavey{
     transform-style: preserve-3d;
     transform: translateZ(0);
 
+    outline:2px solid yellow;
+
 	// filter: 
 	// 	drop-shadow( 0px 0px 2px rgba(51, 49, 50, calc( var(--opacity) + 0.01)) )
 	// 	drop-shadow( 0px 0px 9px rgba(51, 49, 50, calc( var(--opacity) + 0.02)) )
@@ -215,16 +228,16 @@ p.wavey{
 	
     filter: drop-shadow( 0px 0px 18px rgba(51, 49, 50, calc( var(--opacity))) );
 
-    &::before{
-        box-shadow: inherit;
-       // box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    }
+    // &::before{
+    //     box-shadow: inherit;
+    //    // box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    // }
 
-    // ????
-    &::after{
-        box-shadow: inherit;
-        //box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    }
+    // // ????
+    // &::after{
+    //     box-shadow: inherit;
+    //     //box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    // }
 }
 
 @media screen and (min-width:vars.$min-width-2) {

@@ -476,6 +476,10 @@ main > section.sticky + section{
     }
 }
 
+.button-share-label{
+    display: flex;
+    flex-direction: column;;
+}
 
 
 #midi-equipment{
@@ -942,7 +946,8 @@ tbody{
 
 // Happy / Sad sequencer
 .emotional-chord-player{
-
+  
+    --curve:66px;
     --button-size:clamp(144px, 80vh, 50vw);
     --half-size:calc( var(--button-size) / 2 );
 
@@ -952,6 +957,7 @@ tbody{
     gap:var(--pad) 0;
     justify-content: center;
     align-items: center;
+    border:0;
 
     label{
         display: flex;
@@ -1146,8 +1152,34 @@ footer{
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
+#biography{
+    display: flex;
+    flex-direction: column;
+    // flex-wrap: wrap;
+    gap:var(--pad);
+    // align-items: center;    
+    img{
+        // max-width: 80%;
+        margin: 0 auto;
+        width:auto;
+    }
+}
+
+@media screen and (min-width:vars.$min-width-3) {
+    #biography{
+        flex-direction: row;
+        // flex-wrap: wrap;
+        align-items: self-start;
+        img{
+            max-width: 33%;
+        }
+    }
+}
+
 #affiliates{
     margin-top: -18%;
+    color: var(--col-plum);
+
     figure > img{
         min-height: auto;
     }
@@ -1307,10 +1339,13 @@ a[href$="designerzen.com"]{
 
 .link-map{
     align-self: flex-start;
-    margin-bottom:var(--pad);
+    margin-bottom:calc( 2 * var(--pad) );
     margin-left:var(--pad);
-    transform: translateY(calc( -100% - var(--pad)));
-display: inline-block;
+    position: absolute;
+    bottom:0;
+    left:0;
+    // transform: translateY(calc( -100% - var(--pad)));
+    display: inline-block;
     padding: calc( var(--pad) / 2 ) var(--pad);
     background-color: var(--col-bg);
     border-radius: var(--curve);

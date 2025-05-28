@@ -71,6 +71,11 @@ figure {
     z-index: 99999;
 }
 
+.comic{
+    filter: invert(1);
+    mix-blend-mode: exclusion;
+}
+
 .bumpers{
 	margin-top:var(--pad);
 	margin-bottom:var(--pad);
@@ -91,7 +96,8 @@ figure {
 // Sets whatever element to be the EXACT same size
 // as the viewport which will try to prevent overflow
 .viewport-height {
-    height: 100%;
+    // height: 100%;
+    height:var(--visible-height,100vh);
 }
 
 .viewport-width{
@@ -165,23 +171,41 @@ img.flood{
         padding-bottom:calc(1 * var(--space) * var(--pad));
     }
 
-    .bg-clear{
+
+    * + .bg-clear:not(.flood-fill-parent){
         // in clear mode we will have gaps or weird
         // spaces so we fill those iin using borders
-        border-top: solid calc(2 * var(--pad)) var(--col-bg);
+        border-top: solid calc(2 * var(--pad)) transparent;
         // border-bottom: solid calc(2 * var(--pad)) var(--col-bg);
-    
+    }
+
+    :not(
+        .wavey,
+        .square,
+        .sawtooth,
+        .wavey-top,
+        .square-top,
+        .sawtooth-top,
+        .wavey-bottom,
+        .square-bottom,
+        .sawtooth-bottom
+    ) + .bg-clear{
+        // in clear mode we will have gaps or weird
+        // spaces so we fill those iin using borders
+        border-color:var(--col-bg);
+        // border-bottom: solid calc(2 * var(--pad)) var(--col-bg);
     }
     
-    // add a background fill at the end
+    // add a background fill at the end to all none wavey backghrounds
     .bg-clear + *{ 
         border-top: solid calc(2 * var(--pad)) var(--col-bg);
     }
 }
 
 // inside curves in transparent windows
-.bg-clear > .bg-clear,
-.bg-children > .bg-clear{
+// .bg-clear > .bg-clear,
+// .bg-children:not(.wavey) > .bg-clear
+.add-window-curves-top{
     --cuve-size:99px;
 
     &::before{
@@ -437,11 +461,22 @@ img.flood{
     padding-right:calc(var(--space) * var(--pad));
 }
 
+
+.clip-overflow{
+    overflow: hidden;
+	overflow: clip;
+}
+
+
 // To make holes so you can see through the background in 
 // CSS is very tricky but this works for single items 
 // when used with .hide-overflow above
 .flood-fill-parent{
-    box-shadow: var(--col-bg) 0 0 0 100vmax;
+    box-shadow: var(--col-bg) 0 0 0 200vmax;
+
+    legend{
+        background-color: var(--col-bg);
+    }
 }
 
 

@@ -1,5 +1,10 @@
 @use "_vars.scss";
 
+#circle-of-fifths-sythnesizer{
+    z-index: 99999;
+    pointer-events: none;
+}
+
 // DIV wrapper for SVG and FORM
 .instrument-circular{
     scroll-snap-type: y proximity;
@@ -24,10 +29,11 @@
 
     > *{
         grid-area: 1/1/-1/-1;
-        pointer-events: none;
+        // pointer-events: none;
     }
-    label,input{
-        pointer-events: auto;
+
+    label,input, button, a{
+        pointer-events: all;
     }
     figcaption{
         grid-area: caption;
@@ -40,6 +46,7 @@
     }
 
     form{
+        // pointer-events: all;
         grid-area: toggles;
         display: flex; 
         justify-content: space-between;
@@ -47,6 +54,7 @@
     }
     
     fieldset{
+        // pointer-events: all;
         border: 0;
         margin: 0;
         padding: 0;
@@ -65,6 +73,7 @@
     text{
         font-family: inherit;
     }
+
     .fifths-emotion-text{
         // we have a hit area below it
         pointer-events: none;
@@ -87,6 +96,7 @@
     overflow: hidden;
     position: relative;
    
+    pointer-events: none;
     margin:0;
     margin-left:var(--pad);
     margin-right:var(--pad);
@@ -103,6 +113,7 @@
         top:0;
         right:calc( var(--pad) * 1.5 );
         z-index: 909;
+        pointer-events: all;
     }
     // padding: var(--pad);
     // padding-top: calc( var(--pad) * 2 );
@@ -119,11 +130,6 @@
         z-index: 1;
         margin:0;
         // border-radius: 0;
-      
-    }
-
-    
-    fieldset{
         // display: grid;
         // grid-template-columns: repeat(auto-fill, minmax(66px, 1fr));
         
@@ -171,7 +177,7 @@
         }
        
         
-
+/*
         // 
         .emotion-selector{
             label:first-of-type{
@@ -197,7 +203,7 @@
                 }       
             }
         }
-        
+        */
         // if we have support for circular masking...
         // we can use the curve of the SVG to smoothly
         // wrap the text around the circle

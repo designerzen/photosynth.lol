@@ -249,9 +249,12 @@ details{
         // display: grid;
         // grid-template-columns: 1fr 44px;
         // grid-template-areas: "summary icon";
-        display: flex;
+        display: grid;
+        grid-auto-flow: column;
+        
         align-items: center;
         flex-wrap: wrap;
+        
         cursor: pointer;
         background-color: var(--col-stone-light);
         color:var(--col-red);
@@ -282,7 +285,10 @@ details{
         }
 
         img{
-            filter:brightness(100%);
+            // red
+            // filter: brightness(0) saturate(100%) invert(14%) sepia(84%) saturate(5648%) hue-rotate(338deg) brightness(86%) contrast(92%);
+            // plum
+            filter: brightness(0) saturate(100%) invert(19%) sepia(25%) saturate(2312%) hue-rotate(299deg) brightness(95%) contrast(93%);
             order:-1;
         }
         img:last-of-type{
@@ -315,6 +321,7 @@ details:hover{
         
         img{
             filter:invert(100%);
+            
         }
     }
 }
@@ -344,6 +351,7 @@ details[open]{
         
         img{
             filter:invert(100%);
+            
         }
     }
 }

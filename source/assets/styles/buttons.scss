@@ -372,7 +372,7 @@ a.cta{
         url(/source/assets/icons/play_circle.svg),
         url(/source/assets/icons/stop_circle.svg);
     background-size: contain;
-    background-position: center left;
+    background-position: right;
     width:calc(var(--pad) * 2);
     
     // this allows it to not create space in its sticky home
@@ -380,7 +380,7 @@ a.cta{
     min-height:calc(var(--pad) * 2);
     // no wider than the gutter
     max-width:calc(var(--pad) * 2);
-    transform: translateY(100%);
+    transform: translateX( calc( -12px ) );
     font-size:0;
     color:transparent;
 
@@ -589,10 +589,6 @@ button[data-control-play]{
     &:hover{
         background-color: var(--col-accent);
     }
-}
-
-.emotional-chord-player{
-    --curve:66px;
 }
 
 label[for="button-happy"]{
@@ -895,7 +891,9 @@ a.back-to-top{
         // float:right;
         // transform: translateX( calc( -100% - var(--pad) * 2 + 2px ) ); 
     }
-    
+    .button-read{
+        transform: translateX( 0 );
+    }
     // add the icon back in and offset to the right of the content
     a.skip-to-content,
     a.back-to-top{
@@ -920,12 +918,16 @@ a.back-to-top{
     .label-button-read{
         --offset-right: calc(3 * 44px + var(--pad) * 2);
         top:calc( 0 * var(--pad) + var(--sticky-top) );
+        left:0;
+        // margin-left:calc( -2 * var(--pad) );
+
         // right:calc( 2 * var(--pad) );
         // right:calc( 100% + 3 * var(--pad) );
         // right:calc( 100%  );
-        right:calc(100% + var(--pad) * 2 );
+        // right:calc(100% + var(--pad) * 2 );
         
-        left:auto;
+        // left:auto;
+
         // margin:0;
         // margin-left:calc( -2 * var(--pad) );
         // float:left;
@@ -935,9 +937,12 @@ a.back-to-top{
     }
     .button-read{
       // transform: translateX( -50vw);
+        transform: translateX( -100%);
         border-color:var(--col-stone);
         // margin-right: -1px;
         // border-radius: 0 999px 999px 0;
         border-radius: 999px 0 0 999px;
+        
+        background-position: center left;
     }
 }

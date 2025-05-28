@@ -45,7 +45,7 @@
                 
                 <p>Designed from the ground up to be the most accessible musical instrument possible with the sole intention of empowering everybody to make lovely music! <em>Express yourself!</em></p>
                 
-                <blockquote class="full-height">
+                <blockquote class="viewport-height">
                     <p class="quote">
                         Magic Mirror on the wall, 
                         <br>who's the fairest of them all?
@@ -58,7 +58,7 @@
             
             </article>
             
-           <article class="text-scroller-vertical"> 
+           <article class="text-scroller-vertical page"> 
                 <h5>
                     The PhotoSYNTH is a        
                 </h5>
@@ -72,9 +72,10 @@
                 </ul>
             </article>
                 
-            <aside>
+            <aside id="biography">
+                <img class="float comic" width="1852" height="2883" src="/source/assets/figures/Zenon Olenski.png" alt="Photograph of Zenon Olenski">
                 <p>
-                    The PhotoSYNTH is a long term collaboration between Zenon Olenski (godfather of biometric music, designerzen, awesomething), DMLab, Drake Music's legendary research and development team, awesomething social enterprise and hundreds of disabled artists and musicians.
+                    The PhotoSYNTH is a result of a long term collaboration between Drake Music's legendary research and development team DMlab, and Zenon Olenski, inventor and maker from Awesomething social enterprise. Together they have made magical musical bowler hats, beard organs, a whole lotta gloves and other experimental interfaces, some of which have ended up in the hands of disabled artists and musicians in studios, bedrooms and claasrooms around the world.
                 </p> 
             </aside>
 
@@ -85,11 +86,12 @@
         <aside id="midi-equipment" class="shadow" data-observe hidden>
             <hgroup>
                 <h5 class=" heading-icon">This site is MIDI enabled for your listening pleasure</h5>
-                <p id="midi-status">Connect your MIDI equipment now and <label for="toggle-midi">press the button.</label></p>
+                <p id="midi-status">Connect your MIDI equipment now and <label for="toggle-midi">press the inviting red button.</label></p>
             </hgroup>
             
             <details>
                 <summary><h5>Learn more about Web MIDI</h5></summary>
+                <img src="/source/assets/photos/midi-on-tv.jpg" alt="MIDI devices being demonstrated on TV"/>
                 <p>Musical Instrument Digital Interface or <abbr title="Musical Instrument Digital Interface">MIDI</abbr>, is the universal language of synths and electronic musical instruments. It is the main standard for communication between electronic musical devices using either a MIDI cable or, if your instruments supports it, USB cables.</p>
                 <p>If you have any MIDI equipment, connect them now and 
                     <label for="toggle-midi">press the enable MIDI button.</label>
@@ -128,7 +130,7 @@
             
                 <!-- <p>If you've ever dreamed of being more musical, you're not alone!</p> -->
                 
-                <p>Come and join us this summer for a fun musical celebration of inclusive technologies and have a play with some of the newest instruments from the <a href="#amic">Accessible Music Instrument Collection</a> and learn all about the science and research behind them.</p>
+                <p>Come and join us for a fun musical celebration of inclusive technology and have a play with some of the newest instruments from the <a href="#amic">Accessible Music Instrument Collection</a> and learn all about the research and science that made them possible.</p>
                 
                 <p class="box h6">
                     <img class="icon float outside-leaning-polygon" width="100" height="100" src="/source/assets/icons/hearing-loop.svg" alt="Hearing loop enabled venue.">
@@ -195,7 +197,7 @@
                 </header>
 
                 <p>
-                    The venue is fully accessible and has hearing loop T enabled and quiet spaces.
+                    Between Buckingham Palace and Trafalgar Square, the Royal Society is located in a fully accessible building that is wheelchair friendly and has hearing loops enabled, quiet spaces and a cafe. 
                 </p>
 
                 <details>
@@ -268,7 +270,7 @@
                                 <share-target-telegram></share-target-telegram>
                             </share-menu>
 
-                            <label>
+                            <label class="button-share-label">
                                 Quick share
                                 <button class="button-share cta" onclick="share.share()">Share this site
                                     <img src="/source/assets/diagrams/qr-photosynth_lol.svg" width=256 height=256 alt="QR code for sharing this site"/>
@@ -280,31 +282,31 @@
                 </details>
 
                 
-                <details>
-                    <summary><h6>Getting there</h6></summary>
+            
                 <figure role="figure" class="venue-address" aria-label="" >
-                    
+            
                     <iframe class="map" width="1080" height="540" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1344162225723267%2C51.50472238057011%2C-0.1302212476730347%2C51.506889393716634&amp;layer=mapnik"></iframe>
                     <a class="link-map" href="https://www.openstreetmap.org/?#map=18/51.505806/-0.132319">View Larger Map</a>
                     <figcaption>
+                        The Royal Society is located at :
                         <address>
                             6-9 Carlton House Terrace, London, SW1Y 5AG, United Kingdom
                         </address>                       
                     </figcaption>
 
-                        <p>
-                            Underground stations: Charing Cross and Piccadilly Circus
-                            Bus routes: 12, 13, 15 and 453.
-                            Coach station: Connections from Victoria coach station
-                            <a rel="noopener noreferrer" target="_blank" href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">See official recommendations</a>       
-                        </p>
-                   
                 </figure>
-            
-                <a href="https://royalsociety.org/science-events-and-lectures/summer-science-exhibition/" class="cta">Learn more at the Royal Society</a>
-            </details>
+                <details>
+                    <summary><h6>Getting there</h6></summary>
+                    <p>
+                        Underground stations: Charing Cross and Piccadilly Circus
+                        Bus routes: 12, 13, 15 and 453.
+                        Coach station: Connections from Victoria coach station
+                        
+                    </p>
+                </details>
+                <a href="https://royalsociety.org/science-events-and-lectures/summer-science-exhibition/" class="cta">Learn more at the official Royal Society Summer Exhibition website</a>
+           
             </article>
-
         </section>
 
     <!-- Waveform visualiser -->
@@ -426,17 +428,17 @@
 
                 <header class="underline">
                     <h3 class="heading-icon">Digitising the human form</h3>
-                    <h4>"Computer vision"</h4>
+                    <h4>Finding a purpose for your reflection</h4>
                 </header>
 
                 <p>
-                    <dfn id="definition-photosynth">The <cite>Photo<wbr>SYNTH</cite></dfn> is a <dfn id="definition-mixed-reality">mixed-reality</dfn> audio synthesizer that uses real-time motion capture with facial-landmark tracking to enhance your movements, and the movements of your friends, with radical new musical superpowers, turning you into a pop-star, and your friends into a band!
+                    <dfn id="definition-photosynth">The <cite>Photo<wbr>SYNTH</cite></dfn> is a <dfn id="definition-mixed-reality">mixed-reality</dfn> audio synthesizer that uses real-time motion capture with facial-landmark tracking and emotion detection to enhance your movements, and the movements of your friends, with radical new musical superpowers.
                 </p>
 
-                <p>To help a computer understand humans, we need to allow them to first see us and for that we must use a digital camera.</p>
+                <p>To help a computer understand humans, we must first allow them to see us by giving them eyes, and for that we use a digital video camera. This will be our primary control mechanism.</p>
 
-                <h5>Step 1 : </h5>
-                <figure id="diagram-face-scan" class="diagram sticky full-width bg-clear" role="figure" aria-label="diagram-face-scan-label">
+                <!-- <h5>Step 1 : Digitise the human form</h5> -->
+                <figure id="diagram-face-scan" class="diagram sticky full-width bg-clear add-window-curves-top" role="figure" aria-label="diagram-face-scan-label">
                     <img 
                         class="animation-rock"
                         style="--delay:0s;"
@@ -444,11 +446,14 @@
                         width="1024" height="1024"
                         src="/source/assets/diagrams/face-winking.svg" 
                         alt="The Photosynth, smile powered music.">
-                    <figcaption id="diagram-face-scan-label">Face as observed by the camera</figcaption>
+                    <figcaption id="diagram-face-scan-label">
+                        Face is observed by the camera and digitised
+                    </figcaption>
                 </figure>
 
-                <p class="wavey-top">
-                    Using a machine learning algoritmn trained on millions of faces from all directions, the computer can examine the image for features it may recognise.... a nose, mouth, an eye... and 
+                <p class="wavey">
+                    Using a machine learning algoritmn trained on millions of face photographs taken from many directions, the computer can examine the image for features it may recognise by comparing them against the photos in its memory. 
+                    A recognisable nose, a mouth, an eye...
                 </p>
 
                 <!-- Background mask & warnings -->
@@ -461,10 +466,13 @@
                         width="1024" height="1024"
                         src="/source/assets/diagrams/face-scanning.svg" 
                         alt="">
-                    <figcaption id="diagram-face-scan-overlay-label">Facial landmarks are detected and tracked</figcaption>
+                    <figcaption id="diagram-face-scan-overlay-label">
+                        Facial landmarks are detected and tracked</figcaption>
                 </figure>
 
-                <p class="wavey-top">Using facial landmarks as references, the user's facial expressions and mood are determinded.</p>
+                <p class="wavey">
+                    Using these facial landmarks as references, the user's expression and mood can be digitally determinded.
+                    By analysing these landmarks, the machine can quite accurately recreate the shape of the face with all its contours in 3D space with appropriiate coordinates.</p>
 
                 <!-- </article> -->
                 <article id="technology" class="bg-children square stackable shadow  wavey" data-observe data-readable>
@@ -473,7 +481,7 @@
             
                     <header class="underline" id="technology" class="" data-observe>
                         <h3 class="heading-icon">How to read a human being</h3>
-                        <h4>Find a purpose for your reflection</h4>
+                        <h4>"Computer vision"</h4>
                     </header>
 
                     <p>Computers are very good at recognising patterns. 
@@ -482,7 +490,7 @@
                     </p>
                     <p>
                         The same can be true for recognising human characteristics such as moods and emotions. 
-                        Being happy presents many clues and indications when studied, most obvious is smiling, but joy also brings wide eyes, and delight raises eyebrows.  
+                        Being happy presents many clues and indications when studied, most obvious is smiling, but joy also brings wide eyes, crows feet, and delight raises eyebrows.  
                 
                         Frowns and furrowed brows indicate signs of melancholy and malaise.
                     </p>
@@ -554,7 +562,7 @@
         
             
             <!-- 4. Generate music ------------------------------------------- -->
-            <article id="shapes" class="shadow bg-children wavey" data-full-keyboard data-observe data-readable>
+            <article id="shapes" class="shadow bg-children wavey clip-overflow" data-full-keyboard data-observe data-readable>
                 
                 <header class="underline">
                     <h3 class="heading-icon" data-timbre>The Shape of Sound</h3>
@@ -563,12 +571,22 @@
             
                 <p>
                     Each sound has a distinct shape, similar to a fingerprint or snowflake. 
-                    This affects how it is perceived by your ears (if at all) and how the sound travels and bounces off things. 
-                    Different shapes affect matter, and in turn your ears, and we call those <q>timbres</q>.</p>
+                    This affects how it is perceived by your ears and how the sound travels and bounces off things. 
+                  </p>
                     
 
                 <p>Sound travels at the same speeds as gases do, because that is how they travel, they are gas powered. 
-                    Instead, variation in sound comes from noise, and arranged noises. 
+                </p>
+                <p>
+                 
+                    Instead, variation in sound comes from their shape, their repetition and their strength. Tiny fragments of sound when repeated hundreds of times a second can create a musical sound similar to what an instrument might make. We call these sound shapes timbres.
+                </p>
+                <p>
+                    Different shapes affect the air as they travel as well as any physical matter encountered on the way, including vibrating the little hammers inside your ears, tapping the music like morse code directly into the brain to decode,
+                </p>
+                <p>
+                    Noise, and arrangments of those noises repeated. 
+
                     Noises that rapidly repeat like patterns are called notes.
                     Each note (also known as a pitch) is determined by the amount of times that the noise patterns repeat in a fixed time period, often refered to as its vibration, wavelength or frequency.</p>
                 <p>Slow repeating sounds are perceived as deep or bassy, whist the faster they vibrate, the more high pitched they sound.</p>
@@ -581,9 +599,8 @@
                     <fieldset class="lovely-selector flood-fill-parent">
                         <legend>Bouba : Lovely sounds</legend>
                     
-                        <p>Round sounds such as the Sine wave sound soft, familiar and comfortable.</p> 
-                        <p>Beautiful forms that look smooth and predictable usually also sound nice.</p>
-                        <p>The lack of detail in the shapes </p>
+                        <p>Round sounds such as the Sine wave sound soft, familiar and comfortable. Beautiful forms that look smooth and predictable usually also sound nice.</p>
+                        <p>The lack of detail in the shapes makes them sound clean</p>
                         <p>Layers of sine waves, preferably other nice sounding ones, create new shapes and waveforms.</p> 
                 
                         <button type="button" data-play-timbre="Vibraphone">
@@ -626,7 +643,7 @@
                         </button>
                     </fieldset>
 
-                    <p>Play around with the instrument selector below to see how each one looks and sounds.</p>
+                    <p><strong>Play around with the instrument selector below to see how each one looks and sounds.</strong></p>
 
                     
                 
@@ -825,7 +842,7 @@
             </details>
 
             <!-- audio analyser food -->    
-            <article id="waveforms" class="page full-height shadow wavey bg" data-observe>
+            <article id="waveforms" class="page full-height shadow sawtooth bg-children hide-overflow" data-observe>
                 
                 <header>
 
@@ -836,14 +853,14 @@
             
                 <p>These collisions alter the acoustics and harmonics of the sound and add tone and character.</p>
                 
-                <p>When many notes exist in the same space they join together and form a new sound.</p>
+                <p>When many notes exist in the same space they join together and form a new sound. Their waves double up or cancel out, creating entirely new  </p>
 
                 <p>Certain frequencies when played together, join up and form a chord, and if the notes are harmonic, and complement each other, can trigger strong emotional feelings in the person hearing them.</p>
                 <p>There are many different types of chords, but the most common ones in western music are the major and minor chords. 
                     Major chords sound happy, bright and cheerful, whereas minor chords can sound sad and somber yet compelling.</p>
 
-                <fieldset class="emotional-chord-player">
-                    <legend>Emotional Shapes</legend>
+                <fieldset class="emotional-chord-player flood-fill-parent bg-clear">
+                    <legend>Emotional Sounds using Chords</legend>
                     <label for="button-happy">
                         Major sound
                         <button class="button-image" id="button-happy" type="button">Happy</button>
@@ -856,20 +873,24 @@
                 </fieldset>
         
                 
-                <blockquote class="full-height">
+                <blockquote class="viewport-height">
                     <p class="quote">Music is an unconscious exercise in mathematics in which the mind is unaware that it is calculating.</p>
                     <p class="citation">Gottfried Wilhelm Leibniz <cite></cite></p>
                 </blockquote>
 
-                <p>There is much research into the topic but it is commonly thought that many of the emotional triggers caused by sound are rooted in our relationship with the distress crys and warning sounds of animals. 
-                    The growl of a bear, the roar of a lion, the screech of the crow and the hiss of the cat are part of the ecological audio landscape that has surrounded us for millenia, speaking to us before we had a language.</p>  
-            
-                <p>The dulset tones of "mumese" are universal, a high pithed, softer sounding way to communicate with children and cute animals.</p>
-                
-                <blockquote class="full-height">
+                <p>There is much research into the topic of how sounds affect humans, but it is commonly thought that many of the emotional triggers caused by sound are rooted in our historic relationship with other people and animals. From the calming songs of the birds, or the purring of the pussycat, to the cries of a baby or the squeal of an animal in distress.</p>
+
+                <p>Many sounds have historical contexts that served an important role in our evolution as survival skills. We may never find out the true origins of these musical-emotional relationships, but they appear to be deeply entrenched and universal.</p>
+
+                <blockquote class="viewport-height">
                     <p class="quote">Music is an unconscious exercise in communication in which the mind is unaware that it is being guided.</p>
                     <p class="citation sr-only">Zenon Olenski <cite></cite></p>
                 </blockquote>
+
+                <p>The growl of a bear, the roar of a lion, the screech of a crow and the hiss of the cat are all part of the ecological audio landscape that has surrounded us for millenia, speaking to us long before we had a language.</p>  
+            
+                <p>The dulset tones of "mumese" are universal, a high pithed, softer sounding way to communicate with children and cute animals. This inate and </p>
+                
 
 
                 <!-- <article id="waveform-visualiser"  class="bg-clear shadow sticky full-height full-width" data-full-keyboard data-observe>
@@ -882,7 +903,7 @@
                 </article> -->
             </article>
 
-            <blockquote class="full-height">
+            <blockquote class="viewport-height">
                 <p class="quote">Any sufficiently advanced technology is indistinguishable from magic.</p>
                 <p class="citation">Arthur C Clarke<cite></cite></p>
             </blockquote>
@@ -896,19 +917,19 @@
 
                 <p>When a musical note is played, the air pulses in patterns which is heard in our ears in the form of vibrations.</p>
 
-                <p>All that music is, is repetition on many levels. 
-                    Repetition forms music.
-                    Through many orders of magnitude, from the microspcopic pattern repetitions that form notes, to the repetition of notes that form patterns and melodies, all the way up to the macroscopic patterns where the repetition of percussion forms rythmns and grooves.</p>
+                <p>All that music is, is repetition on many levels.</p>
+                <p>Repetition forms music.</p>
+                <p>Through many orders of magnitude, from the microspcopic pattern repetitions that form timbres then notes, to the repetition of notes that form patterns and melodies, all the way up to the macroscopic patterns where the repetition of percussion forms rhythms and grooves.</p>
 
                 <p>Our ears respond to repeating waves, and our brains yearn for patterns to discover and information to decode.</p>
     
-                <blockquote class="full-height">
+                <blockquote class="viewport-height">
                     <p class="quote">Music is an unconscious exercise in metaphysics in which the mind is unaware that it is philosophizing.</p>
                     <p class="citation">Arthur Schopenhauer<cite class="sr-only">The World as Will and Representation</cite></p>
                 </blockquote>
 
-                <p>Certain combinations of sounds when played together are refered to as a chord.</p>
-                <p>Throughout time people have searched for chords to represent emotions for their meoldies.</p>
+                <p>Certain combinations of sounds when played together are refered to as a <strong>chord</strong>.</p>
+                <p>Throughout time people have searched for chords to represent emotions for their melodies.</p>
                 <p>Below are some of the most famous chords that all have a mathematical connection. See if you can figure them out by observing the keyboard below during the next section.</p>
             </article>
 
@@ -1152,10 +1173,10 @@
 
 
         <!-- DMLab ------------------------------------------- -->
-        <section id="research" class="square shadow" data-observe>
+        <section id="research" data-observe>
         
             <!-- Research ------------------------------------------- -->
-            <article id="research-topics" class="page split" data-readable  data-observe>
+            <article id="research-topics" class="page split square shadow" data-readable  data-observe>
                 <header class="underline">
                     <h3 class="heading-icon">Research</h3>
                     <h4>"Some People"</h4>
@@ -1197,20 +1218,21 @@
                     </strong>
                 </p>
 
-                <blockquote class="full-height">
+                <blockquote class="viewport-height">
                     <p><em>What a wonderful world it would be!</em></p>
                 </blockquote>
 
-                <p>One area that has seen much research is using neural networks and machine learning to attempt to determine intentions from emotions and motions in realime, in order to augment existing skills with new musical powers.</p>
-                <p>By piggybacking onto intrinsic movements, that come naturally, a performance can be both expressive and communicative, where the dance leads the music, this could be as simple as binding musical actions to hand movements, or as sophisticated as a collaborative multiplayer face controlled pop-music factory that learns how to play you!</p>
+                <p>One area that has seen much research is using <em>neural networks and machine learning</em> to attempt to determine intentions from emotions and motions in realime, in order to augment existing skills with new musical abilities and super-powers.</p>
+                <p>By piggybacking onto intrinsic movements, that come naturally, a performance can be both expressive and communicative, where the dance leads the music.
+                    
+                This could be as simple as binding musical actions to hand movements, or as sophisticated as a collaborative multiplayer face controlled pop-music factory that learns how to play you!</p>
 
-                <p>If you would like to participate in this research or attend lab or AMIC, please contact DMLab using the contact details below.</p>
+                <p>If you would like to participate in this research or attend lab or AMIC, keep reading!</p>
                 <!-- <p>Curiosity killed the cat, but also helped create world changing research.</p> -->
             </article>
 
             <!-- AMIC ------------------------------------------- -->
-            
-            <article class="page" id="laboratory" observe>
+            <article class="page sawtooth shadow" id="laboratory" observe>
 
                 <section class="split">
 
@@ -1233,10 +1255,12 @@
                 
                 </section>
 
-                <aside id="lab-venue-details">
+                <details id="lab-venue-details">
 
-                    <h5>#DMLab Events and Workshops</h5>
-
+                    <summary>
+                        <h5>#DMLab Events and Workshops details</h5>
+                    </summary>
+                  
                     <dl id="lab-venue-london" class="data-address">
                     
                         <dt>London Venue</dt>
@@ -1320,53 +1344,49 @@
                         </dd>
                     </dl>
                 </aside>
-            </article>
-
-            <article id="amic" class="page bg wavey-top shadow" data-readable>
-                <header class="underline">
-                    <h3 class="heading-icon">Engage</h3>
-                    <h4>Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h4>
-                </header>
-                
-                <figure id="photo-amic" class="" role="figure" aria-label="photo-amic-label">
-                    <img loading="lazy" width=1500 height=1000 src="/source/assets/photos/John Kelly Presenting some accessible musical instruments.jpg" alt="John Kelly playing some accessible musical instruments.">
-                    <figcaption id="photo-amic-label">
-                        Rock n roll legend, John Kelly on stage playing some accessible musical instruments
-                    </figcaption>
-                </figure>
-                
-                <details>
-                    <summary>
-                        <h5>Accessible Musical Instrument Collection</h5>
-                    </summary>
-
-                    Access to the right musical instruments and technology can be powerful and transformative.
-
-                    As part of our DMLab programme, we have supported the design and creation of a significant number of innovative accessible musical instruments. 
-                    We have also established communities and networks of Disabled musicians and technologists working together to develop bespoke solutions to accessible music-making.
-
-                    We have learned a lot from DMLab and now is the right time for us to share our technology, expertise and experience…
-                    Introducing, the Accessible Musical Instrument Collection (<abbr title="Accessible Musical Instrument Collection">AMIC</abbr>) :
-
-                        A ground-breaking national collection, representing state-of-the-art of accessible instrument design
-                        A world-class resource for Disabled people to explore technological possibilities for making music 
-                        A focal point for development of cutting-edge accessible instrument technology
-
-                    As well as establishing a collection of existing accessible tech, the <abbr title="Accessible Musical Instrument Collection">AMIC</abbr> will commission and support the creation of the next generation of accessible instruments.
-
-                    The Collection will be as varied as possible, from high-end commercial instruments through to DIY experimental prototypes and bespoke instruments.
-
-                    We will continue to build the collection as new instruments come to light, working with makers, hackers and music tech companies to make sure it reflects the most up to date technology.
-
-                    <abbr title="Accessible Musical Instrument Collection">AMIC</abbr> will be housed in an accessible space at Drake Music’s HQ and will be available to visit. 
-
-                    Disabled musicians will be able to visit the collection, test out different instruments using an accessible workstation and (hopefully) find one which suits them. Makers can come and be inspired or see what has already been built. Academics can call upon it for research and teachers can explore options for their students.
                 </details>
-                
-                <a class="cta" href="https://accessiblemusicalinstrumentcollection.org/case_studies/photosynth/">Learn more on the AMIC Website</a>
+            
+                <section id="amic" class="" data-readable>
+                    <header class="underline">
+                        <!-- <h3 class="heading-icon">Engage</h3> -->
+                        <h4>Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h4>
+                    </header>
 
+                    <p>A ground-breaking national collection, representing state-of-the-art of accessible instrument design.</p>
+                    <p>A world-class resource for disabled people to explore technological possibilities for making music.</p>
+                    <p>A focal point for the development of cutting-edge accessible instrument technology.</p>
+                    
+                    <figure id="photo-amic" class="" role="figure" aria-label="photo-amic-label">
+                        <img loading="lazy" width=1500 height=1000 src="/source/assets/photos/John Kelly Presenting some accessible musical instruments.jpg" alt="John Kelly playing some accessible musical instruments.">
+                        <figcaption id="photo-amic-label">
+                            Rock n roll legend, John Kelly on stage playing some accessible musical instruments
+                        </figcaption>
+                    </figure>
+                    
+                    <details>
+                        <summary>
+                            <h5>Accessible Musical Instrument Collection</h5>
+                        </summary>
+
+                        Access to the right musical instruments and technology can be powerful and transformative.
+
+                        As part of our DMLab programme, we have supported the design and creation of a significant number of innovative accessible musical instruments. 
+                        We have also established communities and networks of Disabled musicians and technologists working together to develop bespoke solutions to accessible music-making.
+
+                        We have learned a lot from DMLab and now is the right time for us to share our technology, expertise and experience…
+                        Introducing, the Accessible Musical Instrument Collection (<abbr title="Accessible Musical Instrument Collection">AMIC</abbr>) :
+
+                        As well as establishing a collection of existing accessible tech, the <abbr title="Accessible Musical Instrument Collection">AMIC</abbr> will commission and support the creation of the next generation of accessible instruments.
+                        The Collection will be as varied as possible, from high-end commercial instruments through to DIY experimental prototypes and bespoke instruments.
+                        We will continue to build the collection as new instruments come to light, working with makers, hackers and music tech companies to make sure it reflects the most up to date technology.
+                        <abbr title="Accessible Musical Instrument Collection">AMIC</abbr> will be housed in an accessible space at Drake Music’s HQ and will be available to visit. 
+                        Disabled musicians will be able to visit the collection, test out different instruments using an accessible workstation and (hopefully) find one which suits them. Makers can come and be inspired or see what has already been built. Academics can call upon it for research and teachers can explore options for their students.
+                    </details>
+                    
+                    <a class="cta" href="https://accessiblemusicalinstrumentcollection.org/case_studies/photosynth/">Learn more on the AMIC Website</a>
+
+                </section>
             </article>
-
         </section>
 
 
@@ -1542,7 +1562,7 @@
             Dedicated to Josefa Olenska and Blue Ramsey.
             © <span class="current-year">2025</span> 
             <a class="secret-link" href="https://royalsociety.org/">Royal Society</a> & <a class="secret-link"
-            href="https://www.drakemusic.org/">Accessible Musical Instrument Collection</a.
+            href="https://www.drakemusic.org/">Accessible Musical Instrument Collection
 
                 the  and #DMLab @Drake Music</a>
         </small>

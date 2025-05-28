@@ -17,7 +17,7 @@ figure{
     overflow: hidden;
     padding-top: var(--pad);
     padding-bottom: var(--pad);
-    
+    position: relative;
  
     // there may be nested icons in figcaption for attributions etc
     > img{
@@ -44,11 +44,13 @@ figure{
     
     figcaption{
         text-align: center;
+        font-weight: 600;
+        font-style: italic;
         color:var(--col-plum);
     }
 
     // if figcaption is below image...
-    img + figcaption{
+    :is(img,picture) + figcaption{
         padding-top: var(--pad);
         padding-bottom: var(--pad);
         background: var(--col-bg);
