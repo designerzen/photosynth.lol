@@ -673,30 +673,19 @@ main > section.sticky + section{
         order:999;
     }
 
-    button{
-        //border:2px solid var(--col-border);
-        // border-radius: var(--curve);
-        max-width: 66px;
-        min-height: 66px;
-        color: transparent;
-        background-color: var(--col-white);
-        border-radius: 0;
-        padding:0;
-
-        &::before{
-            display: inline-block;
-            vertical-align: middle;
-            color: white;
-        }
-        &:hover,
-        &:active{
-            background-color: var(--col-accent);
-            // border-color:var(--col-plum);
-        }
+    
+    button + button {
+        margin-left: 1px;
     }
     legend{
         font-size: 50%;
     }
+}
+
+
+
+figure img{
+    --scale:1;
 }
 
 #button-play-kick{

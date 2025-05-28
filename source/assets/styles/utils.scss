@@ -100,6 +100,11 @@ figure {
 	position: relative;
 }
 
+// NB. As the button always consumes space
+.page[data-readable]{
+    padding-top: 0;    
+}
+
 // Sets whatever element to be the EXACT same size
 // as the viewport which will try to prevent overflow
 .viewport-height {
@@ -170,6 +175,7 @@ a.secret-link{
 
     // margin-bottom: 0;
     position: relative;
+    display: grid;
 
     > *:not(section, button, article,div ){
         min-width:100%;// calc(100% - 2 * var(--space) * var(--pad));

@@ -22,6 +22,8 @@
     --scale:1;
     --density:2;
 
+    --vertical-space:calc( (var(--overhang) * 1.5 / var(--scale,1)) + var( --vertical-margin, 0px) );
+    
     // we need something like posisiotn relative for the before and after tags to locate properly
     position: relative;
 
@@ -68,8 +70,11 @@
 .square-top,
 .sawtooth-top{
 
+    
     // ensure the waves have space
-    margin-top: calc( var(--overhang) * 1.5 * var(--scale,1) );
+    
+    margin-top:calc( -1 * var(--vertical-space) );
+    margin-top:var(--vertical-space) ;
     
     // wavy background and edges
     &::before{
@@ -111,7 +116,8 @@
 
     // ensure the waves have space
     // padding-bottom: calc( var(--overhang) / 2 );
-    margin-bottom: calc( var(--overhang) * 1.5 * var(--scale,1) );
+     
+    margin-bottom: var(--vertical-space);
 
     // wavy background and edges
     &::after{

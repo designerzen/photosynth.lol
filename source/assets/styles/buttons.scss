@@ -273,19 +273,27 @@ a.cta{
     }
 }
 
+.button-share-label{
+    color: inherit;
+}
+
 .button-share{
     --size:var(--button-size, 44px);
     margin:var(--pad) calc(2 * var(--pad));
-    color:transparent;
-    
-    width: var(--size, 1lh);
+    color:var(--col-text);
     overflow:hidden;
-    border-radius:999px;
     padding:0;
     margin:0;
+    display: flex;
+    flex-wrap: wrap;
 
     color:transparent;
 
+    img{
+        width: 100%;
+        max-width: 256px;
+        height: auto;
+    }
     &::before{
         content:'';
         font-size:inherit;
@@ -301,7 +309,7 @@ a.cta{
         // vertical-align: middle;
         // padding:0 calc(var(--pad)/2);
         // margin-right:calc( var(--pad) / 4 );
-        filter:brightness(100%) invert(100%);
+        // filter:brightness(100%) invert(100%);
         border: 2px solid black;
         border-radius: 999px;
         padding: 2px;
@@ -422,6 +430,8 @@ a.cta{
 // [data-readable] .button-read + *:first-of-type{
 //     padding-right:calc( var(--pad) * 3);
 // }
+
+
 
 label[for="toggle-midi"]{
 // #toggle-midi{
@@ -588,7 +598,7 @@ button[data-control-play]{
     // background-color: color-mix( in oklch, var(--col-accent) 66%, transparent );
     
     &:hover{
-        background-color: var(--col-accent);
+        background-color: var(--col-plum);
     }
 }
 
@@ -636,6 +646,34 @@ label[for="button-sad"]{
     &:hover{
         background-blend-mode: screen;
         background-color: var(--col-plum);
+    }
+}
+
+// nav // #process-links{}
+#drums{
+    button{
+        //border:2px solid var(--col-border);
+        // border-radius: var(--curve);
+        max-width: 66px;
+        min-height: 66px;
+        color: transparent;
+        background-color: var(--col-accent);
+        border-radius: 0;
+        padding:0;
+        box-sizing: border-box;
+        border-top:var(--stroke,1px) solid var(--col-white);
+        border-bottom:var(--stroke,1px) solid var(--col-white);
+
+        &::before{
+            display: inline-block;
+            vertical-align: middle;
+            color: white;
+        }
+        &:hover,
+        &:active{
+            background-color: var(--col-plum);
+            // border-color:var(--col-plum);
+        }
     }
 }
 
@@ -938,7 +976,7 @@ a.back-to-top{
     }
     .button-read{
       // transform: translateX( -50vw);
-        transform: translateX( -100%);
+        transform: translateX( 8px );
         border-color:var(--col-stone);
         // margin-right: -1px;
         // border-radius: 0 999px 999px 0;
