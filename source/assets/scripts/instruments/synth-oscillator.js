@@ -8,7 +8,7 @@ export default class SynthOscillator{
 
     options = {
         gain:0.3,
-        attack:0.05,
+        attack:0.5,
         shape:OSCILLATORS[0],
         minDuration:1,
         arpeggioDuration:0.2,
@@ -26,6 +26,12 @@ export default class SynthOscillator{
     
     // arpeggioIntervals = []
     customWave = null
+
+    #id = "SynthOscillator"
+
+    get id(){
+        return this.#id
+    }
 
     get now(){
         return this.audioContext.currentTime
@@ -144,7 +150,8 @@ export default class SynthOscillator{
     // }
 
     get output(){
-        return this.filterNode
+        return this.gainNode
+        // return this.filterNode
     }
 
     constructor(audioContext, options={}){
@@ -162,8 +169,8 @@ export default class SynthOscillator{
         this.gainNode = audioContext.createGain()
         this.gainNode.gain.value = 0  // start silently
 
-        this.gainNode.connect(this.filterNode)
-        // this.filterNode.connect(this.gainNode)
+        // this.gainNode.connect(this.filterNode)
+        this.filterNode.connect(this.gainNode)
         // this.gainNode.connect(audioContext.destination)
         
         if (options.shape)
@@ -245,7 +252,7 @@ export default class SynthOscillator{
         // fade in envelope
         const amplitude = velocity * this.options.gain
         this.gainNode.gain.cancelScheduledValues(startTime)
-        this.gainNode.gain.setValueAtTime( 0, startTime  )
+        this.gainNode.gain.setValueAtTime( 0, startTime )
 		this.gainNode.gain.linearRampToValueAtTime( amplitude, startTime + this.options.attack )
 
 		// Shape the note
@@ -277,7 +284,7 @@ export default class SynthOscillator{
      */
     noteOff( note ){
         if (!this.isNoteDown ){
-            console.warn("noteOff IGNORED", note)
+            console.warn("noteOff IGNORED - note NOT playing", note, this )
             return
         }
         const now = this.now
