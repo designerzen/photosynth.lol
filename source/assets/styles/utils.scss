@@ -147,6 +147,16 @@ img.flood{
 	transform: translateX(-50%);
 }
 
+// an anchor that is in the regular colours
+a.secret-link{
+    color: inherit;
+    text-decoration: inherit;
+    &:hover, &:focus, &:active{
+        text-decoration: underline;
+    }
+}
+
+
 .bg-children{
     --space:2;
 
@@ -207,6 +217,7 @@ img.flood{
 // .bg-children:not(.wavey) > .bg-clear
 .add-window-curves-top{
     --cuve-size:99px;
+    position: relative;
 
     &::before{
         content: "";
@@ -403,6 +414,7 @@ img.flood{
             // transform: translateX( calc(100% * var(--i)) );
             transform: translate( var(--x,0), var(--y,0));
             padding: 0;
+            margin: 0;
             border-radius: 999px;
             border:4px solid var(--col-charcoal);
 			box-sizing: border-box;

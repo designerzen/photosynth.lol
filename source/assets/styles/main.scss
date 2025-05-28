@@ -1171,7 +1171,7 @@ footer{
         // flex-wrap: wrap;
         align-items: self-start;
         img{
-            max-width: 33%;
+            max-width: 20%;
         }
     }
 }
@@ -1291,6 +1291,10 @@ figcaption{
     display: inline-block;
     .emoji{
         float: left;
+    }
+    em{
+        display:block;
+        margin-bottom: calc(var(--pad)/2);
     }
 }
 
