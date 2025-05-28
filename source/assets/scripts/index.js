@@ -7,7 +7,6 @@ import { setFont } from "./fonts"
 // NB. This polyfill will break AudioWorklets which we use for timing
 import { AudioContext as PonyAudioContext, OfflineAudioContext } from 'standardized-audio-context'
 import MIDIManager from "./midi.js"
-import { mapped, toChord, toNote } from "./audio"
 import { createChord, createFifthsChord, createMajorChord, createMinorChord, getModeAsIntegerOffset, getModeFromIntegerOffset, MAJOR_CHORD_INTERVALS, MINOR_CHORD_INTERVALS, TUNING_MODE_NAMES } from "./chords"
 import { registerMultiTouchSynth } from "./components/multi-touch-synth"
 import CircleSynth from "./components/circle-synth"
@@ -29,8 +28,8 @@ import { addReadButtons, handlePasswordProtection, selectRadioButton, setCurrent
 // data
 import { getSettings, CICRLE_INTERVALS, DEFAULT_PASSWORD, PALETTE, VISUALISER_OPTIONS } from "./settings"
 import { ASTLEY, getCompondSong, getRandomSong } from "./songs"
-import WAVE_ARCHIVE_GENERAL_MIDI from "url:/static/wave-tables/general-midi.zip"
-// import WAVE_ARCHIVE_GOOGLE from "url:/static/wave-tables/google.zip"
+import { getRandomDrumPattern, getRandomKitSequence, kitSequence } from "./timing/patterns.js"
+import { GamePadManager } from "./gamepad.js"
 import { MouseVisualiser } from "./components/mouse-visualiser"
 import { MelodyRecorder } from "./melody-recorder"
 import { debounce } from "./utils.js"
@@ -43,20 +42,20 @@ import { countdown } from "./countdown.js"
 import { getRandomSpell } from "./sfx.js"
 
 import {CANVAS_BLEND_MODE_DESCRIPTIONS, CANVAS_BLEND_MODES} from "./blendmodes.js"
-
 // Data locations
+import WAVE_ARCHIVE_GENERAL_MIDI from "url:/static/wave-tables/general-midi.zip"
 import MANIFEST_URL from "url:/static/wave-tables/general-midi/manifest.json"
-import { getRandomDrumPattern, getRandomKitSequence, kitSequence } from "./timing/patterns.js"
-import { GamePadManager } from "./gamepad.js"
 
 const SETTINGS = getSettings()
-console.error("SETTINGS", SETTINGS)
+if (SETTINGS.debug)
+{
+    console.error("SETTINGS", SETTINGS)
+}
 
 // audio requires a user gesture to start...
 // so we hook into each musical event to check if the user has engaged
 let hasUserEngaged = false
 let drumsPlaying = false
-
 
 // read any saved themes from the URL ONLY (not from cookies so no overlay required :)
 const searchParams = new URLSearchParams(location.search)
@@ -72,7 +71,6 @@ let mixer = null
 let stats
 
 const midiManager = new MIDIManager()
-
 
 // Shared DOM elements
 let hero
@@ -118,7 +116,8 @@ const CHORDS = [
 ]
 
 /**
- * 
+ * Load all of the PeriodicWave Table Data from the local
+ * file system via a zip that is created on build
  * @param {String} zipURL 
  * @returns 
  */
@@ -132,12 +131,9 @@ const preloadWaveTablesFromZip = async (zipURL) => {
     console.info( data.length, "ZIPPED WAVE data",zipURL, {data}, getAllWaveTables() )
 }
 
-
-
 // console.info({ALL_KEYBOARD_NOTES, KEYBOARD_NOTES})
 
 // UI ==============================================================
-
 
 /**
  * Replace the existing URL with a specific one without refreshing the page
@@ -161,21 +157,25 @@ const setURLParameter = debounce((name, value) => {
  * @param {Number} finger 
  * @returns 
  */
-const getSynthForFinger = (finger=0)=>{
-    if (!fingerSynths.has(finger)){
+const getSynthForFinger = (finger)=>{
+    let fingerSynth = fingerSynths.get(finger)
+    if (!fingerSynth){
         // const shape = getRandomWaveTableName()
-        const fingerSynth = new SynthOscillator(audioContext, {shape})
+        fingerSynth = new SynthOscillator(audioContext, {shape})
         // fingerSynth.loadWaveTable(shape)
         // fingerSynth.shape = "Piano"
         // console.info("shape loading",shape, "into", fingerSynth)
+        fingerSynth.id = finger + "-synth"
         fingerSynth.output.connect(limiter)
         fingerSynths.set( finger, fingerSynth )
     }
-    return fingerSynths.get(finger)
+    console.error("getSynthForFinger", finger, fingerSynth)
+    return fingerSynth
 }
 
 /**
  * Create a time keeper and call this method
+ * callback on every tick
  * @param {Function} callback 
  * @returns {Timer}
  */
@@ -245,7 +245,7 @@ const addAccessibilityFunctionality = ()=> {
         
         if (bgCol)
         {
-                console.info("bgCol", bgCol)
+                // console.info("bgCol", bgCol)
         }else{
             
         }
@@ -255,7 +255,7 @@ const addAccessibilityFunctionality = ()=> {
     const volumeSlider = document.getElementById("volume")
     volumeSlider.addEventListener("input", e => {
         const input = e.target.value
-        console.info("volumeSlider", input)
+        // console.info("volumeSlider", input)
         setVolume(input / 100 )
     })
 
@@ -298,7 +298,10 @@ const addAccessibilityFunctionality = ()=> {
  * @param {Number} velocity 
  * @param {Number} id 
  */
-const noteOn = ( noteModel, velocity=1, id=0 ) => {
+const noteOn = ( noteModel, velocity=1, id=DEFAULT_MOUSE_ID ) => {
+
+    
+    console.info(id, "NOTE ON for FINGER", {noteModel, velocity} )
 
     // as user click is required to start the audio context
     if (!hasUserEngaged)
@@ -311,15 +314,22 @@ const noteOn = ( noteModel, velocity=1, id=0 ) => {
         console.warn("No noteModel provided to noteOn", noteModel)
         return
     }
-
+    
     if (notesPlaying.has( noteModel ))
     {
-        //console.warn("NoteOn Already playing", noteModel)
+        console.warn("NoteOn Already playing", noteModel)
         return
     }
+
  
     const synth = getSynthForFinger(id)
-    synth && synth.noteOn( noteModel, velocity )           
+
+    if (!synth){
+        console.warn("No Synths available for "+id)
+        return
+    }
+
+    const isAlreadyPlaying = synth.noteOn( noteModel, velocity )           
     notesPlaying.set( noteModel )                                                                                                 
     keyboard && keyboard.setKeyAsActive( noteModel )    // highlight the keys on the keyboard!    
     hero && hero.noteOn( noteModel )
@@ -335,8 +345,8 @@ const noteOn = ( noteModel, velocity=1, id=0 ) => {
    
     if (midiManager.enabled && midiDeviceOutput){
         midiDeviceOutput.playNote( noteModel.noteName, {attack:velocity }) 
-        console.info("MIDI NOTE ON", noteModel )
     }
+    return isAlreadyPlaying
 }
    
 /**
@@ -347,6 +357,8 @@ const noteOn = ( noteModel, velocity=1, id=0 ) => {
  */
 const noteOff = (noteModel, velocity=1, id=0 ) => {
    
+    console.info( id, "NOTE OFF",{ noteModel, velocity } )
+
     // as user click is required to start the audio context
     if (!hasUserEngaged)
     {
@@ -359,9 +371,16 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
         return
     }
 
-    notesPlaying.delete( noteModel )
+   
     const synth = getSynthForFinger(id)
-    synth && synth.noteOff( noteModel, velocity )
+    
+    if (!synth){
+        console.warn("No Synths available for "+id)
+        return
+    }
+    notesPlaying.delete( noteModel )
+
+    const isPlaying = synth.noteOff( noteModel, velocity )
     keyboard && keyboard.setKeyAsInactive( noteModel )   // unhighlight the keys on the keyboard
     hero && hero.noteOff( noteModel )
     noteVisualiser && noteVisualiser.noteOff( noteModel, velocity )
@@ -378,6 +397,7 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
         midiDeviceOutput.stopNote( noteModel.noteName )
         console.info("MIDI NOTE OFF", noteModel )
     }
+    return isPlaying
 }
 
 /**
@@ -389,10 +409,11 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
  * @param {Number|String} idOffset 
  */
 const chordOn = (noteModel, velocity=1, id=0, intervals=null, mode=0, idOffset=0) => {
+    console.info("Creating chord ON", intervals ?? MAJOR_CHORD_INTERVALS, noteModel.noteNumber, mode, "cutoff", "acculumate" )
     const chord = createChord(ALL_KEYBOARD_NOTES, intervals ?? MAJOR_CHORD_INTERVALS, noteModel.noteNumber, mode, true, true )
     const velocityReduction = velocity / chord.length * 0.8
     const length = chord.length+idOffset
-    console.info(idOffset, "chordOn", chord, velocityReduction  )
+    //console.info(idOffset, "chordOn", chord, velocityReduction  )
     for (let i=idOffset; i<length; i++){
         noteOn( chord[i], velocityReduction, id+i )
     }
@@ -406,6 +427,8 @@ const chordOn = (noteModel, velocity=1, id=0, intervals=null, mode=0, idOffset=0
  * @param {Number} mode 
  */
 const chordOff = (noteModel, velocity=1, id=0, intervals=null, mode=0 ) => {
+    console.info("Creating chord OFF", noteModel.noteNumber, mode, "cutoff", "acculumate" )
+    
     if (!noteModel ){
         console.warn("No noteModel provided to chordOff", noteModel)
         return

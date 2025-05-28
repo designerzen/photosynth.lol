@@ -32,6 +32,9 @@ export default class SynthOscillator{
     get id(){
         return this.#id
     }
+    set id(value){
+        this.#id = value
+    }
 
     get now(){
         return this.audioContext.currentTime

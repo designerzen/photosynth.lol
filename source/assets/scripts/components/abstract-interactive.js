@@ -22,17 +22,15 @@ export default class AbstractInteractive{
 
 		const controller = new AbortController()
 		
+        // monophonic
+        let previousNote 
+
 		buttonElements.forEach( (button, i) => {
 		
-			let previousNote 
 		
             // can come from a touch a mouse click or a keyboard enter press
-			const onInteractionStarting = (event, id = 1 ) => {
+			const onInteractionStarting = (event ) => {
 
-                   // always one for mouse
-                const touches = event.changedTouches
-                console.log("on interaction", {event, id, touches})
-                
 				// Keypresses other than Enter and Space should not trigger a command
 				if (
 					event instanceof KeyboardEvent &&
@@ -46,16 +44,28 @@ export default class AbstractInteractive{
 				{
 					event.preventDefault()
 				}
-		
-				let pressure = 1
-				if ((typeof(event.targetTouches) != 'undefined') && (event.targetTouches.length > 0) && (typeof(event.targetTouches[0].force) != 'undefined')) {
-					pressure = event.targetTouches[0].force
-				} else if (typeof(event.webkitForce) != 'undefined') {
-					pressure = event.webkitForce
-				} else if (typeof(event.pressure) != 'undefined') {
-					pressure = event.pressure
-				}
 
+				let pressure = 1
+                let id = event.id ?? DEFAULT_MOUSE_ID
+
+                const type = event.type
+                switch(type)
+                {
+                    case "mousedown":
+                        break
+                    case "touchstart":
+                        if ((typeof(event.targetTouches) != 'undefined') && (event.targetTouches.length > 0) && (typeof(event.targetTouches[0].force) != 'undefined')) {
+                            pressure = event.targetTouches[0].force
+                        } else if (typeof(event.webkitForce) != 'undefined') {
+                            pressure = event.webkitForce
+                        } else if (typeof(event.pressure) != 'undefined') {
+                            pressure = event.pressure
+                        }
+                        break
+                }
+                   // always one for mouse
+                const touches = event.changedTouches
+              		
         		const note = this.getNoteFromKey(button)
 		
 				// noteName = button.getAttribute("data-note")
@@ -65,8 +75,13 @@ export default class AbstractInteractive{
 				// console.info("REQUEST START", {note, noteName, GENERAL_MIDI_INSTRUMENTS})
 				
 				const starting = noteOn(note, pressure, id)
+ 
 				previousNote = note
                 this.activeNotes.set( id, note )
+
+                
+                console.log(id, type, "START on interaction", {starting, note,previousNote,  event, pressure, touches})
+               
                 
                 this.isTouching = true
 				
@@ -79,6 +94,11 @@ export default class AbstractInteractive{
 				document.addEventListener("touchcancel", onInterationComplete, {signal: controller.signal, passive: true})
 			}
 		
+            /**
+             * 
+             * @param {Event} event 
+             * @returns 
+             */
 			const onInterationComplete = (event) => {
 				// Keypresses other than Enter and Space should not trigger a command
 				if (
@@ -93,14 +113,31 @@ export default class AbstractInteractive{
 				{
 					event.preventDefault()
 				}
+
+                const id = event.id ?? DEFAULT_MOUSE_ID
+                const type = event.type
+                switch(type)
+                {
+                    case "mouseup":
+                    case "mouseleave":
+                        break
+                    case "touchcancel":
+                    case "touchend":
+                        break
+                }
 				
+               
 				document.removeEventListener("mouseleave", onInterationComplete)
 				document.removeEventListener("mouseup", onInterationComplete)
 				
 				document.removeEventListener("touchend", onInterationComplete)
 				document.removeEventListener("touchcancel", onInterationComplete)
 				
-				noteOff(previousNote,1,this)
+				noteOff(previousNote, 1, id)
+
+                console.log(id, type, "END on interaction", {previousNote, event, id })
+               
+
 				this.isTouching = false
 				previousNote = null
 				
@@ -109,21 +146,25 @@ export default class AbstractInteractive{
             
             // button.addEventListener("mousemove", handleMove)
             // button.addEventListener("touchmove", handleMove)
-			button.addEventListener("touchstart", e => onInteractionStarting(e, e.id), {signal: controller.signal,passive}) 
+			button.addEventListener("touchstart", onInteractionStarting, {signal: controller.signal,passive}) 
           
             // MOUSE =================================================================
 
             // MOUSE DOWN - turn on note and cache event
-            button.addEventListener("mousedown", e => onInteractionStarting(e, DEFAULT_MOUSE_ID), {signal: controller.signal,passive})
+            button.addEventListener("mousedown", onInteractionStarting, {signal: controller.signal,passive})
 			
 			// if the user has finger down but they change keys...
 			button.addEventListener("mouseenter", event => {
               
+                console.info("mousenter", previousNote)
 				if (!passive && event.preventDefault)
 				{
 					event.preventDefault()
 				}
 
+                const id = event.id ?? DEFAULT_MOUSE_ID
+                const type = event.type
+            
 				if (this.isTouching)
 				{	
 					const note = this.getNoteFromKey(button)
@@ -131,12 +172,17 @@ export default class AbstractInteractive{
 					// document.querySelector(`.indicator[data-note="${noteName}"]`)?.classList?.toggle("active", true)
 										
 					// console.info("REQUEST CHANGE", {note, noteName,GENERAL_MIDI_INSTRUMENTS})
-					// pitch bend!
-					noteOn(note, 1, DEFAULT_MOUSE_ID)
+					// TODO: pitch bend!
+					noteOff(previousNote, 1, id)
+					noteOn(note, 1, id)
+
+                    console.log(id, type, "ALTER interaction", {note, previousNote, event, id })
+               
 					previousNote = note
 				}else{
 					// console.warn("REQUEST CHANGE IGNORED")
 				}
+                
 			}, {signal: controller.signal, passive})
 		    
             // Mouse OUT - turn off note
