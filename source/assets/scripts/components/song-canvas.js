@@ -51,7 +51,7 @@ export class SongCanvas {
     drawNote(note, time){
         this.context.fillStyle = note.colour
         this.context.fillRect( time, note.number, 1, 1)
-        console.info("note", note, time)
+        // console.info("note", note, time)
     }
 
     redraw(){

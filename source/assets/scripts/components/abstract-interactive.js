@@ -13,25 +13,24 @@ export default class AbstractInteractive{
 	 * @param {Function} noteOff - method to call to stop the playing note
 	 * @param {Boolean} passive - use passive listeners 
 	 */
-	addInteractivity( keys, noteOn, noteOff, passive=true ){
+	addInteractivity( buttonElements, noteOn, noteOff, passive=true ){
 		
-		if(!keys)
+		if(!buttonElements)
 		{
 			throw Error("No keys provided to add interactivity to")
 		}
 
 		const controller = new AbortController()
 		
-		keys.forEach( (button, i) => {
+		buttonElements.forEach( (button, i) => {
 		
 			let previousNote 
 		
             // can come from a touch a mouse click or a keyboard enter press
-			const onInteractionStarting = (event) => {
+			const onInteractionStarting = (event, id = 1 ) => {
 
-                const id = 1    // always one for mouse
-                const touches = evt.changedTouches
-
+                   // always one for mouse
+                const touches = event.changedTouches
                 console.log("on interaction", {event, id, touches})
                 
 				// Keypresses other than Enter and Space should not trigger a command

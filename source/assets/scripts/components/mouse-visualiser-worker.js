@@ -3,17 +3,18 @@ import { easeOutSine } from "../easing"
 const TAU = Math.PI * 2
 const FRICTION = 0.3
 
-const STROKE = 4
+const STROKE_ACTIVE = 2
+const STROKE_REGULAR = 1
 const MIN_RADIUS = 1
 const MAX_RADIUS = 44
 const RADIUS_RANGE = MAX_RADIUS - MIN_RADIUS
 
-const MAX_SIZE = (MAX_RADIUS + STROKE) * 2
+const MAX_SIZE = (MAX_RADIUS + STROKE_ACTIVE) * 2
 const HALF_MAX_RADIUS = MAX_SIZE / 2
 
 const SHRINK_DURATION = 101 // 101 is good   // this should be similar to the decay on the instrument
 
-const OFFSET = 16
+const OFFSET = 11
 const X_OFFSET = -MAX_RADIUS - OFFSET
 const Y_OFFSET = -MAX_RADIUS - OFFSET
 
@@ -101,7 +102,7 @@ function renderMouse(x, y, radius=MAX_RADIUS, nodeTypeHovered=null, mouseDown=fa
         
         // now draw the outlines...
         context.strokeStyle = colour
-        context.lineWidth = mouseDown ? STROKE : 8
+        context.lineWidth = mouseDown ? STROKE_ACTIVE : STROKE_REGULAR
         // context.fill(path)
         context.stroke(outline)
 
