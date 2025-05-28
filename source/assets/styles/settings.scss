@@ -64,7 +64,7 @@
 
     // we always want the smallest size for the footer
     --footer-height:clamp(33px, 10vmin, 10vh);
-    --footer-height:clamp(60px, 10vh, 10%);
+    --footer-height:clamp(60px, 10vh, 200px);
 
     --shadow-button: inset 0 -4px #930015;
     --button-active:translateY(5%)  scale( 0.98 );

@@ -52,6 +52,13 @@
 		@see https://github.com/twbs/bootstrap/issues/20732
 */
 
+.pad-top{
+    padding-top: calc( var(--pad) * 2);
+}
+.pad-bottom{
+    padding-bottom: calc( var(--pad) * 2);
+}
+
 // allow these elements to break out of the columns to cover the whole width
 // NB. this resets the column lengths :)
 
@@ -156,21 +163,22 @@ a.secret-link{
     }
 }
 
-
+// if we only want the children to have backgrounds
+// in the case of elements that paint in the backgreeound
 .bg-children{
     --space:2;
 
-    margin-bottom: 0;
+    // margin-bottom: 0;
     position: relative;
 
-    > *:not(section, button, article ){
+    > *:not(section, button, article,div ){
         min-width:100%;// calc(100% - 2 * var(--space) * var(--pad));
         padding-left:calc(1 * var(--space) * var(--pad));
         padding-right:calc(1 * var(--space) * var(--pad)); 
         box-sizing: border-box;
     }
 
-    > *:not(section, label, button, article, .bg-clear){
+    > *:not(section, label, button, article,div, .bg-clear){
         background-color: var(--col-bg);
     }
     
@@ -207,7 +215,17 @@ a.secret-link{
     }
     
     // add a background fill at the end to all none wavey backghrounds
-    .bg-clear + *{ 
+    .bg-clear + *:not(
+        .wavey,
+        .square,
+        .sawtooth,
+        .wavey-top,
+        .square-top,
+        .sawtooth-top,
+        .wavey-bottom,
+        .square-bottom,
+        .sawtooth-bottom
+    ){ 
         border-top: solid calc(2 * var(--pad)) var(--col-bg);
     }
 }

@@ -852,15 +852,15 @@ tbody{
   
     legend{
         // float: left;
-        padding-left:calc( 2 * var(--pad) );
-        padding-right:calc( 2 * var(--pad) );
+        // padding-left:calc( 2 * var(--pad) );
+        // padding-right:calc( 2 * var(--pad) );
         position: absolute;
         // bottom:0;
         // top: 100%;
         left: 0;
         top:0;
         transform: translateY(-100%);
-        // right: 0;
+        right: 0;
     }
 
     label{
@@ -939,6 +939,12 @@ tbody{
         button{
             font-size:var( --step--2, 22px);
         }
+        legend{
+            padding-left:calc( 2 * var(--pad) );
+            padding-right:calc( 2 * var(--pad) );
+            right: auto;
+        }
+    
     }
 }
 
@@ -1165,24 +1171,22 @@ footer{
     }
 }
 
-@media screen and (min-width:vars.$min-width-3) {
-    #biography{
-        flex-direction: row;
-        // flex-wrap: wrap;
-        align-items: self-start;
-        img{
-            max-width: 20%;
-        }
-    }
-}
 
 #affiliates{
-    margin-top: -18%;
+
+    --space:max( 0 , calc( (100vw - 480px) / 2 ) );
+    --space: calc( ( 100vw - 480px ) / 2 ) ;
+    
     color: var(--col-plum);
+    margin-top: -15%;
+   
+    width: 100%;
+    text-align: center;
 
     figure > img{
         min-height: auto;
     }
+
     ul{
         list-style: none;
         display: grid;
@@ -1193,15 +1197,17 @@ footer{
         align-items: center;
         align-content: center;
         position: relative;
-        max-width: 480px;
+        padding-left:var(--space);
+        padding-right:var(--space);
+        
+      // max-width: 480px;
+
         margin-left: auto;
         margin-right: auto;
-        position: relative;
-            
+        position: relative;            
         border-radius: var(--curve);
         // background-color:var(--col-text);
         background-color: color-mix( in rgba, var(--col-bg) 66%, transparent );
-
 
         &::after{
             content: '';
@@ -1210,9 +1216,10 @@ footer{
             background-repeat: no-repeat;
             background-size: contain;
             position: absolute;
-            left:100%;
+           
             height:100%;
             width:100px;
+            visibility: hidden;
         }
         
         // this is a seperator x between the images
@@ -1243,6 +1250,24 @@ footer{
     li + li{
         
       
+    }
+}
+
+
+@media screen and (min-width:vars.$min-width-3) {
+    #biography{
+        flex-direction: row;
+        // flex-wrap: wrap;
+        align-items: self-start;
+        img{
+            max-width: 20%;
+        }
+    }
+}
+@media screen and (min-width:vars.$min-width-2) {
+    #affiliates ul::after{
+        right:0;
+        visibility: visible;
     }
 }
 

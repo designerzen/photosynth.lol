@@ -293,6 +293,7 @@ svg[aria-hidden='true'] {
     font:inherit;
     letter-spacing: inherit;
     word-spacing: inherit;
+    
 }
 
 :where(label){
@@ -488,6 +489,7 @@ svg[aria-hidden='true'] {
     input[type=range],
     input[type=submit],
     input[type=reset],
+    input[type=button],
     button
 ){
     cursor: pointer;

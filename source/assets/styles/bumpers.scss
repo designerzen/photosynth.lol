@@ -14,6 +14,9 @@
     // this needs to always be larger than the graphic's jags
     // which is 25% of it's height
 	--overhang:clamp(44px, 4vh, 66px);
+
+    // --scale
+
 	--mask: url(/source/assets/wallpaper/wavey-top.svg);
     --mask-position: center top;
     --scale:1;
@@ -66,7 +69,7 @@
 .sawtooth-top{
 
     // ensure the waves have space
-    margin-top: calc( var(--overhang) * 1.5 );
+    margin-top: calc( var(--overhang) * 1.5 * var(--scale,1) );
     
     // wavy background and edges
     &::before{
@@ -108,7 +111,7 @@
 
     // ensure the waves have space
     // padding-bottom: calc( var(--overhang) / 2 );
-    margin-bottom: calc( var(--overhang) * 1.5 );
+    margin-bottom: calc( var(--overhang) * 1.5 * var(--scale,1) );
 
     // wavy background and edges
     &::after{
@@ -169,6 +172,19 @@ p.wavey{
 	padding-top: calc(var(--pad) * 2);
 	padding-bottom: calc(var(--pad) * 2);
 	background-color: var(--col-bg);
+}
+
+p.wavey-top,
+p.square-top,
+p.sawtooth-top{
+    padding-top: calc(var(--pad) * 2);
+    padding-bottom: calc(var(--pad) * 2);
+}
+p.wavey-bottom,
+p.square-bottom,
+p.sawtooth-bottom{
+    padding-top: calc(var(--pad) * 2);
+    padding-bottom: calc(var(--pad) * 2);
 }
 
 .sawtooth{
