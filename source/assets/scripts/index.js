@@ -45,6 +45,7 @@ import {CANVAS_BLEND_MODE_DESCRIPTIONS, CANVAS_BLEND_MODES} from "./blendmodes.j
 // Data locations
 import WAVE_ARCHIVE_GENERAL_MIDI from "url:/static/wave-tables/general-midi.zip"
 import MANIFEST_URL from "url:/static/wave-tables/general-midi/manifest.json"
+import { DEFAULT_MOUSE_ID } from "./components/abstract-interactive.js"
 
 const SETTINGS = getSettings()
 if (SETTINGS.debug)
@@ -300,7 +301,6 @@ const addAccessibilityFunctionality = ()=> {
  */
 const noteOn = ( noteModel, velocity=1, id=DEFAULT_MOUSE_ID ) => {
 
-    
     console.info(id, "NOTE ON for FINGER", {noteModel, velocity} )
 
     // as user click is required to start the audio context
@@ -409,7 +409,7 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
  * @param {Number|String} idOffset 
  */
 const chordOn = (noteModel, velocity=1, id=0, intervals=null, mode=0, idOffset=0) => {
-    console.info("Creating chord ON", intervals ?? MAJOR_CHORD_INTERVALS, noteModel.noteNumber, mode, "cutoff", "acculumate" )
+    console.info("Creating chord ON", intervals ?? MAJOR_CHORD_INTERVALS, noteModel, mode, "cutoff", "acculumate" )
     const chord = createChord(ALL_KEYBOARD_NOTES, intervals ?? MAJOR_CHORD_INTERVALS, noteModel.noteNumber, mode, true, true )
     const velocityReduction = velocity / chord.length * 0.8
     const length = chord.length+idOffset
@@ -427,7 +427,7 @@ const chordOn = (noteModel, velocity=1, id=0, intervals=null, mode=0, idOffset=0
  * @param {Number} mode 
  */
 const chordOff = (noteModel, velocity=1, id=0, intervals=null, mode=0 ) => {
-    console.info("Creating chord OFF", noteModel.noteNumber, mode, "cutoff", "acculumate" )
+    console.info("Creating chord OFF", noteModel, mode, "cutoff", "acculumate" )
     
     if (!noteModel ){
         console.warn("No noteModel provided to chordOff", noteModel)
@@ -1517,6 +1517,7 @@ const start =  async () => {
         const wallpaperCanvas = document.getElementById("wallpaper")
         noteVisualiser = new NoteVisualiser( ALL_KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
         // noteVisualiser = new NoteVisualiser( KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
+        wallpaperCanvas.addEventListener( "dblclick", e => scale === SCALES[ (SCALES.indexOf(scale) + 1) % SCALES.length] )
         
         // FIXME: Is this causing poor performance?
         let b = 23

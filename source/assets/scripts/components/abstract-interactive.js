@@ -1,4 +1,4 @@
-const DEFAULT_MOUSE_ID = 1
+export const DEFAULT_MOUSE_ID = 1
 
 export default class AbstractInteractive{
 
@@ -27,7 +27,6 @@ export default class AbstractInteractive{
 
 		buttonElements.forEach( (button, i) => {
 		
-		
             // can come from a touch a mouse click or a keyboard enter press
 			const onInteractionStarting = (event ) => {
 
@@ -46,7 +45,7 @@ export default class AbstractInteractive{
 				}
 
 				let pressure = 1
-                let id = event.id ?? DEFAULT_MOUSE_ID
+                let id = event.pointerId ?? DEFAULT_MOUSE_ID
 
                 const type = event.type
                 switch(type)
@@ -87,11 +86,11 @@ export default class AbstractInteractive{
 				
 				// starting & document.querySelector(`.indicator[data-note="${noteName}"]`)?.classList?.toggle("active", true)
 			
-				document.addEventListener("mouseleave", onInterationComplete, {signal: controller.signal, passive: true})
-				document.addEventListener("mouseup", onInterationComplete, {signal: controller.signal, passive: true})
+				document.addEventListener("pointerleave", onInterationComplete, {signal: controller.signal, passive: true})
+				document.addEventListener("pointerup", onInterationComplete, {signal: controller.signal, passive: true})
 				
-				document.addEventListener("touchend", onInterationComplete, {signal: controller.signal, passive: true})
-				document.addEventListener("touchcancel", onInterationComplete, {signal: controller.signal, passive: true})
+				document.addEventListener("pointerend", onInterationComplete, {signal: controller.signal, passive: true})
+				document.addEventListener("pointercancel", onInterationComplete, {signal: controller.signal, passive: true})
 			}
 		
             /**
@@ -114,7 +113,7 @@ export default class AbstractInteractive{
 					event.preventDefault()
 				}
 
-                const id = event.id ?? DEFAULT_MOUSE_ID
+                const id = event.pointerId ?? DEFAULT_MOUSE_ID
                 const type = event.type
                 switch(type)
                 {
@@ -127,11 +126,11 @@ export default class AbstractInteractive{
                 }
 				
                
-				document.removeEventListener("mouseleave", onInterationComplete)
-				document.removeEventListener("mouseup", onInterationComplete)
+				document.removeEventListener("pointerleave", onInterationComplete)
+				document.removeEventListener("pointerup", onInterationComplete)
 				
-				document.removeEventListener("touchend", onInterationComplete)
-				document.removeEventListener("touchcancel", onInterationComplete)
+				document.removeEventListener("pointerend", onInterationComplete)
+				document.removeEventListener("pointercancel", onInterationComplete)
 				
 				noteOff(previousNote, 1, id)
 
@@ -146,23 +145,23 @@ export default class AbstractInteractive{
             
             // button.addEventListener("mousemove", handleMove)
             // button.addEventListener("touchmove", handleMove)
-			button.addEventListener("touchstart", onInteractionStarting, {signal: controller.signal,passive}) 
+			button.addEventListener("pointerstart", onInteractionStarting, {signal: controller.signal,passive}) 
           
             // MOUSE =================================================================
 
             // MOUSE DOWN - turn on note and cache event
-            button.addEventListener("mousedown", onInteractionStarting, {signal: controller.signal,passive})
+            button.addEventListener("pointerdown", onInteractionStarting, {signal: controller.signal,passive})
 			
 			// if the user has finger down but they change keys...
-			button.addEventListener("mouseenter", event => {
+			button.addEventListener("pointerenter", event => {
               
-                console.info("mousenter", previousNote)
+                console.info("pointerenter", previousNote)
 				if (!passive && event.preventDefault)
 				{
 					event.preventDefault()
 				}
 
-                const id = event.id ?? DEFAULT_MOUSE_ID
+                const id = event.pointerId ?? DEFAULT_MOUSE_ID
                 const type = event.type
             
 				if (this.isTouching)
@@ -186,7 +185,7 @@ export default class AbstractInteractive{
 			}, {signal: controller.signal, passive})
 		    
             // Mouse OUT - turn off note
-			button.addEventListener("mouseleave", event => {
+			button.addEventListener("pointerleave", event => {
 				if (!passive && event.preventDefault)
 				{
 					event.preventDefault()

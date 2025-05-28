@@ -131,13 +131,23 @@ export const createChord = (notes, scaleFormula=MAJOR_SCALE, offset=0, mode=0, c
 	const quantityInScale = scaleFormula.length
 	let accumulator = offset // : 0
 	let output = []
-
+    
 	for (let index=0; index<quantityInScale; ++index)
 	{
-		const noteIndex = scaleFormula[(index+mode)%quantityInScale]
+		const noteIndex = scaleFormula[(index+mode)%(quantityInScale)]
 		if (accumulate)
 		{
-			accumulator += noteIndex
+            // if noteIndex is 0 and index !== 0 add 12?
+            if (noteIndex === 0 && index !== 0)
+            {
+                // this will be a note repetition so we transpose
+                accumulator -= 12
+                accumulator += noteIndex
+                console.log("transpose", offset, accumulator, offset - accumulator )
+            }else{
+                accumulator += noteIndex
+            }
+		
 		}else{
 			accumulator = noteIndex
 		}
@@ -149,6 +159,7 @@ export const createChord = (notes, scaleFormula=MAJOR_SCALE, offset=0, mode=0, c
 			output[index] = notes[accumulator%quantityOfNotes]
 		}
 	}
+    
 	return output
 }
 

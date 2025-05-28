@@ -10,7 +10,7 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
 
     /**
      * 
-     * @param {MouseEvent|TouchEvent} e 
+     * @param {PointerEvent|MouseEvent|TouchEvent} e 
      * @returns {Number}
      */
     const convertPositionToNote = (e) =>{
@@ -29,7 +29,7 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
 
     /**
      * Mouse Down or Touch Started
-     * @param {MouseEvent|TouchEvent} e 
+     * @param {PointerEvent|MouseEvent|TouchEvent} e 
      */
     const onInteractionBegin = e => {
 
@@ -54,28 +54,28 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
      * user has moused out whilst the note was playing, so we turned 
      * it off, but now we want to continue playing it!
      * 
-     * @param {MouseEvent|TouchEvent} e 
+     * @param {PointerEvent|MouseEvent|TouchEvent} e 
      * @returns 
      */
     const onInteractionContinue = e => {
 
-        if (activeNotes.size === 0){
-            return
-        }
+        // if (activeNotes.size === 0){
+        //     return
+        // }
   
         e.preventDefault()
        
-        activeNotes.forEach(id =>{
-            const note = activeNotes.get(id)
-            noteOnCallback( note, 1,id )
+        // activeNotes.forEach(id =>{
+        //     const note = activeNotes.get(id)
+        //     noteOnCallback( note, 1,id )
             
-          console.info(id, "mouse continue", {e})
-        })
+        //   console.info(id, "mouse continue", {e})
+        // })
     }
     
     /**
      * 
-     * @param {MouseEvent|TouchEvent} e 
+     * @param {PointerEvent|MouseEvent|TouchEvent} e 
      * @returns 
      */
     const onInteractionMoving = e => {
@@ -113,7 +113,7 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
     /**
      * Touch / Mouse interaction has completed
      * (either mouse up or touch end)
-     * @param {MouseEvent|TouchEvent} e 
+     * @param {PointerEvent|MouseEvent|TouchEvent} e 
      */
     const onInteractionEnd = e => {
         e.preventDefault()
@@ -129,9 +129,10 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
         }      
     }
 
+    /*
     canvas.addEventListener("mousedown", onInteractionBegin, { signal: controller.signal, passive })
-    canvas.addEventListener("pointermove", onInteractionMoving, { signal: controller.signal, passive })
-    // canvas.addEventListener("mousemove", onInteractionMoving, { signal: controller.signal, passive })
+    // canvas.addEventListener("pointermove", onInteractionMoving, { signal: controller.signal, passive })
+    canvas.addEventListener("mousemove", onInteractionMoving, { signal: controller.signal, passive })
     canvas.addEventListener("mouseup", onInteractionEnd, { signal: controller.signal, passive })
     window.addEventListener("mouseenter", onInteractionContinue, { signal: controller.signal, passive })
     window.addEventListener("mouseout", onInteractionEnd, { signal: controller.signal, passive })
@@ -140,7 +141,30 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
     canvas.addEventListener("touchup", onInteractionEnd, { signal: controller.signal, passive })
     canvas.addEventListener("touchcancel", onInteractionEnd, { signal: controller.signal, passive })
     canvas.addEventListener("touchmove", onInteractionMoving, { signal: controller.signal, passive })
- 
+    */
+
+    canvas.onpointerdown = function(event) {
+        // retarget all pointer events (until pointerup) to thumb
+        canvas.setPointerCapture(event.pointerId)
+
+        onInteractionBegin(event)
+      
+        // start tracking pointer moves
+        canvas.onpointermove = function(event) {
+          // moving the slider: listen on the thumb, as all pointer events are retargeted to it
+          onInteractionMoving(event)
+        }
+      
+        // on pointer up finish tracking pointer moves
+        canvas.onpointerup = function(event) {
+            onInteractionEnd(event)
+            thumb.onpointermove = null
+            thumb.onpointerup = null
+            // ...also process the "drag end" if needed
+        }
+      }
+      
+
     // Clean up and kill all objects
     return ()=>{
         controller.abort()
