@@ -638,6 +638,7 @@ main > section.sticky + section{
 #drums{
     padding:0;
     margin:0;
+    margin-bottom: 50vh;
     display: block;
     // padding-top:100%;
     background-color: transparent;
@@ -881,6 +882,7 @@ tbody{
     button, select{
         height:100%;
         width:100%;
+        color:var(--col-white);
        background-color:inherit;
        grid-area:1/1/-1/-1;
         // min-height: 100%;

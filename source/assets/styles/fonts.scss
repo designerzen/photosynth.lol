@@ -1,4 +1,3 @@
-
 // OXANIUM (Brand font) ------------------------------------------------
 @use "./fonts/oxanium.scss";
 
@@ -19,21 +18,27 @@
 html,
 [data-font="default"] {
     font-family: 'Proxima Nova', var(--font-family-metropolis), sans-serif;
+    letter-spacing: 0.003px;
+    font-weight: lighter;
 }
 
 [data-font="dsylexic"]{
     font-family: 'OpenDyslexic', 'Proxima Nova', var(--font-family-metropolis), sans-serif;
+    letter-spacing: 0.003px;
+    // font-weight: lighter;
 }
 
 [data-font="readable"]{
     font-family: 'ReadexPro', 'Proxima Nova', sans-serif;
     font-weight: normal;
+    // letter-spacing: 0.003px;
 }
 [data-font="brand"]{
     font-family: 'Oxanium', sans-serif;
     font-weight: normal;
 }
 
+// we force inline SVG text to take any of our loaded fonts, brand first
 .oxanium,
 svg text{
     font-family: 'Oxanium', 'ReadexPro', 'Proxima Nova', var(--font-family-metropolis), sans-serif;

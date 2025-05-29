@@ -307,7 +307,10 @@ details{
         padding: var(--pad);
         padding-top: 0;
         background-color: inherit;
+        margin-left: auto;
+        margin-right: auto;
     }
+
 }
 
 details:hover{
