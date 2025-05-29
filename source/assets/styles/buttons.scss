@@ -654,6 +654,7 @@ label[for="button-sad"]{
     button{
         //border:2px solid var(--col-border);
         // border-radius: var(--curve);
+        font-family: 'noto-emoji';
         max-width: 66px;
         min-height: 66px;
         color: transparent;
@@ -661,13 +662,16 @@ label[for="button-sad"]{
         border-radius: 0;
         padding:0;
         box-sizing: border-box;
-        border-top:var(--stroke,1px) solid var(--col-white);
-        border-bottom:var(--stroke,1px) solid var(--col-white);
-
+        border:var(--stroke, 1px) solid var(--col-white);
+        // border-top:var(--stroke,1px) solid var(--col-white);
+        // border-bottom:var(--stroke,1px) solid var(--col-white);
+        border-left: none;
+       
         &::before{
             display: inline-block;
             vertical-align: middle;
             color: white;
+            filter:drop-shadow(0 0 6px var(--col-stone));
         }
         &:hover,
         &:active{
