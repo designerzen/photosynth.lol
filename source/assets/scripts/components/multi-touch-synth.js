@@ -158,8 +158,8 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
         // on pointer up finish tracking pointer moves
         canvas.onpointerup = function(event) {
             onInteractionEnd(event)
-            thumb.onpointermove = null
-            thumb.onpointerup = null
+            canvas.onpointermove = null
+            canvas.onpointerup = null
             // ...also process the "drag end" if needed
         }
       }

@@ -466,10 +466,10 @@ const playNextNoteInSong = (songSequence, chordIntervals=MAJOR_CHORD_INTERVALS, 
     // stop any currently playing notes
     if (playingNote)
     {
-        console.info("Killing note", note, {songSequence, playingNote} )
+        // console.info("Killing note", note, {songSequence, playingNote} )
         isChord ? chordOff( playingNote, 1, playingChord ?? chordIntervals, scaleMode ) : noteOff( playingNote, 1 )
     }else{
-        console.info("Starting note", note, {songSequence, playingNote} )
+        // console.info("Starting note", note, {songSequence, playingNote} )
     }
 
     isChord ? chordOn( note, 1, 0, chordIntervals, scaleMode ) : noteOn( note, 1 )
@@ -665,12 +665,12 @@ const setTimbre = (timbre) => {
  */
 const getTimbre = (timbres, timbre, offset=0) => {
     const index = timbres.indexOf(timbre)
-    if ( index < 0)
-    {
-        console.error( index, "NO TIMBRE", timbres, timbre, offset)
-    }else{
-        console.log( index, "getTimbre", timbres, timbre, offset)
-    }
+    // if ( index < 0)
+    // {
+    //     console.error( index, "NO TIMBRE", timbres, timbre, offset)
+    // }else{
+    //     console.log( index, "getTimbre", timbres, timbre, offset)
+    // }
    
     return timbres[ (index + offset) % timbres.length ]
 }
@@ -864,6 +864,7 @@ const showMIDIToggle = () => {
                         //console.log("MIDI Message", event)
                 }
             })
+            
             const midiDevice = midiManager.inputs[0]
             MIDIStatus.textContent += "Connected to input device " + midiDevice.name +" - play some notes to hear them. "
             console.info("MIDI Input found " + midiDevice.name, midiDevice )
@@ -904,14 +905,16 @@ const showMIDIToggle = () => {
  * historic input data (octave and musical mode)
  */
 const createCircularSynth = (musicalMode, musicalOctave) => {
-
     // const circleIntervals = CICRLE_INTERVALS
-    const circle = createFifthsChord(ALL_KEYBOARD_NOTES, 41, musicalMode).reverse()
-    const fifthIndexes = circle.map((note, index)=> note.sequenceIndex )
+    const circleIntervals = createFifthsChord(ALL_KEYBOARD_NOTES, 41, musicalMode).reverse()
+    const fifthIndexes = circleIntervals.map((note, index)=> note.sequenceIndex )
     const fifthData = ALL_KEYBOARD_NOTES.map( (key,i)=>{
         const oneOctave = Math.floor(i/12) 
         return ALL_KEYBOARD_NOTES[(oneOctave*12)+fifthIndexes[i%fifthIndexes.length]]
     })
+    
+    console.error("Creating Circular Synth", { circleIntervals, fifthIndexes, fifthData } )
+    
 
     // const svgCircle = Array.from(document.querySelectorAll(".circle-of-fifths-tonics > path"))
     // const keys = svgCircle.map((path, i)=>{
@@ -1375,7 +1378,7 @@ const monitorViewportEntries = () => {
     let observations = new Map()
     const monitoredElements = monitorIntersections({}, (entry, inViewport )=>{
         observations.set(entry.target, inViewport)
-        console.info(entry,inViewport ? "in viewport" : "exit", {observations} )
+        // console.info(entry,inViewport ? "in viewport" : "exit", {observations} )
     })
     monitoredElements.forEach((element, index) => {
        if (!observations.has(element))

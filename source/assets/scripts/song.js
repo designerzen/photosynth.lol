@@ -15,9 +15,9 @@ export default class Song {
         // now convert that into a series of Note object
         this.notes = this.createNotes(data)
         // test
-        this.notes.forEach( (note, index)  => {
-            console.info(index, note.noteKey === data[index], "NOTE", note, data[index] )
-        })
+        // this.notes.forEach( (note, index)  => {
+        //     console.info(index, note.noteKey === data[index], "NOTE", note, data[index] )
+        // })
     }
 
     // convert the note name to the midi number
@@ -29,7 +29,7 @@ export default class Song {
         const isAccidental = noteLetter.charCodeAt(1) === 35 // #
         const noteName = noteLetter.toUpperCase() + octave
         const noteNumber = keyAndOctaveAsNoteNumber( key, octave, isAccidental )
-        console.info("note", noteNumber, {isAccidental, key, noteLetter, octave, noteName })
+        // console.info("note", noteNumber, {isAccidental, key, noteLetter, octave, noteName })
         return noteNumber
     }
 
@@ -40,7 +40,7 @@ export default class Song {
 
     getNextNote(){
         this.index = (this.index + 1) % this.notes.length
-        console.info( this.index, this.notes[this.index], this.notes )
+        // console.info( this.index, this.notes[this.index], this.notes )
         return this.notes[this.index]
     }
 }

@@ -2,9 +2,13 @@ export const DEFAULT_MOUSE_ID = 1
 
 export default class AbstractInteractive{
 
+    activeId = new Map()
     activeNotes = new Map()
+    glide = false
 
-    constructor(){}
+    constructor( pitchBend=true ){
+        this.glide = pitchBend
+    }
 
 	/**
 	 * Add interactivity to the keyboard and wire these
@@ -21,10 +25,7 @@ export default class AbstractInteractive{
 		}
 
 		const controller = new AbortController()
-		
-        // monophonic
-        let previousNote 
-
+	
 		buttonElements.forEach( (button, i) => {
 		
             // can come from a touch a mouse click or a keyboard enter press
@@ -44,53 +45,41 @@ export default class AbstractInteractive{
 					event.preventDefault()
 				}
 
-				let pressure = 1
-                let id = event.pointerId ?? DEFAULT_MOUSE_ID
-
-                const type = event.type
-                switch(type)
-                {
-                    case "mousedown":
-                        break
-                    case "touchstart":
-                        if ((typeof(event.targetTouches) != 'undefined') && (event.targetTouches.length > 0) && (typeof(event.targetTouches[0].force) != 'undefined')) {
-                            pressure = event.targetTouches[0].force
-                        } else if (typeof(event.webkitForce) != 'undefined') {
-                            pressure = event.webkitForce
-                        } else if (typeof(event.pressure) != 'undefined') {
-                            pressure = event.pressure
-                        }
-                        break
-                }
-                   // always one for mouse
-                const touches = event.changedTouches
-              		
+				const pressure = event.pressure ?? event.webkitForce ?? 1
+                const id = event.pointerId ?? DEFAULT_MOUSE_ID
         		const note = this.getNoteFromKey(button)
+
+                switch (event.pointerType) {
+                    case "mouse":
+                      break;
+                    case "pen":
+                      break;
+                    case "touch":
+                      break;
+                    default:
+                     // console.log(`pointerType ${ev.pointerType} is not supported`);
+                  }
 		
+                 
 				// noteName = button.getAttribute("data-note")
 				// convert name into MIDI note number
 				// const note = convertNoteNameToMIDINoteNumber(noteName)
 				
 				// console.info("REQUEST START", {note, noteName, GENERAL_MIDI_INSTRUMENTS})
 				
-				const starting = noteOn(note, pressure, id)
- 
-				previousNote = note
+				const starting = noteOn(note, pressure, id) 
                 this.activeNotes.set( id, note )
-
+                console.warn( id, "BEGIN:pointer", event.pointerType, {event, pressure, note}, this.activeNotes)
                 
-                console.log(id, type, "START on interaction", {starting, note,previousNote,  event, pressure, touches})
-               
-                
+                // console.log(id, type, "START on interaction", {starting, note,previousNote,  event, pressure, touches}) 
                 this.isTouching = true
+                this.activeId.set( id, true )
 				
-				// starting & document.querySelector(`.indicator[data-note="${noteName}"]`)?.classList?.toggle("active", true)
-			
-				document.addEventListener("pointerleave", onInterationComplete, {signal: controller.signal, passive: true})
-				document.addEventListener("pointerup", onInterationComplete, {signal: controller.signal, passive: true})
-				
-				document.addEventListener("pointerend", onInterationComplete, {signal: controller.signal, passive: true})
-				document.addEventListener("pointercancel", onInterationComplete, {signal: controller.signal, passive: true})
+				document.addEventListener("pointerleave", onInterationComplete, {signal: controller.signal, passive })
+				document.addEventListener("pointerup", onInterationComplete, {signal: controller.signal, passive })
+				document.addEventListener("pointerend", onInterationComplete, {signal: controller.signal, passive })
+				document.addEventListener("pointercancel", onInterationComplete, {signal: controller.signal, passive })
+                document.addEventListener("visibilitychange", onInterationComplete,  {signal: controller.signal, passive })
 			}
 		
             /**
@@ -99,6 +88,7 @@ export default class AbstractInteractive{
              * @returns 
              */
 			const onInterationComplete = (event) => {
+
 				// Keypresses other than Enter and Space should not trigger a command
 				if (
 					event instanceof KeyboardEvent &&
@@ -113,93 +103,105 @@ export default class AbstractInteractive{
 					event.preventDefault()
 				}
 
-                const id = event.pointerId ?? DEFAULT_MOUSE_ID
-                const type = event.type
-                switch(type)
-                {
-                    case "mouseup":
-                    case "mouseleave":
-                        break
-                    case "touchcancel":
-                    case "touchend":
-                        break
-                }
-				
-               
+             
 				document.removeEventListener("pointerleave", onInterationComplete)
 				document.removeEventListener("pointerup", onInterationComplete)
 				
 				document.removeEventListener("pointerend", onInterationComplete)
 				document.removeEventListener("pointercancel", onInterationComplete)
 				
-				noteOff(previousNote, 1, id)
+                document.removeEventListener("visibilitychange", onInterationComplete )
 
-                console.log(id, type, "END on interaction", {previousNote, event, id })
+                const id = event.pointerId ?? DEFAULT_MOUSE_ID
+                const currentlyPlayingNote = this.activeNotes.get( id )
                
+                if (currentlyPlayingNote)
+                {
+                    noteOff(currentlyPlayingNote, 1, id)
+                    console.warn(id, "END:pointer", event.pointerType, {event, currentlyPlayingNote}, this.activeNotes)
 
-				this.isTouching = false
-				previousNote = null
+                }else{
+                    console.warn(id, "END:pointer BUT NOTHING TO END???", event.pointerType, {event, currentlyPlayingNote}, this.activeNotes)
+
+                }
 				
+                
+                this.activeNotes.delete( id )
+                this.activeId.delete( id )
+                
+                // console.log(id, type, "END on interaction", {previousNote, event, id })
+
+                // check for amount of touches...
+                 // const touches = event.changedTouches
+				// this.isTouching = this.activeNotes.size > 0
 				// document.querySelector(`.indicator[data-note="${noteName}"]`)?.classList?.toggle("active", false)
 			}
-            
-            // button.addEventListener("mousemove", handleMove)
-            // button.addEventListener("touchmove", handleMove)
-			button.addEventListener("pointerstart", onInteractionStarting, {signal: controller.signal,passive}) 
-          
-            // MOUSE =================================================================
-
-            // MOUSE DOWN - turn on note and cache event
+           
             button.addEventListener("pointerdown", onInteractionStarting, {signal: controller.signal,passive})
 			
 			// if the user has finger down but they change keys...
 			button.addEventListener("pointerenter", event => {
               
-                console.info("pointerenter", previousNote)
+                // console.info("pointerenter", previousNote)
 				if (!passive && event.preventDefault)
 				{
 					event.preventDefault()
 				}
 
                 const id = event.pointerId ?? DEFAULT_MOUSE_ID
-                const type = event.type
-            
-				if (this.isTouching)
+                const isActive = this.activeId.get( id )
+                console.warn(id, "pointerenter", event.pointerType, {event, currentlyPlayingNote: isActive})
+
+				if (isActive)
 				{	
-					const note = this.getNoteFromKey(button)
+					const requestedNote = this.getNoteFromKey(button)
 					// document.querySelector(`.indicator[data-note="${previousNote}"]`)?.classList?.toggle("active", false)
 					// document.querySelector(`.indicator[data-note="${noteName}"]`)?.classList?.toggle("active", true)
-										
-					// console.info("REQUEST CHANGE", {note, noteName,GENERAL_MIDI_INSTRUMENTS})
-					// TODO: pitch bend!
-					noteOff(previousNote, 1, id)
-					noteOn(note, 1, id)
+                    if (!this.glide)
+                    {
+                    	// TODO: pitch bend!
+                      
+                    }
 
-                    console.log(id, type, "ALTER interaction", {note, previousNote, event, id })
+					// console.info("REQUEST CHANGE", {note, noteName,GENERAL_MIDI_INSTRUMENTS})
+                    const currentlyPlayingNote = this.activeNotes.get( id )
+                    if (currentlyPlayingNote)
+                    {
+                        noteOff(currentlyPlayingNote, 1, id)
+                    } 
+					noteOn(requestedNote, 1, id)
+
+                    // overwrite the pointer
+                    this.activeNotes.set( id, requestedNote )
+
+                    console.log(id, "ALTER interaction", {requestedNote, event, id })
                
-					previousNote = note
 				}else{
-					// console.warn("REQUEST CHANGE IGNORED")
+					console.warn("REQUEST CHANGE IGNORED")
 				}
                 
 			}, {signal: controller.signal, passive})
 		    
             // Mouse OUT - turn off note
 			button.addEventListener("pointerleave", event => {
+              
 				if (!passive && event.preventDefault)
 				{
 					event.preventDefault()
 				}
-                
-				if (previousNote)
+        
+                const id = event.pointerId ?? DEFAULT_MOUSE_ID
+                const currentlyPlayingNote = this.activeNotes.get( id )
+				if (currentlyPlayingNote)
                 {
-                    noteOff(previousNote,1,this)
-					previousNote = null
+                    noteOff(currentlyPlayingNote,1,id)
+                    this.activeNotes.delete( id )
+                    console.warn(id, "pointerleave NOTE OFF", event, this.activeNotes)
+                }else{
+                    console.warn(id, "pointerleave IGNORED", event, this.activeNotes)
                 }
 
-                this.activeNotes.delete( DEFAULT_MOUSE_ID )
-
-				// this.isTouching = false
+				this.isTouching = this.activeNotes.size > 0
 				// document.querySelector(`.indicator[data-note="${noteName}"]`)?.classList?.toggle("active", false)
 			}, {signal: controller.signal, passive })
 		
