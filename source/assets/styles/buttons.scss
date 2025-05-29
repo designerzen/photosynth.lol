@@ -608,7 +608,8 @@ label[for="button-happy"]{
 
 #button-happy{
     border-radius:var(--curve) 0 0 var(--curve);
-   
+    border-radius:var(--button-curve, var(--curve)) 0 0 var(--button-curve, var(--curve));
+
     align-self: start;
     text-align: left;
     text-indent:calc( var(--pad) * 2 );
@@ -633,7 +634,7 @@ label[for="button-sad"]{
     align-self: end;
     box-sizing: border-box;
     padding: var(--pad);;
-    border-radius:0 var(--curve) var(--curve) 0;
+    border-radius:0 var(--button-curve, var(--curve)) var(--button-curve, var(--curve)) 0;
     
     text-align: right;
     text-indent:77px;
@@ -656,7 +657,7 @@ label[for="button-sad"]{
         // border-radius: var(--curve);
         font-family: 'noto-emoji';
         max-width: 66px;
-        min-height: 66px;
+        min-height: 64px;
         color: transparent;
         background-color: var(--col-accent);
         border-radius: 0;
@@ -666,6 +667,7 @@ label[for="button-sad"]{
         // border-top:var(--stroke,1px) solid var(--col-white);
         // border-bottom:var(--stroke,1px) solid var(--col-white);
         border-left: none;
+        border-top: none;
        
         &::before{
             display: inline-block;
