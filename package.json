@@ -7,6 +7,8 @@
     "zip": "node action-zip-wavetable.js",
     "dev": "parcel ./source/sitemap.html",
     "start": "npm run zip && npm run dev",
+    "index": "parcel ./source/index.html",
+    "midi": "parcel ./source/midi.html",
     "build": "parcel build ./source/sitemap.html",
     "upgrader": "npx npm-check-updates --interactive -u",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -42,7 +44,9 @@
     "parcel-reporter-static-files-copy": "^1.5.3",
     "posthtml": "^0.16.6",
     "posthtml-doctype": "^1.1.1",
+    "posthtml-expressions": "^1.11.4",
     "posthtml-include": "^2.0.1",
+    "posthtml-w3c": "^0.9.1",
     "process": "^0.11.10",
     "sharp": "0.33.5",
     "svgo": "^3.3.2",
