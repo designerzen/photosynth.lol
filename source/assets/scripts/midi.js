@@ -186,7 +186,7 @@ export default class MIDIManager{
             // console.log("MIDI Message", e,  input )
             callback && callback(e)
         })
-        // console.log("MIDI Device", input, {midiDeviceInput} )
+         console.log("Monitoring MIDI Device", input, {midiDeviceInput} )
     }
 
     // public method
@@ -196,6 +196,7 @@ export default class MIDIManager{
             this.monitorInput(device, callback)
         })
     }
+
     monitorActiveInputs( callback){
         this.activeInputDevices.forEach( (device, index) => {
             this.monitorInput(device, callback)

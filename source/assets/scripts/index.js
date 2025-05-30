@@ -852,12 +852,12 @@ const showMIDIToggle = () => {
               
                     case "noteon":
                         console.log("MIDI noteon", event, event.note.identifier)
-                        noteOn( event.note.number, event.value )
+                        noteOn( new Note(event.note.number), event.value )
                         break       
 
                     case "noteoff":                     
                         console.log("MIDI noteoff", event, event.note.identifier)
-                        noteOff( event.note.number, event.value )
+                        noteOff( new Note(event.note.number), event.value )
                         break     
 
                     default:

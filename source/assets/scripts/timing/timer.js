@@ -3,13 +3,15 @@
  * To allow hybrid timing events and for multiple
  * clocks to run at different rates
  */
-
 import {
 	CMD_START,CMD_STOP,CMD_UPDATE,
 	EVENT_READY, EVENT_STARTING, EVENT_STOPPING, EVENT_TICK
 } from './timing.events.js'
 
-// import AUDIOCONTEXT_WORKER_URI from 'url:./timing.audiocontext.worker.js'
+// Set Interval
+import AUDIOCONTEXT_WORKER_URI from 'url:./timing.audiocontext.worker.js'
+
+// Audio Worklet
 import AUDIOTIMER_WORKLET_URI from 'url:./timing.audioworklet.js'
 import AUDIOTIMER_PROCESSOR_URI from 'url:./timing.audioworklet-processor.js'
 // import { createTimingProcessor } from './timing.audioworklet.js'
@@ -25,8 +27,12 @@ const DEFAULT_TIMER_OPTIONS = {
 	bpm:90,
 
 	contexts:null,
-	type:AUDIOTIMER_WORKLET_URI,
-	processor:AUDIOTIMER_PROCESSOR_URI,
+	
+    type:AUDIOCONTEXT_WORKER_URI,
+
+	// type:AUDIOTIMER_WORKLET_URI,
+	// processor:AUDIOTIMER_PROCESSOR_URI,
+    
 	callback:null
 }
 
@@ -368,9 +374,10 @@ export default class Timer {
 		// 
 		const isWorklet = options.type.indexOf("orklet") > -1 && this.audioContext
 		if (isWorklet){
+            // TODO:Check if there is a processor
 			this.loaded = this.setTimingWorklet( options.type, options.processor, this.audioContext )
 		}else{
-			this.loaded = this.setTimingWorker( options.type, options.processor, this.audioContext )
+			this.loaded = this.setTimingWorker( options.type )
 		}
 	}
 
