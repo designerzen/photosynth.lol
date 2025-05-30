@@ -251,6 +251,7 @@ details{
         // grid-template-areas: "summary icon";
         display: grid;
         grid-auto-flow: column;
+        width: 100%;
         
         align-items: center;
         flex-wrap: wrap;

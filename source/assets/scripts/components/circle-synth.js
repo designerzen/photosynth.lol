@@ -51,7 +51,17 @@ export default class CircleSynth extends AbstractInteractive{
      */
     set scale( musicalScale) {
         this.scaleType = musicalScale
-        this.toneElement.textContent = musicalScale
+        // lets also add an emoji at te end
+        switch(musicalScale.toLowerCase())
+        {
+            case "major":
+                this.toneElement.textContent = musicalScale + " "  + "happy"
+            case "minor":
+                this.toneElement.textContent = musicalScale + " "  + "sad"
+            default:
+                this.toneElement.textContent = musicalScale
+        }
+      
         this.toneElement.setAttribute("startOffset", (35.5 - (musicalScale.length * 0.5)) + "%")
         // console.info("Scale", musicalScale )
         this.setEmoji()

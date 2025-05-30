@@ -206,7 +206,7 @@ export default class SVGKeyboard extends AbstractInteractive{
 
 		// Indicators
 		x = 0 // spaceBetweenIndicators / 2
-		y = 10
+		y = 0
 
 		const indicatorElements = keys.map( (key,index)=>{
 			const indicator = this.createIndicator(key, x, y, indicatorRadius )
