@@ -988,7 +988,7 @@ a.back-to-top{
     }
     .button-read{
       // transform: translateX( -50vw);
-        transform: translateX( 8px );
+        transform: translateX( calc(-100% + 8px) );
         border-color:var(--col-stone);
         // margin-right: -1px;
         // border-radius: 0 999px 999px 0;
