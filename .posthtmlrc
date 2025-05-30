@@ -1,5 +1,14 @@
 {
   "plugins": {
-    "posthtml-include": {}
+    "posthtml-include": {
+
+    },
+    "posthtml-expressions": {
+        "strictMode":false,
+        "locals":{
+            "script":"./assets/scripts/index.js",
+            "scripts":[]
+        } 
+    }
   }
 }
