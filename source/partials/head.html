@@ -42,6 +42,15 @@
 
 	<link rel="sitemap" href="./sitemap-index.xml" />
 
-    <script src="./assets/scripts/index.js" type="module"></script>
+    <!-- <if condition="(scripts || []).length > 0">
+        <each loop="script, index in scripts">
+            <script src="{{script}}" type="module"></script>
+        </each>
+    </if> -->
 
+    <if condition="script">
+        <script src="{{script}}" type="module"></script>
+    </if> 
+    
+    
 </head>
