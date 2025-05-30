@@ -9,11 +9,44 @@
 
     <!-- Main Content -->
     <main id="main-content">
-      
+        <p id="last-midi-message"></p>
+        <canvas id="visualiser-notes"></canvas>
     </main>
+    
     <script type="module">
-        import SVGKeyboard from "./components/keyboard-svg" 
-        new SVGKeyboard()
+
+        import NoteVisualiser from "./components/note-visualiser"
+        import SVGKeyboard from "./components/keyboard-svg.js" 
+        import Note from "./note"
+        import WebMIDI from "webmidi"
+
+        const messageLastMidiEvent = document.getElementById("last-midi-message")
+        const keyboardKeys = ( new Array(128) ).fill("")
+        // Full keyboard with all notes including those we do not want the user to play
+        const ALL_KEYBOARD_NOTES = keyboardKeys.map((keyboardKeys,index)=> new Note( index ))
+        // Grab a good sounding part (not too bassy, not too trebly)
+        const KEYBOARD_NOTES = ALL_KEYBOARD_NOTES.slice( 41, 94 )
+
+        const keyboard = new SVGKeyboard( ALL_KEYBOARD_NOTES, noteOn, noteOff )
+        const keyboardElement = document.body.appendChild( keyboard.asElement )
+
+        const canvasForNotes = document.getElementById("visualiser-notes")
+        noteVisualiser = new NoteVisualiser( ALL_KEYBOARD_NOTES, canvasForNotes, false, 0 ) // ALL_KEYBOARD_NOTES
+
+        const onMIDIMessage = event => {
+            console.log("MIDI Message", event)
+            messageLastMidiEvent.innerText = event.message
+        }
+
+        // now monitor all MIDI IN Messages and illuminate the keys appropriately...
+        document.addEventListener("click", async (event)=>{
+            await WebMIDI.enable()
+            WebMIDI.addListener("error", onMIDIMessage)
+            WebMIDI.addListener("connected", onMIDIMessage)
+            WebMIDI.addListener("disconnected", onMIDIMessage)
+            WebMIDI.addListener("portschanged", onMIDIMessage)
+            WebMIDI.addListener("midiaccessgranted", onMIDIMessage)
+        })
     </script>
 </body>
 </html>
