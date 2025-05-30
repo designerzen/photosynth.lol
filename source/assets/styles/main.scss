@@ -654,8 +654,6 @@ main > section.sticky + section{
   
     // width: min-content;
 
-    z-index: 1999;
-
     fieldset{
         display: flex;
         flex-direction: row;
@@ -674,6 +672,11 @@ main > section.sticky + section{
         order:999;
     }
 
+    button{
+        
+        z-index: 1999;
+
+    }
     
     button + button {
         margin-left: 1px;
