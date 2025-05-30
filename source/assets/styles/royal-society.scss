@@ -252,7 +252,7 @@ details{
         display: grid;
         grid-auto-flow: column;
         width: 100%;
-        
+        box-sizing: border-box;
         align-items: center;
         flex-wrap: wrap;
         
