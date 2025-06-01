@@ -11,7 +11,12 @@
     <!-- Main Content -->
     <main id="main-content">
         <p id="last-midi-message">Press</p>
-        <canvas id="visualiser-notes"></canvas>
+        <p id="midi-clock-period"></p>
+        <p id="midi-clock-elapsed"></p>
+        <p id="midi-clock-bpm"></p>
+        <div class="viewport-width viewport-height">
+            <canvas id="visualiser-notes"></canvas>
+        </div>
     </main>
     
     <script type="module">
@@ -20,15 +25,14 @@
         import SVGKeyboard from "./assets/scripts/components/keyboard-svg.js" 
         import Note from "./assets/scripts/note.js"
         import WebMIDI from "webmidi"
-        import Timer, {tapTempo} from "./assets/scripts/timing/timer.js"
+        import Timer, {tapTempo, convertMIDIClockIntervalToBPM} from "./assets/scripts/timing/timer.js"
         import MIDIManager from "./assets/scripts/midi.js"
-
         
-        const noteOn = () => {}
-        const noteOff = () => {}
-
-
         const messageLastMidiEvent = document.getElementById("last-midi-message")
+        const messageMidiClockPeriod = document.getElementById("midi-clock-period")
+        const messageMidiClockElapsed = document.getElementById("midi-clock-elapsed")
+        const messageMidiClockBPM = document.getElementById("midi-clock-bpm")
+
         const keyboardKeys = ( new Array(128) ).fill("")
         // Full keyboard with all notes including those we do not want the user to play
         const ALL_KEYBOARD_NOTES = keyboardKeys.map((keyboardKeys,index)=> new Note( index ))
@@ -36,28 +40,33 @@
         const KEYBOARD_NOTES = ALL_KEYBOARD_NOTES.slice( 41, 94 )
 
         const midiManager = new MIDIManager()
-
-        const keyboard = new SVGKeyboard( ALL_KEYBOARD_NOTES, noteOn, noteOff )
-        const keyboardElement = document.body.appendChild( keyboard.asElement )
-
-        const canvasForNotes = document.getElementById("visualiser-notes")
-        noteVisualiser = new NoteVisualiser( ALL_KEYBOARD_NOTES, canvasForNotes, false, 0 ) // ALL_KEYBOARD_NOTES
         
-        const onMIDIMessage = event => {
-            console.log("MIDI Message", event)
-            messageLastMidiEvent.innerText = event.message
-            switch(event.type){
-                case "noteon":
-                    // create a note from MIDI object
-                    noteVisualiser.noteOn( event.note.number )
-                    break
-                case "noteoff":
-                    noteVisualiser.noteOff( event.note.number )
-                    break
-            }
+        const receivedNoteOn = (note) => {
+            noteVisualiser.noteOn( note.number )
+            keyboard.setKeyAsActive( note )
+        }
+
+        const receivedNoteOff = (note) => {
+            noteVisualiser.noteOff( note.number )
+            keyboard.setKeyAsInactive( note )
+        }
+
+        const sendNoteOn = (note) => {
+            midiManager.noteOn()
+        }
+
+        const sendNoteOff = (note) => {
+            midiManager.noteOff()
         }
 
 
+
+        const keyboard = new SVGKeyboard( ALL_KEYBOARD_NOTES, sendNoteOn, sendNoteOff )
+        const keyboardElement = document.body.appendChild( keyboard.asElement )
+
+        const canvasForNotes = document.getElementById("visualiser-notes")
+        const noteVisualiser = new NoteVisualiser( ALL_KEYBOARD_NOTES, canvasForNotes, false, 0 ) // ALL_KEYBOARD_NOTES
+        
         const aborter = new AbortController()
         // now monitor all MIDI IN Messages and illuminate the keys appropriately...
         document.addEventListener("click", async (event)=>{
@@ -79,9 +88,22 @@
                 const trigger = timer.bypass(true)
 
                 midiManager.monitorAllInputs(event => {
-                
                     const data = event.data
+                    // console.log("MIDI Message", event, {data} )
+                
                     switch(event.message.type){
+                        case "start":
+                            console.log("MIDI Message START", event.message.type, event )
+                            break
+                            
+                        case "stop":
+                            console.log("MIDI Message STOP", event.message.type, event )
+                            break
+                            
+                        case "continue":
+                            console.log("MIDI Message CONTINUE", event.message.type, event )
+                            break
+
                         case "clock":
                         
                             const timePassed = data.time
@@ -97,7 +119,7 @@
                             // console.log("MIDI CLOCK", BPM, period, elapsedSinceLastClock, timestamp )
                         
                             // calculated
-                            const period = tapTempo(true, 10000, 4)
+                            const period = tapTempo(true, 500, 3)
                             const timeBetweenPeriod = elapsedSinceLastClock
                             // Expected time stamp
                             const expected = intervals * timeBetweenPeriod
@@ -108,37 +130,31 @@
                             // deterministic intervals not neccessary
                             const level = Math.floor(timestamp / timeBetweenPeriod )
 
-                            // trigger( 
-                                // timestamp, 
-                                // expected, 
-                                // drift, 
-                                // level, 
-                                // intervals, 
-                                // lag 
-                            // ) 
-
                             timer.externalTrigger( timePassed, expected, drift, level, intervals, lag )
-                            messageLastMidiEvent.innerText = 4 * period
-
+                            
+                            requestAnimationFrame( ()=>{
+                                messageLastMidiEvent.innerText = `${timePassed} or ${timestamp}`
+                                messageMidiClockPeriod.innerText = `${period}ms ${convertMIDIClockIntervalToBPM(period)} BPM`
+                                messageMidiClockElapsed.innerText = `${timeBetweenPeriod}ms ${convertMIDIClockIntervalToBPM(timeBetweenPeriod)} BPM`
+                                messageMidiClockBPM.innerText = convertMIDIClockIntervalToBPM(timeBetweenPeriod) + " BPM"
+                            })
+              
                             break       
-                    }
-
-                    switch(event.type){
-
+                 
                         case "noteon":
                             console.log("MIDI noteon", event, event.note.identifier)
-                            noteOn( new Note(event.note.number), event.value )
+                            receivedNoteOn( new Note(event.note.number), event.value )
                             messageLastMidiEvent.innerText = `Note on: ${event.note.identifier}`
                             break       
 
                         case "noteoff":                     
                             console.log("MIDI noteoff", event, event.note.identifier)
-                            noteOff( new Note(event.note.number), event.value )
+                            receivedNoteOff( new Note(event.note.number), event.value )
                             messageLastMidiEvent.innerText = `Note off: ${event.note.identifier}`
                             break     
 
                         default:
-                            //console.log("MIDI Message", event)
+                            console.log("MIDI Message", event.message.type, event )
                     }
                 })
                 

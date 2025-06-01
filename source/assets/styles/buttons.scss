@@ -987,13 +987,12 @@ a.back-to-top{
         // transform: translateX( calc(-2 * var(--pad) ) );// scale(0.9);
     }
     .button-read{
-      // transform: translateX( -50vw);
-        transform: translateX( calc(-100% + 8px) );
+        transform: translateX(calc(11px)); //translateX( calc(-100% + 8px) );
         border-color:var(--col-stone);
         // margin-right: -1px;
         // border-radius: 0 999px 999px 0;
         border-radius: 999px 0 0 999px;
-        
         background-position: center left;
     }
+
 }

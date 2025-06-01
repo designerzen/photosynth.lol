@@ -70,7 +70,6 @@
 .square-top,
 .sawtooth-top{
 
-    
     // ensure the waves have space
     
     margin-top:calc( -1 * var(--vertical-space) );
@@ -259,6 +258,20 @@ p.sawtooth-bottom{
     //     box-shadow: inherit;
     //     //box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     // }
+}
+
+hr.wavey{
+    margin:0;
+    height: calc( 3 * var(--overhang) / var(--scale,1));
+
+    &::before{
+        bottom:0;
+        top:auto;
+    }
+    &::after{
+        top:0;
+        bottom:auto;
+    }
 }
 
 @media screen and (min-width:vars.$min-width-2) {
