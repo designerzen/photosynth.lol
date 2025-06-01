@@ -137,7 +137,7 @@ export const DEFAULT_SETTINGS = {
     showVoiceOver: true,
     showCountdown : true,
     showKeyboard : true,
-    showStats : true,
+    showStats : false,
     showNotes: true, 
     notes: 10,
     monitorIntersections:true,

@@ -1218,6 +1218,7 @@ footer{
             visibility: hidden;
         }
         
+        /*
         // this is a seperator x between the images
         &::before{
             content:"×";
@@ -1241,6 +1242,7 @@ footer{
             // margin-top: 13%;
             z-index: -1;
         }
+        */
     }
 
     li + li{
