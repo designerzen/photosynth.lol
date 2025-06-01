@@ -644,6 +644,7 @@ main > section.sticky + section{
     background-color: transparent;
     border:0;
     width: fit-content;
+    z-index: 909;
     
     // margin-left:var(--pad);
     // wont have any effect

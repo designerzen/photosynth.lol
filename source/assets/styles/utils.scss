@@ -53,10 +53,14 @@
 */
 
 .pad-top{
-    padding-top: calc( var(--pad) * 2);
+    padding-top: calc( var(--pad) * 4);
 }
+.pad-top{
+
+}
+
 .pad-bottom{
-    padding-bottom: calc( var(--pad) * 2);
+    padding-bottom: calc( var(--pad) * 4);
 }
 
 // allow these elements to break out of the columns to cover the whole width
