@@ -1205,20 +1205,19 @@ footer{
         // background-color:var(--col-text);
         background-color: color-mix( in rgba, var(--col-bg) 66%, transparent );
 
-        &::after{
-            content: '';
-            background-image: url("/source/assets/logos/royal_society-crest.svg");
-            background-position:right center ; // bottom calc( var(--pad) * 2) right var(--pad);
-            background-repeat: no-repeat;
-            background-size: contain;
-            position: absolute;
+        // &::after{
+        //     content: '';
+        //     background-image: url("/source/assets/logos/royal_society-crest.svg");
+        //     background-position:right center ; // bottom calc( var(--pad) * 2) right var(--pad);
+        //     background-repeat: no-repeat;
+        //     background-size: contain;
+        //     position: absolute;
            
-            height:100%;
-            width:100px;
-            visibility: hidden;
-        }
+        //     height:100%;
+        //     width:100px;
+        //     visibility: hidden;
+        // }
         
-        /*
         // this is a seperator x between the images
         &::before{
             content:"×";
@@ -1242,7 +1241,6 @@ footer{
             // margin-top: 13%;
             z-index: -1;
         }
-        */
     }
 
     li + li{
