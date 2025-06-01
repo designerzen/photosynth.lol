@@ -1,87 +1,3 @@
-// import { WebMidi } from "webmidi"
-
-// let midiDriver
-// export let midiEnabled = false
-// // 
-// const midiMap = new Map()
-
-// export const loadMIDIDriver = async () => {
-//     const midi = await import("webmidi")
-//     return midi.WebMidi
-// }
-
-// export const toggleMIDI = async () => {
-//     if (!midiEnabled)
-//     {
-//         try {    
-//             return await enableMIDI()
-//         } catch (error) {
-//              console.error(error)
-//         }
-//     }else{
-//         try {    
-//             return await disableMIDI()
-//         } catch (error) {
-//              console.error(error)
-//         }
-//     }
-// }
-
-
-// const onMIDIMessage = event => {
-//     console.info("MIDI Event", event)
-//     switch( event )
-//     {
-//         case "connected":
-            
-//             break
-//         case "disconnected":
-//             break
-//         case "portschanged":
-//             break
-//         case "midiaccessgranted":
-//             break
-//         case "error":
-//             console.error("MIDI FAIL", event)
-//             break
-//     }
-// }
-
-// export const enableMIDI = async () => {
-//     if (!midiDriver)
-//     {
-//         midiDriver = await loadMIDIDriver()
-//         midiDriver.addListener("error", onMIDIMessage)
-//         midiDriver.addListener("connected", onMIDIMessage)
-//         midiDriver.addListener("disconnected", onMIDIMessage)
-//         midiDriver.addListener("portschanged", onMIDIMessage)
-//         midiDriver.addListener("midiaccessgranted", onMIDIMessage)
-//     }
-//     try {    
-//        await midiDriver.enable()
-//        midiEnabled = true
-//     } catch (error) {
-//         console.error(error)
-//     }
-//     return midiDriver
-// }
-
-// export const disableMIDI = async () => {
-//     try {    
-//         await midiDriver.disable()
-//         midiDriver.removeListener("error", onMIDIMessage)
-//         midiDriver.removeListener("connected", onMIDIMessage)
-//         midiDriver.removeListener("disconnected", onMIDIMessage)
-//         midiDriver.removeListener("portschanged", onMIDIMessage)
-//         midiDriver.removeListener("midiaccessgranted", onMIDIMessage)
-//         midiEnabled = false
-
-//      } catch (error) {
-//          console.error(error)
-//      }
-//      return midiDriver
-// }
-
 /**
  * Handles : 
  * 1. Loading in the library if available
@@ -186,7 +102,7 @@ export default class MIDIManager{
             // console.log("MIDI Message", e,  input )
             callback && callback(e)
         })
-         console.log("Monitoring MIDI Device", input, {midiDeviceInput} )
+       
     }
 
     // public method

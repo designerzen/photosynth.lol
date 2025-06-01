@@ -51,6 +51,25 @@ export const convertBPMToPeriod = bpm => 60000 / parseFloat(bpm)
 export const convertPeriodToBPM = period => 60000 / parseFloat(period)
 
 /**
+ * Convert a midi clock to BPM
+ * @param {Number} millisecondsPerClockEvent 
+ * @param {Number} pulsesPerQuarterNote  MIDI clock sends 24 pulses per quarter note (PPQN)
+ * @returns Number
+ */
+export const convertMIDIClockIntervalToBPM = (millisecondsPerClockEvent, pulsesPerQuarterNote = 24) => {
+    
+    // Calculate the time for one quarter note in milliseconds
+    // If 1 clock event takes `millisecondsPerClockEvent` ms,
+    // then 24 clock events (1 quarter note) take `24 * millisecondsPerClockEvent` ms.
+    const millisecondsPerQuarterNote = millisecondsPerClockEvent * pulsesPerQuarterNote
+
+    // Convert milliseconds per quarter note to BPM
+    // BPM = (milliseconds in a minute) / (milliseconds per beat)
+    // 1 minute = 60,000 milliseconds
+    return convertPeriodToBPM(millisecondsPerQuarterNote)
+}
+
+/**
  * TODO: Implement lienar regression like nayuki
  * https://www.nayuki.io/page/tap-to-measure-tempo-javascript
  * Converts a series of method calls into a tempo estimate.
