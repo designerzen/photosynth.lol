@@ -978,10 +978,9 @@ tbody{
     }
 }
 
-body > footer{
-    // color:var(--col-bg);
-    // color:var(--col-text);
-   
+#diagram-face-mood-recognition{
+    padding-top: calc( var(--pad) * 4);
+    padding-bottom: 0;
 }
 
 #research{

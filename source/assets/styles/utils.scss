@@ -55,13 +55,15 @@
 .pad-top{
     padding-top: calc( var(--pad) * 4);
 }
-.pad-top{
-
-}
 
 .pad-bottom{
     padding-bottom: calc( var(--pad) * 4);
 }
+.pad-v{
+ padding-top: calc( var(--pad) * 4);
+ padding-bottom: calc( var(--pad) * 4);
+}
+
 
 // allow these elements to break out of the columns to cover the whole width
 // NB. this resets the column lengths :)
@@ -182,7 +184,7 @@ a.secret-link{
     position: relative;
     display: grid;
 
-    > *:not(section, button, article,div ){
+    > *:not(section, button, article,div, hr ){
         min-width:100%;// calc(100% - 2 * var(--space) * var(--pad));
         padding-left:calc(1 * var(--space) * var(--pad));
         padding-right:calc(1 * var(--space) * var(--pad)); 
@@ -260,7 +262,8 @@ hr{
         // margin: calc(var(--pad)*2) 0;
         min-height: calc(var(--pad)*4);
         margin: 0;
-        background-color: transparent;
+        background-color: color-mix( in rgba, var(--col-charcoal) 66%, transparent );
+        background-color: rgb(0,0,0,0.3);
     }
 }
 
@@ -541,7 +544,8 @@ hr{
 // when used with .hide-overflow above
 .flood-fill-parent{
     box-shadow: var(--col-bg) 0 0 0 200vmax;
-
+    margin:0;
+    padding: calc(1 * var(--space) * var(--pad)) calc(1 * var(--space) * var(--pad));
     legend{
         background-color: var(--col-bg);
     }

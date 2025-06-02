@@ -261,9 +261,11 @@ p.sawtooth-bottom{
 }
 
 hr.wavey{
-    margin:0;
+    border-top:solid calc( 2 * var(--pad)) var(--col-bg);
+    border-bottom:solid calc( 2 * var(--pad)) var(--col-bg);
     height: calc( 3 * var(--overhang) / var(--scale,1));
-
+    box-sizing: content-box;
+    
     &::before{
         bottom:0;
         top:auto;

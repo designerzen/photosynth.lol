@@ -44,6 +44,7 @@
 
 body{
     line-height: 1.7;
+    font-weight: 600;
 }
 
 :is(h1,h2,h3,h4,h5,h6,header){
@@ -81,21 +82,21 @@ body{
 dt,
 time,
 strong{
-    font-weight: bolder;
+    font-weight: 800;
 }
 
 legend,
 label,
 em{
     font-style: italic;
-    font-weight: 900;
+    font-weight: 600;
 
     span,
     input,
     select,
     button{
         font-style: normal;
-        font-weight: 500;
+        font-weight: 600;
     }
 }
 

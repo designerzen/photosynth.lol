@@ -17,6 +17,7 @@
 // Custom fonts for accessibility --------------------------
 html,
 [data-font="default"] {
+    // use proxima *only* if installed on system otherwise use metropolis
     font-family: 'Proxima Nova', var(--font-family-metropolis), sans-serif;
     letter-spacing: 0.003px;
     font-weight: lighter;
