@@ -157,6 +157,7 @@ p.flood{
 }
 
 .h5,
+p.lead,
 :is(article,section,div) > p:first-of-type:not([class]),
 h5 {
     font-size: var(--font-size-h5);

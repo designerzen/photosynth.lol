@@ -369,7 +369,7 @@ a.cta{
     order:99999;
     position: absolute;
     left:0;
-    top:0;
+    top: calc(2 * var(--pad));
     
     border-radius: 999px 0 0 999px  ;
     border-radius: 0 999px 999px 0 ;

@@ -27,17 +27,17 @@ export class MouseVisualiser extends AbstractResizeable{
             const coords = this.getMouseCoords(canvas, e)
             this.mouseX = coords.x // ?? e.offsetX ?? e.layerX ?? e.clientX
             this.mouseY = coords.y // e.offsetY ?? e.layerY ?? e.clientY
-            this.hoveredElement = details ? details.nodeName : ''
+            this.hoveredElement = details ? details.nodeName : null
             this.sendMessage(1)
             // console.log("onmousemove", {details, coords})
         })
     
-        elementToObserve.addEventListener( "mousedown", e => {
+        elementToObserve.addEventListener( "pointerdown", e => {
             this.mouseDown = true
             this.sendMessage() 
         })
 
-        elementToObserve.addEventListener( "mouseup", e => {
+        elementToObserve.addEventListener( "pointerup", e => {
             this.mouseDown = false
             this.sendMessage() 
         })
@@ -96,7 +96,7 @@ export class MouseVisualiser extends AbstractResizeable{
      */
     getPayload(){
         // console.info("MOUSEMOVE", {type:"mouse", x:this.mouseX , y:this.mouseY, pressed:this.mouseDown})
-        return { type:"mouse", x:this.mouseX , y:this.mouseY, pressed:this.mouseDown, target:this.hoveredElement }
+        return { type:"pointer", x:this.mouseX , y:this.mouseY, pressed:this.mouseDown, target:this.hoveredElement }
     }
 
     /**

@@ -81,6 +81,8 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
     const onInteractionMoving = e => {
 
         const id = e.pointerId ?? 0
+
+        // console.info("MOUSE MOVE", id, e, {activeNotes})
         
         if (activeNotes.size === 0){
             const previousNote = availableNote
@@ -107,7 +109,7 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
         activeNotes.set(id, note)
         noteOnCallback && noteOnCallback(note, 1, id)
 
-        console.info( id, "mouse move", { e, activeNotes })
+        // console.info( id, "mouse move", { e, activeNotes })
     }
   
     /**
@@ -129,44 +131,31 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
         }      
     }
 
-    /*
-    canvas.addEventListener("mousedown", onInteractionBegin, { signal: controller.signal, passive })
-    // canvas.addEventListener("pointermove", onInteractionMoving, { signal: controller.signal, passive })
-    canvas.addEventListener("mousemove", onInteractionMoving, { signal: controller.signal, passive })
-    canvas.addEventListener("mouseup", onInteractionEnd, { signal: controller.signal, passive })
-    window.addEventListener("mouseenter", onInteractionContinue, { signal: controller.signal, passive })
-    window.addEventListener("mouseout", onInteractionEnd, { signal: controller.signal, passive })
-
-    canvas.addEventListener("touchdown", onInteractionBegin, { signal: controller.signal, passive})
-    canvas.addEventListener("touchup", onInteractionEnd, { signal: controller.signal, passive })
-    canvas.addEventListener("touchcancel", onInteractionEnd, { signal: controller.signal, passive })
-    canvas.addEventListener("touchmove", onInteractionMoving, { signal: controller.signal, passive })
-    */
-
+    // start tracking pointer moves
+    // canvas.onmousemove = function(event) {
+    canvas.onpointermove = function(event) {
+        // moving the slider: listen on the thumb, as all pointer events are retargeted to it
+        onInteractionMoving(event)
+    }
+    
     canvas.onpointerdown = function(event) {
         // retarget all pointer events (until pointerup) to thumb
         canvas.setPointerCapture(event.pointerId)
-
         onInteractionBegin(event)
-      
-        // start tracking pointer moves
-        canvas.onpointermove = function(event) {
-          // moving the slider: listen on the thumb, as all pointer events are retargeted to it
-          onInteractionMoving(event)
-        }
       
         // on pointer up finish tracking pointer moves
         canvas.onpointerup = function(event) {
             onInteractionEnd(event)
-            canvas.onpointermove = null
-            canvas.onpointerup = null
+            // canvas.onpointerup = null
             // ...also process the "drag end" if needed
         }
-      }
+    }
       
-
     // Clean up and kill all objects
     return ()=>{
+        canvas.onpointermove = null
+        canvas.onpointerdown = null
+        canvas.onpointerup = null
         controller.abort()
     }
 }

@@ -48,10 +48,7 @@ import MANIFEST_URL from "url:/static/wave-tables/general-midi/manifest.json"
 import { DEFAULT_MOUSE_ID } from "./components/abstract-interactive.js"
 
 const SETTINGS = getSettings()
-if (SETTINGS.debug)
-{
-    console.error("SETTINGS", SETTINGS)
-}
+
 
 // audio requires a user gesture to start...
 // so we hook into each musical event to check if the user has engaged
@@ -128,11 +125,10 @@ const preloadWaveTablesFromZip = async (zipURL) => {
         // console.info("zip", {progress, fileName, file })
         meter.value = progress
     })
+    // console.info( data.length, "ZIPPED WAVE data",zipURL, {data}, getAllWaveTables() )
     return data
-    console.info( data.length, "ZIPPED WAVE data",zipURL, {data}, getAllWaveTables() )
 }
 
-// console.info({ALL_KEYBOARD_NOTES, KEYBOARD_NOTES})
 
 // UI ==============================================================
 
@@ -170,7 +166,7 @@ const getSynthForFinger = (finger)=>{
         fingerSynth.output.connect(limiter)
         fingerSynths.set( finger, fingerSynth )
     }
-    console.error("getSynthForFinger", finger, fingerSynth)
+    // console.error("getSynthForFinger", finger, fingerSynth)
     return fingerSynth
 }
 
@@ -301,7 +297,7 @@ const addAccessibilityFunctionality = ()=> {
  */
 const noteOn = ( noteModel, velocity=1, id=DEFAULT_MOUSE_ID ) => {
 
-    console.info(id, "NOTE ON for FINGER", {noteModel, velocity} )
+    // console.info(id, "NOTE ON for FINGER", {noteModel, velocity} )
 
     // as user click is required to start the audio context
     if (!hasUserEngaged)
@@ -317,7 +313,7 @@ const noteOn = ( noteModel, velocity=1, id=DEFAULT_MOUSE_ID ) => {
     
     if (notesPlaying.has( noteModel ))
     {
-        console.warn("NoteOn Already playing", noteModel)
+        // console.warn("NoteOn Already playing", noteModel)
         return
     }
 
@@ -357,7 +353,7 @@ const noteOn = ( noteModel, velocity=1, id=DEFAULT_MOUSE_ID ) => {
  */
 const noteOff = (noteModel, velocity=1, id=0 ) => {
    
-    console.info( id, "NOTE OFF",{ noteModel, velocity } )
+    // console.info( id, "NOTE OFF",{ noteModel, velocity } )
 
     // as user click is required to start the audio context
     if (!hasUserEngaged)
@@ -367,7 +363,7 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
 
     if (!noteModel)
     {
-        console.warn("No noteModel provided to noteOff", noteModel)
+        // console.warn("No noteModel provided to noteOff", noteModel)
         return
     }
 
@@ -395,7 +391,7 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
 
     if (midiManager.enabled && midiDeviceOutput){
         midiDeviceOutput.stopNote( noteModel.noteName )
-        console.info("MIDI NOTE OFF", noteModel )
+        // console.info("MIDI NOTE OFF", noteModel )
     }
     return isPlaying
 }
@@ -409,7 +405,7 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
  * @param {Number|String} idOffset 
  */
 const chordOn = (noteModel, velocity=1, id=0, intervals=null, mode=0, idOffset=0) => {
-    console.info("Creating chord ON", intervals ?? MAJOR_CHORD_INTERVALS, noteModel, mode, "cutoff", "acculumate" )
+    // console.info("Creating chord ON", intervals ?? MAJOR_CHORD_INTERVALS, noteModel, mode, "cutoff", "acculumate" )
     const chord = createChord(ALL_KEYBOARD_NOTES, intervals ?? MAJOR_CHORD_INTERVALS, noteModel.noteNumber, mode, true, true )
     const velocityReduction = velocity / chord.length * 0.8
     const length = chord.length+idOffset
@@ -427,10 +423,10 @@ const chordOn = (noteModel, velocity=1, id=0, intervals=null, mode=0, idOffset=0
  * @param {Number} mode 
  */
 const chordOff = (noteModel, velocity=1, id=0, intervals=null, mode=0 ) => {
-    console.info("Creating chord OFF", noteModel, mode, "cutoff", "acculumate" )
+    // console.info("Creating chord OFF", noteModel, mode, "cutoff", "acculumate" )
     
     if (!noteModel ){
-        console.warn("No noteModel provided to chordOff", noteModel)
+        // console.warn("No noteModel provided to chordOff", noteModel)
         return
     }
     const chord = createChord(ALL_KEYBOARD_NOTES, intervals ?? MAJOR_CHORD_INTERVALS, noteModel.noteNumber, mode, true, true )
@@ -1187,6 +1183,8 @@ const createAudioContext = async(event) => {
             // mouseVisualiser.chordOn( noteModel, 1, 0 )
             const chord = createChord(ALL_KEYBOARD_NOTES, MAJOR_CHORD_INTERVALS, noteModel.noteNumber, mode, true, true )
             chord.forEach( note => mouseVisualiser.noteOn( note, 1 ) )   
+
+            // console.info("NOTE OPTIONS", {noteModel, chord, previousNoteModel, mouseVisualiser})
         }
     })
 
@@ -1242,7 +1240,7 @@ const createAudioContext = async(event) => {
         
         for (let i=0; i<16; i++){
             const velocity = active.getVelocityAtStep(i)
-            console.warn("Step", i, velocity)
+            // console.warn("Step", i, velocity)
             const checkbox = document.createElement("input")
             checkbox.type = "checkbox"
             checkbox.name = "kick-sequence-"+i
@@ -1251,7 +1249,7 @@ const createAudioContext = async(event) => {
             checkbox.addEventListener("change", e => {
                 const pattern = parseInt(e.target.value)
                 active.setVelocityAtStep( pattern, e.target.checked ? 255 : 0 )
-                console.info(velocity, "drum-sequence", {pattern, drumType, velocity, active}) 
+                // console.info(velocity, "drum-sequence", {pattern, drumType, velocity, active}) 
                 // setRandomDrumPattern()
             })
             const label = document.createElement("label")
@@ -1282,7 +1280,7 @@ const createAudioContext = async(event) => {
         const snareVelocity = patterns.snare.next() / 255
         const hatVelocity = patterns.hat.next() / 255
 
-        console.info("Velocities", timerEvent, {kickVelocity, snareVelocity, hatVelocity})
+        // console.info("Velocities", timerEvent, {kickVelocity, snareVelocity, hatVelocity})
 
         const kickVolume = mixerRouting.get(kickDrum)
         kickVolume.gain.value = kickVelocity
@@ -1311,7 +1309,7 @@ const createAudioContext = async(event) => {
             hihat.play(0)
         }
 
-        console.info("playMetronomeBeat", !oddBeat ? "even" : "odd",  {patterns} )
+        // console.info("playMetronomeBeat", !oddBeat ? "even" : "odd",  {patterns} )
         count++
         if (count > 10)
         {
@@ -1526,7 +1524,7 @@ const start =  async () => {
         let b = 23
         const setNoteVisualiserBlendMode = value =>{
             noteVisualiser.blendMode = CANVAS_BLEND_MODES[b%CANVAS_BLEND_MODES.length]  
-            console.info(b, "BLENDMODE",  noteVisualiser.blendMode, CANVAS_BLEND_MODE_DESCRIPTIONS[b] )
+            // console.info(b, "BLENDMODE",  noteVisualiser.blendMode, CANVAS_BLEND_MODE_DESCRIPTIONS[b] )
         }
         // setNoteVisualiserBlendMode(b++)
         // setInterval( setNoteVisualiserBlendMode, 30000 )

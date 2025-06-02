@@ -14,7 +14,7 @@ const HALF_MAX_RADIUS = MAX_SIZE / 2
 
 const SHRINK_DURATION = 101 // 101 is good   // this should be similar to the decay on the instrument
 
-const OFFSET = 11
+const OFFSET = 6
 const X_OFFSET = -MAX_RADIUS - OFFSET
 const Y_OFFSET = -MAX_RADIUS - OFFSET
 
@@ -109,14 +109,16 @@ function renderMouse(x, y, radius=MAX_RADIUS, nodeTypeHovered=null, mouseDown=fa
         // draw a play icon in front of the pie
         if (!mouseDown)
         {
-            x += 6
+            x += 4
             const triangle = new Path2D()
-            const side = radius * 0.33
+            const side = radius * 0.44
             triangle.moveTo(x - side, y - side)
             triangle.lineTo(x + side, y)
             triangle.lineTo(x - side, y + side)
             triangle.closePath()
             context.fillStyle = colour
+            context.strokeStyle = 'white'
+            context.lineWidth = 2
             context.fill(triangle)
             context.stroke(triangle)
         }
@@ -146,7 +148,7 @@ function render() {
     {
         // 0 -> 1
         countDown--
-        radius = MIN_RADIUS + RADIUS_RANGE * easeOutSine( countDown / SHRINK_DURATION )
+        //radius = MIN_RADIUS + RADIUS_RANGE * easeOutSine( countDown / SHRINK_DURATION )
     }
 
     // LERP TOWARDS MOUSE!
@@ -158,8 +160,6 @@ function render() {
     {
         renderMouse( Math.max(0, currentX), Math.max(0, currentY), radius / scaleFactor, hoveredElement, mouseDown ) 
     }
-
-
     
     // console.info("mouse visualiser", countDown, {mouseX, mouseY, currentX, currentY, radius}, easeOutSine( countDown / SHRINK_DURATION ) )
 
@@ -200,14 +200,16 @@ onmessage = (evt) => {
             notes.delete(evt.data.colour)
             // console.error("VIZ:noteOff", notes ) 
             mouseDown = evt.data.playing
-            // console.info("VIZ:noteOff", evt.data, {lastNoteColour} )
+            // console.info("VIZ:noteOff", evt.data, {lastNoteColour, mouseDown} )
             break
 
-        case "mouse":
+        case "pointer":
             mouseX = evt.data.x
             mouseY = evt.data.y
             mouseDown = evt.data.pressed
             hoveredElement = evt.data.target
+            // console.info("VIZ:pointer", evt.data, {mouseX, mouseY, mouseDown, hoveredElement} )
+           
             break
 
         case "resize":
