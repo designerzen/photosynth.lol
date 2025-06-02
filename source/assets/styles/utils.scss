@@ -194,10 +194,10 @@ a.secret-link{
     }
     
     > header:first-of-type{
-        padding-top:calc(1 * var(--space) * var(--pad));
+        padding-top:calc(2 * var(--space) * var(--pad));
     }
     > :last-child{
-        padding-bottom:calc(1 * var(--space) * var(--pad));
+        padding-bottom:calc(2 * var(--space) * var(--pad));
     }
 
 
