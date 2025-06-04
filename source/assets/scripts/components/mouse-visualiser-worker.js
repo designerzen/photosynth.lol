@@ -15,8 +15,8 @@ const HALF_MAX_RADIUS = MAX_SIZE / 2
 const SHRINK_DURATION = 101 // 101 is good   // this should be similar to the decay on the instrument
 
 const OFFSET = 6
-const X_OFFSET = -MAX_RADIUS - OFFSET
-const Y_OFFSET = -MAX_RADIUS - OFFSET
+const X_OFFSET = -OFFSET
+const Y_OFFSET = -OFFSET
 
 const START_RADIUS =  -Math.PI * 0.5
 
@@ -117,7 +117,7 @@ function renderMouse(x, y, radius=MAX_RADIUS, nodeTypeHovered=null, mouseDown=fa
             triangle.lineTo(x - side, y + side)
             triangle.closePath()
             context.fillStyle = colour
-            context.strokeStyle = 'white'
+        context.strokeStyle = 'white'
             context.lineWidth = 2
             context.fill(triangle)
             context.stroke(triangle)

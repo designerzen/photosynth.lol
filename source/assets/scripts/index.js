@@ -1202,9 +1202,18 @@ const createAudioContext = async(event) => {
         audioSource.connect(gainNode)
         gainNode.connect(limiter)
         mixerRouting.set(audioSource, gainNode)
-        // audioSpell.connect(limiter)
     })
 
+    const audioSpellSources = document.querySelectorAll("[data-audio-spell]")
+    audioSpellSources.forEach( audioElement => {
+        const audioSource = audioContext.createMediaElementSource(audioElement)
+        const gainNode = audioContext.createGain()
+        gainNode.gain.value = 1
+        audioSource.connect(gainNode)
+        gainNode.connect(limiter)
+        // mixerRouting.set(audioSource, gainNode)
+    })
+       
     const drumSequencer = document.querySelector("#drum-sequencer > li > ol")
     const drumSamples = document.querySelectorAll("#drums button audio")
     const kickDrum = drumSamples[ 0 ]
@@ -1317,11 +1326,7 @@ const createAudioContext = async(event) => {
             setRandomDrumPattern()
         }
 
-        return
-        // audioSpellSource.pause()
-        // audioSpellSources.forEach( audioSpellSource => audioSpellSource.src = getRandomSpell() )
-        // audioSpellSource.currentTime = 0
-        // audioSpellSource.play()
+         return
         switch(oddBeat)
         {
             // Even Beats

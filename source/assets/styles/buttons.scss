@@ -616,6 +616,7 @@ label[for="button-happy"]{
     border-radius:var(--curve) 0 0 var(--curve);
     border-radius:var(--button-curve, var(--curve)) 0 0 var(--button-curve, var(--curve));
 
+    color: transparent;
     align-self: start;
     text-align: left;
     text-indent:calc( var(--pad) * 2 );
@@ -642,6 +643,7 @@ label[for="button-sad"]{
     padding: var(--pad);;
     border-radius:0 var(--button-curve, var(--curve)) var(--button-curve, var(--curve)) 0;
     
+    color: transparent;
     text-align: right;
     text-indent:77px;
     background-image: url(/source/assets/figures/sad.svg);
@@ -900,10 +902,14 @@ a.skip-to-content{
 
 a.back-to-top{
   
-    right: var(--right-hand-column);
+
+    
+    right:var(--right-hand-column);
     top:calc(1px + var(--sticky-top));
     position: sticky;
     // left:100%;
+
+    
    
     // margin-top:1px;
     order:-1;
@@ -948,6 +954,7 @@ a.back-to-top{
     // add the icon back in and offset to the right of the content
     a.skip-to-content,
     a.back-to-top{
+        transform: translateX(100%);
         &::after{
             display: inline-block;
         }
@@ -957,7 +964,7 @@ a.back-to-top{
         // --p:calc( (100vw - var(--max-section-width)) / 2 );
         // right:calc( var(--pad) );
         // left:calc( (100vw - var(--max-section-width) - var(--pad) ) / 2 );
-        // transform: translateX(100%);
+        
         // transform: translateX(calc( var(--pad) + 100%));
     }
 }

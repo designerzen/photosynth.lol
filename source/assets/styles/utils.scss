@@ -71,7 +71,7 @@
 header, hgroup,
 h1, h2, h3, h4, h5, 
 blockquote, hr, details, aside, figure, form, blockquote, 
-.flood, .box {
+.flood, .box, .label-button-read {
     column-span: all; 
 }
 
@@ -177,6 +177,27 @@ a.secret-link{
 
 // if we only want the children to have backgrounds
 // in the case of elements that paint in the backgreeound
+.bg-children:not(
+     .wavey,
+    .square,
+    .sawtooth,
+    .wavey-top,
+    .square-top,
+    .sawtooth-top,
+    .wavey-bottom,
+    .square-bottom,
+    .sawtooth-bottom
+){
+    > header:first-of-type{
+        padding-top:calc(1 * var(--space) * var(--pad));
+        
+    }
+    
+    > :last-child{
+        padding-bottom:calc(1 * var(--space) * var(--pad));
+    }
+}
+
 .bg-children{
     --space:2;
 
@@ -195,18 +216,10 @@ a.secret-link{
         background-color: var(--col-bg);
     }
     
-    > header:first-of-type{
-        padding-top:calc(2 * var(--space) * var(--pad));
-    }
-    > :last-child{
-        padding-bottom:calc(2 * var(--space) * var(--pad));
-    }
-
-
     * + .bg-clear:not(.flood-fill-parent){
         // in clear mode we will have gaps or weird
         // spaces so we fill those iin using borders
-        border-top: solid calc(2 * var(--pad)) transparent;
+        border-top: solid calc(2 * var(--pad)) var(--col-bg);
         // border-bottom: solid calc(2 * var(--pad)) var(--col-bg);
     }
 

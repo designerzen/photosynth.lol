@@ -8,9 +8,9 @@ export default class SynthOscillator{
 
     options = {
         gain:0.3,
-        attack:0.5,
+        attack:0.4,
         shape:OSCILLATORS[0],
-        minDuration:1,
+        minDuration:0.45,
         arpeggioDuration:0.2,
         slideDuration: 0.06,
         fadeDuration:0.2,
@@ -294,15 +294,29 @@ export default class SynthOscillator{
         const elapsed = now - this.startedAt
         const extendNow = elapsed < this.options.minDuration ? now + this.options.minDuration : now
 
-        // console.info("noteOff", {elapsed, now, extendNow, tooLong:elapsed < this.options.minDuration})
-      
-		this.filterNode.frequency.cancelScheduledValues(extendNow)
-		this.filterNode.frequency.linearRampToValueAtTime(this.options.filterCutOff, extendNow + this.options.filterRelease)
+        // Calculate the release end time
+        const releaseTime = Math.max(this.options.fadeDuration, this.options.filterRelease)
+        const stopTime = extendNow + releaseTime
         
-        // fade out volume
+        // Apply a very gentle fade out to avoid clicks
         this.gainNode.gain.cancelScheduledValues(extendNow)
-		this.gainNode.gain.linearRampToValueAtTime( 0, extendNow + Math.max( this.options.fadeDuration, this.options.filterRelease ) )	
-       
+        
+        // Use a longer, more gradual linear ramp instead of exponential
+        // Linear ramps can reach zero and are often less prone to clicks
+        this.gainNode.gain.setValueAtTime(this.gainNode.gain.value, extendNow)
+        this.gainNode.gain.linearRampToValueAtTime(0, stopTime)
+        
+        // Apply filter fade out
+        this.filterNode.frequency.cancelScheduledValues(extendNow)
+        this.filterNode.frequency.linearRampToValueAtTime(this.options.filterCutOff, stopTime)
+        
+        // Schedule the oscillator to stop after the envelope has completed
+        if (this.oscillator) {
+            // Add a small buffer after the gain reaches zero before stopping
+            const bufferTime = 0.01
+            this.oscillator.stop(stopTime + bufferTime)
+        }
+        
         this.isNoteDown = false        
         this.startedAt = -1
     }
