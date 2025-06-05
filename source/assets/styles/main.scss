@@ -325,6 +325,13 @@ main > :is(
     background-color: var(--col-bg);
 }
 
+
+main :is(
+    blockquote
+){
+    z-index: 1;
+}
+
 section p{
     // background-color: var(--col-bg);
     //padding-top:calc( var(--pad)  );
