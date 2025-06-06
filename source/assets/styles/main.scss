@@ -658,7 +658,8 @@ main > section.sticky + section{
     // wont have any effect
     // margin-top: calc( var(--pad) * 4);
   
-    top:67px;//50%;
+    top:91px;
+    top:clamp(67px, calc( (100vw - vars.$min-width-3) * -1e9), 91px);//50%; 
     // transform: translateY(-50%);
   
     // width: min-content;
@@ -828,9 +829,10 @@ tbody{
     "select select select"
     "prev random next";
     grid-template-columns: 2fr 1fr 2fr;
+    row-gap: 1px;
 
     // same height as existing menu
-    height: 66px;
+    min-height: 66px;
 
     gap: 0 1px;// calc( var(--pad) / 2 );
    
