@@ -1205,13 +1205,9 @@ const createAudioContext = async(event) => {
     })
 
     const audioSpellSources = document.querySelectorAll("[data-audio-spell]")
+    const audioSpell = document.getElementById("audio-spell")
     audioSpellSources.forEach( audioElement => {
-        const audioSource = audioContext.createMediaElementSource(audioElement)
-        const gainNode = audioContext.createGain()
-        gainNode.gain.value = 1
-        audioSource.connect(gainNode)
-        gainNode.connect(limiter)
-        // mixerRouting.set(audioSource, gainNode)
+        audioElement.addEventListener("click", e => audioSpell.click())
     })
        
     const drumSequencer = document.querySelector("#drum-sequencer > li > ol")

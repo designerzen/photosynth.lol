@@ -185,14 +185,9 @@ export default class SVGKeyboard extends AbstractInteractive{
 			 				blackKeyElements.push( keyElement ) :
 			 				whiteKeyElements.push( keyElement )
 			
-			if (isBlack)
-			{
-				this.createKeyName( key, x, y, blackKeyWidth, blackKeyHeight )
-			}else{
-				this.createKeyName( key, x, y, blackKeyWidth, blackKeyHeight )
-			}
-
-
+		
+			this.createKeyName( key, x, y, blackKeyWidth, blackKeyHeight )
+	
 			x += isBlack ? halfBlackKeyWidth : whiteKeyWidth
 			// x += isBlack ? -halfBlackKeyWidth  : whiteKeyWidth
 			
