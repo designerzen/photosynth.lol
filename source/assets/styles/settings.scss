@@ -105,7 +105,7 @@
 }
 @media screen and (min-width:vars.$max-width-plus-button) {
     :root{
-        // --right-hand-column:calc( (100vw - var(--max-section-width)) / 2 - 66px );
+        --right-hand-column:calc( (100vw - var(--max-section-width)) / 2 - 66px );
     }
 }
 

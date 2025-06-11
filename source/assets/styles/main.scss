@@ -832,7 +832,7 @@ tbody{
     row-gap: 1px;
 
     // same height as existing menu
-    min-height: 66px;
+    min-height: var(--sticky-top);
 
     gap: 0 1px;// calc( var(--pad) / 2 );
    
@@ -879,6 +879,7 @@ tbody{
         font-size: 0;
         display: block;
         max-height: 100%;
+        min-height: var(--sticky-top);
     }
     label[for="song-timbre-previous"]{
         grid-area: prev;
@@ -1012,7 +1013,7 @@ footer{
 // Canvases & animations -------------------------------------------
 
 #mouse-visualiser{
-    z-index: 999; // at the front
+    z-index: 9e4; // at the front forever!
     position: fixed;
     pointer-events: none;
     top:0;
@@ -1409,3 +1410,4 @@ a[href$="designerzen.com"]{
 :target {
     scroll-margin-block: max(5ex,  var(--sticky-top));
 }
+

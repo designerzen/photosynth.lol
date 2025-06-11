@@ -596,6 +596,18 @@ hr{
 .glyph-grid-list-char{
 	user-select: all;
 	color:inherit;
+    font-size: 400%;
+    &:hover{
+        color: var(--col-accent);
+    }
+}
+
+// from tests
+.glyph-grid-list{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(256px, 1fr));
+    max-width:min(100%, var(--max-section-width));
 }
 
 .icon-plus {

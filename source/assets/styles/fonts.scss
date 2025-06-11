@@ -7,12 +7,17 @@
 // Emoticons & musical artifacts
 @use "./fonts/noto.scss";
 
+
 // DSYLEXIA ------------------------------------------------
 @use "./fonts/open-dyslexic.scss";
 
 // DISPAXIA ------------------------------------------------
 @use "./fonts/readex-pro.scss";
 
+
+.font-emoji{
+    font-family: 'noto-emoji';
+}
 
 // Custom fonts for accessibility --------------------------
 html,
@@ -38,6 +43,8 @@ html,
     font-family: 'Oxanium', sans-serif;
     font-weight: normal;
 }
+
+
 
 // we force inline SVG text to take any of our loaded fonts, brand first
 .oxanium,

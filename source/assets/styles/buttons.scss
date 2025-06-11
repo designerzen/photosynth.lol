@@ -596,7 +596,8 @@ button[data-control-play]{
     border-bottom: var(--stroke,1px) solid white;
     border-radius: 0;//999px;
     // padding-right:2ch;
-    min-height: 66px;
+    box-sizing: content-box;
+    min-height: var(--sticky-top);
     background-color: var(--col-accent);
     box-sizing: border-box;
     padding-left:calc( 2 * var(--pad) );
@@ -665,13 +666,14 @@ label[for="button-sad"]{
         //border:2px solid var(--col-border);
         // border-radius: var(--curve);
         font-family: 'noto-emoji';
-        max-width: 66px;
-        min-height: 64px;
+        max-width: var(--sticky-top);
+        min-height: var(--sticky-top);
+        max-height: calc( var(--sticky-top) - 2 * var(--stroke, 1px) );
         color: transparent;
         background-color: var(--col-accent);
         border-radius: 0;
         padding:0;
-        box-sizing: border-box;
+        box-sizing: content-box;
         border:var(--stroke, 1px) solid var(--col-white);
         // border-top:var(--stroke,1px) solid var(--col-white);
         // border-bottom:var(--stroke,1px) solid var(--col-white);
@@ -704,7 +706,7 @@ label[for="button-sad"]{
     justify-content: center;
   
     min-width: 44px;
-    max-height: 66px;
+    max-height: var(--sticky-top);
     margin:0;
     padding: 0;
     gap:calc(var(--pad) / 4 );
@@ -901,17 +903,11 @@ a.skip-to-content{
     }
 }
 
-a.back-to-top{
-  
-
-    
+a.back-to-top{    
     right:var(--right-hand-column);
     top:calc(1px + var(--sticky-top));
     position: sticky;
     // left:100%;
-
-    
-   
     // margin-top:1px;
     order:-1;
 }
@@ -955,7 +951,7 @@ a.back-to-top{
     // add the icon back in and offset to the right of the content
     a.skip-to-content,
     a.back-to-top{
-        transform: translateX(100%);
+        //transform: translateX(100%);
         &::after{
             display: inline-block;
         }
