@@ -87,8 +87,5 @@
 [data-theme="colourful"]{
     --col-bg:var(--col-white, white);
     --col-text:var(--col-black, black);
-    img { 
-        // mix-blend-mode: multiply;
-        filter:brightness(.8) contrast(1.2);
-    }
+ 
 }

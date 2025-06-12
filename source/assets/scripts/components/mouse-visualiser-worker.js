@@ -44,6 +44,11 @@ let countDown = 0
  */
 function renderMouse(x, y, radius=MAX_RADIUS, nodeTypeHovered=null, mouseDown=false){
   
+    if (nodeTypeHovered !== "CANVAS")
+    {
+        return
+    }
+    /*
     // we can adjust the behaviour and style depending
     // on what element the mouse is over.
     // for example, change to a square or triangle
@@ -59,7 +64,14 @@ function renderMouse(x, y, radius=MAX_RADIUS, nodeTypeHovered=null, mouseDown=fa
         case "SELECT":
         case "FIELDSET":
             return
+
+        case "SECTION":
+        case "ARTICLE":
+        case "DIV":
+            return
     }
+
+    */
 
     x += X_OFFSET
     y += Y_OFFSET

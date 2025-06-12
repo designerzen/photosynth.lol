@@ -126,7 +126,15 @@ figure {
 
     // transform: translateX(100vw);
 }
-
+.block{
+    display: block;
+}
+.centralise{
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    max-width: 100%;
+}
 // fix to a set width and then centralise
 .fixed-width{
 	max-width: var(--max-section-width, 1000px); 

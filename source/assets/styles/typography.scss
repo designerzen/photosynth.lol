@@ -62,10 +62,17 @@ body{
             left:0;
             right:0;
             height:var(--stroke, 1px);
-            width: 100%;
             background-color: var(--col-accent);
         }
         // border-bottom: 1px solid var(--col-border);
+    }
+}
+
+.bg-clear :is(h1,h2,h3,h4,h5,h6,header){
+    &.underline::after{
+        max-width: var(--max-section-width);
+        left:calc( 2 * var(--pad));
+        right:calc( 2 * var(--pad));
     }
 }
 
