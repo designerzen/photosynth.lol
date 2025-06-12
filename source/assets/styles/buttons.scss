@@ -669,7 +669,7 @@ label[for="button-sad"]{
         // border-radius: var(--curve);
         font-family: 'noto-emoji';
         max-width: var(--sticky-top);
-        min-height: var(--sticky-top);
+        height: var(--sticky-top);
         max-height: calc( var(--sticky-top) - 2 * var(--stroke, 1px) );
         color: transparent;
         background-color: var(--col-accent);
