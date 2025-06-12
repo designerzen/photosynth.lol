@@ -107,9 +107,9 @@ figure {
 }
 
 // NB. As the button always consumes space
-.page[data-readable]{
-    padding-top: 0;    
-}
+// .page[data-readable]{
+//     // padding-top: 0;    
+// }
 
 // Sets whatever element to be the EXACT same size
 // as the viewport which will try to prevent overflow
@@ -126,9 +126,11 @@ figure {
 
     // transform: translateX(100vw);
 }
+
 .block{
-    display: block;
+    display: block !important;
 }
+
 .centralise{
     margin-left: auto;
     margin-right: auto;
@@ -212,6 +214,10 @@ a.secret-link{
     // margin-bottom: 0;
     position: relative;
     display: grid;
+
+    > header{
+        padding: calc( 2 * var(--pad) );
+    }
 
     > *:not(section, button, article,div, hr ){
         min-width:100%;// calc(100% - 2 * var(--space) * var(--pad));

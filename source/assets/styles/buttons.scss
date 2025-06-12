@@ -286,7 +286,7 @@ a.cta{
     margin:0;
     display: flex;
     flex-wrap: wrap;
-
+    align-items: center;
     color:inherit;
 
     img{
@@ -313,6 +313,8 @@ a.cta{
         border: 2px solid black;
         border-radius: 999px;
         padding: 2px;
+        filter:none;
+        mix-blend-mode: difference;
     }
 
     &:hover,

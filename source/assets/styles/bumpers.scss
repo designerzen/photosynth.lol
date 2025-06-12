@@ -261,8 +261,7 @@ p.sawtooth-bottom{
 }
 
 hr.wavey{
-    border-top:solid calc( 2 * var(--pad)) var(--col-bg);
-    border-bottom:solid calc( 2 * var(--pad)) var(--col-bg);
+   
     height: calc( 3 * var(--overhang) / var(--scale,1));
     box-sizing: content-box;
 
@@ -273,6 +272,16 @@ hr.wavey{
     &::after{
         top:0;
         bottom:auto;
+    }
+
+    &.pad,
+    &.pad-top{
+         border-top:solid calc( 2 * var(--pad)) var(--col-bg);
+    }
+
+    &.pad,
+    &.pad-bottom{
+         border-bottom:solid calc( 2 * var(--pad)) var(--col-bg);
     }
 }
 

@@ -65,16 +65,21 @@ body{
             background-color: var(--col-accent);
         }
         // border-bottom: 1px solid var(--col-border);
+
+        &.restricted::after{
+            left:calc( 2 * var(--pad));
+            right:calc( 2 * var(--pad));
+        }
     }
 }
 
-.bg-clear :is(h1,h2,h3,h4,h5,h6,header){
-    &.underline::after{
-        max-width: var(--max-section-width);
-        left:calc( 2 * var(--pad));
-        right:calc( 2 * var(--pad));
-    }
-}
+// .bg-clear :is(h1,h2,h3,h4,h5,h6,header){
+//     &.underline::after{
+//         max-width: var(--max-section-width);
+//         left:calc( 2 * var(--pad));
+//         right:calc( 2 * var(--pad));
+//     }
+// }
 
 .hide-overflow{
     :is(h1,h2,h3,h4,h5,h6,header).underline{
