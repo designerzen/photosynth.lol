@@ -280,6 +280,7 @@ a.cta{
 .button-share{
     --size:var(--button-size, 44px);
     margin:var(--pad) calc(2 * var(--pad));
+    gap:var(--gap, calc(var(--pad) / 2));
     color:var(--col-text);
     overflow:hidden;
     padding:0;
@@ -288,6 +289,7 @@ a.cta{
     flex-wrap: wrap;
     align-items: center;
     color:inherit;
+
 
     img{
         width: 100%;
