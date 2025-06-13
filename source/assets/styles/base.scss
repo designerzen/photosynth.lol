@@ -293,7 +293,8 @@ svg[aria-hidden='true'] {
     font:inherit;
     letter-spacing: inherit;
     word-spacing: inherit;
-    
+    appearance: none;
+    -webkit-appearance: none;
 }
 
 :where(label){
