@@ -299,7 +299,7 @@ const noteOn = ( noteModel, velocity=1, id=DEFAULT_MOUSE_ID ) => {
 
     // console.info(id, "NOTE ON for FINGER", {noteModel, velocity} )
 
-    // as user click is required to start the audio context
+    // as user click is required to start the audio contextin
     if (!hasUserEngaged)
     {
         createAudioContext()
