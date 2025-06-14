@@ -337,8 +337,13 @@ body > .menu-main{
     min-width:44px;
     width: 100%;
     grid-area: vol;
-    margin-right: var(--pad);
+    margin-left: calc( var(--pad) / 2 );
+    margin-right: calc(var(--pad) / 2);
     cursor: pointer;
+    background: linear-gradient(0deg, transparent 49%, black, transparent 51%);
+    padding-left: 0;
+    padding-right: 0;
+
 }
 
 
