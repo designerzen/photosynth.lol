@@ -24,9 +24,7 @@ export default class NoteVisualiser extends AbstractResizeable{
 
     set blendMode(value){
         this.#blendMode = value
-        console.error("Blendmode requested", value)
-        debugger
-        //this.worker.postMessage({type:"blendMode", blendMode:value})
+        // console.error("Blendmode requested", value)
     }
 
     get blendMode(){
