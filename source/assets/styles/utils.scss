@@ -85,8 +85,9 @@ figure {
 }
 
 .comic{
-    filter: invert(1);
-    mix-blend-mode: exclusion;
+    // filter: invert(1);
+    // mix-blend-mode: exclusion;
+    mix-blend-mode: multiply;
 }
 
 .bumpers{

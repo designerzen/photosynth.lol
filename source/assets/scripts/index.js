@@ -1502,6 +1502,8 @@ const start =  async () => {
     {
         handlePasswordProtection( searchParams, DEFAULT_PASSWORD, updateURL )
     }
+
+    document.body.classList.toggle("platform-ios", isIOS)
     
     // change the copyright year to this year
     setCurrentYear()
