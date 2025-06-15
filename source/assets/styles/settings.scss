@@ -39,17 +39,18 @@
     --col-text:var(--col-charcoal, black);
 
     --font-scale:1;
+    --font-zoom:1;
 
     // directly from Royal Society website
     --font-size-base: calc(16px * var(--font-scale,1));
   
-    --font-size-h1: calc( var(--step-mobile-5, 40px ) * var(--font-scale,1) );
-    --font-size-h2: calc( var(--step-mobile-4, 28px ) * var(--font-scale,1) );
-    --font-size-h3: calc( var(--step-mobile-3, 24px ) * var(--font-scale,1) );
-    --font-size-h4: calc( var(--step-mobile-2, 18px ) * var(--font-scale,1) );
-    --font-size-h5: calc( var(--step-mobile-1, 16px ) * var(--font-scale,1) );
-    --font-size-h6: calc( var(--step-mobile-0, 14px ) * var(--font-scale,1) );
-    --font-size-p: calc( var(--step-mobile--1, 14px ) * var(--font-scale,1) );
+    --font-size-h1: calc( var(--step-mobile-5, 40px ) * var(--font-scale,1) * var(--font-zoom,1) );
+    --font-size-h2: calc( var(--step-mobile-4, 28px ) * var(--font-scale,1) * var(--font-zoom,1) );
+    --font-size-h3: calc( var(--step-mobile-3, 24px ) * var(--font-scale,1) * var(--font-zoom,1) );
+    --font-size-h4: calc( var(--step-mobile-2, 18px ) * var(--font-scale,1) * var(--font-zoom,1) );
+    --font-size-h5: calc( var(--step-mobile-1, 16px ) * var(--font-scale,1) * var(--font-zoom,1) );
+    --font-size-h6: calc( var(--step-mobile-0, 14px ) * var(--font-scale,1) * var(--font-zoom,1) );
+    --font-size-p: calc( var(--step-mobile--1, 14px ) * var(--font-scale,1) * var(--font-zoom,1) );
 
     // --font-size-h1: var(--step-mobile-5, calc(40px * var(--font-scale,1) );
     // --font-size-h2: var(--step-mobile-4, calc(28px * var(--font-scale,1)) );

@@ -30,8 +30,10 @@ html,
 
 [data-font="dsylexic"]{
     font-family: 'OpenDyslexic', 'Proxima Nova', var(--font-family-metropolis), sans-serif;
-    letter-spacing: 0.003px;
+    // letter-spacing: 0.003px;
     // font-weight: lighter;
+    font-size:85%;
+    --font-zoom:0.85;
 }
 
 [data-font="readable"]{

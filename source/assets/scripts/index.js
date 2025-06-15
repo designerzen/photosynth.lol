@@ -107,6 +107,8 @@ let song = null
 let playingNote = null
 let playingChord = null
 
+const isIOS =  navigator.platform.startsWith("iP") || navigator.platform.startsWith("Mac") && navigator.maxTouchPoints > 4
+
 const CHORDS = [
     createMajorChord, 
     createMinorChord,
@@ -1540,7 +1542,7 @@ const start =  async () => {
     }
 
     // we can turn the mouse cursor into a note indicator   
-    if (SETTINGS.showMouseNotes){
+    if (SETTINGS.showMouseNotes && !isIOS){
        const mouseCanvas = document.getElementById("mouse-visualiser")
         mouseVisualiser = new MouseVisualiser(mouseCanvas)
     }
