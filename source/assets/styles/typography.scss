@@ -189,8 +189,11 @@ h6 {
 }
 
 p{
+	// prevent single line orhpans and widows
+    orphans: 3;
+    widows: 3;
+
     font-size: var(--font-size-p);
-    orphans:3;
     position: relative;
     margin:0;
 }
