@@ -297,7 +297,7 @@ const addAccessibilityFunctionality = ()=> {
  * @param {Number} velocity 
  * @param {Number} id 
  */
-const noteOn = ( noteModel, velocity=1, id=DEFAULT_MOUSE_ID ) => {
+const noteOn = ( noteModel, velocity=1, id=DEFAULT_MOUSE_ID, isMidi=false ) => {
 
     // console.info(id, "NOTE ON for FINGER", {noteModel, velocity} )
 
@@ -341,7 +341,8 @@ const noteOn = ( noteModel, velocity=1, id=DEFAULT_MOUSE_ID ) => {
         shapeVisualiser.colour = noteModel.colour
     } 
    
-    if (midiManager.enabled && midiDeviceOutput){
+    // NB. To prevent endless looping...
+    if (!isMidi && midiManager.enabled && midiDeviceOutput){
         midiDeviceOutput.playNote( noteModel.noteName, {attack:velocity }) 
     }
     return isAlreadyPlaying
@@ -353,7 +354,7 @@ const noteOn = ( noteModel, velocity=1, id=DEFAULT_MOUSE_ID ) => {
  * @param {Number} velocity 
  * @param {Number} id 
  */
-const noteOff = (noteModel, velocity=1, id=0 ) => {
+const noteOff = (noteModel, velocity=1, id=0, isMidi=false ) => {
    
     // console.info( id, "NOTE OFF",{ noteModel, velocity } )
 
@@ -391,7 +392,7 @@ const noteOff = (noteModel, velocity=1, id=0 ) => {
         shapeVisualiser.colour = false
     } 
 
-    if (midiManager.enabled && midiDeviceOutput){
+    if (!isMidi && midiManager.enabled && midiDeviceOutput){
         midiDeviceOutput.stopNote( noteModel.noteName )
         // console.info("MIDI NOTE OFF", noteModel )
     }
@@ -793,6 +794,8 @@ const showMIDIToggle = () => {
           
         // await midiManager.load()
         MIDIStatus.textContent = "MIDI Available! "
+
+        debugger
         
         // just use the first instument?
         if (midiManager.hasInputDevices)
@@ -807,7 +810,7 @@ const showMIDIToggle = () => {
             const trigger = timer.bypass(true)
 
             midiManager.monitorAllInputs(event => {
-               
+
                 switch(event.message.type){
                     case "clock":
                         
@@ -841,31 +844,35 @@ const showMIDIToggle = () => {
                             intervals, 
                             lag 
                         ) 
+                    break       
 
+                    case "noteon":
+                        // console.log("MIDI noteon", event )
+                        noteOn( new Note(event.note.number), event.value, 11, true )
                         break       
+
+                    case "noteoff":                     
+                        // console.log("MIDI noteoff", event )  
+                        noteOff( new Note(event.note.number), event.value, 11, true )
+                        break     
+
+                    default:
+                        console.info("MIDI Message " + event.message.type, event )
+
                 }
 
                 switch(event.type){
 
               
-                    case "noteon":
-                        console.log("MIDI noteon", event, event.note.identifier)
-                        noteOn( new Note(event.note.number), event.value )
-                        break       
-
-                    case "noteoff":                     
-                        console.log("MIDI noteoff", event, event.note.identifier)
-                        noteOff( new Note(event.note.number), event.value )
-                        break     
-
                     default:
                         //console.log("MIDI Message", event)
                 }
+
             })
             
             const midiDevice = midiManager.inputs[0]
             MIDIStatus.textContent += "Connected to input device " + midiDevice.name +" - play some notes to hear them. "
-            console.info("MIDI Input found " + midiDevice.name, midiDevice )
+            // console.info("MIDI Input found " + midiDevice.name, midiDevice )
             midiDeviceInput = midiDevice
             // midiDriver.inputs.forEach((device, index) => {
             //     // `${index}: ${device.name}`
@@ -889,7 +896,7 @@ const showMIDIToggle = () => {
             const midiDevice = midiManager.outputs[0]
             MIDIStatus.textContent += "Connected to output device " + midiDevice.name
             midiDeviceOutput = midiDevice
-            console.info("MIDI Output found " + midiDevice.name, midiDevice )
+            // console.info("MIDI Output found " + midiDevice.name, midiDevice )
         }
         
        buttonMIDIToggle.checked = available
@@ -911,7 +918,7 @@ const createCircularSynth = (musicalMode, musicalOctave) => {
         return ALL_KEYBOARD_NOTES[(oneOctave*12)+fifthIndexes[i%fifthIndexes.length]]
     })
     
-    console.error("Creating Circular Synth", { circleIntervals, fifthIndexes, fifthData } )
+    // console.error("Creating Circular Synth", { circleIntervals, fifthIndexes, fifthData } )
     
 
     // const svgCircle = Array.from(document.querySelectorAll(".circle-of-fifths-tonics > path"))
@@ -968,7 +975,7 @@ const setupRadioButtons = () => {
                     setScale( false )
                     break
             }
-            console.info("RadioButton", {name, input} )
+            // console.info("RadioButton", {name, input} )
             // emotionPanel.querySelector("output").textContent = input
         })
     })
@@ -1525,7 +1532,6 @@ const start =  async () => {
         // noteVisualiser = new NoteVisualiser( KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
         wallpaperCanvas.addEventListener( "dblclick", e => scale === SCALES[ (SCALES.indexOf(scale) + 1) % SCALES.length] )
         
-        // FIXME: Is this causing poor performance?
         let b = 23
         const setNoteVisualiserBlendMode = value =>{
             noteVisualiser.blendMode = CANVAS_BLEND_MODES[b%CANVAS_BLEND_MODES.length]  
@@ -1538,14 +1544,13 @@ const start =  async () => {
     // bottom interactive piano
     if (SETTINGS.showKeyboard){
         keyboard = new SVGKeyboard( SETTINGS.showAllKeys ? ALL_KEYBOARD_NOTES : KEYBOARD_NOTES, noteOn, noteOff )
-
         const keyboardElement = document.body.appendChild( keyboard.asElement )
         keyboardElement.addEventListener("dblclick", e => setTimbre( getRandomWaveTableName() ) )
     }
 
     // we can turn the mouse cursor into a note indicator   
     if (SETTINGS.showMouseNotes && !isIOS){
-       const mouseCanvas = document.getElementById("mouse-visualiser")
+        const mouseCanvas = document.getElementById("mouse-visualiser")
         mouseVisualiser = new MouseVisualiser(mouseCanvas)
     }
 

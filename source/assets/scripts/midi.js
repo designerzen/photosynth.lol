@@ -96,13 +96,40 @@ export default class MIDIManager{
         input.addListener("midimessage", e => {
             // { port: {…}, target: {…}, message: {…}, timestamp: 629940, type: "midimessage", data: (1) […], rawData: (1) […], statusByte: 248, dataBytes: [] }
 
+            switch(e.message.type){
+                case "clock":
+                case "activesensing":
+                case "start":
+                case "stop":
+                case "continue":
+                    callback && callback(e)
+                    break
+            }
+
+            // create a note object that matches
+            // new Note(0)
+            // console.log("MIDI Message", e,  input )
+        })
+
+        input.addListener("noteon", e => {
+            // { port: {…}, target: {…}, message: {…}, timestamp: 629940, type: "midimessage", data: (1) […], rawData: (1) […], statusByte: 248, dataBytes: [] }
+
 
             // create a note object that matches
             // new Note(0)
             // console.log("MIDI Message", e,  input )
             callback && callback(e)
         })
-       
+
+        input.addListener("noteoff", e => {
+            // { port: {…}, target: {…}, message: {…}, timestamp: 629940, type: "midimessage", data: (1) […], rawData: (1) […], statusByte: 248, dataBytes: [] }
+
+
+            // create a note object that matches
+            // new Note(0)
+            // console.log("MIDI Message", e,  input )
+            callback && callback(e)
+        })
     }
 
     // public method
