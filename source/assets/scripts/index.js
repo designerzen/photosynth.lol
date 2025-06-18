@@ -794,9 +794,7 @@ const showMIDIToggle = () => {
           
         // await midiManager.load()
         MIDIStatus.textContent = "MIDI Available! "
-
-        debugger
-        
+    
         // just use the first instument?
         if (midiManager.hasInputDevices)
         {
