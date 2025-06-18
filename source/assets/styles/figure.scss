@@ -51,10 +51,15 @@ figure{
 
     // if figcaption is below image...
     :is(img,picture) + figcaption{
+        min-height: 2lh;
+        display: flex;
+        place-content: center;
+        place-items: center;
         padding-top: var(--pad);
         padding-bottom: var(--pad);
         background: var(--col-bg);
         border-radius: var(--curve, 4px);
+        margin-top: calc( var(--pad) * 2);;
     }
 }
 

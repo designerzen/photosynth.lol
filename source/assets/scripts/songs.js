@@ -19,7 +19,6 @@ g g a b C (Carly Rae Jepsen - "Call Me Maybe" - "Hey, I just met you...")
 E E E D# E F# G# E (Lady Gaga - "Bad Romance" - "Ra-ra-ah-ah-ah")
 c d e c e d G (ABBA - "Dancing Queen" piano intro lead melody, G is lower)
 g f e d c (The Beatles - "Let It Be" - "Let it be" vocal line)
-C C C G a a G (Coldplay - "Clocks" piano riff opening notes, C is higher)
 e f# g e a g f# e (Britney Spears - "...Baby One More Time" - "My loneliness...")
  */
 // https://melodicnotes.com/song/rick-astley-never-gonna-give-you-up-7522/
@@ -61,6 +60,7 @@ export const EYE_OF_THE_TIGER = `c c c a# c c g# c c a# c c c`
 export const MEDLEY = `a a C a g c g g# g f g a# C`
 
 export const INSPECTOR_GADGET = `c d D f g D F d f`
+export const LET_IT_BE = `g f e d c `
 
 
 const repeatSong = (song, repetitions=1) => {
@@ -73,12 +73,15 @@ export const SONGS = [
     ASTLEY, 
     AFRICA, 
     BABY_SHARK,
+    repeatSong(LET_IT_BE, 3),
+    repeatSong(INSPECTOR_GADGET, 3),
     repeatSong(TAKE_ON_ME, 3), 
     repeatSong(BILLIE_JEAN, 3), 
     repeatSong(NIRVANA, 4),
     repeatSong(ANOTHER_ONE_BITES_THE_DUST, 2), 
     repeatSong(EYE_OF_THE_TIGER,2),
     repeatSong(SEVEN_NATION_ARMY, 5),
+    repeatSong(MEDLEY, 3),
     repeatSong(SWEET_DREAMS, 4),
     repeatSong(STAYIN_ALIVE, 4),
     repeatSong(SMOKE_ON_THE_WATER, 4)
@@ -90,4 +93,11 @@ export const getRandomSong = () => {
 }
 
 // Make a jive bunny style melody
-export const getCompondSong = () => shuffleArray(SONGS).join(" ")
+export const getCompondSong = () => 
+    shuffleArray(SONGS).join(" ") + " " +  
+    shuffleArray(SONGS).join(" ") + " " +  
+    shuffleArray(SONGS).join(" ") + " " +  
+    shuffleArray(SONGS).join(" ") + " " +  
+    shuffleArray(SONGS).join(" ") + " " +  
+    shuffleArray(SONGS).join(" ") + " " +  
+    shuffleArray(SONGS).join(" ") 

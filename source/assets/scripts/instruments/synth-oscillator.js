@@ -7,7 +7,7 @@ export const OSCILLATORS = [ "sine", "square", "sawtooth", "triangle" ]
 export default class SynthOscillator{
 
     options = {
-        gain:0.3,
+        gain:0.2,
         attack:0.4,
         shape:OSCILLATORS[0],
         minDuration:0.45,

@@ -66,6 +66,7 @@ const fingerSynths = new Map()
 let audioContext = null
 let limiter = null
 let mixer = null
+let timer = null
 let stats
 
 const midiManager = new MIDIManager()
@@ -181,7 +182,7 @@ const getSynthForFinger = (finger)=>{
 const createMetronome = (callback) => {
     let beats = 0
     const timingContext = new AudioContext()
-    const timer = new Timer({contexts:{audioContext:timingContext}, bpm:32 })
+    timer = new Timer({contexts:{audioContext:timingContext}, bpm:32 })
     // console.info("timer", timer)
     // await timer.loaded
     // console.info("timer loaded", timer)
@@ -775,14 +776,21 @@ const showMIDIToggle = () => {
     const MIDIStatus = document.getElementById("midi-status")
     const sectionMIDIToggle = document.getElementById("midi-equipment")
     const buttonMIDIToggle = document.getElementById("toggle-midi")
+   
+    let isMIDIAvailable = true
     buttonMIDIToggle.addEventListener("click", async(e) => {
         
-        let available = true
+        if (!isMIDIAvailable)
+        {
+            return false
+        } 
+            
         await midiManager.toggle()
+
         if (!midiManager.available)
         {
             buttonMIDIToggle.hidden = true
-            available = false
+            isMIDIAvailable = false
             console.error("No midi support")
             return
         }
@@ -791,9 +799,14 @@ const showMIDIToggle = () => {
         // INSPECTOR_GADGET
 
         // let midiDriver = await toggleMIDI()
-          
+        if (midiManager.enabled)
+        {
+            MIDIStatus.textContent = "MIDI Enabled. "
+        }else{
+            MIDIStatus.textContent = "MIDI Available! "
+        }
         // await midiManager.load()
-        MIDIStatus.textContent = "MIDI Available! "
+     
     
         // just use the first instument?
         if (midiManager.hasInputDevices)
@@ -803,55 +816,67 @@ const showMIDIToggle = () => {
 
             // How many ticks have occured yet
             let intervals = 0
+            let midiNoteIndex = 0
+            let midiNoteIndeces = new Map()
             
-            const timer = new Timer()
-            const trigger = timer.bypass(true)
-
             midiManager.monitorAllInputs(event => {
 
                 switch(event.message.type){
                     case "clock":
-                        
-                        // How long has elapsed according to our clock
-                        const timestamp = event.timestamp
-                        const elapsedSinceLastClock = timestamp - lastClockTimestamp
-                        lastClockTimestamp = timestamp
-                        
-                        // work out the BPOM from the clock...
-                       
-                        // const BPM = convertPeriodToBPM( period * 24 )
-                        // console.log("MIDI CLOCK", BPM, period, elapsedSinceLastClock, timestamp )
-                      
-                        // calculated
-                        const period = tapTempo(true, 10000, 3)
-                        const timeBetweenPeriod = elapsedSinceLastClock
-                        // Expected time stamp
-                        const expected = intervals++ * timeBetweenPeriod
-                        // how much spill over the expected timestamp is there
-                        const lag = timestamp % timeBetweenPeriod
-                        // should be 0 if the timer is working...
-                        const drift = timestamp - expected
-                        // deterministic intervals not neccessary
-                        const level = Math.floor(timestamp / timeBetweenPeriod )
+                        if (timer)
+                        {
+                            const trigger = timer.bypass(true)
 
-                        trigger( 
-                            timestamp, 
-                            expected, 
-                            drift, 
-                            level, 
-                            intervals, 
-                            lag 
-                        ) 
+                            // How long has elapsed according to our clock
+                            const timestamp = event.timestamp
+                            const elapsedSinceLastClock = timestamp - lastClockTimestamp
+                            lastClockTimestamp = timestamp
+                            
+                            // work out the BPOM from the clock...
+                        
+                            // const BPM = convertPeriodToBPM( period * 24 )
+                            // console.log("MIDI CLOCK", BPM, period, elapsedSinceLastClock, timestamp )
+                        
+                            // calculated
+                            const period = tapTempo(true, 10000, 3)
+                            const timeBetweenPeriod = elapsedSinceLastClock
+                            // Expected time stamp
+                            const expected = intervals++ * timeBetweenPeriod
+                            // how much spill over the expected timestamp is there
+                            const lag = timestamp % timeBetweenPeriod
+                            // should be 0 if the timer is working...
+                            const drift = timestamp - expected
+                            // deterministic intervals not neccessary
+                            const level = Math.floor(timestamp / timeBetweenPeriod )
+
+                            trigger( 
+                                timestamp, 
+                                expected, 
+                                drift, 
+                                level, 
+                                intervals, 
+                                lag 
+                            ) 
+
+                        }else{
+
+
+
+                        }
+                     
                     break       
 
                     case "noteon":
+                        midiNoteIndex = (midiNoteIndex + 1 ) % 10
+                        midiNoteIndeces.set( event.note.number, midiNoteIndex )
                         // console.log("MIDI noteon", event )
-                        noteOn( new Note(event.note.number), event.value, 11, true )
+                        noteOn( new Note(event.note.number), event.value, midiNoteIndex, true )
                         break       
 
                     case "noteoff":                     
                         // console.log("MIDI noteoff", event )  
-                        noteOff( new Note(event.note.number), event.value, 11, true )
+                        midiNoteIndex = midiNoteIndeces.get( event.note.number )
+                        noteOff( new Note(event.note.number), event.value, midiNoteIndex, true )
                         break     
 
                     default:
@@ -885,7 +910,7 @@ const showMIDIToggle = () => {
         }else{
 
             MIDIStatus.textContent = "No MIDI devices detected. Connect one and try again."
-            available = false
+            isMIDIAvailable = false
             buttonMIDIToggle.hidden = true
         }
         
@@ -897,7 +922,7 @@ const showMIDIToggle = () => {
             // console.info("MIDI Output found " + midiDevice.name, midiDevice )
         }
         
-       buttonMIDIToggle.checked = available
+       buttonMIDIToggle.checked = isMIDIAvailable
     })
     sectionMIDIToggle.hidden = false
     buttonMIDIToggle.parentNode.hidden = false
