@@ -611,13 +611,21 @@ button[data-control-play]{
     min-height: var(--sticky-top);
     background-color: var(--col-accent);
     box-sizing: border-box;
-    padding-left:calc( 2 * var(--pad) );
-    padding-right:calc( 2 * var(--pad) );
-    text-align: right;
+ 
+    padding: 0;
+    text-align: center;
     // background-color: color-mix( in oklch, var(--col-accent) 66%, transparent );
     
     &:hover{
         background-color: var(--col-plum);
+    }
+}
+
+@media screen and (min-width:vars.$min-width-3) {
+    [data-control-play]{
+        padding-left:calc( 2 * var(--pad) );
+        padding-right:calc( 2 * var(--pad) );
+        text-align: right;
     }
 }
 

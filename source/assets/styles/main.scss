@@ -658,7 +658,7 @@ main > section.sticky + section{
     // padding-top:100%;
     background-color: transparent;
     border:0;
-    width: fit-content;
+    width: 100%;
     z-index: 2001;
     
     // margin-left:var(--pad);
@@ -667,7 +667,7 @@ main > section.sticky + section{
   
     top:91px;
     top:134px;
-     // transform: translateY(-50%);
+    transform: translateY(100%);
   
     // width: min-content;
 
@@ -679,7 +679,6 @@ main > section.sticky + section{
         padding:0;
         border:0;
         gap:0;
-        width: fit-content;
     }
 
     legend{
@@ -690,9 +689,7 @@ main > section.sticky + section{
     }
 
     button{
-        
         z-index: 1999;
-
     }
     
     button + button {
@@ -706,6 +703,11 @@ main > section.sticky + section{
 @media screen and (min-width: vars.$min-width-3) {
     #drums{
         top:clamp(67px, calc( (100vw - vars.$min-width-3) * -1e9), 91px);//50%; 
+        width: fit-content;
+        transform: translateY(0);
+        fieldset{
+            width: fit-content;
+        }
     }
 }
 
