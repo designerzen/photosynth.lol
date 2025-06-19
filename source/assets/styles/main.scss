@@ -666,8 +666,8 @@ main > section.sticky + section{
     // margin-top: calc( var(--pad) * 4);
   
     top:91px;
-    top:clamp(67px, calc( (100vw - vars.$min-width-3) * -1e9), 91px);//50%; 
-    // transform: translateY(-50%);
+    top:134px;
+     // transform: translateY(-50%);
   
     // width: min-content;
 
@@ -703,6 +703,11 @@ main > section.sticky + section{
     }
 }
 
+@media screen and (min-width: vars.$min-width-3) {
+    #drums{
+        top:clamp(67px, calc( (100vw - vars.$min-width-3) * -1e9), 91px);//50%; 
+    }
+}
 
 
 figure img{

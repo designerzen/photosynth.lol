@@ -695,8 +695,10 @@ label[for="button-sad"]{
         &::before{
             display: inline-block;
             vertical-align: middle;
-            color: white;
-            filter:drop-shadow(0 0 6px var(--col-stone));
+            color: var(--col-charcoal, black);
+            font-weight: 700;
+            // filter:invert();
+            // filter:drop-shadow(0 0 6px var(--col-stone));
         }
         &:hover,
         &:active{
