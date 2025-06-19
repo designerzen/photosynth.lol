@@ -53,6 +53,7 @@ figure{
     :is(img,picture) + figcaption{
         min-height: 2lh;
         display: flex;
+        flex-direction: column;
         place-content: center;
         place-items: center;
         padding-top: var(--pad);
