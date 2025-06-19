@@ -70,7 +70,9 @@
 
 header, hgroup,
 h1, h2, h3, h4, h5, 
-blockquote, hr, details, aside, figure, form, blockquote, 
+blockquote, hr, details, aside, 
+figure, figcaption,
+form, blockquote, 
 .flood, .box, .label-button-read {
     column-span: all; 
 }
