@@ -901,6 +901,7 @@ tbody{
     }
     label[for="song-timbre-select"]{
         grid-area: select;
+        border-bottom: var(--stroke, 1px) var(--col-white, white) solid;
     }
     label[for="song-timbre-random"]{
         grid-area: random;
@@ -926,11 +927,13 @@ tbody{
 
 
 @media screen and (min-width:vars.$min-width-3){
-        
+ 
     .timbre-selector{
         grid-template-areas: "prev select next random";
         grid-template-columns: 2fr 4fr 2fr 1fr;    
-
+        label[for="song-timbre-select"]{
+            border-bottom: none;
+        }
     }
 }
 @media screen and (min-width:vars.$min-width-2){
