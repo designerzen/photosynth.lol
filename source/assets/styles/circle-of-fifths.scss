@@ -118,6 +118,9 @@
         z-index: 909;
         pointer-events: all;
     }
+    a{
+        pointer-events: auto;
+    }
     // padding: var(--pad);
     // padding-top: calc( var(--pad) * 2 );
     // &::before{
