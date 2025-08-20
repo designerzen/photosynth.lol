@@ -1,8 +1,11 @@
 
 // accessibility
-import { addTextScalingFacilities } from "./accessibility"
-import { addThemeSelectionOptions, setTheme, THEMES } from "./theme"
-import { setFont } from "./fonts"
+import { addTextScalingFacilities } from "./accessibility.js"
+import { addThemeSelectionOptions, setTheme, THEMES } from "./theme.js"
+import { setFont } from "./fonts.js"
+
+// gallery lightbox
+import { setGalleryImage, createGallery } from "./gallery.js"
 
 // NB. This polyfill will break AudioWorklets which we use for timing
 import { AudioContext as PonyAudioContext, OfflineAudioContext } from 'standardized-audio-context'
@@ -23,7 +26,7 @@ import NoteVisualiser from "./components/note-visualiser"
 import AudioVisualiser from "./components/audio-visualiser"
 import SVGKeyboard from "./components/keyboard-svg"
 import { monitorIntersections } from "./intersection-observer"
-import { addReadButtons, handlePasswordProtection, selectRadioButton, setCurrentYear, updateScaleUI, updateTimbreUI } from "./ui"
+import { addReadButtons, selectRadioButton, setCurrentYear, updateScaleUI, updateTimbreUI } from "./ui"
 
 // data
 import { getSettings, CICRLE_INTERVALS, DEFAULT_PASSWORD, PALETTE, VISUALISER_OPTIONS } from "./settings"
@@ -85,6 +88,7 @@ let timeKeeper
 let midiDeviceInput
 let midiDeviceOutput
 
+// a map of all active notes currently playing
 const notesPlaying = new Map()
 
 const keyboardKeys = ( new Array(128) ).fill("")
@@ -320,7 +324,8 @@ const noteOn = ( noteModel, velocity=1, id=DEFAULT_MOUSE_ID, isMidi=false ) => {
         return
     }
 
- 
+    // if we had a pointer event fired from a mouse we need to ensure that
+    // it increments ovtherwise the oscillators get overwritten before thhey are clear to be stopped
     const synth = getSynthForFinger(id)
 
     if (!synth){
@@ -506,9 +511,8 @@ const addMusicalMouseEventsToElement = (button, chord=null, musicalMode=null, on
  * @param {AudioContext} audioContext 
  * @param {AudioNode} source 
  */
-const createAudioVisualiser = (audioContext, source, song, visualiserOptions=VISUALISER_OPTIONS ) => {
+const createAudioVisualiser = (visualiserCanvas, audioContext, source, song, visualiserOptions=VISUALISER_OPTIONS ) => {
 
-    const visualiserCanvas = document.getElementById("visualiser")
     const visualiserContext = visualiserCanvas.getContext('2d')
 
     shapeVisualiser = new AudioVisualiser( visualiserContext, audioContext, source, visualiserOptions )
@@ -1196,9 +1200,10 @@ const createAudioContext = async(event) => {
     limiter.connect(mixer)
     mixer.connect( audioContext.destination )
     
-    if (SETTINGS.showAudioVisualiser)
+    const visualiserCanvas = document.getElementById("visualiser")
+    if (SETTINGS.showAudioVisualiser && visualiserCanvas)
     {
-        createAudioVisualiser( audioContext, mixer, song, {...VISUALISER_OPTIONS, backgroundColour:false } )
+        createAudioVisualiser( visualiserCanvas, audioContext, mixer, song, {...VISUALISER_OPTIONS, backgroundColour:false } )
     }
    
     registerMultiTouchSynth( ALL_KEYBOARD_NOTES, chordOn, chordOff, (noteModel,previousNoteModel, p) => {
@@ -1514,10 +1519,6 @@ const backgroundLoad = async () => {
  */
 const start =  async () => {
 
-    // for (const p of searchParams) {
-    //     console.info("searchParams",p, searchParams)
-    // }
-
     // record each user note!
     if (SETTINGS.recordNotes)
     {
@@ -1528,10 +1529,10 @@ const start =  async () => {
     song = loadSong( getCompondSong() )
 
     // show password protection
-    if (DEFAULT_PASSWORD)
-    {
-        handlePasswordProtection( searchParams, DEFAULT_PASSWORD, updateURL )
-    }
+    // if (DEFAULT_PASSWORD)
+    // {
+    //     handlePasswordProtection( searchParams, DEFAULT_PASSWORD, updateURL )
+    // }
 
     document.body.classList.toggle("platform-ios", isIOS)
     
@@ -1547,7 +1548,10 @@ const start =  async () => {
     
     // top interactive smiling graphic
     hero = new Hero(ALL_KEYBOARD_NOTES, noteOn, noteOff, SETTINGS.showNotes ? SETTINGS.notes : 0)
-     
+    
+    // add gallery interactions to dialog
+    createGallery()
+    
     if (SETTINGS.showNoteVisualiser){
         // sequencer style note visualiser (2 varieties)
         const wallpaperCanvas = document.getElementById("wallpaper")
@@ -1582,6 +1586,8 @@ const start =  async () => {
 
     // wire up the radio buttons
     setupRadioButtons()
+
+    // setGalleryImage()
     
     if (navigator.requestMIDIAccess)
     {
