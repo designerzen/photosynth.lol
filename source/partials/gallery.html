@@ -86,7 +86,7 @@
             
                 <figcaption class="gallery-image-caption">
                     <strong></strong>
-                    Photograph by <cite></cite> Copyright 2025
+                    <cite>Photograph by respective copyright holders</cite> 
                 </figcaption>
 
             </figure>
@@ -95,14 +95,14 @@
                 <button hidden class="gallery-image-button-previous" type="button">Previous Image</button>
                 <button hidden class="gallery-image-button-next" type="button">Next Image</button>
 
-                <button type="submit" class="gallery-image-button-close" onclick="toggleFullScreen(document.querySelector('#{{id}}dialog > form'))">Close</button>
+                <button type="submit" class="gallery-image-button-close" onclick="toggleFullScreen(document.querySelector('#{{id}}dialog > form'), true)">Close</button>
                 <button type="button" class="gallery-image-button-fullscreen" onclick="toggleFullScreen(document.querySelector('#{{id}}dialog > form'))">Fullscreen</button>
             </menu>
            
         </form>
         <script>
-            function toggleFullScreen(e) {
-                if (!document.fullscreenElement) {
+            function toggleFullScreen(e, forceExit=false) {
+                if (!forceExit && !document.fullscreenElement) {
                     try{
                         e.requestFullscreen()
                         document.documentElement.classList.toggle("fs", true)
