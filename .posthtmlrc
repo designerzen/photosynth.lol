@@ -1,5 +1,9 @@
 {
   "plugins": {
+  
+    "posthtml-img-autosize": {
+        "processEmptySize": true
+    },
     "posthtml-include": {
 
     },
@@ -7,7 +11,8 @@
         "strictMode":false,
         "locals":{
             "script":"./assets/scripts/index.js",
-            "scripts":[]
+            "scripts":[],
+            "gallery":[]
         } 
     }
   }
