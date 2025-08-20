@@ -301,7 +301,7 @@ svg[aria-hidden='true'] {
     --padding:calc( 1 * var(--pad));
     //outline: 1px groove $col-cream;
     cursor: pointer;
-    transition:color var(--ease-s) linear, 
+    transition:color var(--time-long) linear, 
                 background-color 90ms linear;
 
     padding:var(--padding);// var(--pad) 0 var(--pad);

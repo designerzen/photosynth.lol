@@ -1,0 +1,212 @@
+// prevent user scrolling when dialog is open
+html:is(.error,.failure):has(dialog[open]) { 
+	overflow: hidden;
+	max-height: 100dvh;
+	max-height: 100vh;
+}
+
+// -
+dialog{
+	animation:DialogOut var(--time-quick) linear 0s 1 both;
+
+	box-sizing: border-box;
+	
+	margin:auto;//calc( 2 * var(--pad) );
+	padding:
+		calc( 0.5 * var(--pad) ) 
+		calc( 0.5 * var(--pad) ) 
+		calc( 0.5 * var(--pad) ) 
+		calc( 0.5 * var(--pad) );
+
+    min-height:250px;
+    min-height:150px;
+
+    // calc( 1 * var(--pad) )
+	// width: fit-content;
+	// height: fit-content;
+
+	// top right is a fake close icon...
+	// background-image: linear-gradient( white, var(--shade-white) );
+
+	// max-height:  clamp( 420px, 100%, calc(100vh - 4 * var(--pad)));
+	// max-width: clamp( 280px, 100%, calc(100vw - 4 * var(--pad)));
+
+	// max-width:calc( 100% - var(--pad) * 4 );
+	// max-height:calc( 100% - var(--pad) * 4 );
+	opacity: 0;
+	pointer-events: none;
+	align-self: center;
+    background-color: inherit;
+    border:2px solid rgba(0,0,0,0.6);
+    border-radius: calc( 1.6 * var(--curve));
+// filter:drop-shadow(var(--shadow));
+	box-shadow:var(--shadow) ;
+		
+
+	&:not([open]) {
+		pointer-events: none;
+		opacity: 0;
+		display: none;
+	}
+	
+	// > :is(h3,h4,h5,h6){
+
+	// 	--font-scale: 1.5;
+
+	// 	display: flex;
+	// 	align-items: center;
+	// 	// justify-content: center;
+	// 	margin-bottom:var(--pad);
+	// 	margin-left: calc(-1 * var(--pad));
+	// 	line-height: 1;
+	// 	line-height: 1.04cap;
+
+	// 	//default icon
+	// 	&::before{
+	// 		--size:calc( var(--s5) * 1.5rem );
+	// 		--bg:url(/source/assets/icons/support_black_24dp.svg);
+	// 		content: '';
+	// 		display: inline-block;
+	// 		min-width:var(--size);
+	// 		min-height:var(--size);
+	// 		background-size: contain;
+	// 		background-image:var(--bg);
+	// 		//filter: invert(90%) sepia(10%) saturate(395%) hue-rotate(324deg) brightness(105%) contrast(81%);
+	// 		//margin-right:calc( 0.25 * var(--pad) );
+	// 		opacity: 1;
+	// 		// filter: brightness(100%);
+	// 		transform:scale(0.72) translateY(-5%);
+	// 		transform-origin: center;
+	// 	}
+	// }
+
+	form[method=dialog] button[type=submit]{
+		content: '';
+		position: absolute;
+        // calc((100vw - 100%)/2);
+		top:0; // calc(-50vh + 50%);
+		right:0; //calc(-50vw + 50%);
+		bottom:0; //calc(-50vh + 50%);
+		left:0; // calc(-50vw + 50%);
+		//opacity: 0;
+        color: transparent;
+		z-index: -1;
+		pointer-events: auto;
+		// top right is a fake close icon...
+		background: url(/source/assets/icons/close.svg) no-repeat;
+		background-position:top calc( 1 * var(--pad) ) right calc( 1 * var(--pad) );
+	}
+
+	&::after{
+		opacity: 1;
+		z-index: 1;
+	}
+
+	&::backdrop{
+		// display: none;
+		pointer-events: none;
+		background-color: rgba(0,0,0,0.6);
+	}
+
+	form[method=dialog]{
+		order:-1;
+		pointer-events: auto;
+		z-index: 2;
+	}
+
+    img{
+        margin-bottom: calc( 0.5 * var(--pad) ) ;
+        transition: 
+			opacity var(--time-quick) linear,
+			transform var(--time-quick) linear;
+    }
+
+	img.loading{
+        opacity: 0;
+    }
+
+
+	// pop over (is this accessible?)
+	&[open]{
+		
+		--y:2%;
+		animation:DialogIn var(--time-quick) linear 0s 1 both;
+
+		opacity: 1;
+		pointer-events: auto;
+		
+		display: flex;
+		flex-direction: column;
+
+		// scroll in vertical direction only if needed
+		overflow: auto;
+		overflow-x: hidden;
+		overscroll-behavior-y: contain;
+
+		// position: fixed;
+		// left:50%;
+		// top:50%;
+		// transform: translateY(-50%);
+		// transform: translate(-50%,-50%);
+
+		//position: static;
+
+		// king of the castle
+		// z-index:999;
+
+		
+		transition: 
+			width var(--time-quick) linear,
+			height var(--time-quick) linear,
+			opacity var(--time-quick) linear,
+			transform var(--time-quick) linear;
+
+        transition-behavior: allow-discrete;
+
+		// ON STAGE 
+		opacity: 1;
+
+		// prevent being part of a different grid
+		// grid-area:none;
+		// position: initial;
+		
+		// OFF STAGE
+		@starting-style {
+			opacity: 0;
+			transform: translateY( var(--y, 2px));
+			&::backdrop {
+				opacity: 0;
+			}
+		}
+		
+		// &::before {
+		// 	content: "";
+		// 	z-index: -1;
+		// 	position: absolute;
+		// 	top: 0;
+		// 	right: 0;
+		// 	bottom: 0;
+		// 	left: 0;
+		// 	background: linear-gradient(-45deg, var(--shade-blue) 0%, var(--shade-green) 100% );
+		// 	transform: translate3d(0px, 20px, 0) scale(0.95);
+		// 	filter: blur(20px);
+		// 	opacity: 0.7;
+		// 	transition: opacity 0.3s;
+		// }
+		
+	}
+}
+
+@keyframes DialogIn{
+	from{
+		transform: translateY( var(--y,0) );
+		opacity: 0.6;
+	}
+}
+
+@keyframes DialogOut{
+	to{
+		transform: translateY( var(--y,0) );
+		opacity: 0.6;
+	}
+}
