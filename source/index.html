@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="default" data-scale="major">
-<include src="./source/partials/head.html" locals='{ script:"./assets/scripts/index.js"'}></include>
+<include src="./source/partials/head.html" locals='{ 
+    script:"./assets/scripts/index.js"
+}'></include>
 <body>   
     <include src="./source/partials/header.html"></include>
     <include src="./source/partials/nav.html"></include>
-         
-    <!-- Main Content -->
+    
     <main id="main-content">
 
         <!-- Introduction data-full-keyboard -->
@@ -29,8 +30,7 @@
 
         </section>
 
-
-        <!--  -->
+        <!-- Teaser -->
         <section id="teaser" class="shadow wavey" data-observe>
            <article class="split page bg" data-readable>
             
@@ -95,7 +95,6 @@
 
         </section>
 
-
         <!-- MIDI Equipment ------------------------------------------- -->
         <aside id="midi-equipment" class="shadow" data-observe hidden>
             <hgroup>
@@ -121,218 +120,9 @@
     
         </aside>
     
-
         <!-- About the event -->
-        <section id="event" class="sawtooth shadow" data-observe >
-            
-            <!-- Event ------------------------------------------- -->
-            <article id="summary" class="page split" data-readable>
-        
-                <header class="underline">
-                    <h3 class="heading-icon">Summer Science Exhibition 2025</h3>
-                    <h4>Ever dreamed of being more musical?<br>Well alright... Hold tight!</h4>
-                    <div data-countdown class="flood">
-                        <time datetime="2025-07-01 09:00">July 1<sup>st</sup>, 2025</time>
-                    </div>
-
-                </header>
-
-                <p>The Summer Science Exhibition is a free six-day festival showcasing the science shaping our future and will be held at the Royal Society in London from 
-                    <time datetime="2025-07-01 09:00">July 1<sup>st</sup></time>
-                    to 
-                    <time datetime="2025-07-07 09:00">July 6<sup>th</sup>, 2025</time>.
-                </p>
-            
-                <!-- <p>If you've ever dreamed of being more musical, you're not alone!</p> -->
-                
-                <p>Come and join us for a fun musical celebration of inclusive technology, play with some of the newest instruments from the <a href="#amic">Accessible Music Instrument Collection</a> and learn all about the research and science that made them possible.</p>
-                
-                <p class="box h6">
-                    <img class="icon float outside-leaning-polygon" width="100" height="100" src="/source/assets/icons/hearing-loop.svg" alt="Hearing loop enabled venue.">
-
-                    The exhibition will feature a series of interactive installations, hands-on demonstrations, musical performances and talks.
-                </p>
-            
-                    <!-- <h4>Come and join us for a fun musical celebration of diversity, inclusive technology and science!</h4> -->
-            </article>
-        
-            <!-- Description & Event details -->
-            <aside id="details" class="">
-                
-                <figure class="full-width bg-clear" role="figure" aria-label="">
-                    
-                    <figcaption id="button-cast-spell-caption">Summer Science Exhibition 2025 Details</figcaption>
-
-                    <button 
-                        aria-labelledby="button-cast-spell-caption"
-                        type="button" 
-                        id="button-cast-spell">
-                        <img 
-                            loading="lazy"
-                            width="909" height="909"
-                            src="/source/assets/figures/instant-musical-superpowers-red-square.svg" 
-                            alt="Instant Musical Superpowers!">
-                        <audio 
-                            id="audio-spell" 
-                            src="/source/assets/audio/fx/spells/magic-mallet-6262.mp3" preload="auto"></audio>
-                    </button>
-                
-                    <dl class="data-address">
-                        <dt>Start</dt>
-                        <dd><time datetime="2025-07-01 09:00">July 1<sup>st</sup>, 2025</time></dd>
-        
-                        <dt>End</dt>
-                        <dd><time datetime="2025-07-06 09:00">July 6<sup>th</sup>, 2025</time></dd>
-        
-                        <dt>Venue</dt>
-                        <dd>Royal Society</dd>
-        
-                        <dt>Address</dt>
-                        <dd class="address">
-                            <a href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">
-                                <address>
-                                    <span class="street-address">6-9 Carlton House Terrace</span><span class="delimiter">, </span><span class="locality">London</span><span class="delimiter">, </span><span class="postal-code">SW1Y 5AG</span><span class="delimiter">, </span><span class="country-name">United Kingdom</span>
-                                </address>
-                            </a>
-                        </dd>
-            
-                        <dt>Location</dt>
-                        <dd><a href="#venue">London</a></dd> 
-        
-                        <dt>Category</dt>
-                        <dd>Exhibition</dd>
-                    </dl>
-                
-                </figure>
-            
-            </aside>
-
-            <!-- Venue -->
-            <article id="venue" class="page">
-                <header>
-                    <h4>Located in the heart of London</h4>
-                </header>
-
-                <p>
-                    Between Buckingham Palace and Trafalgar Square, the Royal Society is located in a fully accessible building that is wheelchair friendly and has hearing loops enabled, quiet spaces and a cafe. 
-                </p>
-
-                <details>
-                    <summary>
-                        <h5>Show full facilities</h5>
-                        <!-- <img class="icon" src="/source/assets/icons/local_dining.svg" width="44" height="44" alt="Canteen on site."> -->
-                        <img class="icon" src="/source/assets/icons/dining.svg" width="44" height="44" alt="Canteen on site.">
-                        <img class="icon" src="/source/assets/icons/accessible-24px.svg" width="44" height="44" alt="Wheelchair accessible venue.">
-                        <img class="icon" src="/source/assets/icons/hearing-loop.svg" width="44" height="44" alt="Hearing loop enabled venue.">
-                        <img class="icon" src="/source/assets/icons/accessibility_new-24px.svg" width="44" height="44" alt="Accessible floors.">
-                        <img class="icon" src="/source/assets/icons/pets.svg" width="44" height="44" alt="Working dogs welcome.">
-                        <img class="icon" src="/source/assets/icons/noise_aware.svg" width="44" height="44" alt="Quiet room.">
-                    </summary>
-
-                    <figure id="facilities" role="figure" aria-label="">
-                        <figcaption>Available facilities</figcaption>
-
-                        <table>
-                            <caption>Please contact the Royal Society via email if you have any special requirements.</caption>
-                            
-                            <tr class="wheelchair-accessible">
-                                <th class="heading-icon">Wheelchair accessible</th>
-                                <td>There is both a wheelchair ramp and a wheelchair lift at the entrance.
-                                    The interior is wheelchair accessible with large lifts and a powerchair elevator.</td>
-                            </tr>
-                             <tr class="accesible-floors">
-                                <th class="heading-icon">Lifts, elevators and stairs</th>
-                                <td>Lifts are available for access to the basement level or first floor. There is step-free access.</td>
-                            </tr>
-                            <tr class="hearing-loop">
-                                <th class="heading-icon">Hearing loop</th>
-                                <td>
-                                    Frequencies may change depending on which exhibition and will be displayed on signs around the event.
-                                    <!-- <img class="icon float outside-leaning-polygon" width="100" height="100" src="/source/assets/icons/hearing-loop.svg" alt="Hearing loop enabled venue."> -->
-                                </td>
-                            </tr>
-                           
-                            <tr class="signage">
-                                <th class="heading-icon">Signage</th>
-                                <td>There will be well lit signage in simple language to guide your day as well as floor plans and an information pack. </td>
-                            </tr>
-                            <tr class="dogs">
-                                <th class="heading-icon">Guide dogs</th>
-                                <td>The building welcomes helpful animals and will provide water in bowls by the entrance and faces a small park where you can take your dog.</td>
-                            </tr>
-                            <tr class="toilets">
-                                <th class="heading-icon">Accessible toilet</th>
-                                <td> There is an accessible toilet on the ground floor behind the reception area and an ambulant toilet in the basement. 
-                                    There are baby changing facilities in all the toilets in the basement and in the accessible toilet behind reception. 
-                                    Please note that the baby change facilities in the accessible toilets should only be used by parents/carers that specifically require the use of an accessible toilet, as baby changes facilities are available elsewhere.</td>
-                            </tr>
-                            <tr class="quiet-space">
-                                <th class="heading-icon">Quiet space</th>
-                                <td>There is a quiet room on the ground floor next to the marble hall. <em>Please ask the reception desk if you need access to this space.</em></td>
-                            </tr>
-                        </table>
-                     
-                    
-                    </figure>
-                </details>
-               
-                
-            
-                <figure role="figure" class="venue-address" aria-label="" >
-            
-                    <iframe class="map" width="1080" height="540" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1344162225723267%2C51.50472238057011%2C-0.1302212476730347%2C51.506889393716634&amp;layer=mapnik"></iframe>
-                    <a class="link-map" href="https://www.openstreetmap.org/?#map=18/51.505806/-0.132319">View Larger Map</a>
-                    <figcaption>
-                        The Royal Society is located at :
-                        <address>
-                            6-9 Carlton House Terrace, London, SW1Y 5AG, United Kingdom
-                        </address>                       
-                    </figcaption>
-
-                </figure>
-                <details>
-                    <summary><h6>Getting there</h6></summary>
-                    <p>
-                        Underground stations: Charing Cross and Piccadilly Circus
-                        Bus routes: 12, 13, 15 and 453.
-                        Coach station: Connections from Victoria coach station
-                        
-                    </p>
-                </details>
-                <a href="https://royalsociety.org/science-events-and-lectures/summer-science-exhibition/" class="cta">Learn more at the official Royal Society Summer Exhibition website</a>
-           
-                <div class="box" id="share-menu" hidden>
-                    <h6>Tell your friends and family about the event!</h6>
-                    <share-menu
-                        id="share"
-                        title="Share!"
-                        text="Share this event"
-                        url="https://photosynth/"
-                        image="https://photosynth/assets/logos/photosynth-square.svg"
-                        dialog-title="Share now"
-                        copy-hint="Copy to clipboard"
-                        handle="always"
-                        no-backdrop
-                        >
-                        <share-target-email></share-target-email>
-                        <share-target-facebook></share-target-facebook>
-                        <share-target-telegram></share-target-telegram>
-                    </share-menu>
-
-                    <label class="button-share-label">
-                        <span class="sr-only">Quick share</span>
-                        <button class="button-share" onclick="share.share()">
-                            Share this site
-                        </button>
-                    </label>
-                    
-                     <!-- <a href="https://photosynth.lol">
-                        <img class="qr" src="/source/assets/diagrams/qr-photosynth_lol.svg" width=256 height=256 alt="QR code for sharing this site"/>
-                    </a> -->
-                </div>
-            </article>
-        </section>
-
+        <include src="./source/partials/event.html"></include>
+       
     <!-- Waveform visualiser -->
     <!-- <canvas id="visualiser" class="sticky viewport-width" inert width=800 height=400></canvas> -->
             
@@ -369,7 +159,7 @@
                         <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=avif&width=1080" type="image/avif" />
                         <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?as=webp&width=1080" type="image/webp" />
                         <source srcset="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" type="image/jpeg" />
-                        <img width=1080 loading="lazy" src="/source/assets/photos/amic-photosyntn-holographic.jpg?width=1080" alt="The Holographic PhotoSYNTH being presented at the AMIC, Accessible Musical Instrument Collection." />
+                        <img width="1080" src="/source/assets/photos/amic-photosyntn-holographic.jpg" alt="The Holographic PhotoSYNTH being presented at the AMIC, Accessible Musical Instrument Collection." />
                     </picture>
                     <figcaption>
                         Every articulation can become an audio revelation!<br>
@@ -1191,7 +981,6 @@
 
         </section>
 
-
         <!-- DMLab ------------------------------------------- -->
         <section id="research" class="bg-clear" data-observe>
         
@@ -1376,181 +1165,21 @@
 
         </section>
         
-        
-        <section id="amic" class="bg-clear">
-            <article class="page shadow wavey bg" data-readable>
-                <header class="underline">
-                    <!-- <h3 class="heading-icon">Engage</h3> -->
-                    <h4>Accessible Music Instrument Collection, <abbr title="Accessible Musical Instrument Collection">AMIC</abbr></h4>
-                </header>
-
-                <ul role="list">
-                    <li>
-                        <p>A ground-breaking national collection, representing state-of-the-art of accessible instrument design.</p>
-                    </li>
-                    <li>
-                        <p>A world-class resource for Disabled people to explore technological possibilities for making music.</p>
-                    </li>
-                    <li>
-                        <p>A focal point for the development of cutting-edge accessible instrument technology.</p>
-                    </li>
-                </ul>
-                
-                <figure id="photo-amic" class="" role="figure" aria-label="photo-amic-label">
-                    <img loading="lazy" width="613" height="409" src="/source/assets/photos/John Kelly Presenting some accessible musical instruments.jpg" alt="John Kelly playing some accessible musical instruments.">
-                    <figcaption id="photo-amic-label">
-                        Rock n roll legend, John Kelly on stage playing some accessible musical instruments
-                    </figcaption>
-                </figure>
-                
-                <details>
-                    <summary>
-                        <h5>Accessible Musical Instrument Collection</h5>
-                    </summary>
-                    <p>
-                        Access to the right musical instruments and technology can be powerful and transformative.
-                    </p>
-                    
-                    <p>
-                        As well as establishing a collection of existing accessible tech, the <abbr title="Accessible Musical Instrument Collection">AMIC</abbr> will commission and support the creation of the next generation of accessible instruments.
-                        The Collection will be as varied as possible, from high-end commercial instruments through to DIY experimental prototypes and bespoke instruments.
-                    </p>
-                    
-                    <p>We will continue to build the collection as new instruments come to light, working with makers, hackers and music tech companies to make sure it reflects the most up to date technology.
-                        <abbr title="Accessible Musical Instrument Collection">AMIC</abbr> will be housed in an accessible space at Drake Music’s HQ and will be available to visit. 
-                        Disabled musicians will be able to visit the collection, test out different instruments using an accessible workstation and (hopefully) find one which suits them. Makers can come and be inspired or see what has already been built. Academics can call upon it for research and teachers can explore options for their students.
-                    </p>
-                </details>
-                
-                <a class="cta" href="https://accessiblemusicalinstrumentcollection.org/case_studies/photosynth/">Learn more on the AMIC Website</a>
-
-            </article>
-        </section>
-
-
+        <!-- Accessible Musical Instrument Colleciton ---------- -->
+        <include src="./source/partials/amic.html"></include>
+      
         <!-- History ------------------------------------------- -->
-    
-        <!-- <section id="playback" class="sticky bg-transparent full-height full-width" data-observe>
-            <canvas id="song-in-pixels" inert width="320" height="128"></canvas>
-        </section> -->
-
-        <section id="history" class="bg-clear" hidden>
-            <article class="page">
-
-                <header>
-                    <h3 class="heading-icon">History</h3>
-                </header>
-
-
-                <ul class="gallery">
-                    
-                    <li>
-                        <figure id="photo-holographic-photosynth-emf" class="sticky bumpers" role="figure" aria-label="photo-holographic-photosynth-emf-label">
-                            <img loading="lazy" src="/source/assets/photos/alexander-baxevanis.jpg" alt="The Holographic PhotoSYNTH being presented at the Electromagnetic Fields Festival.">
-                            <figcaption id="photo-holographic-photosynth-emf-label">
-                                Holographic PhotoSYNTH at the Electromagnetic Fields Festival 
-                                <br>Photograph by <cite class="attribution">Alexander Baxevanis</cite>
-                                <a class="license cc2" href="https://creativecommons.org/licenses/by/2.0/">
-                                    <!-- <img src="/source/assets/icons/cc-icon.svg" alt="Creative Commons Attribution 2.0 Generic" width="44" height="44"> -->
-                                    <!-- <img src="/source/assets/icons/cc-icons-person.svg" alt="Creative Commons Attribution 2.0 Generic" width="22" height="22"> -->
-                                    CC2.0
-                                </a>
-                            </figcaption>
-                        </figure>
-                    </li>
-
-                    <li>
-                                
-                        <figure class="sticky bumpers" role="figure" aria-label="">
-                            <img loading="lazy" src="/source/assets/photos/gawain-hewitt-photosynth2.png" alt="The PhotoSYNTH version 2 being played by Gawain Hewitt.">
-                            <figcaption>Gawain Hewitt playing with the PhotoSYNTH II</figcaption>
-                        </figure>
-                    </li>
-                    
-                    <li>        
-                        <figure class="sticky bumpers" role="figure" aria-label="">
-
-                            <picture>
-                                <source srcset="/source/assets/photos/emf-photosynth4d.jpg?as=avif&width=1080" type="image/avif" />
-                                <source srcset="/source/assets/photos/emf-photosynth4d.jpg?as=webp&width=1080" type="image/webp" />
-                                <source srcset="/source/assets/photos/emf-photosynth4d.jpg?width=1080" type="image/jpeg" />
-                                <img loading="lazy" src="/source/assets/photos/emf-photosynth4d.jpg?width=1080" alt="The Holographic PhotoSYNTH 4D being played at Electromagnetic Fields." />
-                            </picture>
-                            <figcaption>Holographic PhotoSYNTH 4D being played at Electromagnetic Fields</figcaption>
-                        </figure>
-                    </li>
-
-                </ul>
-
-            </article>
-
-        </section>
-
-        <section class="shadow wavey">
-            <iframe src="https://awesomething.mixlr.com/embed" frameborder="0" scrolling="no" height="200px" width="100%"></iframe>
-            <a href="https://mixlr.com/">Drake Music Radio is powered by Mixlr</a>
-        </section>
-
-    <!-- Frequently Asked Questions ------------------------------------------- -->
-        <section id="faq" class="shadow wavey" data-observe>
-            <article class="page">
-                
-                <header>
-                    <h3 class="heading-icon">Frequently Asked Questions, FAQ</h3>
-                    <h4>Answers to common questions</h4>
-                </header>
-            
-                <details name="questions">
-                    <summary><h5>What else can we expect</h5></summary>
-                    <p>
-                    Apart from showcasing some exciting music technology from the AMIC, including the PhotoSYNTH and mi mu gloves, you might see some members of the London Philharmonic Orchestra, perhaps even a pop star or two! It always pays to expect the unexpected though, and there will be more surprises announced closer to the event.
-                    </p>
-                </details>
-            
-                <details name="questions">
-                    <summary><h5>What are Mi Mu gloves?</h5></summary>
-                    <p>
-                    Mi Mu gloves are special handworn controllers that allow you to interface with music technology using your hands and arms.
-                    <a rel="noopener noreferrer" target="_blank" href="https://mimugloves.com/">See their official website</a>       
-                    </p>
-                </details>
-
-                <details name="questions">
-                    <summary><h5>Why Disabled rather than disabled?</h5></summary>
-                    <p>
-                    Using the word ‘Disabled’ before ‘people’ signifies identification with a collective cultural identity and capitalising the ‘D’ emphasises the term’s political significance. Using the term ‘Disabled people’ or ’Disabled person’ is therefore a political description of the shared, disabling experience that people with impairments face in society. It brings together a diverse group of people and helps to identify the causes of our discrimination and oppression, communicate shared experience and knowledge, and create social change.
-                    </p>
-                </details>
-
-                <details name="questions">
-                    <summary><h5>Where can I learn more about the research?</h5></summary>
-                    <p>
-                    There are a number of research papers written about this topic including :
-                    </p>
-                    <ul role="list">
-                        <li><a rel="noopener noreferrer" target="_blank" href="https://designerzen.com/assets/papers/photosynth-wac-22.pdf">PhotoSYNTH3 #InterFACE [2022]</a></li>
-                        <li><a rel="noopener noreferrer" target="_blank" href="https://designerzen.com/assets/papers/photosynth-wac-24.pdf">Instant Musical Superpowers by augmenting intrinsic movements, expressions and emotions [2024]</a></li>
-                        <li><a rel="noopener noreferrer" target="_blank" href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/986301/Human_Augmentation_SIP_access2.pdf">Gov UK - Human Augmentation – The Dawn of a New Paradigm</a></li>
-                        <li><a rel="noopener noreferrer" target="_blank" href="https://doi.org/10.1037%2Fa0022268">The sound of round: evaluating the sound-symbolic role of consonants in the classic Takete-Maluma phenomenon - Bouba-kiki. Nielsen, Alan; Rendall, Drew [2011].</a></li>
-                    </ul>
-                </details>
-
-                <details name="questions">
-                    <summary><h5>Cool website! How did you make it?</h5></summary>
-                    <p>
-                        This website was designed and created by <a href="https://designerzen.com" target="_blank">designerzen</a> of Awesomething social enterprise.
-                        Hand coded in HMTL, CSS and Javascript, using Web-Audio and the Web-MIDI APIs and Canvas for some of the visuals.
-                        <a href="https://github.com/designerzen/photosynth.lol" target="_blank">The source code is available on github</a>
-                    </p>
-                </details>
-
-            </article>
-        </section>
+        <include src="./source/partials/history.html"></include>
         
+        <!-- Radio --------------------------------------------- -->
+        <include src="./source/partials/radio.html"></include>
+
+        <!-- Frequently Asked Questions ------------------------ -->
+        <include src="./source/partials/faq.html"></include>
+       
         <!-- Interactive wallpapers -->
         <canvas id="mouse-visualiser" inert></canvas>
         <canvas id="wallpaper"></canvas>
-
     </main>
     
     <label hidden>
@@ -1559,75 +1188,12 @@
     </label>
 
     <!-- Bottom section -->
-    <footer data-observe data-full-keyboard>
-        <canvas id="song-in-pixels" inert width="320" height="128"></canvas>
-
-        <article id="affiliates">
-            <!-- <h5 class="h3">Brought to you by</h5> -->
-            <h5 class="h4 middle">A timely duet between</h5>
-        
-            <ul role="list">
-
-                <!-- <li><a href="https://www.drakemusic.org/pages-that-are-currently-not-live-on-the-site/instrument-led-projects/photosynth-by-zen-olenski/" -->
-                <li><a href="https://www.drakemusic.org/"
-                        rel="noopener noreferrer" target="_blank">
-                        <figure role="figure" aria-label="" >
-                            <figcaption class="sr-only">Drake Music Homepage</figcaption>
-                            <img class="logo logo-drake-music" src="/source/assets/logos/drake-square.svg" width="1024" height="1024" alt="Drake Music.">
-                        </figure>
-                    </a>
-                </li>
-
-                <li><a href="https://royalsociety.org/"
-                        rel="noopener noreferrer" target="_blank">
-                        <figure role="figure" aria-label="" >
-                            <figcaption class="sr-only">Royal Society Homepage</figcaption>
-                            <img class="logo logo-royal-society" src="/source/assets/logos/royal-society-square.svg" width="1024" height="1024" alt="Royal Society.">
-                            <!-- <img src="/source/assets/logos/royal_society.svg" alt="Royal Society."> -->
-                        </figure>
-                        
-                    </a>
-                </li>
-                <!-- <li><a href="https://accessiblemusicalinstrumentcollection.org/" rel="noopener noreferrer" target="_blank">
-                        <figure role="figure" aria-label="" >
-                            <figcaption><small>Available at</small>Accessible Musical Instrument Collection</figcaption>
-                            <img src="/source/assets/logos/amic.svg" alt="Accessible Misical Instrument Collection">
-                        </figure>
-                    </a>
-                </li> -->
-                <!-- <li><a href="https://audienceofthefuture.live/interface/" rel="noopener noreferrer" target="_blank">
-                        <figure role="figure" aria-label="" >
-                            <figcaption><small>Represented by</small>Audience of the Future</figcaption>
-                            <img src="/source/assets/logos/aotf.svg" alt="Audience of the Future">
-                        </figure>
-                    </a>
-                </li> -->
-            </ul>
-        </article>
-
-        <small class="smallprint">
-            <i class="emoji">🫰</i>
-            <em>Made for humans, by humans, at <a href="https://designerzen.com">designerzen</a> with <span class="awesomething">Awesomething</span>.</em> 
-            <br>
-            Dedicated to Josefa Olenska and Blue Ramsey.
-            <span clas="copyright block">© <span class="current-year">2025</span> 
-                <a class="secret-link" href="https://royalsociety.org/">Royal Society</a> & 
-                <a class="secret-link" href="https://www.drakemusic.org/">@Drake Music, Accessible Musical Instrument Collection, #DMLab</a>
-            </span>
-        </small>
-
-    </footer>
-
+    <include src="./source/partials/footer.html"></include>
+ 
     <a href="#" class="back-to-top button">Back to Top</a>
 
     <!-- Password protection -->
-    <form id="pass" class="coming-soon" hidden>
-        <label for="password">
-            Enter password to continue
-            <input id="password" type="text" name="password" placeholder="Enter password to continue">
-        </label>
-        <button class="cta" type="submit">Continue</button>
-    </form>
-
+    <include src="./source/partials/password.html"></include>
+   
 </body>
 </html>
