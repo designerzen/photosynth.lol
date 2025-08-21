@@ -1,7 +1,5 @@
 import { monitorIntersections } from "./intersection-observer"
 
-
-
 export const PALETTE = {
 
     // Primary colours ------------------------------------------
