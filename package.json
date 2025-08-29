@@ -43,7 +43,7 @@
     "@parcel/transformer-sass": "2.15.4",
     "@parcel/transformer-webmanifest": "2.15.4",
     "@parcel/transformer-xml": "2.15.4",
-    "oxlint": "^1.12.0",
+    "oxlint": "^1.13.0",
     "parcel": "2.15.4",
     "parcel-reporter-static-files-copy": "^1.5.3",
     "posthtml": "^0.16.6",
