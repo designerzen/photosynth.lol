@@ -697,7 +697,6 @@ label[for="button-sad"]{
         padding:0;
         box-sizing: content-box;
         border:var(--stroke, 1px) solid var(--col-white);
-        box-sizing: border-box;
         // border-top:var(--stroke,1px) solid var(--col-white);
         // border-bottom:var(--stroke,1px) solid var(--col-white);
         border-left: none;
@@ -706,9 +705,10 @@ label[for="button-sad"]{
         &::before{
             display: inline-block;
             vertical-align: middle;
-            color: var(--col-charcoal, black);
+            color: var(--col-white, black);
             font-weight: 700;
             // filter:invert();
+            filter:none;
             // filter:drop-shadow(0 0 6px var(--col-stone));
         }
         &:hover,
