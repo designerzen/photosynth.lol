@@ -8,12 +8,15 @@
 
     },
     "posthtml-expressions": {
-        "strictMode":false,
+        "strictMode":true,
         "locals":{
             "script":"./assets/scripts/index.js",
             "scripts":[],
             "gallery":[]
-        } 
+        },
+        "missingLocal":{
+            "script":""
+        }
     }
   }
 }
