@@ -280,6 +280,30 @@ a:not(
     }
 }
 
+
+:is(dl, p) a:not(.cta, .button-close){
+    --stroke:3px;
+    --gap:1px;
+
+    background-image: linear-gradient(
+        transparent calc(100% - var(--stroke)),
+        currentColor calc(100% - var(--stroke)),
+        currentColor calc(100% ),
+        transparent calc(100% )
+    );
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    text-underline-offset: calc( var(--stroke) );
+
+    transition: background-size var(--time-long) ease-in-out 0s;
+    padding-bottom:calc( var(--stroke) + var(--gap) );
+
+    &:hover{
+        background-size: 100% 100%;
+        // text-decoration: none;
+    }
+}
+
 em {
     // font-family: var(--font-primary-italic)
 }
