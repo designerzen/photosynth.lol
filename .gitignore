@@ -3,3 +3,4 @@ node_modules
 dist
 proxima-nova*
 __svg
+*.as
