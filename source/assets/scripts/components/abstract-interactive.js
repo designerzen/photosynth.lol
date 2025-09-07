@@ -135,7 +135,7 @@ export default class AbstractInteractive{
                 this.activeId.set( id, true )
                 this.activeElement.set( event.target, id )
 
-                console.log( id, event, starting, "START interaction",  this.#rollingIndex ) 
+                // console.log( id, event, starting, "START interaction",  this.#rollingIndex ) 
                
 				document.addEventListener("pointerleave", onInterationComplete, {signal: controller.signal, passive })
 				document.addEventListener("pointerup", onInterationComplete, {signal: controller.signal, passive })
@@ -183,7 +183,7 @@ export default class AbstractInteractive{
                     noteOff(currentlyPlayingNote, 1, id)
                 }
 				   
-                console.log(id, "STOP interaction" ) 
+                // console.log(id, "STOP interaction" ) 
                
                 this.activeNotes.delete( id )
                 this.activeId.delete( id )
@@ -209,7 +209,7 @@ export default class AbstractInteractive{
                 const id = this.getIdFromEvent( event )
                 const currentlyPlayingNote = this.activeNotes.get( id )
 				
-                console.info(id, event.pointerType, "pointerleave", {event, id, currentlyPlayingNote} )
+                // console.info(id, event.pointerType, "pointerleave", {event, id, currentlyPlayingNote} )
                 
                 if (currentlyPlayingNote)
                 {
@@ -241,7 +241,7 @@ export default class AbstractInteractive{
                 const id = this.getIdFromEvent( event )
                 const isActive = this.activeId.has( id )
                 
-                console.info( id, event.pointerType , "pointerenter",{ event, id, isActive})
+                // console.info( id, event.pointerType , "pointerenter",{ event, id, isActive})
 				
                 // if we already playing, we change the note
 				if (isActive || this.#mouseDown)
