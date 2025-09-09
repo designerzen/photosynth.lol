@@ -147,7 +147,7 @@
         justify-self: center;
         align-items: start;
         
-        label::first-of-type,
+        label:first-of-type,
         output{
             grid-area:1/1/-1/0;
         }
