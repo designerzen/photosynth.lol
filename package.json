@@ -10,6 +10,7 @@
     "index": "parcel ./source/index.html --port 808",
     "midi": "parcel ./source/midi.html --port 808",
     "build": "parcel build ./source/sitemap.html",
+    "publish": "npm run zip && npm run build",
     "upgrader": "npx npm-check-updates --interactive -u",
     "test": "echo \"Error: no test specified\" && exit 1",
     "push:": "git push origin --tags && git push origin",
