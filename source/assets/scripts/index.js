@@ -765,11 +765,13 @@ const fetchStateFromRadioButtons = () => {
  * Load the share menu and make the button visible
  */
 const loadShareMenu = () => {
-    import('share-menu').then( lib => {
-        const shareMenu = document.getElementById("share-menu")
-        shareMenu.hidden = false
-        // console.info("Menu for sharing is available", shareMenu, lib )
-    })
+    const shareMenu = document.getElementById("share-menu")
+    if (shareMenu){
+       import('share-menu').then( lib => {
+            shareMenu.hidden = false
+            // console.info("Menu for sharing is available", shareMenu, lib )
+        })
+    }
 }
 
 /**
