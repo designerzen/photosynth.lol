@@ -133,7 +133,7 @@ export const DEFAULT_SETTINGS = {
     showNoteVisualiser : true,
     showMouseNotes : true,
     showVoiceOver: true,
-    showCountdown : true,
+    showCountdown : false,
     showKeyboard : true,
     showStats : false,
     showNotes: true, 

@@ -4,6 +4,10 @@ export const countdown = (element, completedText="July 1st - 6th 2025", period=1
     // grab all the time elements
     const timeElements = element.querySelectorAll("time")
     
+    if (!timeElements || timeElements.length  === 0){
+        return
+    }
+
     const counter = document.createElement("p")
     counter.classList.add("countdown")
 
