@@ -10,14 +10,16 @@ export default class SynthOscillator{
 
         // default amplitude
         gain:0.2,       // ratio 0-1
-        attack:0.4,     // in ms
-        decay:0.18,     // in ms
+
+        attack:0.8,     // in s
+        decay:0.3,     // in s
         sustain:0.9,    // ratio 0-1
-        release:0.3,    // in ms
+        release:2.3,    // in s
         
         shape:OSCILLATORS[0],
 
-        minDuration:1,//0.45,
+        minDuration:0.45,
+
         arpeggioDuration:0.2,
         slideDuration: 0.06,
         fadeDuration:0.2,
@@ -30,7 +32,7 @@ export default class SynthOscillator{
         filterAttack :0.2,
         filterDecay :0.08,
         filterSustain :0.8,
-        filterRelease :0.1,
+        filterRelease :0.2,
 
         reuseOscillators:false
     }
@@ -321,6 +323,7 @@ export default class SynthOscillator{
     
     /**
      * Note OFF
+     * @param {Note} note - Model data
      * @returns 
      */
     noteOff( note ){
@@ -330,14 +333,14 @@ export default class SynthOscillator{
         }
         const now = this.now
         const elapsed = now - this.startedAt
+
         // Ensure minimum duration
         const extendNow = elapsed < this.options.minDuration ? 
             now - elapsed + this.options.minDuration : 
-            now - elapsed
+            now
 
         // Use a longer minimum release time (e.g. 400ms)
-        const minRelease = 0.1
-        const releaseTime = Math.max(this.options.release, this.options.filterRelease, minRelease)
+        const releaseTime = Math.max(this.options.release, this.options.filterRelease)
         const stopTime = extendNow + releaseTime
 
         // Cancel any scheduled gain changes and start from current value
@@ -345,21 +348,21 @@ export default class SynthOscillator{
         this.gainNode.gain.cancelScheduledValues(now)
         // this.gainNode.gain.setValueAtTime(currentAmplitude, now)
         // Use linear ramp for fade out
-        this.gainNode.gain.linearRampToValueAtTime(0, stopTime)
+        this.gainNode.gain.linearRampToValueAtTime(0.00000000009, extendNow + this.options.release)
 
         // Apply filter fade out
         this.filterNode.frequency.cancelScheduledValues(now)
-        this.filterNode.frequency.linearRampToValueAtTime(this.options.filterCutOff, stopTime)
+        this.filterNode.frequency.linearRampToValueAtTime(this.options.filterCutOff, extendNow + this.options.filterRelease )
 
         // Schedule the oscillator to stop and disconnect after the envelope has completed
         if (!this.options.reuseOscillators && this.oscillator) {
-            const bufferTime = 0.03
+            const killOscillatorTime = 0.03 + stopTime
             
-            this.oscillator.stop(stopTime + bufferTime)
+            this.oscillator.stop( killOscillatorTime )
             // Disconnect after stop to avoid DC offset
             setTimeout(() => {
                 try { osc.disconnect() } catch(e) {}
-            }, (stopTime + bufferTime - this.now) * 1000)
+            }, (killOscillatorTime - now) * 1000)
         }
 
         this.isNoteDown = false
