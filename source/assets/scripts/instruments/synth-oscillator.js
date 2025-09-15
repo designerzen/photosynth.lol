@@ -345,13 +345,13 @@ export default class SynthOscillator{
 
         // Cancel any scheduled gain changes and start from current value
         // const currentAmplitude = this.gainNode.gain.value
-        this.gainNode.gain.cancelScheduledValues(now)
+        this.gainNode.gain.cancelScheduledValues(extendNow)
         // this.gainNode.gain.setValueAtTime(currentAmplitude, now)
         // Use linear ramp for fade out
         this.gainNode.gain.linearRampToValueAtTime(0.00000000009, extendNow + this.options.release)
 
         // Apply filter fade out
-        this.filterNode.frequency.cancelScheduledValues(now)
+        this.filterNode.frequency.cancelScheduledValues(extendNow)
         this.filterNode.frequency.linearRampToValueAtTime(this.options.filterCutOff, extendNow + this.options.filterRelease )
 
         // Schedule the oscillator to stop and disconnect after the envelope has completed
