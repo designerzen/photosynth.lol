@@ -8,6 +8,9 @@
 <body>
    
     <style type="text/scss">
+        
+        $end:9;
+
         :root {
             color-scheme: light dark;
 
@@ -31,9 +34,10 @@
             box-sizing: border-box;
             margin:0;
             padding:0;
+
             animation:RainbowColor 10s linear infinite;
               
-            $end:9;
+           
             @for $i from 1 to $end {
                 :nth-child(#{$i}){
                     --i:#{$i};
@@ -61,7 +65,6 @@
                 color: inherit;
             }
           
-
             .poster-bg{
                 fill:var(--poster-text);
                 opacity: 0.1;
