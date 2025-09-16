@@ -99,12 +99,8 @@
     width: 100%;
 }
 
-:where(ol){ 
-    margin-top:var(--pad);
-    margin-bottom:var(--pad);
-}
 
-ul{
+:where(ul){
     list-style: outside disc;
     ::marker {
         color:var(--col-accent);

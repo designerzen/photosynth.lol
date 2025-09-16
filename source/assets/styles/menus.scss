@@ -21,7 +21,7 @@ body > .menu-main{
     
     background-color:var(--col-accent);
 
-    ul{
+    > ul{
         max-width:calc( var(--max-section-width)  );
   
         --gap:1px;//clamp( 11px, 2vw, calc( 0.5 * var(--pad) ) );
@@ -45,8 +45,35 @@ body > .menu-main{
         box-shadow: var(--shadow);
     }
 
+    ol{
+        display: grid;
+        grid-auto-flow: row;
+        background: inherit;
+        list-style: none;
+        li{
+            grid-area:1/-1;
+             background: inherit;
+        }
+        @for $i from 1 to 9 {
+            li:nth-of-type(#{$i}){
+                --i:#{$i};
+            }
+        }
+    }
+
+    &:hover,
+    &:focus,
+    &:focus-within{
+        z-index: 911;
+        ol{
+            li{
+                transform: translateY( calc(( 1 * (var(--i) - 1) * 100%) ) );
+                transition: transform var(--time-long, 300ms) ease-in-out;
+            }
+        }
+    }
+
     li{
-       
         a{
             --size:calc(1lh + 4px); 
             
@@ -74,6 +101,7 @@ body > .menu-main{
             gap:calc( var(--pad) / 4 );
 
             width: fit-content;
+            min-width: 100%;
             margin: auto;
 
             box-sizing: border-box;
