@@ -2,26 +2,28 @@
 import { BiquadFilterNode } from "standardized-audio-context"
 import { noteNumberToFrequency } from "../note.js"
 import { loadWaveTable } from "./wave-tables.js"
-export const OSCILLATORS = [ "sine", "square", "sawtooth", "triangle" ]
+// import { BiquadFilterNode, OscillatorNode, AudioContext } from "standardized-audio-context"
 
+export const OSCILLATORS = [ "sine", "square", "sawtooth", "triangle" ]
+const SILENCE = 0.00000000009
 export default class SynthOscillator{
 
     options = {
 
         // default amplitude
-        gain:0.2,       // ratio 0-1
+        gain:0.2,           // ratio 0-1
 
-        attack:0.8,     // in s
-        decay:0.3,     // in s
-        sustain:0.9,    // ratio 0-1
-        release:2.3,    // in s
+        attack:0.4,         // in s
+        decay:0.9,          // in s
+        sustain:0.85,       // ratio 0-1
+        release:0.3,        // in s
         
+        minDuration: .6,
+
         shape:OSCILLATORS[0],
 
-        minDuration:0.45,
-
         arpeggioDuration:0.2,
-        slideDuration: 0.06,
+        slideDuration: 0.00006,
         fadeDuration:0.2,
 
         filterGain :0.7,
@@ -34,7 +36,7 @@ export default class SynthOscillator{
         filterSustain :0.8,
         filterRelease :0.2,
 
-        reuseOscillators:false
+        reuseOscillators:true
     }
     
     // arpeggioIntervals = []
@@ -81,9 +83,7 @@ export default class SynthOscillator{
             console.warn("No oscillator", this)
             return
         }
-        const now = this.now
-        this.oscillator.frequency.cancelScheduledValues(now)
-        this.oscillator.frequency.linearRampToValueAtTime( value, now + this.options.slideDuration)
+        this.glide( value, this.options.slideDuration )
     }
 
 	set shape(value){
@@ -139,7 +139,7 @@ export default class SynthOscillator{
     }
 
     set detune(value){
-         this.oscillator.detune.value = value
+        this.oscillator.detune.value = value
     }
 
     get detune(){
@@ -168,6 +168,10 @@ export default class SynthOscillator{
 
     get output(){
         return this.dcFilterNode
+    }
+
+    get tremoloActive(){
+        return !!this.tremoloGain
     }
 
     constructor(audioContext, options={}){
@@ -216,10 +220,14 @@ export default class SynthOscillator{
         this.active = false
     }
 
+    /**
+     * 
+     * @param {Number} frequency 
+     * @param {Number} startTime 
+     */
     createOscillator( frequency=440, startTime = this.audioContext.currentTime  ){
         
         this.oscillator = this.audioContext.createOscillator()
-
         // if (this.customWave)
         // {
         //     // this.oscillator.setPeriodicWave(this.customWave)
@@ -227,12 +235,29 @@ export default class SynthOscillator{
         // }else{
         //       // console.info("Setting oscilliator type", this.shape )
         // }
-
         this.shape = this.options.shape // OSCILLATORS[Math.floor(Math.random() * OSCILLATORS.length)]
         this.oscillator.frequency.value = frequency
         this.oscillator.connect(this.gainNode)
         this.oscillator.start(startTime)
+
+        if (this.tremoloActive)
+        {
+            this.tremoloOscillator.frequency.cancelScheduledValues(startTime)
+            this.tremoloOscillator.frequency.setValueAtTime(frequency, startTime)
+            
+            this.tremoloGain.connect(this.oscillator.frequency)
+            console.info("tremoloActive", this.shape )
+            
+        }
+
         this.active = true
+    }
+
+    /**
+     * Set a random oscillator timbre from the collection
+     */
+    setRandomTimbre(){
+        this.shape = OSCILLATORS[Math.floor(Math.random() * OSCILLATORS.length)]
     }
 
     /**
@@ -261,6 +286,21 @@ export default class SynthOscillator{
     }
 
     /**
+     * Adds a constant tremolo effect
+     * @param {Number} depth 
+     */
+    addTremolo( depth=0.5 ){
+        const now = this.now
+        this.tremoloGain = this.audioContext.createGain()
+        this.tremoloGain.gain.value = depth
+
+        this.tremoloOscillator = this.audioContext.createOscillator()
+        this.tremoloOscillator.type = 'sine'
+        this.tremoloOscillator.connect(this.tremoloGain)
+        this.tremoloOscillator.start(now) 
+    }
+
+    /**
      * Note ON
      * @param {Note} note - Model data
      * @param {Number} velocity - strength of the note
@@ -279,24 +319,27 @@ export default class SynthOscillator{
         const amplitudeSustain = amplitude * this.options.sustain
 
         this.gainNode.gain.cancelScheduledValues(startTime)
-        this.gainNode.gain.setValueAtTime( 0, startTime )
+        // this.gainNode.gain.setValueAtTime( SILENCE, startTime )
 		// Attack
         this.gainNode.gain.linearRampToValueAtTime( amplitude, startTime + this.options.attack )
         // Decay to Sustain
         this.gainNode.gain.linearRampToValueAtTime( amplitudeSustain, startTime + this.options.attack + this.options.decay )
 
 		// Shape the note
-		this.filterNode.frequency.cancelScheduledValues(startTime)
-		this.filterNode.frequency.setValueAtTime(this.options.filterCutOff, startTime)
-        this.filterNode.frequency.linearRampToValueAtTime(filterPeak, startTime + this.options.filterAttack)
-        this.filterNode.frequency.linearRampToValueAtTime(filterSustain, startTime + this.options.filterAttack + this.options.filterDecay )
+		// this.filterNode.frequency.cancelScheduledValues(startTime)
+		// this.filterNode.frequency.setValueAtTime(this.options.filterCutOff, startTime)
+        // this.filterNode.frequency.linearRampToValueAtTime(filterPeak, startTime + this.options.filterAttack)
+        // this.filterNode.frequency.linearRampToValueAtTime(filterSustain, startTime + this.options.filterAttack + this.options.filterDecay )
 
         if (!this.isNoteDown)
         {
-            if (this.options.reuseOscillators && this.oscillator ){
+            if (this.options.reuseOscillators){
        
-                if( this.oscillator ){
+                if( !this.oscillator ){
                      this.createOscillator( frequency, startTime )	
+                }else{
+                    // reuse existing, no glide
+                    this.glide( frequency, 0.03 )
                 }
        
             }else{
@@ -310,6 +353,7 @@ export default class SynthOscillator{
         }else{
             // reuse existing and glide
             this.frequency = frequency
+            //  this.glide( frequency, 3 )
         }
 
         if (arp)
@@ -319,10 +363,14 @@ export default class SynthOscillator{
        
         this.isNoteDown = true
         this.startedAt = startTime
+        return this
     }
     
     /**
      * Note OFF
+     * This starts the process of stopping the note
+     * by creating a smooth transition to silence from 
+     * the current amplitude via release time.
      * @param {Note} note - Model data
      * @returns 
      */
@@ -331,42 +379,58 @@ export default class SynthOscillator{
             console.warn("noteOff IGNORED - note NOT playing", note, this )
             return
         }
+        const releaseDuration = Math.max(this.options.release, this.options.filterRelease)
+        
         const now = this.now
         const elapsed = now - this.startedAt
 
-        // Ensure minimum duration
+        // const timeAddition = 
+
+        // Ensure minimum duration - elapsed 
         const extendNow = elapsed < this.options.minDuration ? 
-            now - elapsed + this.options.minDuration : 
+            now + this.options.minDuration : 
             now
 
         // Use a longer minimum release time (e.g. 400ms)
-        const releaseTime = Math.max(this.options.release, this.options.filterRelease)
-        const stopTime = extendNow + releaseTime
+       const stopTime = extendNow + releaseDuration
+   
+       console.warn("noteOff - note too short?",  elapsed < this.options.minDuration, {now, extendNow, stopTime, elapsed} )
+
 
         // Cancel any scheduled gain changes and start from current value
         // const currentAmplitude = this.gainNode.gain.value
-        this.gainNode.gain.cancelScheduledValues(extendNow)
+        this.gainNode.gain.cancelScheduledValues( extendNow )
         // this.gainNode.gain.setValueAtTime(currentAmplitude, now)
         // Use linear ramp for fade out
-        this.gainNode.gain.linearRampToValueAtTime(0.00000000009, extendNow + this.options.release)
+        this.gainNode.gain.linearRampToValueAtTime( SILENCE, extendNow + this.options.release )
+        // this.gainNode.gain.setValueAtTime(currentAmplitude, now)
 
         // Apply filter fade out
-        this.filterNode.frequency.cancelScheduledValues(extendNow)
-        this.filterNode.frequency.linearRampToValueAtTime(this.options.filterCutOff, extendNow + this.options.filterRelease )
+        // this.filterNode.frequency.cancelScheduledValues(extendNow)
+        // this.filterNode.frequency.linearRampToValueAtTime(this.options.filterCutOff, extendNow + this.options.filterRelease )
 
         // Schedule the oscillator to stop and disconnect after the envelope has completed
         if (!this.options.reuseOscillators && this.oscillator) {
-            const killOscillatorTime = 0.03 + stopTime
+            // const killOscillatorTime = 0.03 + stopTime
             
-            this.oscillator.stop( killOscillatorTime )
+            // FIXME:
+            //this.oscillator.stop( killOscillatorTime )
             // Disconnect after stop to avoid DC offset
-            setTimeout(() => {
-                try { osc.disconnect() } catch(e) {}
-            }, (killOscillatorTime - now) * 1000)
+            // setTimeout(() => {
+            //     try { osc.disconnect() } catch(e) {}
+            
+            // }, (killOscillatorTime - now) * 1000)
         }
 
         this.isNoteDown = false
         this.startedAt = -1
+        return this
+    }
+
+    glide( value, duration = 0 ){
+        const now = this.now
+        this.oscillator.frequency.cancelScheduledValues(now)
+        this.oscillator.frequency.linearRampToValueAtTime( value, now + duration )
     }
 
     async loadWaveTable(waveTableName=TB303_Square){

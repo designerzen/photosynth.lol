@@ -11,9 +11,11 @@ export default class AbstractInteractive{
     #rollingIndex = 0
     #maxTouchEvents = 10
     #mouseDown = false
+    #rotateFixedPointer = false
     
-    constructor( pitchBend=true ){
+    constructor( pitchBend=true, rotateFixedPointer=false ){
         this.glide = pitchBend
+        this.#rotateFixedPointer = rotateFixedPointer
     }
 
     get isMouseDown(){
@@ -30,21 +32,27 @@ export default class AbstractInteractive{
      * @returns 
      */
     getNextAvailableIndex( maxTouches ){
-        let id = (DEFAULT_MOUSE_ID + this.#rollingIndex) % maxTouches
-        // loop through all digits starting from default to find which is "free"
-        for (let i=0; i < maxTouches; i++)
+        if ( !this.#rotateFixedPointer )
         {
-            id = (id + i) % maxTouches
-            if ( this.activeId.has( id ) ){
-                // continue lopping
-                continue
-            }else{
-                // escape with this none-active one
-                return id
+            return DEFAULT_MOUSE_ID
+        }else{
+
+            let id = (DEFAULT_MOUSE_ID + this.#rollingIndex) % maxTouches
+            // loop through all digits starting from default to find which is "free"
+            for (let i=0; i < maxTouches; i++)
+            {
+                id = (id + i) % maxTouches
+                if ( this.activeId.has( id ) ){
+                    // continue lopping
+                    continue
+                }else{
+                    // escape with this none-active one
+                    return id
+                }
             }
+            // not good - all instruments are engaged!
+            return id
         }
-        // not good - all instruments are engaged!
-        return id
     }
 
     getIdFromEvent( event ){
