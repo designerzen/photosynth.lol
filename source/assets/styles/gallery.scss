@@ -1,6 +1,5 @@
 .gallery{
     --gadget-size: 22px;
-    max-width: 100%;
     
     form[method=dialog] button[type=submit]{
         z-index: 1;
@@ -78,6 +77,9 @@
         --size:min( 90px, calc( (100vw - 2 * var(--pad)) / 13 ) );
         --aspect-ratio: 16/9;
         display: grid;
+
+        width: 100vw;
+        box-sizing: border-box;
 
         grid-template-columns: repeat(auto-fill, minmax(var(--size), 1fr));
         // grid-template-columns: repeat(auto-fill, auto);

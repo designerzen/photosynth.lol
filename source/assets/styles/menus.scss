@@ -52,11 +52,24 @@ body > .menu-main{
         list-style: none;
         li{
             grid-area:1/-1;
-             background: inherit;
+            background: inherit;
         }
-        @for $i from 1 to 9 {
+        li:nth-of-type(1){
+            --i:1;
+        }
+        @for $i from 2 to 9 {
             li:nth-of-type(#{$i}){
                 --i:#{$i};
+                position: absolute;
+                z-index: -1;
+                min-width: 36ch;
+                text-align: left;
+                a{
+                    padding:0 var(--pad);
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    place-content: left;
+                }
             }
         }
     }
@@ -198,7 +211,7 @@ body > .menu-main{
             // margin:var(--pad) calc( 2 * var(--pad) );
             // margin-left: 0;
             // border-radius: 99px;
-            overflow: hidden;
+            // overflow: hidden;
             // padding:0 calc( 1.5 * var(--pad) );
 
             li a{
