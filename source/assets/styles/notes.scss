@@ -128,7 +128,7 @@
     }
 }
 .note-animated:nth-child(odd).active{
-offset-rotate: aukeyfto;
+    offset-rotate: auto;
    
     &::before{
         animation: Notation var(--duration) var(--delay,0s) var(--offset-variatons) linear;
