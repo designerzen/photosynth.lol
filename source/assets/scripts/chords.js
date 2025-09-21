@@ -70,7 +70,6 @@ export const MAJOR_CHORD_INTERVALS = [0,4,3]
  * Semitones: 2 - 1 - 2 - 2 - 1 - 2 - 2
  * Formula: Whole, Half, Whole, Whole, Half, Whole, Whole
  * 
- * 
  * The Minor Chord is similar to the Major Chord except that the second note is one lower:
  * Start with any note. This is the first note in the chord.
  * For the second note, count up three notes.
@@ -79,6 +78,20 @@ export const MAJOR_CHORD_INTERVALS = [0,4,3]
  */
 export const MINOR_CHORD_INTERVALS = [0,3,4]
 
+/**
+ * Diminished Chords - super sad
+ */
+export const DIMINISHED_CHORD_INTERVALS = [0,3,3]
+
+/**
+ * Suspended Chords - Surprising
+ */
+export const SUSPENDED_2_CHORD_INTERVALS = [0,2,5]
+export const SUSPENDED_4_CHORD_INTERVALS = [0,5,2]
+
+// To do sevenths
+// [CHORD_INTERVALS = 4.3.4]
+// const minor_sevenCHORD_INTERVALS = [3.4,3]
 
 /**
  * https://en.wikipedia.org/wiki/Blues_scale
@@ -91,7 +104,6 @@ export const MAJOR_HEPTATONIC_BLUES_CHORD_INTERVALS = [0,3,4]
 
 export const MINOR_NONATONIC_BLUES_CHORD_INTERVALS = [0,3,4]
 export const MAJOR_NONATONIC_BLUES_CHORD_INTERVALS = [0,3,4]
-
 
 
 
@@ -111,6 +123,7 @@ export const FIFTHS_CHORD_INTERVALS = [0,5,5,5,5,5,5,5,5,5,5,5]
 export const CHORD_INTERVALS = [
 	MAJOR_CHORD_INTERVALS,
 	MINOR_CHORD_INTERVALS,
+    DIMINISHED_CHORD_INTERVALS,
 	// DORIAN_CHORD_INTERVALS,
 	FIFTHS_CHORD_INTERVALS
 ]
@@ -166,6 +179,7 @@ export const createChord = (notes, scaleFormula=MAJOR_SCALE, offset=0, mode=0, c
 
 export const createMajorChord =( notes, offset=0, mode=0 )=> createChord( notes, MAJOR_CHORD_INTERVALS, offset, mode, true, true )
 export const createMinorChord =( notes, offset=0, mode=0 )=> createChord( notes, MINOR_CHORD_INTERVALS, offset, mode, true, true )
+export const createDiminishedChord =( notes, offset=0, mode=0 )=> createChord( notes, DIMINISHED_CHORD_INTERVALS, offset, mode, true, true )
 // export const createJazzChord =( notes, offset=0, mode=0 )=> createChord( notes, MELODIC_MINOR_SCALE, offset, mode, true, false )
 export const createFifthsChord =( notes, offset=0, mode=0 )=> createChord( notes, FIFTHS_CHORD_INTERVALS, offset, mode, false, true )
 

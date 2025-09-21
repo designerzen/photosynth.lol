@@ -10,7 +10,7 @@ import { setGalleryImage, createGallery } from "./gallery.js"
 // NB. This polyfill will break AudioWorklets which we use for timing
 import { AudioContext as PonyAudioContext, OfflineAudioContext } from 'standardized-audio-context'
 import MIDIManager from "./midi.js"
-import { createChord, createFifthsChord, createMajorChord, createMinorChord, getModeAsIntegerOffset, getModeFromIntegerOffset, MAJOR_CHORD_INTERVALS, MINOR_CHORD_INTERVALS, TUNING_MODE_NAMES } from "./chords"
+import { createChord, createDiminishedChord, createFifthsChord, createMajorChord, createMinorChord, getModeAsIntegerOffset, getModeFromIntegerOffset, MAJOR_CHORD_INTERVALS, MINOR_CHORD_INTERVALS, TUNING_MODE_NAMES } from "./chords"
 import { registerMultiTouchSynth } from "./components/multi-touch-synth"
 import CircleSynth from "./components/circle-synth"
 
@@ -117,7 +117,8 @@ const isIOS =  navigator.platform.startsWith("iP") || navigator.platform.startsW
 const CHORDS = [
     createMajorChord, 
     createMinorChord,
-    createFifthsChord
+    createFifthsChord,
+    createDiminishedChord
 ]
 
 /**
