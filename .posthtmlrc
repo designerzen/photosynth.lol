@@ -9,6 +9,7 @@
     },
     "posthtml-expressions": {
         "strictMode":true,
+        "removeScriptLocals":true,
         "locals":{
             "script":"./assets/scripts/index.js",
             "scripts":[],
