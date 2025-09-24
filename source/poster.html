@@ -9,7 +9,7 @@
    
     <style type="text/scss">
         
-        $end:9;
+        $end:12;
 
         :root {
             color-scheme: light dark;
@@ -18,8 +18,46 @@
             --poster-bg: oklch(14.946% 0.04069 23.375);
             --poster-stroke: oklch(14.946% 0.04069 23.375);
 
-            --duration:2s;
-            --overlap:0.05;
+            --duration:4s;
+            --overlap:0.1;
+        }
+
+        .poster-content{
+
+            text{
+                pointer-events: none;
+            }
+
+            textPath{
+                transition: opacity 1s linear;
+            }
+
+         
+            &:hover, &:focus-within{
+               
+            }
+         
+        }
+
+        /* Swap out text if there are multiple ones */
+        text:has(textPath:nth-of-type(2)){
+            textPath:nth-of-type(2){
+                display: none;
+                opacity: 0;
+            }
+        }
+
+        .poster-bg:hover,  
+        .poster-bg:focus-within{
+            ~ .poster-text text textPath:nth-of-type(1){
+                animation: HideText var(--duration, 1s) linear var(--delay, 0s) 1 both;
+            }
+            ~ .poster-text text textPath:nth-of-type(2){
+                /* display: block; */
+                /* opacity:1; */
+                animation: RevealText var(--duration, 1s) linear var(--delay, 0s) 1 both;
+            }
+
         }
        
         #poster-figure{
@@ -35,38 +73,14 @@
             margin:0;
             padding:0;
 
-            animation:RainbowColor 10s linear infinite;
-              
-
-            @for $i from 1 to $end {
-                :nth-child(#{$i}){
-                    --i:#{$i};
-                }
-            }
-
-            text{
-                --delay:calc( var(--delay-offset, var(--offset,0)) + var(--i, 1) * var(--overlap, 1) * var(--duration, 1s) );
-                   
-                font-family: 'Oxanium', 'ReadexPro', 'Proxima Nova', var(--font-family-metropolis), sans-serif;
-                font-weight:700; 
-                fill:currentColor;
-                animation: FadeTo var(--duration, 1s) linear var(--delay, 0s) 1 both;
-                transition: opacity 42ms, transform 42ms;
-                transition-delay: var(--delay, 0s),  var(--delay, 0s);
-
-                @for $i from 1 to $end {
-                    &:nth-of-type(#{$i}){
-                        --i:#{$i};
-                    }
-                }
-            }
-
+            animation:TextColor 10s linear infinite;
+            
             > *{
                 grid-area: 1 / 1;
                 height:100%;
                 color: inherit;
             }
-          
+        
             .poster-bg{
                 fill:var(--poster-text);
                 opacity: 0.1;
@@ -78,17 +92,13 @@
                 padding: 3%;
             }
 
-            .poster-overlay{
-                z-index:3;
-                position: relative;
-            }
-
             .poster-wallpaper{
+
+                --duration:1s;
+                --overlap:0.87;
          
                 color:var(--poster-text);
                 color:color-mix( var(--poster-text), transparent );
-
-                /* color: yellow; */
                 background-color: var(--poster-bg);
             
                 max-width: none;
@@ -102,12 +112,65 @@
                 top:0;
 
                 > *{
-                    --delay:calc( var(--delay-offset, var(--offset,0)) + var(--i) * var(--overlap, 1) * var(--duration, 1s) );
+                    --delay:calc( -1 * var(--i) * var(--overlap, 1) * var(--duration, 1s) );
+                   
+                    @for $i from 0 to 7 {
+                        &:nth-child(#{$i}){
+                            --i:#{$i};
+                        }
+                    }
+                     
                     stroke: var(--poster-stroke);
                     animation: 
-                        FadeTo var(--duration, 1s) linear 0s 1 both,
-                        Yo var(--duration, 1s) linear var(--delay,0s) infinite both;
+                        Shouting var(--duration, 1s) ease-in-out var(--delay, 0s) infinite both alternate-reverse,
+                        RainbowColor calc( 3 * var(--duration, 1s)) linear var(--delay, 0s) infinite both;
                 }
+            }
+
+            .poster-text{
+                filter: url(#filter-threshold) blur(0.6px);
+                /* filter:blur(20px) contrast(30); */
+             
+                > *:is(g,text){
+                     --fraction:2;
+                    --rate:8;
+                    --y:3%;
+
+                    --blur:min( 1px * var(--rate) / var(--fraction) - var(--rate), 100px);
+                    /* --opacity:`${Math.pow(fraction, 0.4) * 100}%; */
+                    /* filter : blur( var(--blur,0px) ); */
+                    /* opacity : 1; */
+                    /* filter:blur(20px) contrast(30); */
+
+                    --delay:calc( var(--i, 0) * var(--overlap, 1) * var(--duration, 1s) );
+                    /* --delay:calc( var(--delay-offset, var(--offset,0)) + var(--i, 1) * var(--overlap, 1) * var(--duration, 1s) ); */
+                   
+                    font-family: 'Oxanium', 'ReadexPro', 'Proxima Nova', var(--font-family-metropolis), sans-serif;
+                    font-weight:700; 
+                    fill:currentColor;
+
+                    /* animation: FadeTo var(--duration, 1s) linear var(--delay, 0s) 1 both;
+                    transition: opacity 42ms, transform 42ms;
+                    transition-delay: var(--delay, 0s),  var(--delay, 0s); */
+                        
+                    animation: 
+                        Unblur var(--duration, 1s) linear var(--delay, 0s) 1 both;
+                    /* animation: 
+                        Unblur var(--duration, 1s) linear var(--delay, 0s) 1 both,
+                        AppearText var(--duration, 1s) ease-out calc( 2 * var(--delay, 0s)) 1 both; */
+
+                    @for $i from 0 to $end {
+                        &:nth-of-type(#{$i}){
+                            --i:#{$i};
+                        }
+                    }
+                }
+
+            }
+
+            .poster-overlay{
+                z-index:3;
+                position: relative;
             }
                
             .note-animated.active {
@@ -133,33 +196,98 @@
     </style>
 
     <style type="text/css">
-        @keyframes RainbowColor {
-            0%, 100%{
-                color:hsl( 0deg 100% 50%);
+       
+        @keyframes Shouting {
+            0%{
+                filter:blur(120px);
             }
-            50%{
-                color:hsl( 360deg 100% 50%);
+            100%{
+                filter:blur(50px);
+               
+            }
+        }
+        @keyframes Unblur {
+            from{
+                filter:blur(120px);
+            }
+        }
+        @keyframes RainbowColor {
+            0%{
+                color:hsl(0, 96%, 51%);
+            }
+            33%{
+                color:hsl(120, 96%, 51%);
+            }
+            66%{
+                color:hsl(240, 96%, 51%);
+            }
+            100%{
+                color:hsl(360, 96%, 51%);
             }
         }
         
-        @keyframes Yo {
+        @keyframes TextColor {
             0%{
-                transform: translateX(-50%) translateY(0) scale(1) rotate(0deg);
-                opacity: 1;
-            }
-            50%{
-                transform: translateX(-50%) translateY(-5%) scale(1.05) rotate(3deg);
-                opacity: 0.75;
+                color:hsl(0, 96%, 51%);
             }
             100%{
-                transform: translateX(-50%) translateY(0) scale(1) rotate(0deg);
+                color:hsl(360, 96%, 51%);
+            }
+        }
+        
+        @keyframes AppearText {
+            0%{
+                transform: translateY( var(--y,0) ) scale( var(--scale,1) );
+                opacity: 0.2;
+            }
+         
+            100%{
+                transform: translateY(0) scale( var(--scale,1) );
                 opacity: 1;
+            }
+        }
+        @keyframes RevealText {
+            0%{
+                opacity: 0;
+                display: block;
+            }
+         
+            100%{
+                opacity: 1;
+            }
+        }
+        @keyframes HideText {
+            0%{
+                opacity: 1;
+            }
+         
+            99%{
+                opacity: 0;
+            }
+            100%{
+                opacity: 0;
+                display: none;
             }
         }
     </style>
 
     <a class="poster-content flood" href="/">
         <figure id="poster-figure" role="figure">
+            
+            <svg id="filters">
+                <defs>
+                    <filter id="filter-threshold">
+                        <!-- gate pixels by transparency : https://css-tricks.com/gooey-effect/ -->
+                        <feColorMatrix in="SourceGraphic"
+                                type="matrix"
+                                values="1 0 0 0 0
+                                                0 1 0 0 0
+                                                0 0 1 0 0
+                                                0 0 0 255 -140" />
+                    </filter>
+                </defs>
+            </svg>
+            
             <svg class="poster-wallpaper" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="9000" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5" class="flood" clip-rule="evenodd" viewBox="0 0 9000 2160">
                 <path d="M3438.07 2160h-946.6l1443.62-808.29L3438.07 2160" style="fill:currentColor;stroke:var(--stroke,black);stroke-width:1px"/>
                 <path d="M3438.07 2160h-946.6l1443.62-808.29L3438.07 2160" style="fill:currentColor;stroke:var(--stroke,black);stroke-width:1px" transform="rotate(180 4484.315 1078.38)"/>
@@ -198,7 +326,7 @@
                     d="M1236.22 802.544c0-17.28-13.954-31.3-31.163-31.3h-1097.4c-17.21 0-31.163 14.02-31.163 31.3 0 321.582 259.824 582.66 579.863 582.66 320.039 0 579.863-261.078 579.863-582.66Zm-534.286 142.43c-4.017-7.373-8.23-31.432-8.296-35.812-.013-.435-.013-.87-.013-1.319 0-37.487 22.854-70.344 54.504-70.344.288 0 .564 0 .84.013 66.37 1.398 162.96 126.588 162.96 232.27 0 137.523-114.521 249.166-255.572 249.166-141.05 0-255.572-111.643-255.572-249.166 0-105.682 77.516-230.463 162.96-232.27.276-.013.552-.013.84-.013 31.65 0 54.504 32.857 54.504 70.344 0 .436 0 .87-.013 1.32-.066 4.392-4.28 28.438-8.283 35.811-9.334 17.174-25.06 36.92-25.31 37.184-15.003 16.053-31.701 31.327-44.763 48.475-16.934 22.226-28.341 47.3-28.341 78.456 0 81.78 64.52 148.168 143.978 148.168 79.458 0 143.965-66.387 143.965-148.168 0-31.604-11.25-55.61-28.263-77.427-12.602-16.159-28.958-30.958-44.264-48.594-.985-1.174-14.755-17.635-25.86-38.094Z" />
 
                 <!-- text -->
-                <g>
+                <g class="poster-text">
                     <!-- INSTANT -->
                     <g>
                         <text x="655.385" y="636.188" font-size="170.833"
@@ -241,15 +369,18 @@
 
                     <text textLength="55%">
                         <textPath 
+                            class="poster-text-h1"
                             font-size="200" 
                             alignment-baseline="bottom" 
                             xlink:href="#headline-circle-lower" 
                             startOffset="70%"
                             textLength="55%">SUPER</textPath>
+
                     </text>
 
                     <text textLength="94%">
                         <textPath 
+                            class="poster-text-h2"
                             font-size="280" 
                             alignment-baseline="bottom" 
                             xlink:href="#headline-circle-upper" 
@@ -259,15 +390,24 @@
 
                     <text textLength="70%">
                         <textPath
+                            class="poster-text-h3"
                             font-size="90" 
                             alignment-baseline="bottom" 
                             xlink:href="#subheadline-circle-lower"
                             startOffset="70.25%"
                             textLength="90%">FOR YOU AND YOUR FRIENDS!</textPath>
+                        <textPath
+                            class="poster-text-h3"
+                            font-size="90" 
+                            alignment-baseline="bottom" 
+                            xlink:href="#subheadline-circle-lower"
+                            startOffset="70.25%"
+                            textLength="90%">WITNESS THE FITNESS</textPath>
                         </text>
 
                     <text textLength="1205">
                         <textPath 
+                            class="poster-text-h4"
                             font-size="84" 
                             xlink:href="#subheadline-circle-upper" 
                             alignment-baseline="bottom" 
@@ -310,6 +450,14 @@
             el.style.setProperty("--delay", `${index * 0.2}s`)
             el.style.setProperty("--col-accent", `hsla( ${ Math.random() * 360 }%, 0.5, 0.5, 0.5 )`)
         })
+
+        const h1 = document.querySelector(".poster-text-h1")
+        const h2 = document.querySelector(".poster-text-h2")
+        const h3 = document.querySelector(".poster-text-h3")
+        const h4 = document.querySelector(".poster-text-h4")
+
+        // we can change any of the text
+
     </script>
 
 </body>

@@ -1,29 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="default" data-scale="major">
 <include src="./source/partials/head.html" locals='{
-    "title": "About",
-    "script": false
+    "title": locals.title ?? "Science+ Media Exhibition"
 }'></include>
 <body>   
-    <include src="./source/partials/header.html"></include>
-    <include src="./source/partials/nav.html"  locals='{"path":"/"}'></include>
-
-    <main id="main-content">
-      
-    </main>
-
-   
-</body>
-</html>
-
-
-<!DOCTYPE html>
-<html lang="en" data-theme="default" data-scale="major">
-<include src="./source/partials/head.html" locals='{
-    "title": locals.script ?? "Royal Society Summer Exhibition 2025"
-}'></include>
-<body>   
-    <include src="./source/partials/header.html"></include>
+    <include 
+        src="./source/partials/header.html" 
+        locals='{
+            "title": "Smile Powered Pop Music!",
+            "subtitle": "Science+ Media Exhibition, <time datetime=\"2025-10-30 10:00\">October 30<sup>th</sup> 2025</time>.",
+        }'>
+    </include>
     <include src="./source/partials/nav.html"></include>
     
     <main id="main-content">
