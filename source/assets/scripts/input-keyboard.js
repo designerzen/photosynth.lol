@@ -3,7 +3,7 @@ import * as Commands from './commands.js'
 /**
  *  Add Keyboard listeners and tie in commands
  */
-export const addKeyboardDownEvents = ( callback ) => {
+export const addKeyboardDownEvents = ( element, callback ) => {
 	
 	// For typing longer numbers
 	let numberSequence = ""
@@ -20,7 +20,7 @@ export const addKeyboardDownEvents = ( callback ) => {
 
 	midiNoteSequence.forEach( (midiNote, index) => keyboardMap.set( midiNote, index+octaveOffset ) )
 
-	window.addEventListener('keydown', async (event)=>{
+	element.addEventListener('keydown', async (event)=>{
 		const isNumber = !isNaN( parseInt(event.key) )
 		const focussedElement = document.activeElement
 
@@ -335,7 +335,7 @@ export const addKeyboardDownEvents = ( callback ) => {
 	})
 
 	// depress notes held
-	window.addEventListener('keyup', async (event)=>{
+	element.addEventListener('keyup', async (event)=>{
 
 		if ( event.key !== 'Tab' ){
 			event.preventDefault()
@@ -348,8 +348,6 @@ export const addKeyboardDownEvents = ( callback ) => {
 			console.log("Key up", Commands.NOTE_OFF, event.key, noteNumber )
 			keysPressed.delete(event.key)
 			callback( Commands.NOTE_OFF, event.key, noteNumber )
-		}else{
-			console.log("Key up but no key down found", event.key, keyboardMap )
 		}
 	})
 }

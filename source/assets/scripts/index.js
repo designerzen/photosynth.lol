@@ -49,9 +49,9 @@ import {CANVAS_BLEND_MODE_DESCRIPTIONS, CANVAS_BLEND_MODES} from "./blendmodes.j
 import WAVE_ARCHIVE_GENERAL_MIDI from "url:/static/wave-tables/general-midi.zip"
 import MANIFEST_URL from "url:/static/wave-tables/general-midi/manifest.json"
 import { DEFAULT_MOUSE_ID } from "./components/abstract-interactive.js"
+import { addKeyboardDownEvents } from "./input-keyboard.js"
 
 const SETTINGS = getSettings()
-
 
 // audio requires a user gesture to start...
 // so we hook into each musical event to check if the user has engaged
@@ -111,6 +111,9 @@ let shape = "sine"          // oscillator shape or periodic wave id (eg. sine, s
 let song = null
 let playingNote = null
 let playingChord = null
+
+// Pointers to DOM elements
+let wallpaperCanvas
 
 const isIOS =  navigator.platform.startsWith("iP") || navigator.platform.startsWith("Mac") && navigator.maxTouchPoints > 4
 
@@ -1557,7 +1560,7 @@ const start =  async () => {
     
     if (SETTINGS.showNoteVisualiser){
         // sequencer style note visualiser (2 varieties)
-        const wallpaperCanvas = document.getElementById("wallpaper")
+        wallpaperCanvas = document.getElementById("wallpaper")
         noteVisualiser = new NoteVisualiser( ALL_KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
         // noteVisualiser = new NoteVisualiser( KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
         wallpaperCanvas.addEventListener( "dblclick", e => scale === SCALES[ (SCALES.indexOf(scale) + 1) % SCALES.length] )
@@ -1578,10 +1581,20 @@ const start =  async () => {
         keyboardElement.addEventListener("dblclick", e => setTimbre( getRandomWaveTableName() ) )
     }
 
-    // we can turn the mouse cursor into a note indicator   
+    if (SETTINGS.useKeyboard){
+        addKeyboardDownEvents( wallpaperCanvas, e => {
+            console.info("key event:", e )
+        })
+    }
+
+    // we can turn the mouse cursor into a note indicator  
+    const mouseCanvas = document.getElementById("mouse-visualiser")
+    
     if (SETTINGS.showMouseNotes && !isIOS){
-        const mouseCanvas = document.getElementById("mouse-visualiser")
+       
         mouseVisualiser = new MouseVisualiser(mouseCanvas)
+    }else{
+        mouseCanvas.hiden = true 
     }
 
     // circular fifths synth
@@ -1639,6 +1652,5 @@ const start =  async () => {
  * DOM reporting for action!
  */
 document.addEventListener("DOMContentLoaded", start, {once:true})
-// window.addEventListener("load", start, {once:true})
 document.addEventListener("touchstart", createAudioContext, {once:true})
 document.addEventListener("mousedown", createAudioContext, {once:true})

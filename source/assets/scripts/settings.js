@@ -143,6 +143,7 @@ export const DEFAULT_SETTINGS = {
     saveNotesInMiniNotation : true,
     useTimer : false,
     useGamepads : true,
+    useKeyboard: true, 
     loadFromZips : true,
     debug : true
 }
