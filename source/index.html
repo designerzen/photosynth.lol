@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="default" data-scale="major">
-<include src="./source/partials/head.html" locals='{"script":locals.script}'></include>
+<include src="./source/partials/head.html"></include>
 <body>   
-    <include src="./source/partials/header.html"></include>
+       <include 
+        src="./source/partials/header.html" 
+        locals='{
+            "h1": "Smile Powered Pop Music with the <cite>Photo&ZeroWidthSpace;SYNTH</cite>!",
+            "h2": "Royal Society Summer Science Exhibition, <time datetime=\"2025-07-01 09:00\">July 1<sup>st</sup></time> to <time datetime=\"2025-07-07 09:00\">July 6<sup>th</sup>, 2025</time>.",
+        }'>
+    </include>
     <include src="./source/partials/nav.html"></include>
     
     <main id="main-content">
