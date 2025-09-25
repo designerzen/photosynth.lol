@@ -817,6 +817,16 @@ tbody{
 //         content: counters(section,'',pad)'.'counters(content,'',pad);
 //     }
 // }
+#capture-face{
+
+    &::after{
+        content: '';
+        position: relative;
+        display: block;
+        // this is the timing on the intro pull up....
+        height:100vh;
+    }
+}
 
 .synth-shape{
     // padding-bottom:var(--pad);
@@ -1007,7 +1017,7 @@ tbody{
 }
 
 #diagram-face-mood-recognition{
-    padding-top: calc( var(--pad) * 4);
+    padding-top: calc( var(--pad) * 1);
     padding-bottom: 0;
 }
 
