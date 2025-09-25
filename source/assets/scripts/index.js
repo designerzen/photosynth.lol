@@ -3,16 +3,17 @@
 import { addTextScalingFacilities } from "./accessibility.js"
 import { addThemeSelectionOptions, setTheme, THEMES } from "./theme.js"
 import { setFont } from "./fonts.js"
+import { addKeyboardDownEvents } from "./input-keyboard.js"
 
 // gallery lightbox
 import { setGalleryImage, createGallery } from "./gallery.js"
 
 // NB. This polyfill will break AudioWorklets which we use for timing
 import { AudioContext as PonyAudioContext, OfflineAudioContext } from 'standardized-audio-context'
-import MIDIManager from "./midi.js"
 import { createChord, createDiminishedChord, createFifthsChord, createMajorChord, createMinorChord, getModeAsIntegerOffset, getModeFromIntegerOffset, MAJOR_CHORD_INTERVALS, MINOR_CHORD_INTERVALS, TUNING_MODE_NAMES } from "./chords"
 import { registerMultiTouchSynth } from "./components/multi-touch-synth"
 import CircleSynth from "./components/circle-synth"
+import MIDIManager from "./midi.js"
 
 import SynthOscillator, { OSCILLATORS } from "./instruments/synth-oscillator"
 import { addNoises, getAllWaveTables, getRandomWaveTableName, getWaveTable, loadWaveTableFromArchive, loadWaveTableFromManifest, preloadAllWaveTables } from "./instruments/wave-tables"
@@ -39,7 +40,7 @@ import { debounce } from "./utils.js"
 import Timer, { convertBPMToPeriod, convertPeriodToBPM, tapTempo } from "./timing/timer.js"
 // import TimingAudioWorkletNode, { createTimingProcessor } from "./timing/timing.audioworklet.js"
 
-import AUDIOTIMER_PROCESSOR_URI from 'url:./timing/timing.audioworklet-processor.js'
+// import AUDIOTIMER_PROCESSOR_URI from 'url:./timing/timing.audioworklet-processor.js'
 import { SongCanvas } from "./components/song-canvas.js"
 import { countdown } from "./countdown.js"
 import { getRandomSpell } from "./sfx.js"
@@ -49,7 +50,6 @@ import {CANVAS_BLEND_MODE_DESCRIPTIONS, CANVAS_BLEND_MODES} from "./blendmodes.j
 import WAVE_ARCHIVE_GENERAL_MIDI from "url:/static/wave-tables/general-midi.zip"
 import MANIFEST_URL from "url:/static/wave-tables/general-midi/manifest.json"
 import { DEFAULT_MOUSE_ID } from "./components/abstract-interactive.js"
-import { addKeyboardDownEvents } from "./input-keyboard.js"
 
 const SETTINGS = getSettings()
 
@@ -57,6 +57,7 @@ const SETTINGS = getSettings()
 // so we hook into each musical event to check if the user has engaged
 let hasUserEngaged = false
 let drumsPlaying = false
+let isHappy = true          // is Major or Minor?
 
 // read any saved themes from the URL ONLY (not from cookies so no overlay required :)
 const searchParams = new URLSearchParams(location.search)
@@ -74,11 +75,12 @@ let stats
 
 const midiManager = new MIDIManager()
 
-// Shared DOM elements
+// Pointers to Shared DOM elements
 let hero
 let noteVisualiser
 let shapeVisualiser
 let mouseVisualiser
+let wallpaperCanvas
 let miniNotation
 let circles
 let keyboard 
@@ -103,7 +105,6 @@ const SCALES = [
     "Minor"
 ]
 
-let isHappy = true          // is Major or Minor?
 let scale = SCALES[0]       // scale (eg. Major, Minor... etc)
 let mode = 0                // scale mode (eg. Dorian, Mixolydian... etc)
 let octave = 0              // octave (bass / mid / treble )
@@ -112,8 +113,6 @@ let song = null
 let playingNote = null
 let playingChord = null
 
-// Pointers to DOM elements
-let wallpaperCanvas
 
 const isIOS =  navigator.platform.startsWith("iP") || navigator.platform.startsWith("Mac") && navigator.maxTouchPoints > 4
 
@@ -188,41 +187,21 @@ const getSynthForFinger = (finger)=>{
  * @returns {Timer}
  */
 const createMetronome = (callback) => {
-    let beats = 0
+    let beats = 0   
+    // const timing = await import("./timing/timer.js")
+    // await timingContext.audioWorklet.addModule(AUDIOTIMER_PROCESSOR_URI)
+    // const TimingAudioWorklet = await import("./timing/timing.audioworklet.js")
+    // const timing = new TimingAudioWorklet.default(timingContext)
+    // const timing = createTimingProcessor( timingContext )
     const timingContext = new AudioContext()
     timer = new Timer({contexts:{audioContext:timingContext}, bpm:32 })
-    // console.info("timer", timer)
     // await timer.loaded
-    // console.info("timer loaded", timer)
     timer.swing = 0 //.5
     timer.startTimer(e =>{
         const oddBeat = beats++ % 2 !== 0
         callback && callback(oddBeat, e, timer)
     })
-
-    // const timing = await import("./timing/timer.js")
-    // const timer = new Timer()
-    // console.error("DATA LOADED!", {timing} )
-
     return timer
-
-    // timer.setCallback(event => {
-    //     // console.log("timer event", event)
-    // })
-        
-    // const timingContext = new AudioContext()
-    // // const timing = createTimingProcessor( timingContext )
-
-    // await timingContext.audioWorklet.addModule(AUDIOTIMER_PROCESSOR_URI)
-    // const TimingAudioWorklet = await import("./timing/timing.audioworklet.js")
-    // const timing = new TimingAudioWorklet.default(timingContext)
-    // timing.onmessage = event => {
-    //     console.log("time message:", event)
-    // }
-    // timing.    timer.startTimer()
-
-    // const timing = createTimingProcessor(audioContext)
-    // const timing = new TimingAudioWorkletNode(audioContext)
 }
 
 /**
@@ -234,6 +213,10 @@ const addAccessibilityFunctionality = ()=> {
 
     // As the menu only works with JS, we hide it by default
     const accessibilityMenu = document.getElementById("menu-accessibility")
+    if (!accessibilityMenu)
+    {
+        return false
+    }
     accessibilityMenu.hidden = false
 
     // THEME ------------------------------------------------
@@ -250,7 +233,6 @@ const addAccessibilityFunctionality = ()=> {
         // now also ensure that the note visualiser has the correct
         // background colour by checking the canvas's 
         const bgCol = noteVisualiser.backgroundColour
-        
         if (bgCol)
         {
                 // console.info("bgCol", bgCol)
@@ -262,9 +244,7 @@ const addAccessibilityFunctionality = ()=> {
     // AUDIO ------------------------------------------------
     const volumeSlider = document.getElementById("volume")
     volumeSlider.addEventListener("input", e => {
-        const input = e.target.value
-        // console.info("volumeSlider", input)
-        setVolume(input / 100 )
+        setVolume( e.target.value / 100 )
     })
 
     const muteCheckbox = document.getElementById("toggle-mute")
@@ -298,6 +278,7 @@ const addAccessibilityFunctionality = ()=> {
     {
         setFont(searchParams.get("font"))
     }
+    return true
 }
 
 /**
@@ -322,6 +303,7 @@ const noteOn = ( noteModel, velocity=1, id=DEFAULT_MOUSE_ID, isMidi=false ) => {
         return
     }
     
+    // already playing
     if (notesPlaying.has( noteModel ))
     {
         // console.warn("NoteOn Already playing", noteModel)
@@ -345,6 +327,12 @@ const noteOn = ( noteModel, velocity=1, id=DEFAULT_MOUSE_ID, isMidi=false ) => {
     mouseVisualiser && mouseVisualiser.noteOn( noteModel, velocity )
     recorder && recorder.noteOn( noteModel, velocity )
     miniNotation && miniNotation.noteOn( noteModel, velocity, audioContext.currentTime )
+   
+
+    
+    console.log("Note On", id, synth, isAlreadyPlaying ? "repress" : "fresh")
+
+
     // this should change the visualiser line colour
     if (shapeVisualiser)
     {

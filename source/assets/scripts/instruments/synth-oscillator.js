@@ -1,11 +1,12 @@
 //const OSCILLATORS = [ "sine", "triangle"]
-import { BiquadFilterNode } from "standardized-audio-context"
+import { BiquadFilterNode, OscillatorNode, AudioContext } from "standardized-audio-context"
 import { noteNumberToFrequency } from "../note.js"
 import { loadWaveTable } from "./wave-tables.js"
-// import { BiquadFilterNode, OscillatorNode, AudioContext } from "standardized-audio-context"
 
 export const OSCILLATORS = [ "sine", "square", "sawtooth", "triangle" ]
+
 const SILENCE = 0.00000000009
+
 export default class SynthOscillator{
 
     options = {
@@ -36,6 +37,8 @@ export default class SynthOscillator{
         filterSustain :0.8,
         filterRelease :0.2,
 
+        // don't destroy oscillators, just make them silent
+        // at the end of their life
         reuseOscillators:true
     }
     
@@ -194,13 +197,12 @@ export default class SynthOscillator{
         })
 
         this.gainNode = audioContext.createGain()
-        this.gainNode.gain.value = 0  // start silently
+        this.gainNode.gain.value = SILENCE  // start silently
 
         // Connect: filterNode -> gainNode -> dcFilterNode
         this.filterNode.connect(this.gainNode)
         this.gainNode.connect(this.dcFilterNode)
-        // this.dcFilterNode.connect(audioContext.destination) // connect externally as needed
-
+    
         if (options.shape)
         {
             this.shape = options.shape
@@ -262,9 +264,9 @@ export default class SynthOscillator{
 
     /**
      * 
-     * @param {*} tonic 
-     * @param {*} intervals 
-     * @param {*} repetitions 
+     * @param {Number} tonic 
+     * @param {Array<Number>} intervals 
+     * @param {Number} repetitions 
      */
     addArpeggioAtIntervals( tonic, intervals=[], repetitions=24 ){
         const now = this.now
