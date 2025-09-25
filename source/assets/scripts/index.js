@@ -748,7 +748,10 @@ const fetchStateFromRadioButtons = () => {
 
     // ensure MIDI is always set to checked OFF
     const midiToggle = document.getElementById("toggle-midi")
-    midiToggle.checked = false
+    if (midiToggle) 
+    {
+        midiToggle.checked = false
+    }
 }
 
 // USER INTERFACE ==============================================================
@@ -1539,12 +1542,14 @@ const start =  async () => {
     // reinstate the state recalled from the previous session
     // and use as the basis for initialising the synths
     fetchStateFromRadioButtons() 
+
+    // add gallery interactions to dialog
+    createGallery()
     
     // top interactive smiling graphic
     hero = new Hero(ALL_KEYBOARD_NOTES, noteOn, noteOff, SETTINGS.showNotes ? SETTINGS.notes : 0)
     
-    // add gallery interactions to dialog
-    createGallery()
+ 
     
     if (SETTINGS.showNoteVisualiser){
         // sequencer style note visualiser (2 varieties)

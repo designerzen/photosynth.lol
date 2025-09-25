@@ -1,6 +1,6 @@
 .gallery{
     --gadget-size: 22px;
-    background-color: var(--col-white);
+    // background-color: var(--col-white);
     
 
     form[method=dialog]{
@@ -34,9 +34,10 @@
     button{
         z-index: 2;
         color:transparent;
-        mix-blend-mode: exclusion;
+        // mix-blend-mode: exclusion;
         // filter: invert(1);
         transition: color var(--time-quick) linear;
+        box-sizing: border-box;
 
         line-height: 1.2;;
         font-weight: 900;
@@ -205,13 +206,14 @@
 
         --grid:1px;
         background-color: transparent;
-        background-image: 
-            url(/source/assets/icons/keyboard_double_arrow_right.svg),
-            repeating-linear-gradient(
-                45deg,
-                var(--col-accent) 0px, var(--col-accent) var(--grid),
-                transparent var(--grid), transparent calc(2 * var(--grid))
-            );
+        background-image: url(/source/assets/icons/keyboard_double_arrow_right.svg);
+        // background-image: 
+        //     url(/source/assets/icons/keyboard_double_arrow_right.svg),
+        //     repeating-linear-gradient(
+        //         45deg,
+        //         var(--col-accent) 0px, var(--col-accent) var(--grid),
+        //         transparent var(--grid), transparent calc(2 * var(--grid))
+        //     );
         background-position: right var(--pad) center;
         background-repeat: no-repeat, repeat;
     
@@ -276,7 +278,7 @@
         background-position: left calc(var(--pad)) center;
         background-repeat: no-repeat;
         background-size: var(--gadget-size);
-        padding-left:calc( var(--gadget-size) * 1.4 );
+        padding-left:calc( var(--gadget-size) * 0.5 );
         min-height:66px;
         background-image: url(/source/assets/icons/fullscreen.svg);
     }
@@ -284,6 +286,7 @@
     .lightbox{
 
         border-radius: 12px;
+        background-color: var(--col-white);
 
         menu{
             position: absolute;
