@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="default" data-scale="major">
 <include src="./source/partials/head.html" locals='{
-    "title": "About"
+    "title": "PhotoSYNTH ▷ Gallery",
+    "script":locals.script
 }'></include>
 <body>   
-    <include src="./source/partials/header.html"></include>
+    <include 
+        src="./source/partials/header.html" 
+        locals='{
+            "h1":"Gallery",
+            "h2":"Smile Powered Music"
+        }'>
+    </include>
     <include src="./source/partials/nav.html"  locals='{"path":"/"}'></include>
 
     <main id="main-content">
         <include src="./source/partials/photos-rs.html"></include>
     </main>
 
+    <script type="module">
+        import {createGallery} from './assets/scripts/gallery.js'
+        createGallery()
+    </script>
    
 </body>
 </html>
