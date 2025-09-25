@@ -1,9 +1,16 @@
 .gallery{
     --gadget-size: 22px;
+    background-color: var(--col-white);
     
+
+    form[method=dialog]{
+        background-color:inherit;
+    }
+
     form[method=dialog] button[type=submit]{
         z-index: 1;
-        color:inherit;//var(--col-white);    
+      
+        color:inherit;
         padding-top:calc(1.32 * var(--pad));
         padding-right: 55px;
     }
@@ -302,6 +309,9 @@
 
         .gallery-figure{
             padding: 0;
+            background:var(--col-white);
+            background:inherit;
+            
             // popover in dialog!
             img{
                 border:1px solid currentColor;

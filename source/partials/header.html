@@ -1,8 +1,8 @@
 <script locals>
     module.exports = {
        ...locals,
-        title: locals.title || 'Smile Powered Pop Music with the <cite>Photo&ZeroWidthSpace;SYNTH</cite>!',
-        subtitle: locals.subtitle || 'Public Exhibition',
+        h1: locals.h1 || 'Smile Powered Pop Music with the <cite>Photo&ZeroWidthSpace;SYNTH</cite>!',
+        h2: locals.h2 || 'Public Exhibition',
         summary: locals.summary || '(this is a musical website)'
     }
 </script>
@@ -10,11 +10,11 @@
     
     <hgroup>
         
-        <h1>{{{title}}}</h1>
+        <h1>{{{h1}}}</h1>
         <h2>
             
             <a href="#event" class="secret-link">
-               {{{subtitle}}}
+               {{{h2}}}
             </a>
         </h2>
         <p aria-summary>{{{summary}}}</p>
