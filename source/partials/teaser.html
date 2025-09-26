@@ -1,3 +1,14 @@
+<script locals>
+    let randomUUID = "id"+Math.random().toString(36).substring(2, 15) + ""
+    module.exports = {
+       ...locals,
+        posterHeading: locals.posterHeading || 'FOR YOU AND YOUR FRIENDS!',
+        posterSubheading: locals.posterSubheading || 'FOR YOU AND YOUR FRIENDS!',
+        posterTagline: locals.posterTagline || 'SMILE POWERED SYNTHESIZER',
+        posterLink: locals.posterLink || '/'
+    }
+</script>
+
 <style type="text/scss">
     
     $end:12;
@@ -9,8 +20,8 @@
         --poster-bg: oklch(14.946% 0.04069 23.375);
         --poster-stroke: oklch(14.946% 0.04069 23.375);
 
-        --duration:4s;
-        --overlap:0.1;
+        --duration:1s;
+        --overlap:0.25;
     }
 
     .poster-content{
@@ -28,15 +39,15 @@
             
         }
         
-    }
-
-    /* Swap out text if there are multiple ones */
-    text:has(textPath:nth-of-type(2)){
-        textPath:nth-of-type(2){
-            display: none;
-            opacity: 0;
+ 
+        /* Swap out text if there are multiple ones */
+        text:has(textPath:nth-of-type(2)){
+            textPath:nth-of-type(2){
+                display: none;
+                opacity: 0;
+            }
         }
-    }
+   }
 
     .poster-bg:hover,  
     .poster-bg:focus-within{
@@ -48,7 +59,6 @@
             /* opacity:1; */
             animation: RevealText var(--duration, 1s) linear var(--delay, 0s) 1 both;
         }
-
     }
     
     #poster-figure{
@@ -164,6 +174,26 @@
             position: relative;
         }
             
+
+        .mouth{
+            transform-origin: 50%;
+            animation:Mouth 9s ease-out 0s infinite both;
+        }
+
+        .poster-instructions{
+            --y:11px;
+            position: absolute;
+            bottom:9%;
+            background-color:var(--poster-text);
+            color:var(--poster-bg);
+            height: fit-content;
+            border-radius: 11px;
+            padding:20px;
+            animation: 
+                Fade 1s linear 5s 1 both,
+                Translate 0.4s ease-out 5s 1 both;
+        }
+
         .note-animated.active {
             &::before{
                 /* animation: Notation var(--duration) var(--delay,0s) var(--offset-variatons) linear; */
@@ -196,6 +226,16 @@
     @keyframes Unblur {
         from{
             filter:blur(120px);
+        }
+    }
+    @keyframes Fade {
+        from{
+            opacity:0;
+        }
+    }
+    @keyframes Translate {
+        from{
+            transform:translate( var(--x,0), var(--y,0) );
         }
     }
     @keyframes RainbowColor {
@@ -256,21 +296,31 @@
             display: none;
         }
     }
+    @keyframes Mouth {
+        0%{
+            transform: scale(0.9);
+        }
+        5%{
+             transform: scale(1);
+        }
+        100%{
+            transform: scale(0.9);
+        }
+    }
 </style>
 
-<a class="poster-content flood" href="/">
+<a class="poster-content flood" href="{{posterLink}}">
     <figure id="poster-figure" role="figure">
         
         <svg id="filters">
             <defs>
                 <filter id="filter-threshold">
-                    <!-- gate pixels by transparency : https://css-tricks.com/gooey-effect/ -->
                     <feColorMatrix in="SourceGraphic"
-                            type="matrix"
-                            values="1 0 0 0 0
-                                            0 1 0 0 0
-                                            0 0 1 0 0
-                                            0 0 0 255 -140" />
+                        type="matrix"
+                        values="1 0 0 0 0
+                                0 1 0 0 0
+                                0 0 1 0 0
+                                0 0 0 255 -140" />
                 </filter>
             </defs>
         </svg>
@@ -362,7 +412,6 @@
                         xlink:href="#headline-circle-lower" 
                         startOffset="70%"
                         textLength="55%">SUPER</textPath>
-
                 </text>
 
                 <text textLength="94%">
@@ -382,7 +431,7 @@
                         alignment-baseline="bottom" 
                         xlink:href="#subheadline-circle-lower"
                         startOffset="70.25%"
-                        textLength="90%">FOR YOU AND YOUR FRIENDS!</textPath>
+                        textLength="90%">{{{posterSubheading}}}</textPath>
                     <textPath
                         class="poster-text-h3"
                         font-size="90" 
@@ -399,7 +448,7 @@
                         xlink:href="#subheadline-circle-upper" 
                         alignment-baseline="bottom" 
                         startOffset="71%" 
-                        textLength="1205">• SMILE POWERED SYNTHESIZER •</textPath>
+                        textLength="1205">• {{{posterTagline}}} •</textPath>
                 </text>
             </g>
 
@@ -421,6 +470,8 @@
         <canvas>
 
         </canvas>
+
+        <p class="poster-instructions">Click to Learn more!</p>
 
         <figcaption class="sr-only">Instant Musical Superpowers, for you and your friends!</figcaption>
     </figure>
