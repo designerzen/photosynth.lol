@@ -17,9 +17,9 @@ export default class SynthOscillator{
         attack:0.4,         // in s
         decay:0.9,          // in s
         sustain:0.85,       // ratio 0-1
-        release:0.3,        // in s
+        release:0.1,        // in s
         
-        minDuration: .6,
+        minDuration: .4,
 
         shape:OSCILLATORS[0],
 
@@ -46,6 +46,7 @@ export default class SynthOscillator{
     customWave = null
 
     #id = "SynthOscillator"
+    #endsAt = -1
 
     get id(){
         return this.#id
@@ -60,6 +61,11 @@ export default class SynthOscillator{
 
     get gain(){
         return this.options.gain
+    }
+
+    get endsAt()
+    {
+        return this.#endsAt
     }
 
     set gain(value){
@@ -90,41 +96,7 @@ export default class SynthOscillator{
     }
 
 	set shape(value){
-        // there are 3 different sources of shapes :
-        switch (typeof value ){
-
-            case 'string':   
-                if (OSCILLATORS.includes(value))
-                {
-                    // 1. the oscillator type
-                    // console.info("SynthOscillator::STANDARD"+ this.options, value)
-                    if ( this.oscillator )
-                    {
-                        this.oscillator.type = value
-                    }
-                    this.customWave = null
-
-                }else {
-
-                    // 2. attempt to load in customWave JSON data from a URI
-                    this.loadWaveTable(value).then( waves => {
-                        this.setWaveTable( waves )
-                        // console.info("SynthOscillator::CUSTOM URI"+this.options, value, {waves} )
-                    } )     
-                } 
-                break
-        
-            case 'object':
-                // 3. customWave data with real and imag arrays
-                this.setWaveTable( value )
-                // console.info("SynthOscillator::CUSTOM DATA"+this.options, value )
-                break
-
-            default: 
-                console.warn("SynthOscillator::UNKNOWN TYPE", value)
-        }
-    
-        this.options.shape = value
+        this.setTimbre( value )
 	}
 
 	get shape(){
@@ -198,6 +170,7 @@ export default class SynthOscillator{
 
         this.gainNode = audioContext.createGain()
         this.gainNode.gain.value = SILENCE  // start silently
+        this.gainNode.gain.setValueAtTime( SILENCE, audioContext.currentTime  )
 
         // Connect: filterNode -> gainNode -> dcFilterNode
         this.filterNode.connect(this.gainNode)
@@ -248,8 +221,7 @@ export default class SynthOscillator{
             this.tremoloOscillator.frequency.setValueAtTime(frequency, startTime)
             
             this.tremoloGain.connect(this.oscillator.frequency)
-            console.info("tremoloActive", this.shape )
-            
+            // console.info("tremoloActive", this.shape )   
         }
 
         this.active = true
@@ -260,6 +232,48 @@ export default class SynthOscillator{
      */
     setRandomTimbre(){
         this.shape = OSCILLATORS[Math.floor(Math.random() * OSCILLATORS.length)]
+    }
+
+    /**
+     * 
+     * @param {String} value 
+     */
+    setTimbre( value ){
+        // there are 3 different sources of shapes :
+        switch (typeof value ){
+
+            case 'string':   
+                if (OSCILLATORS.includes(value))
+                {
+                    // 1. the oscillator type
+                    // console.info("SynthOscillator::STANDARD"+ this.options, value)
+                    if ( this.oscillator )
+                    {
+                        this.oscillator.type = value
+                    }
+                    this.customWave = null
+
+                }else {
+
+                    // 2. attempt to load in customWave JSON data from a URI
+                    this.loadWaveTable(value).then( waves => {
+                        this.setWaveTable( waves )
+                        // console.info("SynthOscillator::CUSTOM URI"+this.options, value, {waves} )
+                    } )     
+                } 
+                break
+        
+            case 'object':
+                // 3. customWave data with real and imag arrays
+                this.setWaveTable( value )
+                // console.info("SynthOscillator::CUSTOM DATA"+this.options, value )
+                break
+
+            default: 
+                console.warn("SynthOscillator::UNKNOWN TYPE", value)
+        }
+    
+        this.options.shape = value
     }
 
     /**
@@ -321,17 +335,27 @@ export default class SynthOscillator{
         const amplitudeSustain = amplitude * this.options.sustain
 
         this.gainNode.gain.cancelScheduledValues(startTime)
-        // this.gainNode.gain.setValueAtTime( SILENCE, startTime )
-		// Attack
+
+        // FORCE Silence to prevent stacking
+        // this.gainNode.gain.setValueAtTime( this.gainNode.gain.minValue, startTime )
+        this.gainNode.gain.setValueAtTime( SILENCE, startTime )
+        this.gainNode.gain.linearRampToValueAtTime( SILENCE, startTime + 4 )
+    
+        // Attack
         this.gainNode.gain.linearRampToValueAtTime( amplitude, startTime + this.options.attack )
         // Decay to Sustain
         this.gainNode.gain.linearRampToValueAtTime( amplitudeSustain, startTime + this.options.attack + this.options.decay )
+  
+        console.error("Note on", this.gainNode.gain.value, this.gainNode.gain )
+      
+        // by resetting the shape, the phase should restart
+        this.setTimbre( this.shape )
 
 		// Shape the note
-		// this.filterNode.frequency.cancelScheduledValues(startTime)
-		// this.filterNode.frequency.setValueAtTime(this.options.filterCutOff, startTime)
-        // this.filterNode.frequency.linearRampToValueAtTime(filterPeak, startTime + this.options.filterAttack)
-        // this.filterNode.frequency.linearRampToValueAtTime(filterSustain, startTime + this.options.filterAttack + this.options.filterDecay )
+		this.filterNode.frequency.cancelScheduledValues(startTime)
+		this.filterNode.frequency.setValueAtTime(this.options.filterCutOff, startTime)
+        this.filterNode.frequency.linearRampToValueAtTime(filterPeak, startTime + this.options.filterAttack)
+        this.filterNode.frequency.linearRampToValueAtTime(filterSustain, startTime + this.options.filterAttack + this.options.filterDecay )
 
         if (!this.isNoteDown)
         {
@@ -394,9 +418,10 @@ export default class SynthOscillator{
             now
 
         // Use a longer minimum release time (e.g. 400ms)
-       const stopTime = extendNow + releaseDuration
+       
+        this.#endsAt = extendNow + releaseDuration
    
-       console.warn("noteOff - note too short?",  elapsed < this.options.minDuration, {now, extendNow, stopTime, elapsed} )
+    //    console.warn("noteOff - note too short?",  elapsed < this.options.minDuration, {now, extendNow, stopTime, elapsed} )
 
 
         // Cancel any scheduled gain changes and start from current value

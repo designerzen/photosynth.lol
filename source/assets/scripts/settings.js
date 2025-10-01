@@ -138,6 +138,7 @@ export const DEFAULT_SETTINGS = {
     showStats : false,
     showNotes: true, 
     notes: 10,
+    storage:"photosynthlol",
     monitorIntersections:true,
     recordNotes : true,
     saveNotesInMiniNotation : true,

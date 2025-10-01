@@ -113,7 +113,6 @@ let song = null
 let playingNote = null
 let playingChord = null
 
-
 const isIOS =  navigator.platform.startsWith("iP") || navigator.platform.startsWith("Mac") && navigator.maxTouchPoints > 4
 
 const CHORDS = [
@@ -166,16 +165,20 @@ const setURLParameter = debounce((name, value) => {
  */
 const getSynthForFinger = (finger)=>{
     let fingerSynth = fingerSynths.get(finger)
-    if (!fingerSynth){
-        // const shape = getRandomWaveTableName()
-        fingerSynth = new SynthOscillator(audioContext, {shape})
-        // fingerSynth.loadWaveTable(shape)
-        // fingerSynth.shape = "Piano"
-        // console.info("shape loading",shape, "into", fingerSynth)
-        fingerSynth.id = finger + "-synth"
-        fingerSynth.output.connect(limiter)
-        fingerSynths.set( finger, fingerSynth )
+    if (fingerSynth)
+    {
+        return fingerSynth
     }
+    
+    // const shape = getRandomWaveTableName()
+    fingerSynth = new SynthOscillator(audioContext, {shape})
+    // fingerSynth.loadWaveTable(shape)
+    // fingerSynth.shape = "Piano"
+    // console.info("shape loading",shape, "into", fingerSynth)
+    fingerSynth.id = finger + "-synth"
+    fingerSynth.output.connect(limiter)
+    fingerSynths.set( finger, fingerSynth )
+
     // console.error("getSynthForFinger", finger, fingerSynth)
     return fingerSynth
 }
@@ -328,8 +331,6 @@ const noteOn = ( noteModel, velocity=1, id=DEFAULT_MOUSE_ID, isMidi=false ) => {
     recorder && recorder.noteOn( noteModel, velocity )
     miniNotation && miniNotation.noteOn( noteModel, velocity, audioContext.currentTime )
    
-
-    
     console.log("Note On", id, synth, isAlreadyPlaying ? "repress" : "fresh")
 
 
@@ -1516,10 +1517,12 @@ const backgroundLoad = async () => {
  */
 const start =  async () => {
 
-    // record each user note!
+    // record each user note
+    // NB. This saves to local storage!
     if (SETTINGS.recordNotes)
     {
-          recorder = new MelodyRecorder()
+        recorder = new MelodyRecorder()
+        recorder.loadFromLocalStorage(SETTINGS.storage)
     }
   
     // load in our note sequences
@@ -1531,6 +1534,7 @@ const start =  async () => {
     //     handlePasswordProtection( searchParams, DEFAULT_PASSWORD, updateURL )
     // }
 
+    // ensure that the mouse visualiser is not shown on ios
     document.body.classList.toggle("platform-ios", isIOS)
     
     // change the copyright year to this year
@@ -1639,6 +1643,8 @@ const start =  async () => {
         recorder && console.log("recorder", {recorder} )
         song && console.log("song", {song} )
     }
+
+    window.addEventListener( "unload", e => recorder.sveToLocalStorage( SETTINGS.storage ) )
 }
 
 /**

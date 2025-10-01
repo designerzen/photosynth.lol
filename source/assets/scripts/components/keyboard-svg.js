@@ -43,7 +43,7 @@ export default class SVGKeyboard extends AbstractInteractive{
 	}
 
 	constructor( notes, noteOn, noteOff ){
-		super()
+		super( false, true)
         const unique = `keyboard-${SVGKeyboard.uniqueID++}`
 		this.titleID = `${unique}-title`
 		this.descriptionID = `${unique}-desc`
