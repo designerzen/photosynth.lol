@@ -133,7 +133,7 @@
             /* filter:blur(20px) contrast(30); */
             
             > *:is(g,text){
-                    --fraction:2;
+                --fraction:2;
                 --rate:8;
                 --y:3%;
 
@@ -154,8 +154,7 @@
                 transition: opacity 42ms, transform 42ms;
                 transition-delay: var(--delay, 0s),  var(--delay, 0s); */
                     
-                animation: 
-                    Unblur var(--duration, 1s) linear var(--delay, 0s) 1 both;
+                animation: Unblur var(--duration, 1s) linear var(--delay, 0s) 1 both;
                 /* animation: 
                     Unblur var(--duration, 1s) linear var(--delay, 0s) 1 both,
                     AppearText var(--duration, 1s) ease-out calc( 2 * var(--delay, 0s)) 1 both; */
@@ -491,9 +490,31 @@
 
     const h1 = document.querySelector(".poster-text-h1")
     const h2 = document.querySelector(".poster-text-h2")
+
     const h3 = document.querySelector(".poster-text-h3")
     const h4 = document.querySelector(".poster-text-h4")
 
     // we can change any of the text
+    const animation = h3.animate(
+        [
+            { 
+                filter: "blur(0px)",
+                opacity:0
+            },
+            { 
+                filter: "blur(120px)",
+                opacity:0
+             }
+        ],
+        {
+            duration: 3000,
+            iterations: infinite,
+        }
+    )
+
+    animation.onfinish = () => {
+        // swap out the text and start a new animation
+        h3.innterText = "Poo Poo"
+    }
 
 </script>
