@@ -214,6 +214,7 @@ export default class CircleSynth extends AbstractInteractive{
             // make this into an accessible button
             path.setAttribute("role", "button")
             path.setAttribute("tabindex", "0")
+            path.setAttribute("oncontextmenu", "return false;")
             path.setAttribute("aria-label", note.noteName )
 
             this.noteLibrary.set( path, notes[i] )
