@@ -103,7 +103,7 @@ export default class CircleSynth extends AbstractInteractive{
         // console.info("FREQ", value, this.frequencyElement.textContent )
     }
 
-    constructor( notes, noteOn, noteOff, setMode, mode=0, octave=4 ){
+    constructor( notes, noteOn, noteOff, setMode, setTimbre, mode=0, octave=4 ){
 		super()
 
         const chordOn = (noteModel, velocity=1, id=0, idOffset=0) => {
@@ -133,7 +133,7 @@ export default class CircleSynth extends AbstractInteractive{
         this.keyElements = this.createKeys(notes, ".circle-of-fifths-tonics path", 3)
         this.keyElements.push(...this.createKeys(notes, ".circle-of-fifths-harmonies path" ))
         this.addInteractivity( this.keyElements, chordOn, chordOff )  
-        this.addControls( setMode )
+        this.addControls( setMode, setTimbre )
 
         this.frequency = octave
         this.frequencyElement.addEventListener("click",e =>{
@@ -141,7 +141,7 @@ export default class CircleSynth extends AbstractInteractive{
             this.frequency = OCTAVE_NUMBERS[index]
         })
 
-        // now update the face
+        // now update the face to match the mode
         this.setEmoji()
 	}
 
@@ -150,10 +150,13 @@ export default class CircleSynth extends AbstractInteractive{
      */
     setEmoji(){
         const emoji = getEmojiForScaleAndMode( this.scaleType, this.modeIndex )
+        const modeString = this.modeName
         this.emoji.textContent = emoji
+        this.toneElement.textContent = modeString
+        this.toneElement.setAttribute("startOffset", (39.5 - (modeString.length * 0.5)) + "%")
     }
 
-    addControls( setMode ){
+    addControls( setMode, setTimbre ){
         this.octaveSelector = this.element.querySelectorAll("input[name=octave]")
         this.octaveSelector.forEach(radioButton => {
             radioButton.addEventListener("change", e => {
@@ -176,13 +179,14 @@ export default class CircleSynth extends AbstractInteractive{
 
         const emojiHitArea = this.element.querySelector(".fifths-emotion")
         emojiHitArea.addEventListener("click", e => {
-            const newMode = (this.mode + 1) % TUNING_MODE_NAMES.length
+            const newMode = (this.modeIndex + 1) % TUNING_MODE_NAMES.length
             this.mode = setMode( TUNING_MODE_NAMES[newMode] )
             // console.info("emoji pressed to mode", this.mode)
             e.preventDefault()
         })
         emojiHitArea.addEventListener("dblclick", e => {
             // console.info("emoji double clicked to mode", this.mode)
+            setTimbre()
             e.preventDefault()
         })
     }

@@ -634,11 +634,18 @@ const setMode = (musicalMode) => {
 
 /**
  * Set the shape of this sound
+ * (or select a random one if not specified)
  * @param {String|Number} timbre 
  */
 const setTimbre = (timbre) => {
-    if (!OSCILLATORS.includes(timbre))
-    {
+
+    if (!timbre){
+        // choose a random timbre
+        timbre = getRandomWaveTableName()
+    }
+                                                                                               
+    if (!OSCILLATORS.includes(timbre)){
+
         // const timbreSanitised = " " + timbre.replaceAll("_","") 
         // const lowerCaseTimbre = timbre.toLowerCase()
         getWaveTable(timbre).then( waveTable =>{
@@ -954,7 +961,7 @@ const createCircularSynth = (musicalMode, musicalOctave) => {
     //     return path
     // })
 
-    const circularSynth = new CircleSynth( fifthData, chordOn, chordOff, setMode, musicalMode, musicalOctave )
+    const circularSynth = new CircleSynth( fifthData, chordOn, chordOff, setMode, setTimbre, musicalMode, musicalOctave )
     // const f5 = createChord( fifthData, circleIntervals.major, 0, mode, false, true )
     //console.info("COF", {f5, fifthData, fifthIndexes }) 
     return circularSynth
