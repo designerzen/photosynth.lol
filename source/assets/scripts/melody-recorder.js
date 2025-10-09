@@ -32,10 +32,10 @@ export class MelodyRecorder{
         if (arrayDataString)
         {
             const arrayData = JSON.parse(arrayDataString)
-            console.error({arrayData, arrayDataString}, this.getRecording())
+            // console.error({arrayData, arrayDataString}, this.getRecording())
 
             arrayData.forEach(item =>{
-                 console.error({item})
+                //  console.error({item})
                  this.#melodyRecorder.add(item)
             })
             return this.#melodyRecorder

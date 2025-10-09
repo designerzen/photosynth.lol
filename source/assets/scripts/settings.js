@@ -146,7 +146,7 @@ export const DEFAULT_SETTINGS = {
     useGamepads : true,
     useKeyboard: true, 
     loadFromZips : true,
-    debug : true
+    debug : false
 }
 
 export const SETTING_KEYS = Object.keys(DEFAULT_SETTINGS)
@@ -159,6 +159,5 @@ export const getSettings = () => {
             SETTINGS[key] = value
         }
     }
-    
     return SETTINGS
 }
