@@ -146,7 +146,7 @@ export default class AudioVisualiser{
         {
             // cycle colours
             this.ctx.strokeStyle = `hsla(${this.count%256}, 90%, 20%, ${ Math.max( 0, this.alpha / 256) })`
-            this.alpha -= 16
+            this.alpha -= 32
             
         }else{
 
