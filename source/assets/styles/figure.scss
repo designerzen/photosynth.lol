@@ -60,7 +60,7 @@ figure{
         padding-bottom: var(--pad);
         background: var(--col-bg);
         border-radius: var(--curve, 4px);
-        margin-top: calc( var(--pad) * 2);;
+        margin-top: calc( var(--pad) * .5 );
     }
 }
 

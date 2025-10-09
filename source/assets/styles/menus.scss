@@ -74,15 +74,26 @@ body > .menu-main{
         }
     }
 
-    &:hover,
-    &:focus,
-    &:focus-within{
+    // sub menus! - open when hovered or inside
+    // &:hover,
+    // &:focus,
+    // &:focus-within{
+    //     z-index: 911;
+    //     ol{
+    //         li{
+    //             transform: translateY( calc(( 1 * (var(--i) - 1) * 100%) ) );
+    //             transition: transform var(--time-long, 300ms) ease-in-out;
+    //         }
+    //     }
+    // }
+    // sub menus! - open when submenu hovered
+    ol:hover,
+    ol:focus,
+    ol:focus-within{
         z-index: 911;
-        ol{
-            li{
-                transform: translateY( calc(( 1 * (var(--i) - 1) * 100%) ) );
-                transition: transform var(--time-long, 300ms) ease-in-out;
-            }
+        li{
+            transform: translateY( calc(( 1 * (var(--i) - 1) * 100%) ) );
+            transition: transform var(--time-long, 300ms) ease-in-out;
         }
     }
 
@@ -173,57 +184,7 @@ body > .menu-main{
 //     }
 // }
 
-@media screen and (min-width: vars.$min-width-3) {
-    .menu-main{
-        ul{
-            --gap:11px;
-            // justify-content: space-around;
-        }
-    }
-}
 
-@media screen and (min-width: vars.$min-width-2) {
-    .menu-main{
-
-        ul{
-            --gap:clamp( 11px, 2vw, calc( 0.5 * var(--pad) ) );
-            //justify-items: baseline;
-        }
-
-        li a{
-            flex-direction: row;
-            flex-wrap:nowrap;
-            font-size: 100%;
-        }    
-    }
-}
-
-// Largest sizes
-@media screen and (min-width: vars.$max-width) {
-
-    .menu-main{
-        // width: fit-content;
-        justify-self: end;
-        
-
-        ul{
-            --gap:1px; //clamp( 11px, 5vw, calc( 1 * var(--pad) ) );
-            // margin:var(--pad) calc( 2 * var(--pad) );
-            // margin-left: 0;
-            // border-radius: 99px;
-            // overflow: hidden;
-            // padding:0 calc( 1.5 * var(--pad) );
-
-            li a{
-                // color:var(--col-plum);
-                
-                &:hover{
-                    border-radius: var(--curve, 4px);
-                }
-            }
-        }
-    }
-}
 
 #menu-accessibility{
 
@@ -254,48 +215,69 @@ body > .menu-main{
         // add a small bottom clean border
         border-top: 1px solid var(--col-bg);
         border-bottom: 4px solid var(--col-bg);
+        width: 100%;
+        box-sizing: border-box;
       
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        background-color: var(--col-accent, black);
 
-        // display: grid;
-        // grid-auto-flow: dense; // column;
+        // width: calc( 100% - 2 * var(--pad));
+        // margin-left: auto;
+        // margin-right: auto;
+      
+        // display: flex;
+        // justify-content: space-between;
+        // flex-wrap: wrap;
+
+        display: grid;
+        grid-auto-flow: column dense; 
         // grid-auto-columns: min-content;
-        // grid-template-columns: repeat(auto-fit, minmax(44px, auto) );
-    
+        // grid-template-rows: repeat(auto-fit, minmax(44px, auto) );
         // grid-template-columns: repeat(auto-fit, minmax(44px, 1fr) );
-        gap:0 var(--gap);
+     
+        grid-template-areas: 
+            "test-size volume-control"
+            "font font"
+            "color-scheme color-scheme";
 
         // as sometimes the radio buttons are taller that the other buttons...
         // align-items: center;
         align-items: stretch;
-        gap:0 calc( var(--pad)  );
+        gap:1px;// calc( var(--pad)  );
     }
 
     li{
         display: inline;
         font-size:var(--font-size-h6);
+        background-color: var(--col-white);
+        padding: calc( var(--pad) / 2 );
     }
 
     .skip-to-content-link{
+        padding: 0;
         position: absolute;
         top:calc(100% + var(--sticky-top, 0) );
-        right:var(--right-hand-column);
+        right:calc( var(--right-hand-column) + var(--pad));
         
     }
     .volume-control-link{
         order:0;
+        grid-area: volume-control;
     }
     .color-scheme-link{
         order:99;
+        grid-area: color-scheme;
     }
     .text-size-link{
-       
+        grid-area:test-size;
+        place-content: center;
+        fieldset{
+            flex-wrap: nowrap;
+        }
     }
     .font-link{
-
+        grid-area: font;
     }
+
     fieldset{
         display: flex;
         flex-wrap: wrap;
@@ -311,6 +293,8 @@ body > .menu-main{
         align-self: center;
         text-align: right;
         padding:0;
+        margin: 0;
+        line-height: 1.05;
         // margin-right:calc( var(--pad) / 2 );
     }
 
@@ -333,6 +317,10 @@ body > .menu-main{
         display: flex;
         align-items: center;
         gap: calc( var(--pad) / 4 );
+    }
+
+    label:has( input:checked ){
+        font-weight: 500;
     }
 
     input[type="radio"] {
@@ -387,8 +375,6 @@ body > .menu-main{
 
 }
 
-
-
 // individual theme radio buttons
 // label[for='palette-default'],
 #palette-default{
@@ -419,3 +405,76 @@ body > .menu-main{
     background-image: url(/source/assets/icons/diversity_2.svg);
 }
 
+
+
+@media screen and (min-width: vars.$min-width-3) {
+    .menu-main{
+        ul{
+            --gap:11px;
+            // justify-content: space-around;
+        }
+    }
+    
+    #menu-accessibility menu{
+        grid-template-areas: 
+            "test-size volume-control"
+            "font font"
+            "color-scheme color-scheme";
+
+    }
+}
+
+@media screen and (min-width: vars.$min-width-2) {
+    .menu-main{
+
+        ul{
+            --gap:clamp( 11px, 2vw, calc( 0.5 * var(--pad) ) );
+            //justify-items: baseline;
+        }
+
+        li a{
+            flex-direction: row;
+            flex-wrap:nowrap;
+            font-size: 100%;
+        }    
+    }
+    
+    #menu-accessibility menu{
+          grid-template-areas: 
+            "test-size volume-control"
+            "font font"
+            "color-scheme color-scheme";
+    }
+}
+
+// Largest sizes
+@media screen and (min-width: vars.$max-width) {
+
+    .menu-main{
+        // width: fit-content;
+        justify-self: end;
+        
+
+        ul{
+            --gap:1px; //clamp( 11px, 5vw, calc( 1 * var(--pad) ) );
+            // margin:var(--pad) calc( 2 * var(--pad) );
+            // margin-left: 0;
+            // border-radius: 99px;
+            // overflow: hidden;
+            // padding:0 calc( 1.5 * var(--pad) );
+
+            li a{
+                // color:var(--col-plum);
+                
+                &:hover{
+                    border-radius: var(--curve, 4px);
+                }
+            }
+        }
+    }
+
+    #menu-accessibility menu{
+       grid-template-areas: 
+            "test-size font color-scheme volume-control";
+    }
+}

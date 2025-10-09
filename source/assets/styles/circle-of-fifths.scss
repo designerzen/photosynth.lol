@@ -250,6 +250,9 @@ svg.circle-of-fifths {
     background-color: var(--col-stone-light);
     background-color:color-mix(in srgb, var(--col-stone-light) 66%, transparent);
 
+    
+   
+ 
     path{
         transition: fill var(--time-quick, 90ms) linear;
         fill:var(--col-accent);
@@ -267,6 +270,16 @@ svg.circle-of-fifths {
 
     textPath{
         color:var(--col-accent);
+        // text-transform: uppercase;
+        text-transform: lowercase;
+        // prevent selected text from changing colours
+        user-select: none;
+    }
+       
+    text{
+        color:currentColor;
+          // prevent selected text from changing colours
+        user-select: none;
     }
 
     // .circle-of-fifths-harmonies{
@@ -300,9 +313,7 @@ svg.circle-of-fifths {
         touch-action: none;
         border-radius: 99%;
         fill:var(--col-warm-grey-light);
-    }
-    text{
-        color:currentColor;
+
     }
 }
 
