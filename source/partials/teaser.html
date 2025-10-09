@@ -2,10 +2,13 @@
     let randomUUID = "id"+Math.random().toString(36).substring(2, 15) + ""
     module.exports = {
        ...locals,
+        id:locals.id ?? 'poster-figure',
         posterHeading: locals.posterHeading || 'FOR YOU AND YOUR FRIENDS!',
         posterSubheading: locals.posterSubheading || 'FOR YOU AND YOUR FRIENDS!',
         posterTagline: locals.posterTagline || 'SMILE POWERED SYNTHESIZER',
-        posterLink: locals.posterLink || '/'
+        posterLink: locals.posterLink || '/',
+        hint: locals.hint ?? true,
+        notes: locals.hint ?? true
     }
 </script>
 
@@ -49,18 +52,17 @@
         }
    }
 
+/*    
     .poster-bg:hover,  
     .poster-bg:focus-within{
         ~ .poster-text text textPath:nth-of-type(1){
             animation: HideText var(--duration, 1s) linear var(--delay, 0s) 1 both;
         }
         ~ .poster-text text textPath:nth-of-type(2){
-            /* display: block; */
-            /* opacity:1; */
             animation: RevealText var(--duration, 1s) linear var(--delay, 0s) 1 both;
         }
     }
-    
+     */
     #poster-figure{
         
         color:var(--poster-text);    
@@ -153,9 +155,10 @@
                 /* animation: FadeTo var(--duration, 1s) linear var(--delay, 0s) 1 both;
                 transition: opacity 42ms, transform 42ms;
                 transition-delay: var(--delay, 0s),  var(--delay, 0s); */
-                    
+                
+                /*    
                 animation: Unblur var(--duration, 1s) linear var(--delay, 0s) 1 both;
-                /* animation: 
+                animation: 
                     Unblur var(--duration, 1s) linear var(--delay, 0s) 1 both,
                     AppearText var(--duration, 1s) ease-out calc( 2 * var(--delay, 0s)) 1 both; */
 
@@ -272,7 +275,7 @@
             opacity: 1;
         }
     }
-    @keyframes RevealText {
+    /* @keyframes RevealText {
         0%{
             opacity: 0;
             display: block;
@@ -294,7 +297,7 @@
             opacity: 0;
             display: none;
         }
-    }
+    } */
     @keyframes Mouth {
         0%{
             transform: scale(0.9);
@@ -309,7 +312,7 @@
 </style>
 
 <a class="poster-content flood" href="{{posterLink}}">
-    <figure id="poster-figure" role="figure">
+    <figure id="{{id}}" role="figure">
         
         <svg id="filters">
             <defs>
@@ -431,13 +434,13 @@
                         xlink:href="#subheadline-circle-lower"
                         startOffset="70.25%"
                         textLength="90%">{{{posterSubheading}}}</textPath>
-                    <textPath
+                    <!-- <textPath
                         class="poster-text-h3"
                         font-size="90" 
                         alignment-baseline="bottom" 
                         xlink:href="#subheadline-circle-lower"
                         startOffset="70.25%"
-                        textLength="90%">WITNESS THE FITNESS</textPath>
+                        textLength="90%">WITNESS THE FITNESS</textPath> -->
                     </text>
 
                 <text textLength="1205">
@@ -453,36 +456,42 @@
 
         </svg>
 
-        <div inert class="poster-overlay overlaid-notes" aria-hidden="true">
-            <i class="note-animated active" aria-hidden="true"></i>
-            <i class="note-animated active" aria-hidden="true"></i>
-            <i class="note-animated active" aria-hidden="true"></i>
-            <i class="note-animated active" aria-hidden="true"></i>
-            <i class="note-animated active" aria-hidden="true"></i>
-            <i class="note-animated active" aria-hidden="true"></i>
-            <i class="note-animated active" aria-hidden="true"></i>
-            <i class="note-animated active" aria-hidden="true"></i>
-            <i class="note-animated active" aria-hidden="true"></i>
-            <i class="note-animated active" aria-hidden="true"></i>
-        </div>
+        
+        <if condition="notes === true">
+            <div inert class="poster-overlay overlaid-notes" aria-hidden="true" inert>
+                <i class="note-animated active" aria-hidden="true"></i>
+                <i class="note-animated active" aria-hidden="true"></i>
+                <i class="note-animated active" aria-hidden="true"></i>
+                <i class="note-animated active" aria-hidden="true"></i>
+                <i class="note-animated active" aria-hidden="true"></i>
+                <i class="note-animated active" aria-hidden="true"></i>
+                <i class="note-animated active" aria-hidden="true"></i>
+                <i class="note-animated active" aria-hidden="true"></i>
+                <i class="note-animated active" aria-hidden="true"></i>
+                <i class="note-animated active" aria-hidden="true"></i>
+            </div>
+        </if>
         
         <canvas>
 
         </canvas>
 
-        <p class="poster-instructions">Click to Learn more!</p>
+        <if condition="hint === true">
+            <p class="poster-instructions">Click to Learn more!</p>
+        </if>
 
         <figcaption class="sr-only">Instant Musical Superpowers, for you and your friends!</figcaption>
     </figure>
 </a>
 
-<nav hidden>      
+<!-- <nav hidden>      
     <a href="/">Learn about the tech and science</a>
     <a href="https://photosynth.app" target="_blank">Play with the software</a>
-</nav>  
+</nav>   -->
 
 <script>
     const e = document.getElementById("poster-figure")
+    
     e.querySelectorAll(".note-animated").forEach( (el, index) => {
         el.style.setProperty("--delay", `${index * 0.2}s`)
         el.style.setProperty("--col-accent", `hsla( ${ Math.random() * 360 }%, 0.5, 0.5, 0.5 )`)
@@ -494,27 +503,98 @@
     const h3 = document.querySelector(".poster-text-h3")
     const h4 = document.querySelector(".poster-text-h4")
 
-    // we can change any of the text
-    const animation = h3.animate(
-        [
-            { 
-                filter: "blur(0px)",
-                opacity:0
-            },
-            { 
-                filter: "blur(120px)",
-                opacity:0
-             }
-        ],
-        {
-            duration: 3000,
-            iterations: infinite,
-        }
-    )
+    // 6 chars max
+    const H1S = [
+        "SUPER",
+        ""
+    ]
 
-    animation.onfinish = () => {
-        // swap out the text and start a new animation
-        h3.innterText = "Poo Poo"
+    // 7 chars max
+    const H2S = [
+        "POWERS",
+        "WITH FRIENDS"
+    ]
+
+    // 
+    const H3S = [
+        "Poo poo",
+        "wee wee",
+        "flem, flem"
+    ]
+    const H4S = [
+        "Donkamatic",
+        "Roland Corporation TB 303",
+        "Test of a super long string in place"
+    ]
+
+    const revealText = (textElement, header, index=0, delay=0, durationIn=606, durationOut=909, durationPause=4000 ) => {
+
+        let interval = -1
+
+        // cancel any previous 
+        clearInterval(interval)
+
+        // as the element is already hidden, we can set the text
+        textElement.textContent = header[index]
+
+        const transitionOut = () => {
+            const animationOut = textElement.animate(
+                [
+                    // FROM
+                    { 
+                        filter: "blur(0px)",
+                        opacity:1
+                    },
+                    // TO
+                    { 
+                        filter: "blur(120px)",
+                        opacity:0
+                    }
+                ],
+                {
+                    duration: durationOut,
+                    iterations: 1,
+                    delay
+                }
+            )
+
+            animationOut.onfinish = () => {
+                index = (1+index) % header.length
+                console.error("animation OUT complete", header, index )
+                revealText( textElement, header, index, durationIn, durationOut )
+            }
+        }
+    
+        // we can change any of the text
+        const animationIn = textElement.animate(
+            [
+                // FROM
+                { 
+                    filter: "blur(120px)",
+                    opacity:0
+                },
+                // TO
+                { 
+                    filter: "blur(0px)",
+                    opacity:1
+                }
+            ],
+            {
+                duration: durationIn,
+                iterations: 1,
+            }
+        )
+
+        animationIn.onfinish = () => {
+            clearInterval(interval)
+            console.error("animation IN complete", header, index )
+            interval = setTimeout( transitionOut, durationPause )
+        }     
     }
+
+    revealText( h1, H1S, 0, 500 )
+    revealText( h2, H2S, 0, 1000 )
+    revealText( h3, H3S, 0, 1500 )
+    revealText( h4, H4S, 0, 2000 )
 
 </script>
