@@ -500,18 +500,25 @@ aside > label[for="toggle-midi"]{
 
 #button-text-size-increase,
 #button-text-size-decrease{
+
+    box-sizing: border-box;
+    border-radius:var(--curve, 4px);
+    border:2px solid var(--col-stone, var(--col-charcoal));
+
     &::before{
         content:'';
         display: block;
         top:0;
         left:0;
         position: absolute;
+
         width: 100%;
         height: 100%;
         background-image:url("/source/assets/icons/font_decrease_filled.svg");
         background-size: contain;
         background-repeat: no-repeat;
-        // make black
+        background-position: center;
+        // make the icnon black
         filter:brightness(0);
     }
     &:hover,&:active{

@@ -19,14 +19,13 @@ body > .menu-main{
     pointer-events: auto;
     width: 100%;
     
-    background-color:var(--col-accent);
 
     > ul{
         max-width:calc( var(--max-section-width)  );
   
         --gap:1px;//clamp( 11px, 2vw, calc( 0.5 * var(--pad) ) );
         // margin-top:auto;
-        background-color:var(--col-red);
+
         display: grid;
         // flex-wrap: wrap;
         grid-auto-flow: dense; // column;
@@ -34,7 +33,7 @@ body > .menu-main{
         grid-template-columns: repeat(auto-fit, minmax(44px, auto) );
         // grid-template-columns: repeat(auto-fit, minmax(44px, 1fr) );
         gap:0 var(--gap);
-
+        background-color:var(--col-red);    
         list-style: none;
         // overflow: hidden;
         
@@ -217,8 +216,9 @@ body > .menu-main{
         border-bottom: 4px solid var(--col-bg);
         width: 100%;
         box-sizing: border-box;
-      
-        background-color: var(--col-accent, black);
+              
+        
+        background-color:var(--col-stone, var(--col-charcoal));
 
         // width: calc( 100% - 2 * var(--pad));
         // margin-left: auto;
@@ -288,6 +288,7 @@ body > .menu-main{
         // padding:1px calc(var(--pad)/2) 1px calc(var(--pad)/8);
     }
     legend{
+        color: var(--col-charcoal);
         float: left;
         vertical-align: baseline;
         align-self: center;
@@ -317,10 +318,16 @@ body > .menu-main{
         display: flex;
         align-items: center;
         gap: calc( var(--pad) / 4 );
+        flex-grow: 1;
+        flex-shrink: 1;
     }
 
     label:has( input:checked ){
         font-weight: 500;
+    }
+
+    label[for="volume"]{
+        order: -1;
     }
 
     input[type="radio"] {
@@ -372,7 +379,9 @@ body > .menu-main{
     background: linear-gradient(0deg, transparent 49%, black, transparent 51%);
     padding-left: 0;
     padding-right: 0;
-
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 100%;
 }
 
 // individual theme radio buttons
