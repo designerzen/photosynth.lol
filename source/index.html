@@ -2,11 +2,11 @@
 <html lang="en" data-theme="default" data-scale="major">
 <include src="./source/partials/head.html"></include>
 <body>   
-       <include 
+    <include 
         src="./source/partials/header.html" 
         locals='{
-            "h1": "Smile Powered Pop Music with the <cite>Photo&ZeroWidthSpace;SYNTH</cite>!",
-            "h2": "Royal Society Summer Science Exhibition, <time datetime=\"2025-07-01 09:00\">July 1<sup>st</sup></time> to <time datetime=\"2025-07-07 09:00\">July 6<sup>th</sup>, 2025</time>.",
+            "h1":"Smile Powered Pop Music with the <cite>Photo&ZeroWidthSpace;SYNTH</cite>!",
+            "h2":"Science+ Media Museum : Future of Sound",
         }'>
     </include>
     <include src="./source/partials/nav.html"></include>
@@ -15,95 +15,22 @@
 
         <!-- Introduction data-full-keyboard -->
         <section id="introduction" class="full-width full-height" inert data-observe>
-            
-            <include src="./source/partials/hero.html"></include>
-           
-            <!-- Background wavy mask hero-mask-wavy-top-only.svg
-            <div id="hero-mask" class="sticky full-width page">
-                <img class="flood"
-                    width="9000" height="2160"
-                    src="./assets/figures/hero-mask-wavy.svg"  
-                    alt="">
-            </div> -->
-
-            <!-- Warnings & Tips for use --> 
-            <aside class="warning">
-                <h4 class="h6">Warning</h4>
-                <p>Please be very careful using this website if you are photosensitive</p>
-            </aside> 
-
+           <include src="./source/partials/hero.html"></include>
+           <include src="./source/partials/warning.html"></include>
         </section>
 
-        <!-- Teaser -->
-        <section id="teaser" class="shadow wavey" data-observe>
-           <article class="split page bg" data-readable>
-            
-                <header>
-                    <h3 class="underline heading-icon">Introducing the <cite>Photo<wbr>SYNTH</cite>, the happiest way to make music!</h3>
-                </header>
-
-                <p>The smile powered synthesizer that grants you and your friends radical new musical superpowers.</p>
-                <p>This magic mirror tracks your movements, moods and expressions and converts them into music — giving your reflection a musical purpose!</p> 
-                <p>It is fun and easy to make a musical masterpiece, especially if you collaborate with friends.</p>  
-                <p>Rather than playing a musical instrument, this musical instrument plays you!</p>
-                
-                <p>Designed from the ground up to be the most accessible musical instrument possible with the sole intention of empowering everybody to make lovely music! <em>Express yourself!</em></p>
-                
-                <blockquote class="viewport-height">
-                    <p class="quote">
-                        Magic Mirror on the wall, 
-                        <br>who's the fairest of them all?
-                    </p>
-                    <!-- <p class="citation">Snow White<cite></cite></p> -->
-                </blockquote>
-            
-                <p>Without any training you can instantly make great music using movements familiar to you. Easy... Like a Sunday morning!</p>
-                <p>Created alongside <a href="https://drakemusic.org">Drake Music Charity</a>, specialists in accessible technology, and with the help &amp; guidance of hundreds of differently-abled people, this mixed-reality pop music machine will put a smile on your face and make it musical =D</p>
-
-                <a class="cta center" href="https://photosynth.app" target="_blank">Play with it now online!</a>
-            </article>
-            
-           <article class="text-scroller-vertical page"> 
-                <h5>
-                    The PhotoSYNTH is a        
-                </h5>
-                <ul role="list">
-                    <li class="sticky">Collaborative</li>
-                    <li class="sticky">Multiplayer</li>
-                    <li class="sticky">Mixed Reality</li>
-                    <li class="sticky">Sympathetic Synthesizer</li>
-                    <li class="sticky">Musical Instrument</li>
-                    <li class="sticky">Science & Research Project</li>
-                </ul>
-            </article>
-
-            
-                
-            <aside id="biography">
-
-                <picture class="float">
-                    <source srcset="/source/assets/figures/zen-comic-portrait.png?as=avif&width=1024" type="image/avif" />
-                    <source srcset="/source/assets/figures/zen-comic-portrait.png?as=webp&width=1024" type="image/webp" />
-                    <source srcset="/source/assets/figures/zen-comic-portrait.png?width=1024" type="image/jpeg" />
-                    <img loading="lazy" class="float comic" width="1852" height="2883" src="/source/assets/figures/zen-comic-portrait.png?width=1024" alt="Photograph of zen Olenski.">
-                </picture>
-
-                <p>
-                    The PhotoSYNTH is the result of a long term collaboration between Drake Music's legendary research and development team DMLab, and zen Olenski from Awesomething Social Enterprise. 
-                    Together they have made magical musical bowler hats, beard organs, a whole lotta gloves, and various other experimental interfaces, some of which have ended up in the hands of disabled artists and musicians in studios, bedrooms and classrooms around the world.
-                </p> 
-                <!-- <img class="logo" width="100" height="100" src="/source/assets/logos/photosynth.svg" alt="PhotoSYNTH logo.">
-                <img class="logo" width="100" height="100" src="/source/assets/logos/awesomething-logo.svg" alt="Awesomething Social Enterprise."> -->
-               
-            </aside>
-
-        </section>
+       <!-- Teaser -->
+        <include src="./source/partials/project-summary.html"></include>
 
         <!-- MIDI Equipment ------------------------------------------- -->
         <include src="./source/partials/midi.html"></include>
 
         <!-- About the event -->
-        <include src="./source/partials/event-royal-society.html"></include>
+        <!-- <include src="./source/partials/event-royal-society.html"></include> -->
+        <!-- <include src="./source/partials/event-royal-society.html"></include> -->
+        <section id="events">
+
+        </section>
 
     <!-- Waveform visualiser -->
     <!-- <canvas id="visualiser" class="sticky viewport-width" inert width=800 height=400></canvas> -->
@@ -120,9 +47,10 @@
         <!-- History -->
         <include src="./source/partials/history.html"></include>
         
-        <!-- Radio -->
+        <!-- Radio
         <include src="./source/partials/radio.html"></include>
-
+        -->
+        
         <!-- Frequently Asked Questions -->
         <include src="./source/partials/faq.html"></include>
        
@@ -130,19 +58,11 @@
         <canvas id="mouse-visualiser" inert></canvas>
         <canvas id="wallpaper"></canvas>
     </main>
-    
-    <label hidden>
-        Load Progress
-        <meter id="load-progress" min="0" max="1" value="0"></meter>
-    </label>
-
-    <!-- Bottom section -->
-    <include src="./source/partials/footer.html"></include>
- 
-    <a href="#" class="back-to-top button">Back to Top</a>
-
+   
     <!-- Password protection -->
     <!-- <include src="./source/partials/password.html"></include> -->
-   
+ 
+    <include src="./source/partials/footer.html"></include>
+    
 </body>
 </html>
