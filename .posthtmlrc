@@ -11,6 +11,7 @@
         "strictMode":true,
         "removeScriptLocals":true,
         "locals":{
+            "cta": false,
             "script":"./assets/scripts/index.js",
             "scripts":[],
             "gallery":[]
