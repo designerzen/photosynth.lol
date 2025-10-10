@@ -91,7 +91,7 @@ body > .menu-main{
     ol:focus-within{
         z-index: 911;
         li{
-            transform: translateY( calc(( 1 * (var(--i) - 1) * 100%) ) );
+            transform: translateY( calc(( var(--dir,1) * (var(--i) - 1) * 100%) ) );
             transition: transform var(--time-long, 300ms) ease-in-out;
         }
     }
@@ -182,6 +182,14 @@ body > .menu-main{
 //         }
 //     }
 // }
+
+
+.in-viewport ~ .menu-main{
+
+    ol{
+        --dir:-1;
+    }
+}
 
 
 
