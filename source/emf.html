@@ -1,83 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="default" data-scale="major">
 <include src="./source/partials/head.html" locals='{
-    "title": "PhotoSYNTH ▷ Royal Society Summer Exhibition 2025",
+    "title": "PhotoSYNTH ▷ ElectroMagnetic Fields 2024",
     "script":locals.script
 }'></include>
 <body>   
-
-      <include 
+    <include 
         src="./source/partials/header.html" 
         locals='{
-            "h1":"Smile Powered Music",
-            "h2":"Royal Society Summer Exhibition 2025"
+            "h1":"Smile Powered Pop Music with the <cite>Photo&ZeroWidthSpace;SYNTH</cite>!",
+            "h2":"ElectroMagnetic Fields"
         }'>
     </include>
-
-    <include src="./source/partials/nav.html"></include>
+    
+    <include 
+        src="./source/partials/nav.html"
+        locals='{
+            "hashes":[]
+        }'>
+    </include>
     
     <main id="main-content">
 
-        <!-- Introduction data-full-keyboard -->
+        <!-- Introduction -->
         <section id="introduction" class="full-width full-height" inert data-observe>
-            
             <include src="./source/partials/hero.html"></include>
-           
-            <!-- Background wavy mask hero-mask-wavy-top-only.svg
-            <div id="hero-mask" class="sticky full-width page">
-                <img class="flood"
-                    width="9000" height="2160"
-                    src="./assets/figures/hero-mask-wavy.svg"  
-                    alt="">
-            </div> -->
-
-            <!-- Warnings & Tips for use --> 
-            <aside class="warning">
-                <h4 class="h6">Warning</h4>
-                <p>Please be very careful using this website if you are photosensitive</p>
-            </aside> 
-
+            <include src="./source/partials/warning.html"></include>
         </section>
 
-        <!-- Project Summary -->
+        <!-- Teaser -->
         <include src="./source/partials/project-summary.html"></include>
-      
+
         <!-- MIDI Equipment ------------------------------------------- -->
         <include src="./source/partials/midi.html"></include>
 
-        <!-- About the event -->
-        <include src="./source/partials/event-royal-society.html"></include>
-
+        <!-- About the event  -->
+        <include src="./source/partials/event-emf.html"></include>
+       
     <!-- Waveform visualiser -->
     <!-- <canvas id="visualiser" class="sticky viewport-width" inert width=800 height=400></canvas> -->
             
         <!-- SCIENCE -->
         <include src="./source/partials/science.html"></include>
        
-        <!-- DMLab -->
+        <!-- DMLab 
         <include src="./source/partials/drake.html"></include>
+        -->
       
-        <!-- Accessible Musical Instrument Collection -->
+        <!-- Accessible Musical Instrument Colleciton -->
         <include src="./source/partials/amic.html"></include>
       
         <!-- History -->
         <include src="./source/partials/history.html"></include>
-          
-        <!-- Gallery -->
-        <include src="./source/partials/media-royal-society.html"></include>
-
-        <!-- Radio -->
+        
+        <!-- Radio 
         <include src="./source/partials/radio.html"></include>
+        -->
 
         <!-- Frequently Asked Questions -->
-        <include src="./source/partials/faq.html"></include>
+        <!-- <include src="./source/partials/faq.html"></include> -->
        
         <!-- Interactive wallpapers -->
         <canvas id="mouse-visualiser" inert></canvas>
         <canvas id="wallpaper"></canvas>
     </main>
-    
+        
     <include src="./source/partials/footer.html"></include>
-
+ 
 </body>
 </html>
