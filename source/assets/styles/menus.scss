@@ -19,6 +19,10 @@ body > .menu-main{
     pointer-events: auto;
     width: 100%;
 
+    background-color: var(--col-red);
+    // background-color:color-mix( var(--col-red), black 50%);
+           
+
     li{
         a{
             --size:calc(1lh + 4px); 
@@ -29,7 +33,7 @@ body > .menu-main{
 
             font-size: 75%;
             
-            pointer-events: auto;
+            // pointer-events: auto;
 
             z-index: 1;
             padding:0 calc(var(--pad) * 0.5 );
@@ -180,7 +184,7 @@ body > .menu-main{
         }
 
         li{
-             pointer-events: auto;
+            
             min-width: 42ch;
             // grid-area:1/-1;
             background: var(--col-red);
@@ -188,7 +192,7 @@ body > .menu-main{
             transition: 
                 opacity var(--time-long, 300ms) linear,
                 transform var(--time-long, 300ms) ease-in-out;
-            transition-delay: calc( 2ms + var(--i, 0) * var( --overlap, 0.5 ) * 80ms);
+            transition-delay: calc( 2ms + var(--i, 0) * var( --overlap, 0.5 ) * 60ms);
         }
 
         // li:nth-of-type(1){
@@ -213,7 +217,7 @@ body > .menu-main{
                     padding:0 var(--pad);
                     flex-direction: row;
                     justify-content: flex-start;
-                    place-content: left;
+                    place-content: start;
                 }
             }
         }
@@ -236,6 +240,7 @@ body > .menu-main{
              transform: translateY( calc( min( var(--dir), 0 ) * 100%)) ;
             
              li{
+                pointer-events: auto;
                 transform: translateY( 0 );
             }
         }
@@ -260,7 +265,7 @@ body > .menu-main{
     .menu-sub-list{
         pointer-events: none;
         > a{
-              pointer-events: auto;
+            pointer-events: auto;
         }
     }
 }
