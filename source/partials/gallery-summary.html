@@ -1,0 +1,78 @@
+<!-- <script locals>
+    const image = {
+        src: 'https://picsum.photos/200/300',
+        alt: 'A random image from Picsum',
+        width: 1080,
+        height: 920
+    }
+
+    const images = [
+        image,
+        image,
+        image,
+        image,
+        image
+    ]
+
+    module.exports = {
+        images,
+        image,
+        title: locals.title || 'Gallery'
+    }
+</script> -->
+
+<script locals>
+    let randomUUID = "id"+Math.random().toString(36).substring(2, 15) + ""
+    module.exports = {
+       ...locals,
+        id: locals.id || randomUUID,
+        title: locals.title || 'Gallery',
+        summary: true
+    }
+</script>
+
+<section class="gallery" id="{{id}}">
+    <h4></h4>
+
+    <details>
+
+        <summary>
+            <each loop="image, index in images">
+                <if condition="index < 5">
+                    <li class="gallery-thumbnail-item gallery-thumbnail-item-{{index}} {{image.width>image.height*1.3 ? 'landscape' : image.height > image.width*1.3 ? 'portrait' : 'squared'}}  {{image.classes || ''}}" style="--width:{{image.width}}; --height:{{image.height}};">
+                        <figure 
+                            class="gallery-thumbnail thumbnail-{{index}}" 
+                            role="figure">
+                        
+                            <picture 
+                                class="gallery-image image-{{index}}"
+                                style="--object-position-x:{{image.positionX??'50%'}};--object-position-y:{{image.positionY??'50%'}};">
+                                <source srcset="{{image.src}}?as=avif&width={{image.width}}" type="image/avif" />
+                                <source srcset="{{image.src}}?as=webp&width={{image.width}}" type="image/webp" />
+                                <source srcset="{{image.src}}?width={{image.width}}" type="image/jpeg" />
+                                <img 
+                                    id="gallery{{id}}image{{index}}"
+                                    loading="{{image.loading || 'lazy'}}"
+                                    src="{{image.src}}?width={{image.width}}" 
+                                    width="{{image.width}}" 
+                                    height="{{image.height}}" 
+                                    data-attribution="{{image.attribution ? image.attribution : ''}}"
+                                    alt="{{image.alt}}" />
+                            </picture>
+
+                            <figcaption class="gallery-image-caption caption-{{index}}">
+                                {{image.alt}}
+                            </figcaption>
+
+                        </figure>
+
+                    </li>
+                </if>
+            </each>
+        </summary>
+        
+        <include src="./source/partials/gallery.html"></include>
+
+    </details>
+    
+</section>

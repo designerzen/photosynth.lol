@@ -1,25 +1,40 @@
 <script locals>
-    locals.path = locals.path ?? ''
+    module.exports = {
+       ...locals,
+       path : locals.path ?? '',
+       hashes:[
+        'science','research','laboratory', 'FAQ'
+       ]
+       // history
+    }
 </script>
 
 <nav class="menu-main">
     <ul role="list">
-        <li><a href="{{path}}#introduction">About</a></li>
-        <ol class="menu-events">
-             <li><a href="{{path}}#events">Events</a></li>
-             <li><a href="wac.html">Web Audio Conference 2025</a></li>
-             <li><a href="v&a.html">Victoria &amp; Albert</a></li>
-             <li><a href="science-media-museum.html">Science+ Media Museum 2025</a></li>
-             <li><a href="adc.html">Audio Developer Conference 2025</a></li>
-             <li><a href="royal-society.html">Royal Society Summer Exhibition 2025</a></li>
-             <!-- <li><a href="mit.html">MIT</a></li> -->
-             <!-- <li><a href="beyond.html">Beyond</a></li> -->
-             
-        </ol>
-        <li><a href="{{path}}#science">Science</a></li>
+        <li><a href="/{{path}}#introduction">About</a></li>
+        <li class="menu-sub-list">
+            <a href="{{path}}#main-menu-events">Events</a>
+            <ol id="main-menu-events" class="menu-events menu-sub-list-items">
+                <li><a href="wac.html">Web Audio Conference 2025</a></li>
+                <li><a href="v&a.html">Victoria &amp; Albert</a></li>
+                <li><a href="science-media-museum.html">Science+ Media Museum 2025</a></li>
+                <li><a href="adc.html">Audio Developer Conference 2025</a></li>
+                <li><a href="royal-society.html">Royal Society Summer Exhibition 2025</a></li>
+                <li><a href="mit.html">MIT Reality Hack 2025</a></li>
+                <li><a href="beyond.html">Beyond 2024</a></li>     
+                <li><a href="emf.html">ElectroMagnetic Fields 2024</a></li>     
+                <li><a href="ieee.html">IEEE 1<sup>st</sup> International Meeting of the Muscial Metaverse 2024</a></li>     
+            </ol>
+        </li>
+
+        <each loop="hash, index in hashes">
+            <li><a href="{{path.toLowerCase()}}#{{hash}}">{{hash}}</a></li>
+        </each>
+
+        <!-- <li><a href="{{path}}#science">Science</a></li>
         <li><a href="{{path}}#research">Research</a></li>
         <li><a href="{{path}}#laboratory">Lab<span class="expansion">oratory</span></a></li>
-        <li><a href="{{path}}#faq">FAQ</a></li>
+        <li><a href="{{path}}#FAQ">FAQ</a></li> -->
         <!-- <li><a href="/#history">History</a></li> -->
     </ul>
 </nav>

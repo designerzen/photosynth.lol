@@ -1,0 +1,26 @@
+<div class="box" id="share-menu" hidden>
+    <h6>Tell your friends and family about the event!</h6>
+    <share-menu
+        id="share"
+        title="Share!"
+        text="Share this event"
+        url="https://photosynth/"
+        image="https://photosynth/assets/logos/photosynth-square.svg"
+        dialog-title="Share now"
+        copy-hint="Copy to clipboard"
+        handle="always"
+        no-backdrop
+        >
+        <share-target-email></share-target-email>
+        <share-target-facebook></share-target-facebook>
+        <share-target-telegram></share-target-telegram>
+    </share-menu>
+
+    <label class="button-share-label">
+        <span class="sr-only">Quick share</span>
+        <button class="button-share" onclick="share.share()">
+            Share this site
+        </button>
+    </label>
+    
+</div>

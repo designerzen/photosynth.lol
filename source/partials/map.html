@@ -1,0 +1,22 @@
+
+<script locals>
+    let randomUUID = "id"+Math.random().toString(36).substring(2, 15) + ""
+    module.exports = {
+       ...locals,
+        venue: "The Victoria & Albert Museum",
+        frame: locals.frame || 'https://www.openstreetmap.org/export/embed.html?bbox=-0.1344162225723267%2C51.50472238057011%2C-0.1302212476730347%2C51.506889393716634&amp;layer=mapnik',
+        link: locals.link || 'https://www.openstreetmap.org/?#map=18/51.505806/-0.132319',
+        address: locals.address ||  "6-9 Carlton House Terrace, London, SW1Y 5AG, United Kingdom"
+    }
+</script>
+
+<figure role="figure" class="venue-address" aria-labelledby="figcaption" >
+    <iframe class="map" width="1080" height="540" src="{{frame}}"></iframe>
+    <a class="link-map" href="{{link}}">View Larger Map</a>
+    <figcaption> 
+        {{{venue}}} is located at :
+        <address>
+            {{{address}}}
+        </address>                       
+    </figcaption>
+</figure>

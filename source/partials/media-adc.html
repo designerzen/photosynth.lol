@@ -1,0 +1,36 @@
+<!-- {"src": "/source/assets/photos/event/dcf1361.jpg", "alt": "PhotoSYNTH event candid 1361", "width": 1620, "height": 1080}, -->
+<article class="section section-event">
+    
+    <header>
+        <h3>Gallery</h3>
+        <h4>Royal Society Summer Exhibition 2025</h4>
+    </header>
+
+    <section>
+        <h4>Event</h4>
+        <include 
+            src="./source/partials/gallery.html" 
+            locals='{ 
+                "images":[
+
+                ]
+            }'>
+        </include>
+    </section>
+
+    <section>
+        <h4>Venue</h4>
+        <include 
+            src="./source/partials/gallery.html" 
+            locals='{ 
+                "images":[
+                    
+                ]
+            }'>
+    </section>
+
+     <script type="module">
+        import {createGallery} from "./assets/scripts/gallery.js"
+        createGallery()
+    </script>
+</article>

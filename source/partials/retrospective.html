@@ -1,0 +1,27 @@
+<script locals>
+    let randomUUID = "id"+Math.random().toString(36).substring(2, 15) + ""
+    module.exports = {
+       ...locals,
+        id: locals.id || randomUUID,
+        title: locals.title ?? 'Gallery',
+        venue: locals.venue ?? 'Exhibition',
+        summary:"<p>Summary</p>"
+    }
+</script>
+
+<section id="retrospective" class="block" data-observe>
+                    
+    <article class="page split shadow bg" data-readable>
+        
+        <header class="underline">
+            <h3 class="heading-icon">Retrospective</h3>
+            <h4>
+                {{venue}}
+            </h4>
+        </header>
+        
+        {{{summary}}}
+        
+    </article>
+
+</section>

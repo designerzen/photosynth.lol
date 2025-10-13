@@ -1,0 +1,38 @@
+<!-- {"src": "/source/assets/photos/event/dcf1361.jpg", "alt": "PhotoSYNTH event candid 1361", "width": 1620, "height": 1080}, -->
+<article class="section section-event">
+    
+    <header>
+        <h3>Gallery</h3>
+        <h4>ElectroMagentic Fields 2024</h4>
+    </header>
+
+   
+    <section>
+        <h4>Event</h4>
+        <include 
+            src="./source/partials/gallery.html" 
+            locals='{ 
+                "images":[
+                    {"src": "/source/assets/photos/zenon.olenski-mit.jpg", "alt": "MIT Reality Hack 2025", "width": 1024, "height": 768, "positionX": "50%", "positionY": "0%"}
+                ]
+            }'>
+        </include>
+    </section>
+
+    <section>
+        <h4>Venue</h4>
+        <include 
+            src="./source/partials/gallery.html" 
+            locals='{ 
+                "images":[
+                    
+                ]
+            }'>
+    </section>
+
+
+     <script type="module">
+        import {createGallery} from "./assets/scripts/gallery.js"
+        createGallery()
+    </script>
+</article>

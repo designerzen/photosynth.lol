@@ -57,7 +57,7 @@
                 <dd><time datetime="2025-07-01 09:00">July 1<sup>st</sup>, 2025</time></dd>
 
                 <dt>End</dt>
-                <dd><time datetime="2025-07-06 09:00">July 6<sup>th</sup>, 2025</time></dd>
+                <dd><time datetime="2025-07-06 18:00">July 6<sup>th</sup>, 2025</time></dd>
 
                 <dt>Venue</dt>
                 <dd>Royal Society</dd>
@@ -151,20 +151,16 @@
             </figure>
         </details>
         
-        
-    
-        <figure role="figure" class="venue-address" aria-label="" >
-    
-            <iframe class="map" width="1080" height="540" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1344162225723267%2C51.50472238057011%2C-0.1302212476730347%2C51.506889393716634&amp;layer=mapnik"></iframe>
-            <a class="link-map" href="https://www.openstreetmap.org/?#map=18/51.505806/-0.132319">View Larger Map</a>
-            <figcaption>
-                The Royal Society is located at :
-                <address>
-                    6-9 Carlton House Terrace, London, SW1Y 5AG, United Kingdom
-                </address>                       
-            </figcaption>
+        <include 
+            src="./source/partials/map.html" 
+            locals='{ 
+                "venue":   "The Royal Society",
+                "frame":   "https://www.openstreetmap.org/export/embed.html?bbox=-0.1344162225723267%2C51.50472238057011%2C-0.1302212476730347%2C51.506889393716634&amp;layer=mapnik",
+                "link":    "https://www.openstreetmap.org/?#map=18/51.505806/-0.132319",
+                "address": "6-9 Carlton House Terrace, London, SW1Y 5AG, United Kingdom"
+            }'>
+        </include>
 
-        </figure>
         <details>
             <summary><h6>Getting there</h6></summary>
             <p>
@@ -174,34 +170,8 @@
                 
             </p>
         </details>
+        
         <a href="https://royalsociety.org/science-events-and-lectures/summer-science-exhibition/" class="cta">Learn more at the official Royal Society Summer Exhibition website</a>
-    
-        <!-- <div class="box" id="share-menu" hidden>
-            <h6>Tell your friends and family about the event!</h6>
-            <share-menu
-                id="share"
-                title="Share!"
-                text="Share this event"
-                url="https://photosynth/"
-                image="https://photosynth/assets/logos/photosynth-square.svg"
-                dialog-title="Share now"
-                copy-hint="Copy to clipboard"
-                handle="always"
-                no-backdrop
-                >
-                <share-target-email></share-target-email>
-                <share-target-facebook></share-target-facebook>
-                <share-target-telegram></share-target-telegram>
-            </share-menu>
-
-            <label class="button-share-label">
-                <span class="sr-only">Quick share</span>
-                <button class="button-share" onclick="share.share()">
-                    Share this site
-                </button>
-            </label>
-            
-        </div> -->
         
         <!-- <a href="https://photosynth.lol">
         <img class="qr" src="/source/assets/diagrams/qr-photosynth_lol.svg" width=256 height=256 alt="QR code for sharing this site"/>

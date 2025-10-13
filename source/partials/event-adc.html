@@ -39,25 +39,25 @@
         
             <dl class="data-address">
                 <dt>Start</dt>
-                <dd><time datetime="2025-07-01 09:00">July 1<sup>st</sup>, 2025</time></dd>
+                <dd><time datetime="2025-11-10 09:00">November 10<sup>th</sup>, 2025</time></dd>
 
                 <dt>End</dt>
-                <dd><time datetime="2025-07-06 09:00">July 6<sup>th</sup>, 2025</time></dd>
+                <dd><time datetime="2025-11-12 20:00">November 12<sup>th</sup>, 2025</time></dd>
 
                 <dt>Venue</dt>
-                <dd>Royal Society</dd>
+                <dd>ADC Bristol - Delta Hotels by Marriott</dd>
 
                 <dt>Address</dt>
                 <dd class="address">
-                    <a href="https://royalsociety.org/about-us/contact-us/carlton-house-terrace-london/">
+                    <a href="https://audio.dev/travel/">
                         <address>
-                            <span class="street-address">6-9 Carlton House Terrace</span><span class="delimiter">, </span><span class="locality">London</span><span class="delimiter">, </span><span class="postal-code">SW1Y 5AG</span><span class="delimiter">, </span><span class="country-name">United Kingdom</span>
+                            <span class="street-address">2 Lower Castle St</span><span class="delimiter">, </span><span class="locality">Bristol</span><span class="delimiter">, </span><span class="postal-code">BS1 3AD</span><span class="delimiter">, </span><span class="country-name">United Kingdom</span>
                         </address>
                     </a>
                 </dd>
     
                 <dt>Location</dt>
-                <dd><a href="#venue">London</a></dd> 
+                <dd><a href="#venue">Marriott Bristol</a></dd> 
 
                 <dt>Category</dt>
                 <dd>Exhibition</dd>
@@ -66,4 +66,36 @@
         </figure>
     
     </aside>
+
+    <article id="venue" class="page">
+        
+        <header>
+            <h4>Located in the Delta Hotel in Bristol</h4>
+        </header>
+
+        <p>
+             Marriott
+        </p>
+
+        <include 
+            src="./source/partials/map.html" 
+            locals='{ 
+                "venue":   "Delta Hotels by Marriott Bristol City Center",
+                "frame":   "https://www.openstreetmap.org/export/embed.html?bbox=-2.5889217853546147%2C51.453926682844084%2C-2.580521106719971%2C51.458205270921866&amp;layer=mapnik",
+                "link":    "https://www.openstreetmap.org/?#map=17/51.456068/-2.584724",
+                "address": "2 Lower Castle St, Bristol BS1 3AD, United Kingdom"
+            }'>
+        </include>
+
+        <details>
+            <summary><h6>Getting there</h6></summary>
+            <p>
+                Bristol is located 120 mi. from London and easily accessible via train. 
+                Bristol Airport is an international airport and is 8 mi. from Bristol city centre.        
+            </p>
+        </details>
+
+        <a href="https://audio.dev/conference/" class="cta">Learn more at the official Royal Society Summer Exhibition website</a>
+        
+    </article>
 </section>
