@@ -63,6 +63,6 @@
     "standardized-audio-context": "^25.3.77",
     "stats-gl": "^3.6.0",
     "stats.js": "^0.17.0",
-    "webmidi": "^3.1.13"
+    "webmidi": "^3.1.14"
   }
 }

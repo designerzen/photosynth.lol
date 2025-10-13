@@ -24,8 +24,8 @@ importers:
         specifier: ^0.17.0
         version: 0.17.0
       webmidi:
-        specifier: ^3.1.13
-        version: 3.1.13
+        specifier: ^3.1.14
+        version: 3.1.14
     devDependencies:
       '@parcel/config-default':
         specifier: 2.16.0
@@ -1871,8 +1871,8 @@ packages:
   weak-lru-cache@1.2.2:
     resolution: {integrity: sha512-DEAoo25RfSYMuTGc9vPJzZcZullwIqRDSI9LOy+fkCJPi6hykCnfKaXTuPBDuXAUcqHXyOgFtHNp/kB2FjYHbw==}
 
-  webmidi@3.1.13:
-    resolution: {integrity: sha512-CEZTHyJviQUI+X7yPNT1BZA7daZQ3ns80C7h0gmlk4Y2UNstPkSca54rzU5ay4HoZQFuOzS1WHwAdAC7Rpfl4w==}
+  webmidi@3.1.14:
+    resolution: {integrity: sha512-K9GzNm0J3R/61NJWAW7ipAJGWU5D/8bEjOir3PymFjLDpbQJ+ygjvm5jx/WQ8atQ1hu23St3lvnc5g1NKbOsrw==}
     engines: {node: '>=8.5'}
 
   with@7.0.2:
@@ -3953,7 +3953,7 @@ snapshots:
 
   weak-lru-cache@1.2.2: {}
 
-  webmidi@3.1.13:
+  webmidi@3.1.14:
     dependencies:
       djipevents: 2.0.7
     optionalDependencies:
