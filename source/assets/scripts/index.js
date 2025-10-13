@@ -112,6 +112,7 @@ let shape = "sine"          // oscillator shape or periodic wave id (eg. sine, s
 let song = null
 let playingNote = null
 let playingChord = null
+let volume = 1
 
 const isIOS =  navigator.platform.startsWith("iP") || navigator.platform.startsWith("Mac") && navigator.maxTouchPoints > 4
 
@@ -679,6 +680,11 @@ const getTimbre = (timbres, timbre, offset=0) => {
     return timbres[ (index + offset) % timbres.length ]
 }
 
+const saveVolume = debounce( value =>{
+    setURLParameter("volume", value)
+    updateURL()
+}, 50 )
+
 /**
  * Set the Master Volume
  * @param {Number} value 0->1
@@ -686,8 +692,7 @@ const getTimbre = (timbres, timbre, offset=0) => {
 const setVolume = (value) => {
     mixer.gain.value = value
     volume = value
-    setURLParameter("volume", value)
-    updateURL()
+    saveVolume( volume )
 }
 
 /**
@@ -1559,9 +1564,7 @@ const start =  async () => {
     
     // top interactive smiling graphic
     hero = new Hero(ALL_KEYBOARD_NOTES, noteOn, noteOff, SETTINGS.showNotes ? SETTINGS.notes : 0)
-    
- 
-    
+        
     if (SETTINGS.showNoteVisualiser){
         // sequencer style note visualiser (2 varieties)
         wallpaperCanvas = document.getElementById("wallpaper")
