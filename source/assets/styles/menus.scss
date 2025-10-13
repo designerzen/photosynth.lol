@@ -18,83 +18,6 @@ body > .menu-main{
     justify-self: center;
     pointer-events: auto;
     width: 100%;
-    
-
-    > ul{
-        max-width:calc( var(--max-section-width)  );
-  
-        --gap:1px;//clamp( 11px, 2vw, calc( 0.5 * var(--pad) ) );
-        // margin-top:auto;
-
-        display: grid;
-        // flex-wrap: wrap;
-        grid-auto-flow: dense; // column;
-        grid-auto-columns: min-content;
-        grid-template-columns: repeat(auto-fit, minmax(44px, auto) );
-        // grid-template-columns: repeat(auto-fit, minmax(44px, 1fr) );
-        gap:0 var(--gap);
-        background-color:var(--col-red);    
-        list-style: none;
-        // overflow: hidden;
-        
-        align-items: center;
-        justify-content: stretch;
-        margin:0 auto;
-        // border-radius:9px 9px 0 0;
-        box-shadow: var(--shadow);
-    }
-
-    ol{
-        display: grid;
-        grid-auto-flow: row;
-        background: inherit;
-        list-style: none;
-        li{
-            grid-area:1/-1;
-            background: inherit;
-        }
-        li:nth-of-type(1){
-            --i:1;
-        }
-        @for $i from 2 to 9 {
-            li:nth-of-type(#{$i}){
-                --i:#{$i};
-                position: absolute;
-                z-index: -1;
-                min-width: 36ch;
-                text-align: left;
-                a{
-                    padding:0 var(--pad);
-                    flex-direction: row;
-                    justify-content: flex-start;
-                    place-content: left;
-                }
-            }
-        }
-    }
-
-    // sub menus! - open when hovered or inside
-    // &:hover,
-    // &:focus,
-    // &:focus-within{
-    //     z-index: 911;
-    //     ol{
-    //         li{
-    //             transform: translateY( calc(( 1 * (var(--i) - 1) * 100%) ) );
-    //             transition: transform var(--time-long, 300ms) ease-in-out;
-    //         }
-    //     }
-    // }
-    // sub menus! - open when submenu hovered
-    ol:hover,
-    ol:focus,
-    ol:focus-within{
-        z-index: 911;
-        li{
-            transform: translateY( calc(( var(--dir,1) * (var(--i) - 1) * 100%) ) );
-            transition: transform var(--time-long, 300ms) ease-in-out;
-        }
-    }
 
     li{
         a{
@@ -105,6 +28,8 @@ body > .menu-main{
             justify-content: center;
 
             font-size: 75%;
+            
+            pointer-events: auto;
 
             z-index: 1;
             padding:0 calc(var(--pad) * 0.5 );
@@ -112,6 +37,7 @@ body > .menu-main{
             display: block;
             text-decoration: none;
             line-height: 1;
+            background-color: var(--col-red);
             color:var(--col-white);
             transition: 
                 background-color var(--time-long, 90ms) linear,
@@ -160,6 +86,12 @@ body > .menu-main{
                 transform: var(--button-active);
                 box-shadow: var(--shadow);
             }
+
+            &:focus{
+                color: var(--col-white);
+                text-decoration: underline;
+            }
+
             &[aria-current]{
                 font-weight: bolder;
                 text-decoration: underline;
@@ -168,7 +100,172 @@ body > .menu-main{
             }
         }
     }
+
+    > ul{
+        max-width:calc( var(--max-section-width)  );
+  
+        --gap:1px;//clamp( 11px, 2vw, calc( 0.5 * var(--pad) ) );
+        // margin-top:auto;
+
+        display: grid;
+        // flex-wrap: wrap;
+        grid-auto-flow: dense; // column;
+        grid-auto-columns: min-content;
+        grid-template-columns: repeat(auto-fit, minmax(44px, 1fr) );
+        // grid-template-columns: repeat(auto-fit, minmax(44px, 1fr) );
+        // gap:0 var(--gap);
+        // background-color:inherit;    
+        list-style: none;
+        // overflow: hidden;
+        
+        align-items: start;
+        justify-content: stretch;
+        margin:0 auto;
+        // border-radius:9px 9px 0 0;
+        box-shadow: var(--shadow);
+    }
+
+    // sub menus! - open when hovered or inside
+    // &:hover,
+    // &:focus,
+    // &:focus-within{
+    //     z-index: 911;
+    //     ol{
+    //         li{
+    //             transform: translateY( calc(( 1 * (var(--i) - 1) * 100%) ) );
+    //             transition: transform var(--time-long, 300ms) ease-in-out;
+    //         }
+    //     }
+    // }
+    // sub menus! - open when submenu hovered
+    // ol li:first-of-type{
+    //     background-color: transparent;
+    // }
+
+
+    ol{
+        display: grid;
+        grid-auto-flow: row;
+        list-style: none;
+        pointer-events: none;
+        
+
+        position: absolute;
+        z-index: -1;
+        // z-index: 911;
+        
+
+        overflow: visible;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        background-color: var(--col-red);
+
+        
+        width: fit-content;
+        max-height: 60vh;
+        max-height: calc(100dvh - 24px - 1lh - 2 * var(--pad));
+        
+        
+        transform: translateY( -100% );
+        // transform: translateY( calc( max( var(--dir,1 ), 0) * -100%)) ;
+        transform: translateY( calc(  var(--dir, 0 ) * 100%) );
+       
+        opacity: 0;
+        transition: 
+            opacity var(--time-long, 300ms) linear,
+            transform var(--time-long, 300ms) ease-in-out;
+        
+        & ~ li {
+              z-index: 912;
+        }
+
+        li{
+             pointer-events: auto;
+            min-width: 42ch;
+            // grid-area:1/-1;
+            background: var(--col-red);
+            text-align: left;
+            transition: 
+                opacity var(--time-long, 300ms) linear,
+                transform var(--time-long, 300ms) ease-in-out;
+            transition-delay: calc( 2ms + var(--i, 0) * var( --overlap, 0.5 ) * 80ms);
+        }
+
+        // li:nth-of-type(1){
+        //     --i:1;
+        //     // z-index: 911;
+           
+        //     a{
+        //         justify-content: start;
+        //          max-width: 100%;
+        //     }
+        // }
+
+        @for $i from 1 to 15 {
+            li:nth-of-type(#{$i}){
+                --i:#{$i};
+                // position: absolute;
+                // z-index: -1;
+                // starting poition of 01==-1
+                transform: translateY( calc(( var(--dir,1) * (var(--i) - 1) * -100%) ) );
+           
+                a{
+                    padding:0 var(--pad);
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    place-content: left;
+                }
+            }
+        }
+    }
+
+    // Active / focussed states
+    :is(
+        .menu-sub-list:hover,
+        .menu-sub-list:focus-visible,
+        .menu-sub-list:focus-within,
+        .menu-sub-list:target-within
+    ){
+        ol{
+            // pointer-events: auto;
+            opacity: 1;
+            // fine for above...
+            // transform: translateY( calc( var(--dir) * 100%)) ;
+          
+            // for below...
+             transform: translateY( calc( min( var(--dir), 0 ) * 100%)) ;
+            
+             li{
+                transform: translateY( 0 );
+            }
+        }
+    }
+
+    :is(
+        ol:hover,
+        ol:focus,
+        ol:target,
+        ol:target-within,
+        ol:focus-within 
+    ){
+        opacity: 1;
+        // pointer-events: auto;
+
+        li{
+            pointer-events: auto;
+            transform: translateY( 0 );
+        }
+    }
+
+    .menu-sub-list{
+        pointer-events: none;
+        > a{
+              pointer-events: auto;
+        }
+    }
 }
+
+
 //   ::view-transition-group(target),
 //   ::view-transition-group(item) {
 //     mix-blend-mode: normal;
@@ -188,14 +285,16 @@ body > .menu-main{
 
     ol{
         --dir:-1;
+        top:0;
     }
 }
 
 
-
+// This gets injected so we must provide
+// a fade in animation to prevent jank
 #menu-accessibility{
 
-    --font-size: var(--step--7);
+    --font-size: var(--step--3);
 
     order:-1;
     width: 100%;
@@ -203,6 +302,8 @@ body > .menu-main{
     color: var(--col-text);
     background-color: var(--col-bg);
     // grid-area: 1/1/-1/-1;
+
+    animation: FadeFrom 2s both 0s 1;
 
     grid-area:menu;
     // position: sticky;
@@ -349,7 +450,10 @@ body > .menu-main{
         height: var(--size);
         max-width: var(--size);
         max-height: var(--size);
-        display: block;
+        display: flex;
+        &:active{
+            font-size: 50%;
+        }
     }
 
     #controls-volume fieldset{
@@ -492,6 +596,7 @@ body > .menu-main{
 
     #menu-accessibility menu{
        grid-template-areas: 
-            "test-size font color-scheme volume-control";
+            "test-size font"
+            "color-scheme volume-control";
     }
 }

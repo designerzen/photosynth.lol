@@ -141,8 +141,13 @@
     }
 }
 
+@keyframes FadeFrom {
+    from {
+        opacity: var(--opacity, 0);
+    }
+}
 @keyframes FadeTo {
-    100% {
+    to {
         opacity: var(--opacity, 1);
     }
 }
