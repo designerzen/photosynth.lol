@@ -26,12 +26,16 @@
     module.exports = {
        ...locals,
         id: locals.id || randomUUID,
-        title: locals.title || 'Gallery',
+        title: locals.title || '',
     }
 </script>
 
 
 <section class="gallery" id="{{id}}">
+
+    <if condition="title && title.length > 0">
+        <h4>{{title}}</h4>
+    </if>
     
     <ul class="gallery-grid" role="list" aria-label="{{title}}">
         <each loop="image, index in images">

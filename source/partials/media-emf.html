@@ -6,38 +6,35 @@
         <h4>ElectroMagentic Fields 2024</h4>
     </header>
 
-    <section>
-        <h4>Event</h4>
-        <include 
-            src="./source/partials/gallery.html" 
-            locals='{ 
-                "images":[
-                    {"src": "/source/assets/photos/emf/Access testing.jpg", "alt": "Accessibility audit", "width": 1024, "height": 768},
-                    {"src": "/source/assets/photos/emf/Alexander-Baxevanis Photo.jpg", "alt": "Copyright 2024 Alexander-Baxevanis", "width": 1152, "height": 768},
-                    {"src": "/source/assets/photos/emf/EMF Close Up.jpg", "alt": "Copyright 2024 Alexander-Baxevanis", "width": 1200, "height": 1600},
-                    {"src": "/source/assets/photos/emf/Graham Dunning Tent Jam.jpg", "alt": "Graham Dunning tent jam", "width": 1440, "height": 1080},
-                    {"src": "/source/assets/photos/emf/Holographic Setup.jpg", "alt": "Hologoraphic Setup", "width": 3000, "height": 4000},
-                    {"src": "/source/assets/photos/emf/EMF Photosynth4d.jpg", "alt": "Holographic Setup", "width": 576, "height": 768},
-                    {"src": "/source/assets/photos/emf/Tent Right Opposite Main Stage.jpg", "alt": "Tent setup opposite main stage", "width": 4000, "height": 3000},
-                    {"src": "/source/assets/photos/emf/EMF Plaque.jpg", "alt": "Holographic Plaque", "width": 1200, "height": 1600},
-                    {"src": "/source/assets/photos/emf/EMF Tent Setup.jpg", "alt": "Tent", "width": 1600, "height": 1200},
-                    {"src": "/source/assets/photos/emf/EMF Froggy lead acid vocal.mp4", "alt": "Froggy Watson Acid Jam", "width": 480, "height": 848},
-                    {"src": "/source/assets/photos/emf/emf24_demo.mp4", "alt": "Audio Setup", "width": 1620, "height": 1080},
-                ]
-            }'>
-        </include>
-    </section>
-
-    <section>
-        <h4>Venue</h4>
-        <include 
-            src="./source/partials/gallery.html" 
-            locals='{ 
-                "images":[
-                    
-                ]
-            }'>
-    </section>
+    <include 
+        src="./source/partials/gallery.html" 
+        locals='{ 
+            "title":"Event",
+            "images":[
+                {"src": "/source/assets/photos/emf/Access testing.jpg", "alt": "Accessibility audit", "width": 1024, "height": 768},
+                {"src": "/source/assets/photos/emf/Alexander-Baxevanis Photo.jpg", "alt": "Copyright 2024 Alexander-Baxevanis", "width": 1152, "height": 768},
+                {"src": "/source/assets/photos/emf/EMF Close Up.jpg", "alt": "Copyright 2024 Alexander-Baxevanis", "width": 1200, "height": 1600},
+                {"src": "/source/assets/photos/emf/Graham Dunning Tent Jam.jpg", "alt": "Graham Dunning tent jam", "width": 1440, "height": 1080},
+                {"src": "/source/assets/photos/emf/Holographic Setup.jpg", "alt": "Hologoraphic Setup", "width": 3000, "height": 4000},
+                {"src": "/source/assets/photos/emf/EMF Photosynth4d.jpg", "alt": "Holographic Setup", "width": 576, "height": 768},
+                {"src": "/source/assets/photos/emf/Tent Right Opposite Main Stage.jpg", "alt": "Tent setup opposite main stage", "width": 4000, "height": 3000},
+                {"src": "/source/assets/photos/emf/EMF Plaque.jpg", "alt": "Holographic Plaque", "width": 1200, "height": 1600},
+                {"src": "/source/assets/photos/emf/EMF Tent Setup.jpg", "alt": "Tent", "width": 1600, "height": 1200},
+                {"src": "/source/assets/photos/emf/EMF Froggy lead acid vocal.mp4", "alt": "Froggy Watson Acid Jam", "width": 480, "height": 848},
+                {"src": "/source/assets/photos/emf/emf24_demo.mp4", "alt": "Audio Setup", "width": 1620, "height": 1080},
+            ]
+        }'>
+    </include>
+    
+    <include 
+        src="./source/partials/gallery.html" 
+        locals='{ 
+            "title":"Venue",
+            "images":[
+                
+            ]
+        }'>
+    </include>
 
     <script type="module">
         import {createGallery} from "./assets/scripts/gallery.js"

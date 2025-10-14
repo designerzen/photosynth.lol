@@ -6,28 +6,26 @@
         <h4>Web Audio Conference 2024</h4>
     </header>
 
-    <section>
-        <h4>Event</h4>
-        <include 
-            src="./source/partials/gallery.html" 
-            locals='{ 
-                "images":[
-
-                ]
-            }'>
-        </include>
-    </section>
-
-    <section>
-        <h4>Venue</h4>
-        <include 
-            src="./source/partials/gallery.html" 
-            locals='{ 
-                "images":[
-                    
-                ]
-            }'>
-    </section>
+        
+    <include 
+        src="./source/partials/gallery.html" 
+        locals='{ 
+            "title":"Event",
+            "images":[
+           
+            ]
+        }'>
+    </include>
+    
+    <include 
+        src="./source/partials/gallery.html" 
+        locals='{ 
+            "title":"Venue",
+            "images":[
+                
+            ]
+        }'>
+    </include>
 
      <script type="module">
         import {createGallery} from "./assets/scripts/gallery.js"
