@@ -1,6 +1,7 @@
 const COUNTDOWN_TYPES = ["day", "hour", "minute", "second"]
-export const countdown = (element, completedText="July 1st - 6th 2025", period=1000) => {   
+export const countdown = (element, completedText="This event is in the past", period=1000) => {   
 
+    
     // grab all the time elements
     const timeElements = element.querySelectorAll("time")
     
@@ -72,11 +73,16 @@ export const countdown = (element, completedText="July 1st - 6th 2025", period=1
                     countElement.textContent = "" + newValue + " " + type + ( isLast ? "." : ", " )
                 }
             })
+            interval = setTimeout(update, period)
+
         }else{
+
+            // finished
             clearInterval(interval)
             counter.textContent = completedText
+            element.classList.add("in-the-past")
         }
     }
 
-    interval = setInterval(update, period)
+    update()
 }
