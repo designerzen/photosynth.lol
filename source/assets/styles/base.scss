@@ -116,9 +116,12 @@ img{
     display: block;
     position: relative;
     z-index: 1;
-    border-radius: var(--curve,0);
     font-style: italic;
     text-wrap: balance;
+}
+
+:is(figure,picture) img{
+    border-radius: var(--curve,0);
 }
 
 table{
@@ -257,12 +260,13 @@ aside{
     
     border-radius: var(--curve);
     border:dashed var(--col-border) 2px;
+    background-color: var(--col-stone-light);
     // border-top:dashed var(--col-border) 2px;
    
     // --col-border:var(--col-stone);
     // --col-border:var(--col-stone-light);
     // margin-top:var(--pad);
-    padding: calc(2 * var(--pad));
+    padding: calc(1 * var(--pad)) calc(2 * var(--pad));
     margin-left:calc( 2 * var(--pad));
     margin-right:calc( 2 * var(--pad));
     background-color: var(--col-bg);

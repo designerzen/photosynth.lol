@@ -246,11 +246,13 @@ body > .menu-main{
         }
     }
 
+
+    // ol:target,
+    // ol:target-within,
     :is(
         ol:hover,
         ol:focus,
-        ol:target,
-        ol:target-within,
+
         ol:focus-within 
     ){
         opacity: 1;

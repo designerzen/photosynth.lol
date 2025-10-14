@@ -93,7 +93,7 @@ figure {
 }
 
 .bumpers{
-margin-top:var(--pad);
+    margin-top:var(--pad);
 	margin-bottom:var(--pad);
 }
 
@@ -412,6 +412,9 @@ hr{
     margin:var(--pad) 0;
     clear: both;
     border:var(--stroke, 1px) solid var(--col-accent);
+    display: flex;
+    place-items: center;
+    background-color: var(--col-stone-light);
     &:after {
         content: "";
         display: table;
@@ -608,7 +611,12 @@ hr{
 
 .float{
 	float: left;
+
+    &.gap{
+        margin-right: var(--gap, var(--pad, 1rem));
+    }
 }
+
 
 .outside-leaning-polygon{
 	shape-outside: polygon(-6.00% 106.19%, 95% 4.21%, 97% 38.31%, 34px 104.87%);
