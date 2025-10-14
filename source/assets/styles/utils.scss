@@ -420,6 +420,10 @@ hr{
         display: table;
         clear: both;
     }
+
+    &.vertical{
+        flex-direction: column;
+    }
 }
 
 // 6 x 9 grid but we subdivide it for style
