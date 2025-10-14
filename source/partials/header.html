@@ -3,10 +3,11 @@
        ...locals,
         h1: locals.h1 || 'Smile Powered Pop Music with the <cite>Photo&ZeroWidthSpace;SYNTH</cite>!',
         h2: locals.h2 || 'Public Exhibition',
+        logo: locals.logo || "/source/assets/logos/royal_society-crest.svg",
         summary: locals.summary || '(this is a musical website)'
     }
 </script>
-<header id="headline" data-observe>
+<header id="headline" style="--bg:url({{logo}});" data-observe>
     
     <hgroup>
         
@@ -25,18 +26,7 @@
             Skip to the menu.
         </a> -->
     </hgroup>
-<!--          
-    <nav class="menu-main">
-        <ul role="list">
-            <li><a href="#about">About</a></li>
-            <li><a href="#history">History</a></li>
-            <li><a href="#science">Science</a></li>
-            <li><a href="#event">Event</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#laboratory">Laboratory</a></li>
-        </ul>
-    </nav>
-    -->
+
     <form id="menu-accessibility" hidden>
         <menu>
             <li class="skip-to-content-link">
@@ -126,91 +116,3 @@
 
     <!-- <img class="logo-royal-society-crest" width="100" height="100" src="/source/assets/logos/royal_society-crest.svg" alt=""> -->
 </header>
-
-
-<!-- 
-<form id="menu-accessibility" hidden>
-    <menu>
-        <li class="skip-to-content-link">
-            <a class="skip-to-content" href="#main-content">
-                Skip accessibility menu and jump straight to the main content.
-            </a>
-        </li>
-        <li class="text-size-link">
-            <fieldset>
-                <legend>Text Size</legend>
-                <label for="button-text-size-increase"><span class="sr-only">Increase Font Size.</span>
-                    <button title="Increase Font Size" type="button" id="button-text-size-increase"><span class="sr-only">Text Size Increase.</span></button>
-                </label>
-        
-                <label for="button-text-size-decrease"><span class="sr-only">Increase Font Size></span>
-                    <button title="Decrease Font Size" type="button" id="button-text-size-decrease"><span class="sr-only">Text Size Decrease.</span></button>
-                </label>
-            </fieldset>
-        </li>
-
-        <li class="font-link">
-            <fieldset>
-                <legend>Typeface</legend>
-
-                <label for="font-default">
-                    <input name="font" id="font-default" type="radio" value="default" checked>
-                    Balanced<span class="sr-only"> font</span>
-                </label>
-
-                <label for="font-readable">
-                    <input name="font" id="font-readable" type="radio" value="readable">
-                    Readable<span class="sr-only"> font</span>
-                </label>
-
-                <label for="font-dsylexic">
-                    <input name="font" id="font-dsylexic" type="radio" value="dsylexic">
-                    Dsylexic<span class="sr-only"> font</span>
-                </label>
-            </fieldset>
-        </li>
-        
-        <li class="color-scheme-link">
-            <fieldset>
-                <legend>Colour Scheme</legend>
-
-                <label for="palette-default">
-                    <input name="palette" id="palette-default" type="radio" value="default" checked>
-                    Balanced<span class="sr-only"> Colour Scheme.</span>
-                </label>
-
-                <label for="palette-contrast">
-                    <input name="palette" id="palette-contrast" type="radio" value="contrast">
-                    High<span class="sr-only"> Contrast Scheme.</span>
-                </label>
-                
-                <label for="palette-monochrome">
-                    <input name="palette" id="palette-monochrome" type="radio" value="monochrome">
-                    Monochrome<span class="sr-only"> Colour Scheme.</span>
-                </label>
-                    
-                <label for="palette-colourful">
-                    <input name="palette" id="palette-colourful" type="radio" value="colourful">
-                    Colourful<span class="sr-only"> Scheme.</span>
-                </label>
-            </fieldset>
-        </li>
-
-        <li class="volume-control-link">
-            <fieldset id="controls-volume">
-                <legend class="sr-only">Control Volume</legend> 
-            
-                <label for="mute">
-                    <span class="sr-only">Toggle </span>Mute
-                    <input id="mute" type='checkbox'>
-                </label>
-
-                <label for="volume">
-                    Volume
-                    <input id="volume" type='range' value='100' min="0" max="100">
-                </label>
-            </fieldset>
-        </li>
-
-    </menu>
-</form> -->

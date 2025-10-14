@@ -1,0 +1,107 @@
+<section id="event" class="sawtooth shadow" data-observe >
+    
+    <!-- Event ------------------------------------------- -->
+    <article id="summary" class="page split" data-readable>
+
+        <header class="underline">
+            <h3 class="heading-icon">MIT Reality Hack</h3>
+            <h4>Ever dreamed of being more musical?<br>Well alright... Hold tight!</h4>
+        </header>
+
+     
+        <p class="box h6">
+            <img class="icon float gap" width="137" height="137" src="/source/assets/logos/mit-logo.svg" alt="MIT.">
+            The exhibition will feature a series of interactive immersive installations, hands-on demonstrations and talks.
+        </p>
+
+        <details class="equipment">
+            <summary>Equipment & Technical Setup</summary>
+
+            <figure class="diagram diagram-equipment">
+                <img 
+                    loading="lazy"
+                    src="/source/assets/diagrams/royal-society-diagram-installation-hologram.svg" 
+                    width="2400" 
+                    height="1350" 
+                    alt="Equipment setup diagram." />
+                <figcaption>Equipment setup diagram</figcaption>
+            </figure>
+        </details>
+
+    </article>
+
+    <!-- Description & Event details -->
+    <aside id="details" class="">
+        
+        <figure class="full-width bg-clear" role="figure" aria-label="">
+            
+            <figcaption id="button-cast-spell-caption">Summer Science Exhibition 2025 Details</figcaption>
+
+            <button 
+                aria-labelledby="button-cast-spell-caption"
+                type="button" 
+                id="button-cast-spell">
+                <img 
+                    loading="lazy"
+                    width="909" height="909"
+                    src="/source/assets/figures/instant-musical-superpowers-red-square.svg" 
+                    alt="Instant Musical Superpowers!">
+                <audio 
+                    id="audio-spell" 
+                    src="/source/assets/audio/fx/spells/magic-mallet-6262.mp3" preload="auto"></audio>
+            </button>
+        
+            <dl class="data-address">
+                <dt>Start</dt>
+                <dd><time datetime="2025-01-23 09:00">January 23<sup>rd</sup>, 2025</time></dd>
+
+                <dt>End</dt>
+                <dd><time datetime="2025-01-27 22:00">January 27<sup>th</sup>, 2025</time></dd>
+
+                <dt>Venue</dt>
+                <dd>MIT</dd>
+
+                <dt>Address</dt>
+                <dd class="address">
+                    <a href="https://www.media.mit.edu/posts/hacking-reality-mit-media-lab-xr-news/">
+                        <address>
+                            <span class="street-address">77 Massachusetts Avenue</span><span class="delimiter">, </span><span class="locality">Cambridge</span><span class="delimiter">, </span><span class="postal-code">MA 02139</span><span class="delimiter">, </span><span class="country-name">USA</span>
+                        </address>
+                    </a>
+                </dd>
+    
+                <dt>Location</dt>
+                <dd><a href="#venue">Massachusetts, USA</a></dd> 
+
+                <dt>Category</dt>
+                <dd>Event</dd>
+            </dl>
+        
+        </figure>
+    
+    </aside>
+
+
+    <!-- Venue -->
+    <article id="venue" class="page">
+        <header>
+            <h4>Located at the Massachusetts Institute of Technology</h4>
+        </header>
+
+        <p>MIT VR/AR is a collective of talented XR designers, developers, and researchers from the MIT Media Lab and other departments at the Institute, which is dedicated to fostering a presence for the industry across campus. The immersion and visualization enabled by XR  can contribute to a wide range of disciplines, enhance cross-disciplinary innovation, and ease communication of unintuitive abstract concepts.</p>
+
+        <include 
+            src="./source/partials/map.html" 
+            locals='{ 
+                "venue":   "MIT",
+                "frame":   "https://www.openstreetmap.org/export/embed.html?bbox=-71.23706817626955%2C42.28289704723818%2C-70.96824645996095%2C42.44524802967223&amp;layer=mapnik",
+                "link":    "https://www.openstreetmap.org/#map=12/42.3642/-71.1027",
+                "address": "77 Massachusetts Avenue, Cambridge, MA 02139, USA"
+            }'>
+        </include>
+        
+        <a href="https://www.media.mit.edu/posts/hacking-reality-mit-media-lab-xr-news/" class="cta">Learn more at the MIT Website</a>
+            
+    </article>
+
+</section>

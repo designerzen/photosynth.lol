@@ -1,12 +1,13 @@
 <!-- {"src": "/source/assets/photos/event/dcf1361.jpg", "alt": "PhotoSYNTH event candid 1361", "width": 1620, "height": 1080}, -->
 <article class="section section-event">
     
-    <header>
+    <!-- <header>
         <h3>Gallery</h3>
         <h4>Royal Society Summer Exhibition 2025</h4>
-    </header>
+    </header> -->
 
     <section>
+        <h4>Exhibition</h4>
         <include 
             src="./source/partials/gallery.html" 
             locals='{ 
@@ -90,19 +91,6 @@
             }'>
     </section>
 
-    <section>
-        <h4>History</h4>
-        <include 
-            src="./source/partials/gallery.html" 
-            locals='{ 
-                "images":[
-                    {"src": "/source/assets/photos/gawain-hewitt-photosynth2.png", "alt": "Gawain Hewitt playing with PhotoSYNTH II", "width": 1152, "height": 768, "positionX": "50%", "positionY": "25%"},
-                    {"src": "/source/assets/photos/media_city_installation.jpg", "alt": "Media City Installation", "width": 1152, "height": 768, "positionX": "50%", "positionY": "25%"},
-                    {"src": "/source/assets/photos/photosynth-zoom.jpg", "alt": "DMLab Demonstration", "width": 1024, "height": 768, "positionX": "100%", "positionY": "50%"}
-                ]
-            }'>
-        </include>
-    </section>
 
      <script type="module">
         import {createGallery} from "./assets/scripts/gallery.js"

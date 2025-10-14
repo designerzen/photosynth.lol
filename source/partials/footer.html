@@ -1,52 +1,111 @@
-<label hidden>
-    Load Progress
-    <meter id="load-progress" min="0" max="1" value="0"></meter>
-</label>
+
+<script locals>
+    let randomUUID = "id"+Math.random().toString(36).substring(2, 15) + ""
+    module.exports = {
+       ...locals,
+       // Brought to you by
+       title:"A timely duet between",
+       drake:true,
+       royalSociety:true,
+       amic:false,
+       adc:false,
+       aotf:false,
+       awesomething:false,
+       designerzen:false
+    }
+</script>
+
 
 <footer data-observe data-full-keyboard>
     <canvas id="song-in-pixels" inert width="320" height="128"></canvas>
 
+    <label hidden>
+        Load Progress
+        <meter id="load-progress" min="0" max="1" value="0"></meter>
+    </label>
+
     <article id="affiliates">
         <!-- <h5 class="h3">Brought to you by</h5> -->
-        <h5 class="h4 middle">A timely duet between</h5>
+        <h5 class="h4 middle">{{title}}</h5>
     
         <ul role="list">
 
-            <!-- <li><a href="https://www.drakemusic.org/pages-that-are-currently-not-live-on-the-site/instrument-led-projects/photosynth-by-zen-olenski/" -->
-            <li><a href="https://www.drakemusic.org/"
-                    rel="noopener noreferrer" target="_blank">
-                    <figure role="figure" aria-label="" >
-                        <figcaption class="sr-only">Drake Music Homepage</figcaption>
-                        <img class="logo logo-drake-music" src="/source/assets/logos/drake-square.svg" width="1024" height="1024" alt="Drake Music.">
-                    </figure>
-                </a>
-            </li>
+            <if condition="drake === true">
+                <li><a href="https://www.drakemusic.org/"
+                        rel="noopener noreferrer" target="_blank">
+                        <figure role="figure" aria-label="" >
+                            <figcaption class="sr-only">Drake Music Homepage</figcaption>
+                            <img class="logo logo-drake-music" src="/source/assets/logos/drake-square.svg" width="1024" height="1024" alt="Drake Music.">
+                        </figure>
+                    </a>
+                </li>
+            </if>
 
-            <li><a href="https://royalsociety.org/"
-                    rel="noopener noreferrer" target="_blank">
-                    <figure role="figure" aria-label="" >
-                        <figcaption class="sr-only">Royal Society Homepage</figcaption>
-                        <img class="logo logo-royal-society" src="/source/assets/logos/royal-society-square.svg" width="1024" height="1024" alt="Royal Society.">
-                        <!-- <img src="/source/assets/logos/royal_society.svg" alt="Royal Society."> -->
-                    </figure>
-                    
-                </a>
-            </li>
-            <!-- <li><a href="https://accessiblemusicalinstrumentcollection.org/" rel="noopener noreferrer" target="_blank">
-                    <figure role="figure" aria-label="" >
-                        <figcaption><small>Available at</small>Accessible Musical Instrument Collection</figcaption>
-                        <img src="/source/assets/logos/amic.svg" alt="Accessible Misical Instrument Collection">
-                    </figure>
-                </a>
-            </li> -->
-            <!-- <li><a href="https://audienceofthefuture.live/interface/" rel="noopener noreferrer" target="_blank">
-                    <figure role="figure" aria-label="" >
-                        <figcaption><small>Represented by</small>Audience of the Future</figcaption>
-                        <img src="/source/assets/logos/aotf.svg" alt="Audience of the Future">
-                    </figure>
-                </a>
-            </li> -->
+            <if condition="royalSociety === true">
+                <li><a href="https://royalsociety.org/"
+                        rel="noopener noreferrer" target="_blank">
+                        <figure role="figure" aria-label="" >
+                            <figcaption class="sr-only">Royal Society Homepage</figcaption>
+                            <img class="logo logo-royal-society" src="/source/assets/logos/royal-society-square.svg" width="1024" height="1024" alt="Royal Society.">
+                            <!-- <img src="/source/assets/logos/royal_society.svg" alt="Royal Society."> -->
+                        </figure>
+                        
+                    </a>
+                </li>
+            </if>
+
+            <if condition="amic===true">
+                <li><a href="https://accessiblemusicalinstrumentcollection.org/" rel="noopener noreferrer" target="_blank">
+                        <figure role="figure" aria-label="" >
+                            <figcaption class="sr-only"><small>Available at</small>Accessible Musical Instrument Collection</figcaption>
+                            <img class="logo logo-royal-amic" src="/source/assets/logos/amic.svg"  width="1024" height="1024" alt="Accessible Misical Instrument Collection">
+                        </figure>
+                    </a>
+                </li>
+            </if>
+
+            <if condition="aotf===true">
+                <li><a href="https://audienceofthefuture.live/interface/" rel="noopener noreferrer" target="_blank">
+                        <figure role="figure" aria-label="" >
+                            <figcaption class="sr-only"><small>Represented by</small>Audience of the Future</figcaption>
+                            <img class="logo logo-royal-aotf" src="/source/assets/logos/aotf.svg"  width="1024" height="1024" alt="Audience of the Future">
+                        </figure>
+                    </a>
+                </li>
+            </if>
+            
+
+            <if condition="adc===true">
+                <li><a href="https://adc.dev/" rel="noopener noreferrer" target="_blank">
+                        <figure role="figure" aria-label="" >
+                            <figcaption class="sr-only">Made by designerzen</figcaption>
+                            <img class="logo logo-royal-designerzen" src="/source/assets/logos/adc.svg"  width="1024" height="1024" alt="Audio Developers Conference">
+                        </figure>
+                    </a>
+                </li>
+            </if>
+
+            <if condition="designerzen===true">
+                <li><a href="https://designerzen.com/" rel="noopener noreferrer" target="_blank">
+                        <figure role="figure" aria-label="" >
+                            <figcaption class="sr-only">Made by designerzen</figcaption>
+                            <img class="logo logo-royal-designerzen" src="/source/assets/logos/designerzen.svg"  width="1024" height="1024" alt="designerzen">
+                        </figure>
+                    </a>
+                </li>
+            </if>
+            <if condition="awesomething===true">
+                <li><a href="https://designerzen.com/" rel="noopener noreferrer" target="_blank">
+                        <figure role="figure" aria-label="" >
+                            <figcaption class="sr-only">Made by awesomething</figcaption>
+                            <img class="logo logo-royal-awesomething" src="/source/assets/logos/awesomething.svg"  width="1024" height="1024" alt="awesomething">
+                        </figure>
+                    </a>
+                </li>
+            </if>
+
         </ul>
+
     </article>
 
     <small class="smallprint">

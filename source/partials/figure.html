@@ -1,0 +1,33 @@
+
+<script locals>
+    module.exports = {
+       ...locals,
+        src: locals.src || "",
+        width: 1280,
+        height: 768,
+        loading:"lazy",
+        caption: locals.caption || 'Caption',
+    }
+</script>
+
+<figure 
+    class="figure-inline" 
+    role="figure">
+
+    <picture 
+        class="image">
+        <source srcset="{{src}}?as=avif&width={{width}}" type="image/avif" />
+        <source srcset="{{src}}?as=webp&width={{width}}" type="image/webp" />
+        <source srcset="{{src}}?as=jpg&width={{width}}" type="image/jpeg" />
+        <img 
+            loading="{{loading}}"
+            src="{{src}}?width={{width}}" 
+            width="{{width}}" 
+            height="{{height}}" 
+            alt="{{caption}}" />
+    </picture>
+
+    <figcaption class="figure-caption">
+        {{caption}}
+    </figcaption>
+</figure>

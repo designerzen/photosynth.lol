@@ -1,6 +1,8 @@
 <script locals>
     module.exports = {
        ...locals,
+        biography: false,
+        textScroller: false,
         cta: false
     }
 </script>
@@ -13,9 +15,9 @@
         </header>
 
         <p>The smile powered synthesizer that grants you and your friends radical new musical superpowers.</p>
-        <p>This magic mirror tracks your movements, moods and expressions and converts them into music — giving your reflection a musical purpose!</p> 
+        <p>This magic mirror tracks your movements, moods and expressions and converts them into music — <em>giving your reflection a musical purpose!</em></p> 
         <p>It is fun and easy to make a musical masterpiece, especially if you collaborate with friends.</p>  
-        <p>Rather than playing a musical instrument, this musical instrument plays you!</p>
+        <p><strong>Rather than playing a musical instrument, this musical instrument plays you!</strong></p>
         
         <p>Designed from the ground up to be the most accessible musical instrument possible with the sole intention of empowering everybody to make lovely music! <em>Express yourself!</em></p>
         
@@ -36,20 +38,23 @@
 
     </article>
     
-    <article class="text-scroller-vertical page"> 
-        <h5 class="text-scroller-lead">
-            The PhotoSYNTH is a        
-        </h5>
-        <ul role="list">
-            <li class="sticky">Collaborative</li>
-            <li class="sticky">Multiplayer</li>
-            <li class="sticky">Mixed Reality</li>
-            <li class="sticky">Sympathetic Synthesizer</li>
-            <li class="sticky">Musical Instrument</li>
-            <li class="sticky">Science & Research Project</li>
-        </ul>
-    </article>
+    <if condition="textScroller === true">
+        <article class="text-scroller-vertical page"> 
+            <h5 class="text-scroller-lead">
+                The PhotoSYNTH is a        
+            </h5>
+            <ul role="list">
+                <li class="sticky">Collaborative</li>
+                <li class="sticky">Multiplayer</li>
+                <li class="sticky">Mixed Reality</li>
+                <li class="sticky">Sympathetic Synthesizer</li>
+                <li class="sticky">Musical Instrument</li>
+                <li class="sticky">Science & Research Project</li>
+            </ul>
+        </article>
+    </if>
     
-    <include src="./source/partials/biography.html"></include>
-
+    <if condition="biography === true">
+        <include src="./source/partials/biography.html"></include>
+    </if>
 </section>

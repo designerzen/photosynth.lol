@@ -3,7 +3,7 @@
     module.exports = {
        ...locals,
         id: locals.id || randomUUID,
-        title: locals.title ?? 'Gallery',
+        title: locals.title ?? 'Retrospective',
         venue: locals.venue ?? 'Exhibition',
         summary:"<p>Summary</p>"
     }
@@ -14,7 +14,7 @@
     <article class="page split shadow bg" data-readable>
         
         <header class="underline">
-            <h3 class="heading-icon">Retrospective</h3>
+            <h3 class="heading-icon">{{title}}</h3>
             <h4>
                 {{venue}}
             </h4>
