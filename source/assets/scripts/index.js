@@ -1444,7 +1444,8 @@ const backgroundLoad = async () => {
 
     if (SETTINGS.showCountdown)
     {
-        countdown(document.querySelector("[data-countdown]"))
+        const timeElement = document.querySelector("[data-countdown]")
+        timeElement && countdown(timeElement)
     }
     
     // add white pink brown noise to the timbres

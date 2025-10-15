@@ -372,7 +372,7 @@ body > .menu-main{
         padding: 0;
         position: absolute;
         top:calc(100% + var(--sticky-top, 0) );
-        right:calc( var(--right-hand-column) + var(--pad));
+        right:calc( var(--right-hand-column) );
         
     }
     .volume-control-link{

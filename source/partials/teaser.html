@@ -3,9 +3,10 @@
     module.exports = {
        ...locals,
         id:locals.id ?? 'poster-figure',
-        posterHeading: locals.posterHeading || 'FOR YOU AND YOUR FRIENDS!',
-        posterSubheading: locals.posterSubheading || 'FOR YOU AND YOUR FRIENDS!',
-        posterTagline: locals.posterTagline || 'SMILE POWERED SYNTHESIZER',
+        title: locals.title || 'The PhotoSYNTH : Smile Powered Music!',
+        posterHeadings: locals.posterHeadings || [ "Super|Powers" ],
+        posterSubheadings: locals.posterSubheadings || [ 'FOR YOU AND YOUR FRIENDS!' ],
+        posterTaglines: locals.posterTaglines || [ 'SMILE POWERED SYNTHESIZER' ],
         posterLink: locals.posterLink || '/',
         hint: locals.hint ?? true,
         notes: locals.hint ?? true
@@ -77,6 +78,7 @@
         padding:0;
 
         animation:TextColor 10s linear infinite;
+        position: relative;
         
         > *{
             grid-area: 1 / 1;
@@ -314,7 +316,7 @@
 <a class="poster-content flood" href="{{posterLink}}">
     <figure id="{{id}}" role="figure">
         
-        <svg id="filters">
+        <svg id="filters" class="hide">
             <defs>
                 <filter id="filter-threshold">
                     <feColorMatrix in="SourceGraphic"
@@ -340,6 +342,8 @@
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
             xml:space="preserve" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"
             stroke-miterlimit="1.5" clip-rule="evenodd" width="1313" hieght="2160" viewBox="0 0 1313 2160">
+
+            <title>{{title}}</title>
 
             <!-- Background -->
             <path class="poster-bg" d="M1312.72,52.508c0,-28.98,-23.533,-52.508,-52.51,-52.508h-1207.7c-28.981,0,-52.511,23.528,-52.511,52.508v2054.99c0,28.977,23.53,52.508,52.51,52.508h1207.7c28.976,0,52.509,-23.531,52.509,-52.508v-2054.99z" />
@@ -433,7 +437,7 @@
                         alignment-baseline="bottom" 
                         xlink:href="#subheadline-circle-lower"
                         startOffset="70.25%"
-                        textLength="90%">{{{posterSubheading}}}</textPath>
+                        textLength="90%">{{{posterSubheadings[0]}}}</textPath>
                     <!-- <textPath
                         class="poster-text-h3"
                         font-size="90" 
@@ -450,7 +454,7 @@
                         xlink:href="#subheadline-circle-upper" 
                         alignment-baseline="bottom" 
                         startOffset="71%" 
-                        textLength="1205">• {{{posterTagline}}} •</textPath>
+                        textLength="1205">• {{{posterTaglines[0]}}} •</textPath>
                 </text>
             </g>
 
@@ -497,6 +501,7 @@
         el.style.setProperty("--col-accent", `hsla( ${ Math.random() * 360 }%, 0.5, 0.5, 0.5 )`)
     })
 
+    const HEADINGS = {{posterHeadings}}
     const h1 = document.querySelector(".poster-text-h1")
     const h2 = document.querySelector(".poster-text-h2")
 
@@ -505,27 +510,24 @@
 
     // 6 chars max
     const H1S = [
-        "SUPER",
-        ""
+        "SUPER"
     ]
 
     // 7 chars max
     const H2S = [
-        "POWERS",
-        "WITH FRIENDS"
+        "POWERS"
     ]
+    
+    const HEADINGS_SPLIT = HEADINGS.map( h =>{
+       const parts = h.split("|")
+       H1S.push(parts[0])
+       H2S.push(parts[1])
+        return parts
+    } )
 
     // 
-    const H3S = [
-        "Poo poo",
-        "wee wee",
-        "flem, flem"
-    ]
-    const H4S = [
-        "Donkamatic",
-        "Roland Corporation TB 303",
-        "Test of a super long string in place"
-    ]
+    const H3S = {{posterSubheadings}}
+    const H4S = {{posterTaglines}}
 
     const revealText = (textElement, header, index=0, delay=0, durationIn=606, durationOut=909, durationPause=4000 ) => {
 
@@ -560,7 +562,6 @@
 
             animationOut.onfinish = () => {
                 index = (1+index) % header.length
-                console.error("animation OUT complete", header, index )
                 revealText( textElement, header, index, durationIn, durationOut )
             }
         }
@@ -587,7 +588,6 @@
 
         animationIn.onfinish = () => {
             clearInterval(interval)
-            console.error("animation IN complete", header, index )
             interval = setTimeout( transitionOut, durationPause )
         }     
     }
