@@ -1,0 +1,28 @@
+.faq{
+
+    margin-top:var(--pad);
+
+    li{
+        margin: 0;
+        padding: var(--pad) 0;
+        border-top:var(--stroke, 1px) solid var(--col-accent);
+    }
+
+    li + li{
+        margin-top:0;
+    }
+
+    li:last-of-type{
+        border-bottom:var(--stroke, 1px) solid var(--col-accent);
+    }
+
+    .question{
+        font-weight: 500;
+    }
+
+    .answer{
+        padding:0;
+        margin:0;
+        font-style: italic;
+    }
+}

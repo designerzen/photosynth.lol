@@ -5,13 +5,20 @@
     "script":false
 }'></include>
 <body>   
-    <include src="./source/partials/header.html"></include>
+    <include 
+        src="./source/partials/header.html" 
+        locals='{
+            "h1":"<cite>Photo&ZeroWidthSpace;SYNTH</cite> Help Guide!",
+            "h2":"Troubleshooting"
+        }'>
+    </include>
+    
     <include src="./source/partials/nav.html"  locals='{"path":"/"}'></include>
 
     <!-- Main Content -->
     <main id="main-content">
         <header>
-            <h3>Troubleshooting</h3>
+            <h3>Don't Panic!</h3>
         </header>
        
         <include src="./source/partials/help.html"></include>

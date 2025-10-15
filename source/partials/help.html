@@ -2,21 +2,46 @@
     <article class="page shadow wavey bg" data-readable>
 
         <header class="underline">
-            <h3 class="heading-icon">Help!</h3>
-            <h4>Don't Panic!</h4>
+            <h3 class="heading-icon">Help</h3>
+            <h4>Problem Solving Guide</h4>
         </header>
 
         <p>
-
+            The PhotoSYNTH is a multiplayer collaborative musical instrument that encourages group play and social interactions. 
+            It can be used unmanned, where it will show it's own instructions and help out where it can.
+            Also, there is the option of manned cooperative control, where an overseer chooses instruments, tempo and visual modes on a per person basis. 
         </p>
 
-        <!-- List of FAQ -->
-        <ul role="list">
+        <p>
+            On rare occassions, the software may act unexpectedly. If so, please check out the information below to try and resolve any issues you may be facing. 
+            If the issue is not listed below, please contact me using the information in the <a href="#contact">contact panel</a>.
+        </p>
+
+        <!-- List of Troubleshooting FAQs -->
+        <ul class="faq" role="list">
+          
             <li>
-                <p class="question"></p>
-                <p class="answer"></p>
+                <p class="question">System has hung unexpectedly</p>
+                <p class="answer">Close the browser window and restart it</p>
             </li>
+            
+            <li>
+                <p class="question">Screen image is blurred and out of focus</p>
+                <p class="answer">If things do not improve, disconnect the USB camera and connect to another USB socket, restarting the browser and rerunning the software.</p>
+            </li>
+
+            <li>
+                <p class="question">People not being recognised</p>
+                <p class="answer">Lighting must be fixed and illuminating with a consistent glow. Sometimes strip lights cycle at frequencies similar to the refresh rates of monitors, if that is the case, the camera will appear to strobe. In these cases, it is best to turn off overhead CEF lights and instead use lighting with a constant illumination such as LED or cold lamps.</p>
+            </li>
+
         </ul>
 
     </article>
-</section>
+
+</section>    
+
+<include 
+    src="./source/partials/contact.html" 
+    locals='{ }'>
+</include>
