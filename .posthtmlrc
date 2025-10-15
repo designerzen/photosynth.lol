@@ -14,7 +14,8 @@
             "cta": false,
             "script":"./assets/scripts/index.js",
             "scripts":[],
-            "gallery":[]
+            "gallery":[],
+            "images":[]
         },
         "missingLocal":{
             "script":""
