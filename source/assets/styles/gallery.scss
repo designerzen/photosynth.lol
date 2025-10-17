@@ -426,3 +426,32 @@
         }    
     }
 }
+
+
+// Mini inline gallery carousel
+.gallery-header{
+    display: flex;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    overflow: auto;
+    
+	// only works to upto 99 items as very slow
+	@for $i from 0 to 99 {
+		
+		// add indexes to all items
+		& > *:nth-child(#{$i}){
+			--i:#{$i - 1};
+		}
+		
+		// loop using scss to determine quantity
+		&:has( > *:nth-last-child(n + #{$i}) ){
+			--quantity:#{$i};
+		}
+		
+	}
+
+    img{
+        max-width:calc( 100% / var(--quantity,1));
+    }
+}
+
