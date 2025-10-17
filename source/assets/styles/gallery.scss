@@ -100,7 +100,6 @@
         // grid-auto-rows: minmax( max(5vw, 150px), auto);
     
         gap: var(--gap, 2px);
-        padding: var(--pad);
         grid-auto-flow: dense;
 
         
@@ -397,6 +396,11 @@
         }
     }
 
+}
+
+
+.full-width .gallery .gallery-grid{
+    padding: var(--pad);
 }
 
 

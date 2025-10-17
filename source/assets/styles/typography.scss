@@ -202,9 +202,20 @@ details p:first-of-type:not([class]){
     font-size: var(--font-size-h6);
 }
 
-p + p{
-    padding-top: calc(var(--pad));
+// this breaks inside split text fields as the margin
+// may well be on the top so instead of using the subsequent rule
+// we instead overwrite all but the last
+// p + p{
+//     padding-top: calc(var(--pad));
+// }
+
+p{
+    padding-bottom: calc(var(--pad));
 }
+p + p:last-of-type{
+    padding-bottom: 0;
+}
+
 
 
 blockquote{
