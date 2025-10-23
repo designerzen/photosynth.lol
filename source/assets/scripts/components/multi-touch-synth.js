@@ -142,15 +142,16 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
         // retarget all pointer events (until pointerup) to thumb
         canvas.setPointerCapture(event.pointerId)
         onInteractionBegin(event)
-      
-        // on pointer up finish tracking pointer moves
-        canvas.onpointerup = function(event) {
-            onInteractionEnd(event)
-            // canvas.onpointerup = null
-            // ...also process the "drag end" if needed
-        }
+     
     }
-      
+    
+    // on pointer up finish tracking pointer moves
+    canvas.onpointerup = function(event) {
+        onInteractionEnd(event)
+        // canvas.onpointerup = null
+        // ...also process the "drag end" if needed
+    }  
+    
     // Clean up and kill all objects
     return ()=>{
         canvas.onpointermove = null
