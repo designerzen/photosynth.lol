@@ -16,8 +16,8 @@ export default class SynthOscillator{
 
         attack:0.4,         // in s
         decay:0.9,          // in s
-        sustain:0.85,       // ratio 0-1
-        release:0.1,        // in s
+        sustain:0.95,       // ratio 0-1
+        release:0.2,        // in s
         
         minDuration: .4,
 
@@ -334,6 +334,7 @@ export default class SynthOscillator{
         const amplitude = velocity * this.options.gain
         const amplitudeSustain = amplitude * this.options.sustain
 
+        clearInterval(this.timerInterval)
         this.gainNode.gain.cancelScheduledValues(startTime)
 
         // FORCE Silence to prevent stacking
@@ -428,8 +429,17 @@ export default class SynthOscillator{
         // const currentAmplitude = this.gainNode.gain.value
         this.gainNode.gain.cancelScheduledValues( extendNow )
         // this.gainNode.gain.setValueAtTime(currentAmplitude, now)
+        
+
+        // only setting this up as a var to multiply it later - you can hardcode.
+		// initial value is 1 millisecond - experiment with this value if it's not fading
+		// quickly enough.
+		const timeConstant = 0.01 // 0.001
+        this.gainNode.gain.setTargetAtTime(0, extendNow, timeConstant ) // ( SILENCE, extendNow + this.options.release )
+       
         // Use linear ramp for fade out
-        this.gainNode.gain.linearRampToValueAtTime( SILENCE, extendNow + this.options.release )
+        // NB. this may POP due to the way zero can doesnt exist
+        // this.gainNode.gain.linearRampToValueAtTime( SILENCE, extendNow + this.options.release )
         // this.gainNode.gain.setValueAtTime(currentAmplitude, now)
 
         // Apply filter fade out
@@ -449,7 +459,10 @@ export default class SynthOscillator{
             // }, (killOscillatorTime - now) * 1000)
         }
 
-        this.isNoteDown = false
+
+        // this.isNoteDown = false
+        this.timerInterval = setTimeout(()=> this.isNoteDown = false, this.options.release + 4 )
+   
         this.startedAt = -1
         return this
     }
