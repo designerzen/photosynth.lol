@@ -8,7 +8,7 @@
                 src:"/source/assets/photos/science-media-museum/church-wide.jpg",
                 width:4036,
                 height:3024,
-                caption:"PhotoSYNTH at the Science+ Media Museum, 2025",
+                caption:"Science+ Media Museum",
                 link:"Science+ Media Museum",
                 href:"science-media-museum.html",
                 date:"October 30<sup>th</sup>, 2025"
@@ -26,7 +26,7 @@
                 src:"/source/assets/photos/venue/Froggy - 2025-07-13 - Accessible Entrance.jpg",
                 width:1280,
                 height:720,
-                caption:"PhotoSYNTH at the Royal Society Summer Exhibition, 2025",
+                caption:"Royal Society Summer Exhibition, 2025",
                 link:"Royal Society Summer Exhibition",
                 href:"royal-society.html",
                 date:"July 2025"
@@ -35,8 +35,8 @@
                 src:"/source/assets/photos/media-city/media_city_installation.jpg",
                 width:1280,
                 height:720,
-                caption:"PhotoSYNTH Media City Installation, 2024",
-                link:"Media City Installation",
+                caption:"Beyond 2024, Media City Installation",
+                link:"Beyond 2024 - Media City Installation",
                 href:"poster.html",
                 date:"November 2024"
             },
@@ -44,7 +44,7 @@
                 src:"/source/assets/photos/emf/EMF Tent Setup.jpg",
                 width:1280,
                 height:720,
-                caption:"PhotoSYNTH at EMF Camp, 2024",
+                caption:"PhotoSYNTH 4D at EMF Camp, 2024",
                 link:"EMF Camp",
                 href:"poster.html",
                 date:"August 2024"
@@ -56,31 +56,37 @@
 <ol class="event-list">
     <each loop="event, index in events">
         <li>
-            <picture 
-                class="image">
-                <source srcset="{{event.src}}?as=avif&width={{width}}" type="image/avif" />
-                <source srcset="{{event.src}}?as=webp&width={{width}}" type="image/webp" />
-                <source srcset="{{event.src}}?as=jpg&width={{width}}" type="image/jpeg" />
-                <img 
-                    loading="{{loading}}"
-                    src="{{event.src}}?width={{width}}" 
-                    width="{{width}}" 
-                    height="{{height}}" 
-                    alt="{{caption}}" />
-            </picture>
+            <a href="{{event.href}}">
+                <picture 
+                    class="event-image">
+                    <source srcset="{{event.src}}?as=avif&width={{width}}" type="image/avif" />
+                    <source srcset="{{event.src}}?as=webp&width={{width}}" type="image/webp" />
+                    <source srcset="{{event.src}}?as=jpg&width={{width}}" type="image/jpeg" />
+                    <img 
+                        loading="{{loading}}"
+                        src="{{event.src}}?width={{width}}" 
+                        width="{{width}}" 
+                        height="{{height}}" 
+                        alt="{{caption}}" />
+                </picture>
 
-            <table class="event-calendar">
-                <tbody>
-                    <tr>
-                        <th>Location</th>
-                        <td><a href="{{event.href}}">{{{event.link}}}</a></td>
-                    </tr>
-                    <tr>
-                        <th>Date</th>
-                        <td>{{{event.date}}}</td>
-                    </tr>
-                </tbody>
-            </table>
+                <table class="event-calendar">
+                    <tbody>
+                        <tr>
+                            <th class="sr-only">Title</th>
+                            <td>{{{event.caption}}}</td>
+                        </tr>
+                        <tr>
+                            <th>Location</th>
+                            <td>{{{event.link}}}</td>
+                        </tr>
+                        <tr>
+                            <th>Date</th>
+                            <td>{{{event.date}}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </a>
 
         </li>
     </each>

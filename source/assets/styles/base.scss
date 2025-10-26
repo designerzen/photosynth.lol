@@ -131,7 +131,7 @@ table{
     flex-direction: column;
 
     tr + tr{
-        border-top:var(--stroke,1px) solid var(--col-accent);
+        border-top:var(--stroke,1px) solid var(--col-warm-grey);
         margin-top:0;
     }
     tr{
@@ -181,7 +181,7 @@ dd{
 th{
     display: block;
     margin-right: calc( var(--pad) / 2 );
-    line-height: 1.2;
+    // line-height: 1.2;
 }
 
 tr{
