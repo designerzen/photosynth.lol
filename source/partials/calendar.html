@@ -1,18 +1,91 @@
+<script locals>
+    let randomUUID = "gallery"+Math.random().toString(36).substring(2, 15) + ""
+    module.exports = {
+       ...locals,
+        id: locals.id || randomUUID,
+        events:[
+            {
+                src:"/source/assets/photos/science-media-museum/church-wide.jpg",
+                width:4036,
+                height:3024,
+                caption:"PhotoSYNTH at the Science+ Media Museum, 2025",
+                link:"Science+ Media Museum",
+                href:"science-media-museum.html",
+                date:"October 30<sup>th</sup>, 2025"
+            },
+            {
+                src:"/source/assets/photos/adc/adc.jpg",
+                width:1280,
+                height:720,
+                caption:"ADC Poster Session, 2025",
+                link:"ADC Poster Session",
+                href:"adc.html",
+                date:"November 11-12<sup>th</sup>, 2025"
+            },
+            {
+                src:"/source/assets/photos/venue/Froggy - 2025-07-13 - Accessible Entrance.jpg",
+                width:1280,
+                height:720,
+                caption:"PhotoSYNTH at the Royal Society Summer Exhibition, 2025",
+                link:"Royal Society Summer Exhibition",
+                href:"royal-society.html",
+                date:"July 2025"
+            },
+            {
+                src:"/source/assets/photos/media-city/media_city_installation.jpg",
+                width:1280,
+                height:720,
+                caption:"PhotoSYNTH Media City Installation, 2024",
+                link:"Media City Installation",
+                href:"poster.html",
+                date:"November 2024"
+            },
+            {
+                src:"/source/assets/photos/emf/EMF Tent Setup.jpg",
+                width:1280,
+                height:720,
+                caption:"PhotoSYNTH at EMF Camp, 2024",
+                link:"EMF Camp",
+                href:"poster.html",
+                date:"August 2024"
+            }
+        ]
+    }
+</script>
+
 <ol class="event-list">
-  <li>
-    <table class="event-calendar">
-      <tbody>
-        <tr>
-          <th>Location</th>
-          <td><a href="science-media-museum.html">Science+ Media Museum</a></td>
-        </tr>
-        <tr>
-          <th>Date</th>
-          <td>October 30<sup>th</sup>, 2025</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
+    <each loop="event, index in events">
+        <li>
+            <picture 
+                class="image">
+                <source srcset="{{event.src}}?as=avif&width={{width}}" type="image/avif" />
+                <source srcset="{{event.src}}?as=webp&width={{width}}" type="image/webp" />
+                <source srcset="{{event.src}}?as=jpg&width={{width}}" type="image/jpeg" />
+                <img 
+                    loading="{{loading}}"
+                    src="{{event.src}}?width={{width}}" 
+                    width="{{width}}" 
+                    height="{{height}}" 
+                    alt="{{caption}}" />
+            </picture>
+
+            <table class="event-calendar">
+                <tbody>
+                    <tr>
+                        <th>Location</th>
+                        <td><a href="{{event.href}}">{{{event.link}}}</a></td>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <td>{{{event.date}}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </li>
+    </each>
+
+<!--   
   <li>
     <table class="event-calendar">
       <tbody>
@@ -68,5 +141,5 @@
         </tr>
       </tbody>
     </table>
-  </li>
+  </li> -->
 </ol>

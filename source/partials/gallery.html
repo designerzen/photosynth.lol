@@ -22,11 +22,11 @@
 </script> -->
 
 <script locals>
-    let randomUUID = "id"+Math.random().toString(36).substring(2, 15) + ""
+    let randomUUID = "gallery"+Math.random().toString(36).substring(2, 15) + ""
     module.exports = {
        ...locals,
         id: locals.id || randomUUID,
-        title: locals.title || '',
+        title: locals.title || ''
     }
 </script>
 
