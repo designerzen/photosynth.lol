@@ -2,7 +2,6 @@
 <script locals>
     let randomUUID = "id"+Math.random().toString(36).substring(2, 15) + ""
     module.exports = {
-       ...locals,
        // Brought to you by
        title:"A timely duet between",
        drake:true,
@@ -11,7 +10,8 @@
        adc:false,
        aotf:false,
        awesomething:false,
-       designerzen:false
+       designerzen:false,
+       ...locals
     }
 </script>
 
@@ -58,7 +58,7 @@
                 <li><a href="https://accessiblemusicalinstrumentcollection.org/" rel="noopener noreferrer" target="_blank">
                         <figure role="figure" aria-label="" >
                             <figcaption class="sr-only"><small>Available at</small>Accessible Musical Instrument Collection</figcaption>
-                            <img class="logo logo-royal-amic" src="/source/assets/logos/amic.svg"  width="1024" height="1024" alt="Accessible Misical Instrument Collection">
+                            <img class="logo logo-amic" src="/source/assets/logos/amic.svg"  width="1024" height="1024" alt="Accessible Misical Instrument Collection">
                         </figure>
                     </a>
                 </li>
@@ -68,7 +68,7 @@
                 <li><a href="https://audienceofthefuture.live/interface/" rel="noopener noreferrer" target="_blank">
                         <figure role="figure" aria-label="" >
                             <figcaption class="sr-only"><small>Represented by</small>Audience of the Future</figcaption>
-                            <img class="logo logo-royal-aotf" src="/source/assets/logos/aotf.svg"  width="1024" height="1024" alt="Audience of the Future">
+                            <img class="logo logo-aotf" src="/source/assets/logos/aotf.svg"  width="1024" height="1024" alt="Audience of the Future">
                         </figure>
                     </a>
                 </li>
@@ -79,7 +79,7 @@
                 <li><a href="https://adc.dev/" rel="noopener noreferrer" target="_blank">
                         <figure role="figure" aria-label="" >
                             <figcaption class="sr-only">ADC</figcaption>
-                            <img class="logo logo-royal-designerzen" src="/source/assets/logos/adc.svg"  width="1024" height="1024" alt="Audio Developers Conference">
+                            <img class="logo logo-adc" src="/source/assets/logos/adc.svg"  width="1024" height="1024" alt="Audio Developers Conference">
                         </figure>
                     </a>
                 </li>
@@ -89,7 +89,7 @@
                 <li><a href="https://designerzen.com/" rel="noopener noreferrer" target="_blank">
                         <figure role="figure" aria-label="" >
                             <figcaption class="sr-only">Made by designerzen</figcaption>
-                            <img class="logo logo-royal-designerzen" src="/source/assets/logos/designerzen.svg"  width="1024" height="1024" alt="designerzen">
+                            <img class="logo logo-designerzen" src="/source/assets/logos/designerzen.svg"  width="1024" height="1024" alt="designerzen">
                         </figure>
                     </a>
                 </li>
@@ -99,7 +99,7 @@
                 <li><a href="https://designerzen.com/" rel="noopener noreferrer" target="_blank">
                         <figure role="figure" aria-label="" >
                             <figcaption class="sr-only">Made by awesomething</figcaption>
-                            <img class="logo logo-royal-awesomething" src="/source/assets/logos/awesomething.svg"  width="1024" height="1024" alt="awesomething">
+                            <img class="logo logo-awesomething" src="/source/assets/logos/awesomething.svg"  width="1024" height="1024" alt="awesomething">
                         </figure>
                     </a>
                 </li>
