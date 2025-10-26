@@ -109,6 +109,8 @@
             max-width: none;
             width: auto;
             height: 100vh;
+            max-height: 100vh;
+            
             object-fit: fill;
             transform: translateX(-50%);
             position: absolute;
@@ -130,6 +132,10 @@
                     Shouting var(--duration, 1s) ease-in-out var(--delay, 0s) infinite both alternate-reverse,
                     RainbowColor calc( 3 * var(--duration, 1s)) linear var(--delay, 0s) infinite both;
             }
+        }
+
+        .poster-details{
+            max-height: 100vh;
         }
 
         .poster-text{
@@ -339,7 +345,8 @@
         </svg>
 
 
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        <svg class="poster-details" 
+            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
             xml:space="preserve" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"
             stroke-miterlimit="1.5" clip-rule="evenodd" width="1313" hieght="2160" viewBox="0 0 1313 2160">
 
