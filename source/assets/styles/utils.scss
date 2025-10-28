@@ -412,7 +412,7 @@ hr{
     margin:var(--pad) 0;
     clear: both;
     border:var(--stroke, 1px) solid var(--col-accent);
-    display: flex;
+    // display: flex;
     place-items: center;
     background-color: var(--col-stone-light);
     &:after {

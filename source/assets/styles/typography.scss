@@ -212,7 +212,8 @@ details p:first-of-type:not([class]){
 p{
     padding-bottom: calc(var(--pad));
 }
-p + p:last-of-type{
+
+p + p:last-of-type:not(.box){
     padding-bottom: 0;
 }
 
