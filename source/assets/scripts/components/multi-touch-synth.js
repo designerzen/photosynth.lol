@@ -46,6 +46,8 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
         const note = convertPositionToNote(e)
         noteOnCallback( note, 1, id )
         activeNotes.set(id, note)
+
+        canvas.classList.toggle("interacting",true)
         
         // console.info(id, "mouse down", {e})
     }
@@ -128,7 +130,8 @@ export const registerMultiTouchSynth = ( notes=[], noteOnCallback=null, noteOffC
             // console.info( id, "mouse up", {e, note, activeNotes})
         }else{
             // console.info( id, "mouse up IGNORED", {e, activeNotes})
-        }      
+        }    
+        canvas.classList.toggle("interacting",false)
     }
 
     // start tracking pointer moves

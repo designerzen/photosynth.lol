@@ -1056,8 +1056,6 @@ footer{
 
 #wallpaper{
 
-    // NB. prevent scrolling while touching
-    touch-action: none;
 
     width: 100%;
     height: 100%;
@@ -1069,6 +1067,12 @@ footer{
     // background-image: url(/source/assets/wallpaper/hero-bg.svg);
     background-color:inherit;// var(--col-bg);
     mix-blend-mode: color-burn;
+
+    &.interacting{
+        // NB. prevent scrolling while touching
+        touch-action: none;
+
+    }
 }
 
 #waveform-visualiser{
