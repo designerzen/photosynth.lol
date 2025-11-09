@@ -43,5 +43,7 @@
 // finally we apply any themes
 @use "./themes.scss";
 
+@use "./view-transitions.scss";
+
 
 @use "./utils.scss";

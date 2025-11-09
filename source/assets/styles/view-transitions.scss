@@ -1,0 +1,27 @@
+
+/* 
+//Disable the default fade out effect on the old content
+::view-transition-old(root) {
+	animation: none;
+}
+
+// Make new content wipe in from the right
+::view-transition-new(root) {
+	animation: wipe-in 0.6s ease-out forwards;
+}
+
+// prevent content animating the overflow too
+::view-transition-image-pair(content) {
+	overflow: hidden;
+}
+
+// Animation wiping in the new content
+@keyframes wipe-in {
+	from {
+		clip-path: inset(0 0 0 100%);
+	}
+	to {
+		clip-path: inset(0 0 0 0);
+	}
+}
+ */
