@@ -1,3 +1,25 @@
+export const prefersReducedMotion = () => !!window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
+export const activateViewTransitions = async () => {
+    // View Transitions are available on this browser
+    if ( document.startViewTransition && !prefersReducedMotion() ) {
+        // add transforms!
+        document
+            .startViewTransition(() => {
+                // currentStep = stepNumber
+                // showStep(currentStep)
+            })
+            .finished.then(() => {
+                // Clean up direction class
+                document.documentElement.classList.remove("animate-view")
+                return true
+            })
+    }else{
+        return false
+    }
+}
+
+
 export const setGalleryImage = (image, title, attribution) => {
 
     // find the nearest dialog...imgvalue 
@@ -14,6 +36,9 @@ export const setGalleryImage = (image, title, attribution) => {
         // set the image source
         const img = dialog.querySelector("img")
         if (img) {
+
+            //  activateViewTransitions()
+
             img.classList.toggle("loading", true)
 
             img.onload = () => {
@@ -87,7 +112,7 @@ export const setGalleryImage = (image, title, attribution) => {
                 }
             }, {signal:abortSignal.signal})
 
-            console.warn("dialog opened with image", {image, img,previous, next, previousImage, nextImage, figcaption})
+            //console.warn("dialog opened with image", {image, img,previous, next, previousImage, nextImage, figcaption})
 
         } else {
             console.warn("No image found in dialog to set source")
@@ -108,9 +133,6 @@ export const setGalleryImage = (image, title, attribution) => {
             console.warn("dialog closed, focus set on image", image)
         }, {signal:abortSignal.signal})
     }
-
-    // add in some other images via arrows?
-
 }
 
 export const createGallery = () => {
@@ -129,7 +151,7 @@ export const createGallery = () => {
             const image = document.getElementById(id)
             const title = image.alt || "Gallery Item"
             const attribution = image.dataset.attribution
-            console.warn("Gallery:request", image, id, event )
+            //console.warn("Gallery:request", image, id, event )
             setGalleryImage( image, title, attribution )
             
             // ensure that when we close the dialog we
