@@ -47,13 +47,13 @@
                 
                     <picture 
                         class="gallery-image image-{{index}}"
-                        style="--object-position-x:{{image.positionX??'50%'}};--object-position-y:{{image.positionY??'50%'}};">
+                        style="--object-position-x:{{image.positionX??'50%'}};--object-position-y:{{image.positionY??'50%'}};anchor-name:--{{id}}image{{index}};view-transition-name:gallery{{id}}image{{index}}"
+                           
                         <source srcset="{{image.src}}?as=avif&width={{image.width}}" type="image/avif" />
                         <source srcset="{{image.src}}?as=webp&width={{image.width}}" type="image/webp" />
                         <source srcset="{{image.src}}?width={{image.width}}" type="image/jpeg" />
                         <img 
                             id="gallery{{id}}image{{index}}"
-                            style="view-transition-name:gallery{{id}}image{{index}}"
                             loading="{{image.loading || 'lazy'}}"
                             src="{{image.src}}?width={{image.width}}" 
                             width="{{image.width}}" 

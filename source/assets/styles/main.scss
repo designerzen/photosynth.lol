@@ -505,15 +505,19 @@ main > section.sticky + section{
 #midi-equipment{
     display: grid;
     grid-template-areas: 
-        "header toggle"
-        "details details"
+        "header"
+        "toggleMIDI"
+        "toggleMIDI"
+        "details"
         ;
 
     grid-template-rows: 
         auto 
+        auto 
+        auto 
         1fr;
 
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto;
 
     justify-content: stretch;
     align-items: center;
@@ -530,6 +534,20 @@ main > section.sticky + section{
         grid-area: details;
         margin: 0;
     }
+    .toggle-midi-controls{
+        grid-area: toggleMIDI;
+        display: flex;
+        flex-direction: column;
+        gap:var(--gap, var(--pad));
+    }
+
+    label[for="toggle-web-midi"]{
+        justify-self: end;
+    }
+    label[for="toggle-ble-midi"]{
+        justify-self: end;
+    }
+
 }
 
 #details figure{
@@ -557,12 +575,32 @@ main > section.sticky + section{
 }
 
 @media screen and (min-width:vars.$min-width-3){
+      
     #details figure{
         grid-template-areas: 
             "caption caption"
             "button details";
         grid-template-columns: minmax(44px, 1fr) 1fr;
    
+    }
+}
+
+@media screen and (min-width:vars.$min-width-2){
+        
+    #midi-equipment{
+        grid-template-areas: 
+            "header header"
+            "toggleMIDI toggleMIDI"
+            "details details"
+            ;
+        grid-template-rows: 
+           auto, 
+           auto, 
+           auto;
+        grid-template-columns: 1fr 1fr;
+        .toggle-midi-controls{
+            flex-direction: row;
+        }
     }
 }
 

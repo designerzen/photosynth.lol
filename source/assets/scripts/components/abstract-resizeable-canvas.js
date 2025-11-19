@@ -19,6 +19,13 @@ export class AbstractResizeable{
      * @param {Object} optional 
      */
     constructor( canvas, workerURI, optional={} ){
+        
+        // there is no canvas to work with
+        if (!canvas)
+        {
+            return
+        }
+        
         this.element = canvas        
         this.optional = {screenBoundary:DEFAULT_PERFORMANCE_BOUNDARY_SIZE, ...optional}        
         this.onResize = this.onResize.bind(this) 

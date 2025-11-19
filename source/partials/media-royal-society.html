@@ -1,15 +1,21 @@
 <!-- {"src": "/source/assets/photos/event/dcf1361.jpg", "alt": "PhotoSYNTH event candid 1361", "width": 1620, "height": 1080}, -->
 <article class="section section-event">
-    
-    <!-- <header>
-        <h3>Gallery</h3>
+
+    <header class="underline">
+        <h3 class="heading-icon">Gallery</h3>
         <h4>Royal Society Summer Exhibition 2025</h4>
-    </header> -->
+    </header>
+
+    <!-- https://youtu.be/mFrNDEOtMF8 -->
+    <lite-youtube videoid="mFrNDEOtMF8" autopause>
+         <img slot="image" src="/source/assets/photos/event/fancy strut.jpg">
+    </lite-youtube>
    
     <include 
         src="./source/partials/gallery.html" 
         locals='{ 
-            "title":"Exhibition",
+            "id":"media-royal-society",
+            "title":"Royal Society Exhibition",
             "images":[
                 {"src": "/source/assets/photos/event/fancy strut.jpg", "alt": "Royal Society Entrance", "width": 800, "height": 1067, "positionY": "0%"},
                 {"src": "/source/assets/photos/event/froggy - 2025-07-13 19.47.28.jpg", "alt": "Summer Exhibition 2025", "width": 1280, "height": 1600, "attribution": "Philip Watson", "positionX": "53%"},
@@ -71,7 +77,8 @@
     <include 
         src="./source/partials/gallery.html" 
         locals='{ 
-            "title":"Venue",
+            "id":"venue-royal-society",
+            "title":"Royal Society Venue",
             "images":[
                 {"src": "/source/assets/photos/venue/David Attenborough Painting.jpg", "alt": "David Attenborough Painting", "width": 1024, "height": 1366},
                 {"src": "/source/assets/photos/venue/Fancy struts.jpg", "alt": "Venue Entrance", "width": 1024, "height": 1366, "attribution": "Jean Baptiste"},

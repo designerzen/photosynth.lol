@@ -82,7 +82,8 @@
 
     .gallery-grid {
 
-        --size:min( 90px, calc( (100vw - 2 * var(--pad)) / 13 ) );
+        --columns:12;
+        --size:min( 90px, calc( (100vw - 2 * var(--pad)) / var(--columns) ) );
         --aspect-ratio: 16/9;
         display: grid;
 
@@ -93,15 +94,14 @@
 
         grid-template-columns: repeat(auto-fill, minmax(var(--size), 1fr));
         // grid-template-columns: repeat(auto-fill, auto);
-        grid-auto-rows: minmax( calc(var(--size) / var(--aspect-ratio,1)), 50vw);
-        grid-auto-rows: minmax( auto, calc(var(--size) / var(--aspect-ratio,1)));
-        grid-auto-rows: minmax( calc(var(--size) / var(--aspect-ratio,1)), calc(var(--size) * var(--aspect-ratio,1)) );
+        // grid-auto-rows: minmax( calc(var(--size) / var(--aspect-ratio,1)), 50vw);
+        // grid-auto-rows: minmax( auto, calc(var(--size) / var(--aspect-ratio,1)));
+        // grid-auto-rows: minmax( calc(var(--size) / var(--aspect-ratio,1)), calc(var(--size) * var(--aspect-ratio,1)) );
         grid-auto-rows: minmax( var(--size), auto );
         // grid-auto-rows: minmax( max(5vw, 150px), auto);
     
         gap: var(--gap, 2px);
         grid-auto-flow: dense;
-
         
         .gallery-figure{
             padding:0;
@@ -341,9 +341,10 @@
     }
 
     
-
     @media (min-width: 320px) {
-            
+         
+        --columns:6;
+
         .gallery-grid {
             // --size:120px;
         }
@@ -393,6 +394,7 @@
             
         .gallery-grid {
             // --size:160px;
+             --columns:12;
         }
     }
 

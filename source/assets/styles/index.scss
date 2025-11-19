@@ -41,6 +41,7 @@
 @use "./keyframes.scss";
 
 // finally we apply any themes
+@use "./sections.scss";
 @use "./themes.scss";
 
 @use "./view-transitions.scss";

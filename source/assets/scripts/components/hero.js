@@ -10,6 +10,14 @@ export default class Hero extends AbstractInteractive{
         super()
         
         this.hero = document.getElementById("hero")
+
+        if (!this.hero)
+        {
+            // we are on a page that doesn't have
+            // the elements required so we leave early
+            return
+        }
+
         this.figure = document.getElementById("hero-figure")
         // this.mask = document.getElementById("introduction")
         this.mask = document.getElementById("main-content")

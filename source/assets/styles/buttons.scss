@@ -438,49 +438,54 @@ a.cta{
 //     padding-right:calc( var(--pad) * 3);
 // }
 
-
-
-label[for="toggle-midi"]{
-// #toggle-midi{
-    // position: absolute;
+#midi-equipment label[for^="toggle-"]{
+    // font-size: 0;
+    // color: transparent;
+    // margin-bottom: var(--pad);
     padding:0;
     margin: 0;
+}
+
+.toggle-midi-controls label[for^="toggle-"]{
+    display: flex;
+    place-items: anchor-center;
+    gap:var(--gap, var(--pad));
+
     // bottom:var(--pad);
     // left:var(--pad);
     width: fit-content;
-  
-    &::before{
-        content: '';
-        background-image:url("/source/assets/icons/midi-copyright-free.svg");
-        // background-image:url("../logos/midi-association.svg");
-        background-repeat: no-repeat;
-        background-position: center;
-        grid-area: 1/1/-1/-1;
-        display: none;
-        z-index: 1;
-    }
+    text-align: right;
+
+
+ 
+    // &::before{
+    //     content: '';
+    //     background-image:url("/source/assets/icons/midi-copyright-free.svg");
+    //     // background-image:url("../logos/midi-association.svg");
+    //     background-repeat: no-repeat;
+    //     background-position: center;
+    //     grid-area: 1/1/-1/-1;
+    //     display: none;
+    //     z-index: 1;
+    // }
 
     &:has(:checked)::before{ 
         filter:brightness(0%) invert(100%);
     }
 }
 
-aside > label[for="toggle-midi"]{
-    display: grid;
-    font-size: 0;
-    color: transparent;
-    // margin-bottom: var(--pad);
- 
-    &::before{
-        display: block;
-    }
-}
-
-#toggle-midi{
+ input[type="checkbox"].toggle-midi{
     --size:66px;
     grid-area: 1/1/-1/-1;
     border:2px solid black;// var(--col-border);
     background-color:var(--col-accent);
+    // add the icon
+    background-image:url("/source/assets/icons/midi-copyright-free.svg");
+    // background-image:url("../logos/midi-association.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+
+
     // padding: 2px;
     border-radius: 999px;
     overflow: hidden;
@@ -495,6 +500,11 @@ aside > label[for="toggle-midi"]{
     &:active:hover{
          filter:brightness(100%) invert(100%);
     }
+}
+
+#toggle-ble-midi{
+    // background-image:url("/source/assets/logos/bluetooth.svg");
+    background-image:url("/source/assets/logos/bluetooth-circle.svg");
 }
 
 
