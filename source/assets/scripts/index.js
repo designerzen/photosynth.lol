@@ -51,6 +51,10 @@ import WAVE_ARCHIVE_GENERAL_MIDI from "url:/static/wave-tables/general-midi.zip"
 import MANIFEST_URL from "url:/static/wave-tables/general-midi/manifest.json"
 import { DEFAULT_MOUSE_ID } from "./components/abstract-interactive.js"
 
+// Web components!
+// Youtube : https://github.com/justinribeiro/lite-youtube
+import '@justinribeiro/lite-youtube'
+
 const SETTINGS = getSettings()
 
 // audio requires a user gesture to start...
@@ -75,6 +79,10 @@ let stats
 
 const midiManager = new MIDIManager()
 
+let midiDeviceInput
+let midiDeviceOutput
+
+
 // Pointers to Shared DOM elements
 let hero
 let noteVisualiser
@@ -86,9 +94,6 @@ let circles
 let keyboard 
 let recorder
 let timeKeeper
-
-let midiDeviceInput
-let midiDeviceOutput
 
 // a map of all active notes currently playing
 const notesPlaying = new Map()
@@ -343,8 +348,14 @@ const noteOn = ( noteModel, velocity=1, id=DEFAULT_MOUSE_ID, isMidi=false ) => {
    
     // NB. To prevent endless looping...
     if (!isMidi && midiManager.enabled && midiDeviceOutput){
-        midiDeviceOutput.playNote( noteModel.noteName, {attack:velocity }) 
+        midiDeviceOutput.playNote( noteModel.noteName, { attack:velocity }) 
     }
+
+    if (midiManager.bluetoothMIDIEnabled)
+    {
+        console.info("BLE MIDI Note ON", noteModel.noteNumber, velocity )
+    }
+
     return isAlreadyPlaying
 }
    
@@ -396,6 +407,12 @@ const noteOff = (noteModel, velocity=1, id=0, isMidi=false ) => {
         midiDeviceOutput.stopNote( noteModel.noteName )
         // console.info("MIDI NOTE OFF", noteModel )
     }
+
+    if (midiManager.bluetoothMIDIEnabled)
+    {
+        console.info("BLE MIDI Note OFF", noteModel.noteNumber, velocity )
+    }
+
     return isPlaying
 }
 
@@ -789,22 +806,24 @@ const showMIDIToggle = () => {
     
     const MIDIStatus = document.getElementById("midi-status")
     const sectionMIDIToggle = document.getElementById("midi-equipment")
-    const buttonMIDIToggle = document.getElementById("toggle-midi")
+
+    const buttonWebMIDIToggle = document.getElementById("toggle-web-midi")
+    const labelWebMIDIToggle = buttonWebMIDIToggle.parentNode //  sectionMIDIToggle.querySelector("label[for='toggle-web-midi']")
    
-    let isMIDIAvailable = true
-    buttonMIDIToggle.addEventListener("click", async(e) => {
+    let isWebMIDIAvailable = true
+    buttonWebMIDIToggle.addEventListener("click", async(e) => {
         
-        if (!isMIDIAvailable)
+        if (!isWebMIDIAvailable)
         {
             return false
         } 
             
-        await midiManager.toggle()
+        await midiManager.toggleWebMIDI()
 
-        if (!midiManager.available)
+        if (!midiManager.isMIDIAvailable)
         {
-            buttonMIDIToggle.hidden = true
-            isMIDIAvailable = false
+            buttonWebMIDIToggle.hidden = true
+            isWebMIDIAvailable = false
             console.error("No midi support")
             return
         }
@@ -923,9 +942,9 @@ const showMIDIToggle = () => {
 
         }else{
 
-            MIDIStatus.textContent = "No MIDI devices detected. Connect one and try again."
-            isMIDIAvailable = false
-            buttonMIDIToggle.hidden = true
+            MIDIStatus.textContent = "No Wired MIDI devices were detected. Connect one via USB or MIDI cable and try again."
+            isWebMIDIAvailable = false
+            buttonWebMIDIToggle.hidden = false
         }
         
         if (midiManager.hasOutputDevices)
@@ -936,10 +955,27 @@ const showMIDIToggle = () => {
             // console.info("MIDI Output found " + midiDevice.name, midiDevice )
         }
         
-       buttonMIDIToggle.checked = isMIDIAvailable
+       buttonWebMIDIToggle.checked = isWebMIDIAvailable
     })
-    sectionMIDIToggle.hidden = false
-    buttonMIDIToggle.parentNode.hidden = false
+
+    // chcek for web midi support
+    labelWebMIDIToggle.hidden = !midiManager.isWebMIDISupported
+
+
+    // BLUETOOTH MIDI ---------------------------------------------------
+    const buttonBluetoothMIDIToggle = document.getElementById("toggle-ble-midi")
+    const labelBluetoothMIDIToggle = buttonBluetoothMIDIToggle.parentNode // sectionMIDIToggle.querySelector("label[for='toggle-ble-midi']")
+  
+    buttonBluetoothMIDIToggle.addEventListener("click", async(e) => {
+        const isBLEEnabled = await midiManager.toggleBluetoothMIDI()
+        console.info("Bluetooth MIDI toggle", {isBLEEnabled} )
+        // MIDIStatus.textContent += "Connected to output device " + midiDevice.name
+    })
+
+    labelBluetoothMIDIToggle.hidden = !midiManager.isBluetoothMIDISupported
+
+    // show whole section if the user has MIDI access!
+    sectionMIDIToggle.hidden = !midiManager.isMIDISupported
 }
 
 /**
@@ -1563,12 +1599,21 @@ const start =  async () => {
     // add gallery interactions to dialog
     createGallery()
     
+    // FIXME: Quit here if the resources are not available
+
+
     // top interactive smiling graphic
     hero = new Hero(ALL_KEYBOARD_NOTES, noteOn, noteOff, SETTINGS.showNotes ? SETTINGS.notes : 0)
         
     if (SETTINGS.showNoteVisualiser){
         // sequencer style note visualiser (2 varieties)
         wallpaperCanvas = document.getElementById("wallpaper")
+
+        if (!wallpaperCanvas)
+        {
+            return false
+        }
+
         noteVisualiser = new NoteVisualiser( ALL_KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
         // noteVisualiser = new NoteVisualiser( KEYBOARD_NOTES, wallpaperCanvas, false, 0 ) // ALL_KEYBOARD_NOTES
         wallpaperCanvas.addEventListener( "dblclick", e => scale === SCALES[ (SCALES.indexOf(scale) + 1) % SCALES.length] )
@@ -1613,7 +1658,7 @@ const start =  async () => {
 
     // setGalleryImage()
     
-    if (navigator.requestMIDIAccess)
+    if (midiManager.isMIDISupported)
     {
         showMIDIToggle()
     }
