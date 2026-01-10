@@ -9,13 +9,13 @@
  * Sub-Tonic
  * 
  * Charles Goes Dancing At Every Big Fun Celebration.
- * From G D A E B...
+ * From G D A E B F C...
  * 
  */
 
 import { PALETTE } from "./settings"
 
-const ROOT_FREQUENCY = 440 // 440 //frequency of A (coomon value is 440Hz)
+const ROOT_FREQUENCY = 440 // frequency of A (common value is 440Hz)
 const ROOT_F_BY_32 = ROOT_FREQUENCY / 32
 export const noteNumberToFrequency = noteNumber => ROOT_F_BY_32 * (2 ** ((noteNumber - 9) / 12))
 

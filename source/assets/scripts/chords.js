@@ -4,6 +4,10 @@
  * while pentatonic scales have five steps.
  * there are different scales with custom tunings
  * out there but these are the classics
+ * 
+ * Dorian sounds brighter than Aeolian, 
+ * but Phrygian and especially Locrian 
+ * have a much darker sound 
  */
 
 const rotateArray = (a, n) => {
@@ -21,12 +25,12 @@ export const TUNING_MODE_LOCRIAN = 'Locrian'
 
 export const TUNING_MODE_NAMES = [
 	TUNING_MODE_IONIAN,			// Same as major
-	TUNING_MODE_DORIAN,			// Start from second degree of major
-	TUNING_MODE_PHRYGIAN,		// Start from third degree of major
+	TUNING_MODE_DORIAN,			// * Start from second degree of major
+	TUNING_MODE_PHRYGIAN,		// * Start from third degree of major
 	TUNING_MODE_LYDIAN,			// Start from fourth degree of major
 	TUNING_MODE_MIXOLYDIAN,		// Start from fifth degree of major
-	TUNING_MODE_AEOLIAN,		// Start from sixth degree (same as natural minor)
-	TUNING_MODE_LOCRIAN			// Start from seventh degree
+	TUNING_MODE_AEOLIAN,		// * Start from sixth degree (same as natural minor)
+	TUNING_MODE_LOCRIAN			// * Start from seventh degree
 ]
 
 export const getModeAsIntegerOffset = (mode) => isNaN(parseInt(mode)) ? TUNING_MODE_NAMES.indexOf(mode) : mode%TUNING_MODE_NAMES.length
@@ -34,7 +38,7 @@ export const getModeFromIntegerOffset = (mode) => isNaN(parseInt(mode)) ? mode :
   
 // Shifted intervals...
 // To go from any specific note to any other specific note
-const INTERVAL_SHIFTS = {
+const TRANSPOSE_INTERVAL = {
 	downOctave: -12,
 	minorSecond: 1,
 	majorSecond: 2,
@@ -104,8 +108,6 @@ export const MAJOR_HEPTATONIC_BLUES_CHORD_INTERVALS = [0,3,4]
 
 export const MINOR_NONATONIC_BLUES_CHORD_INTERVALS = [0,3,4]
 export const MAJOR_NONATONIC_BLUES_CHORD_INTERVALS = [0,3,4]
-
-
 
 
 
@@ -194,3 +196,5 @@ export const createFifthsChord =( notes, offset=0, mode=0 )=> createChord( notes
 export const invertChord = (chord, inversion=0) => {
 	return rotateArray( chord, inversion )
 }
+
+
