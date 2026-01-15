@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 320 330">
+  
+  <g class="terror">
+    <path data-emotion="apprehension" fill="#add8e6" fill-rule="nonzero" stroke="#87ceeb" d="M233.323 192.99a160.008 160.008 0 0 0 27.16-7.21 101.52 101.52 0 0 0 0-23.18 158.522 158.522 0 0 0-27.13-7.31 76.748 76.748 0 0 1-.03 37.7Z"/>
+    <path data-emotion="fear" fill="#d0e4ea" fill-rule="nonzero" stroke="#87ceeb" stroke-linejoin="round" stroke-miterlimit="2" d="M260.51 185.76a206.987 206.987 0 0 0 26.44-11.5 206.039 206.039 0 0 0-26.41-11.59c.86 7.673.85 15.419-.03 23.09"/>
+    <path fill="#4169e1" fill-rule="nonzero" stroke="#1e40af" d="M203.389 155.51h-.09a48.407 48.407 0 0 1 3.7 17.71v1.8a48.796 48.796 0 0 1-3.76 17.7h.08c9.17 2.23 19.43 1.92 29.54.28a76.736 76.736 0 0 0 .07-37.7c-10.1-1.64-20.36-1.98-29.54.21Z"/>
+    <path data-emotion="sadness" fill="#00008b" fill-rule="nonzero" stroke="#1e40af" d="m203.86 155.7-45 18.57 44.94 18.67a48.519 48.519 0 0 0 .06-37.24Z"/>
+  </g>
+
+  <g class="rage">
+    <path data-emotion="anger" fill="#ffdde2" fill-rule="nonzero" stroke="plum" stroke-linejoin="round" stroke-miterlimit="2" d="M57.09 162.71a207.021 207.021 0 0 0-26.56 11.59 204.057 204.057 0 0 0 26.56 11.6 101.608 101.608 0 0 1 0-23.19"/>
+    <path data-emotion="rage" fill="#f44" fill-rule="nonzero" stroke="#c00" d="M113.825 155.636h.09a48.407 48.407 0 0 0-3.7 17.71v1.8a48.796 48.796 0 0 0 3.76 17.7h-.08c-9.17 2.23-19.43 1.92-29.54.28a76.736 76.736 0 0 1-.07-37.7c10.1-1.64 20.36-1.98 29.54.21Z"/>
+    <path data-emotion="annoyance" fill="#ffb6c1" fill-rule="nonzero" stroke="#ff69b4" d="M84.175 193.2a160.008 160.008 0 0 1-27.16-7.21 101.52 101.52 0 0 1 0-23.18 158.522 158.522 0 0 1 27.13-7.31 76.748 76.748 0 0 0 .03 37.7Z"/>
+    <path data-emotion="rage" fill="#8b0000" fill-rule="nonzero" stroke="#5c0000" d="m113.92 192.74 45-18.57-44.93-18.67a48.546 48.546 0 0 0-.07 37.24Z"/>
+  </g>
+
+  <g class="ecstasy" fill-rule="nonzero">
+    <path data-emotion="joy" fill="orange" stroke="tomato" d="m140.41 129.24 18.53 45 18.71-44.92a48.587 48.587 0 0 0-37.24-.08Z"/>
+    <path data-emotion="serenity" fill="#fffacd" stroke="#ffe680" d="M177.57 99.66a160.008 160.008 0 0 0-7.21-27.16 101.52 101.52 0 0 0-23.18 0 158.522 158.522 0 0 0-7.31 27.13 76.748 76.748 0 0 1 37.7.03Z"/>
+    <path data-emotion="ecstasy" fill="gold" stroke="orange" d="M140.04 129.14v.09a48.407 48.407 0 0 1 17.71-3.7h1.8a48.796 48.796 0 0 1 17.7 3.76v-.08c2.23-9.17 1.92-19.43.28-29.54a76.736 76.736 0 0 0-37.7-.07c-1.64 10.1-1.98 20.36.21 29.54Z"/>
+    <path fill="#f9f9f9" stroke="#ffe680" stroke-linejoin="round" stroke-miterlimit="2" d="M170.36 72.5a206.493 206.493 0 0 0-11.56-26.58 205.039 205.039 0 0 0-11.64 26.54c7.709-.873 15.494-.86 23.2.04"/>
+  </g>
+
+  <g class="vigilance" fill-rule="nonzero">
+    <path fill="#ffdab9" stroke="#ffb347" d="M119.31 108.14a159.48 159.48 0 0 0-24.35-14 102.007 102.007 0 0 0-16.31 16.26 159.251 159.251 0 0 0 14 24.34 76.738 76.738 0 0 1 26.66-26.6Z"/>
+    <path fill="#ff8c00" stroke="tomato" d="M113.8 155.59v.07a48.708 48.708 0 0 1 10-15.19c.21-.22.41-.44.62-.65l.65-.62a48.59 48.59 0 0 1 15.16-9.89h-.07c-4.94-8.17-12.48-15.17-20.85-21.17a76.742 76.742 0 0 0-26.62 26.6c5.99 8.4 13.04 15.91 21.11 20.85Z"/>
+    <path fill="tomato" stroke="#dc143c" d="m140.3 129.29 18.56 45-44.92-18.67a48.46 48.46 0 0 1 26.36-26.33Z"/>
+    <path fill="#f3ebe4" stroke="#ffb347" stroke-linejoin="round" stroke-miterlimit="2" d="M94.96 94.07a206.097 206.097 0 0 0-26.84-10.52 205.942 205.942 0 0 0 10.53 26.85 101.991 101.991 0 0 1 16.31-16.33"/>
+  </g>
+
+  <g class="admiration">
+    <path fill="#3cb371" fill-rule="nonzero" stroke="#228b22" d="m203.8 155.66-45 18.54 18.71-44.92a48.516 48.516 0 0 1 26.29 26.38Z"/>
+    <path fill="#228b22" fill-rule="nonzero" stroke="#3aa655" d="M177.64 129.25h-.05c.93.39 1.85.82 2.76 1.27a48.796 48.796 0 0 1 12.45 8.68l.64.62.63.65a48.695 48.695 0 0 1 9.87 15.14v-.05h.06c8.05-4.94 15.08-12.45 21-20.78a76.706 76.706 0 0 0-26.49-26.64c-8.37 6-15.92 13-20.87 21.11Z"/>
+    <path fill="#b8e6b8" fill-rule="nonzero" stroke="#90ee90" d="M225.07 134.78a157.68 157.68 0 0 0 14.07-24.37 101.668 101.668 0 0 0-16.34-16.34 158.94 158.94 0 0 0-24.33 14 76.704 76.704 0 0 1 26.6 26.71Z"/>
+    <path fill="#daf0da" fill-rule="nonzero" stroke="#ace8ac" stroke-linejoin="round" stroke-miterlimit="2" d="M239.14 110.41a205.594 205.594 0 0 0 10.53-26.86 206.014 206.014 0 0 0-26.87 10.52 101.668 101.668 0 0 1 16.34 16.34"/>
+  </g>
+
+  <g class="amazement">
+    <path fill="#afeeee" fill-rule="nonzero" stroke="#00ced1" d="M198.084 240.17c7.68 5.415 15.741 10.257 24.256 14.23a101.706 101.706 0 0 0 16.38-16.26c-3.939-8.514-8.564-16.764-13.94-24.452a76.531 76.531 0 0 1-26.696 26.482Z"/>
+    <path fill="#dffcfc" fill-rule="nonzero" stroke="#00ced1" stroke-linejoin="round" stroke-miterlimit="2" d="M222.34 254.4a205.078 205.078 0 0 0 26.85 10.58 206.63 206.63 0 0 0-10.47-26.84 101.706 101.706 0 0 1-16.38 16.26"/>
+    <path fill="#00ced1" stroke="#0891b2" d="M203.61 192.87v-.05c-.4.94-.83 1.86-1.28 2.77a49.02 49.02 0 0 1-8.63 12.33c-.21.21-.41.43-.63.64l-.64.62a48.79 48.79 0 0 1-15.16 9.85h.05v.06c4.92 8.06 12.42 15.1 20.74 21.08a76.654 76.654 0 0 0 26.72-26.51c-6.04-8.27-13.08-15.83-21.17-20.79Z"/>
+    <path d="M202.27 195.64c.45-.91.88-1.83 1.28-2.77-.39.9-.83 1.84-1.28 2.77"/>
+    <path data-emotion="amazement" fill="teal" fill-rule="nonzero" stroke="#066" d="m177.49 219.14-18.57-45 44.93 18.68a48.55 48.55 0 0 1-26.36 26.32Z"/>
+  </g>
+
+  <g class="grief">
+    <path fill="#eae9ea" fill-rule="nonzero" stroke="plum" stroke-linejoin="round" stroke-miterlimit="2" d="M146.974 275.95a205.044 205.044 0 0 0 11.51 26.46 205.042 205.042 0 0 0 11.58-26.39c-7.674.851-15.42.827-23.09-.07"/>
+    <path data-emotion="pensiveness" fill="#e6c7e6" fill-rule="nonzero" stroke="plum" d="M177.37 248.76a160.008 160.008 0 0 1-7.21 27.16 101.52 101.52 0 0 1-23.18 0 158.522 158.522 0 0 1-7.31-27.13 76.748 76.748 0 0 0 37.7-.03Z"/>
+    <path data-emotion="sadness" fill="#9370db" fill-rule="nonzero" stroke="#7c3aed" d="M177.11 219.19v-.05c-.94.39-1.89.73-2.85 1.05a48.88 48.88 0 0 1-14.82 2.62h-1.8a48.698 48.698 0 0 1-17.69-3.76v.15c-2.22 9.18-1.9 19.46-.24 29.57a76.702 76.702 0 0 0 37.65.15c1.6-10.17 1.96-20.5-.25-29.73Z"/>
+    <path data-emotion="grief" fill="indigo" fill-rule="nonzero" stroke="#2c0050" d="m177.38 219.21-18.53-45-18.71 44.93a48.546 48.546 0 0 0 37.24.07Z"/>
+  </g>
+
+  <g class="loathing">
+    <path data-emotion="boredom" fill="#d4c4a8" fill-rule="nonzero" stroke="#b8956a" d="M92.8 213.77a159.018 159.018 0 0 0-14.1 24.37 101.66 101.66 0 0 0 16.4 16.39 158.922 158.922 0 0 0 24.33-14.06 76.802 76.802 0 0 1-26.63-26.7Z"/>
+    <path data-emotion="disgust" fill="#8b7355" fill-rule="nonzero" stroke="#654321" d="M140.16 219.38h.07a49.009 49.009 0 0 1-15.16-9.89l-.64-.62-.63-.73a48.784 48.784 0 0 1-9.88-15.16v.07c-8 4.92-15.07 12.41-21 20.73a76.808 76.808 0 0 0 26.66 26.66c8.22-5.98 15.66-13.01 20.58-21.06Z"/>
+    <path data-emotion="loathing" fill="#654321" fill-rule="nonzero" stroke="#3d2817" d="m113.94 192.79 45-18.54-18.71 44.89a48.54 48.54 0 0 1-26.29-26.35Z"/>
+    <path fill="#ebe4d7" fill-rule="nonzero" stroke="#d4c4a8" stroke-linejoin="round" stroke-miterlimit="2" d="M78.7 238.14a205.936 205.936 0 0 0-10.58 27 204.985 204.985 0 0 0 27-10.59 101.665 101.665 0 0 1-16.42-16.41"/>
+  </g>
+
+  <circle cx="158.94" cy="174.312" r="2.114" fill="#fff" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5"/>
+</svg>
