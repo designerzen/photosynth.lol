@@ -21,13 +21,20 @@ export default class CircleSynth extends AbstractInteractive{
     scaleType = null
 
     // text elements
-    timbreElement
-    frequencyElement
-    toneElement
+    #timbreElement
+    #frequencyElement
+    #toneElement
+
+    #element
+    #titleElement
+    #emojiElement
+    #octaveSelectorElement
+
+    #keyElements
 
     set happiness(value){
         const emoji = EMOJI_SEQUENCE[ Math.round(value * EMOJI_SEQUENCE.length )]
-        this.emoji.textContent = emoji
+        this.#emojiElement.textContent = emoji
     }
 
     /**
@@ -55,14 +62,14 @@ export default class CircleSynth extends AbstractInteractive{
         switch(musicalScale.toLowerCase())
         {
             case "major":
-                this.toneElement.textContent = musicalScale + " "  + "happy"
+                this.#toneElement.textContent = musicalScale + " "  + "happy"
             case "minor":
-                this.toneElement.textContent = musicalScale + " "  + "sad"
+                this.#toneElement.textContent = musicalScale + " "  + "sad"
             default:
-                this.toneElement.textContent = musicalScale
+                this.#toneElement.textContent = musicalScale
         }
       
-        this.toneElement.setAttribute("startOffset", (35.5 - (musicalScale.length * 0.5)) + "%")
+        this.#toneElement.setAttribute("startOffset", (35.5 - (musicalScale.length * 0.5)) + "%")
         // console.info("Scale", musicalScale )
         this.setEmoji()
     }
@@ -75,8 +82,8 @@ export default class CircleSynth extends AbstractInteractive{
      * Timbre is a string value that is displayed in curved text
      */
     set timbre(value){
-        this.timbreElement.textContent = value // String(value).toUpperCase()
-        this.timbreElement.setAttribute("startOffset", (12.5 - (value.length * 0.5)) + "%")
+        this.#timbreElement.textContent = value // String(value).toUpperCase()
+        this.#timbreElement.setAttribute("startOffset", (12.5 - (value.length * 0.5)) + "%")
     }
 
     get frequency(){
@@ -97,8 +104,8 @@ export default class CircleSynth extends AbstractInteractive{
             // TREBLE
             octaveName = OCTAVE_NAMES[ 2 ]
         }
-        this.frequencyElement.textContent = octaveName
-        this.frequencyElement.setAttribute("startOffset", (75 - (octaveName.length * 0.5)) + "%")
+        this.#frequencyElement.textContent = octaveName
+        this.#frequencyElement.setAttribute("startOffset", (75 - (octaveName.length * 0.5)) + "%")
         // this.frequencyElement.textContent = OCTAVE_NAMES[ this.octave ] 
         // console.info("FREQ", value, this.frequencyElement.textContent )
     }
@@ -113,16 +120,16 @@ export default class CircleSynth extends AbstractInteractive{
             noteOff( noteModel, velocity, id, null, this.mode, idOffset )
         }
 
-     
         // this.scaleType = sc ?? 0
+
+        // only use the very first found one
+        this.#element = document.querySelector(".circle-of-fifths")
+        this.#titleElement = this.#element.querySelector("title")
+        this.#emojiElement = this.#element.querySelector(".fifths-emotion-text")
         
-        this.element = document.querySelector(".circle-of-fifths")
-        this.title = this.element.querySelector("title")
-        this.emoji = this.element.querySelector(".fifths-emotion-text")
-        
-        this.timbreElement = this.element.querySelector(".curved-text-timbre")
-        this.frequencyElement = this.element.querySelector(".curved-text-frequency")
-        this.toneElement = this.element.querySelector(".curved-text-tone")
+        this.#timbreElement = this.#element.querySelector(".curved-text-timbre")
+        this.#frequencyElement = this.#element.querySelector(".curved-text-frequency")
+        this.#toneElement = this.#element.querySelector(".curved-text-tone")
        
         // console.error( "COF elements", this.timbreElement, this.frequencyElement, this.toneElement  )
 
@@ -130,13 +137,13 @@ export default class CircleSynth extends AbstractInteractive{
         this.octave = octave ?? 4
         this.modeIndex = mode ?? 0
 
-        this.keyElements = this.createKeys(notes, ".circle-of-fifths-tonics path", 3)
-        this.keyElements.push(...this.createKeys(notes, ".circle-of-fifths-harmonies path" ))
-        this.addInteractivity( this.keyElements, chordOn, chordOff )  
+        this.#keyElements = this.createKeys(notes, ".circle-of-fifths-tonics path", 3)
+        this.#keyElements.push(...this.createKeys(notes, ".circle-of-fifths-harmonies path" ))
+        this.addInteractivity( this.#keyElements, chordOn, chordOff )  
         this.addControls( setMode, setTimbre )
 
         this.frequency = octave
-        this.frequencyElement.addEventListener("click",e =>{
+        this.#frequencyElement.addEventListener("click",e =>{
             const index = (OCTAVE_NUMBERS.indexOf( this.octave ) + 1 )%OCTAVE_NUMBERS.length
             this.frequency = OCTAVE_NUMBERS[index]
         })
@@ -151,14 +158,19 @@ export default class CircleSynth extends AbstractInteractive{
     setEmoji(){
         const emoji = getEmojiForScaleAndMode( this.scaleType, this.modeIndex )
         const modeString = this.modeName
-        this.emoji.textContent = emoji
-        this.toneElement.textContent = modeString
-        this.toneElement.setAttribute("startOffset", (39.5 - (modeString.length * 0.5)) + "%")
+        this.#emojiElement.textContent = emoji
+        this.#toneElement.textContent = modeString
+        this.#toneElement.setAttribute("startOffset", (39.5 - (modeString.length * 0.5)) + "%")
     }
 
+    /**
+     * 
+     * @param {*} setMode 
+     * @param {*} setTimbre 
+     */
     addControls( setMode, setTimbre ){
-        this.octaveSelector = this.element.querySelectorAll("input[name=octave]")
-        this.octaveSelector.forEach(radioButton => {
+        this.#octaveSelectorElement = this.#element.querySelectorAll("input[name=octave]")
+        this.#octaveSelectorElement.forEach(radioButton => {
             radioButton.addEventListener("change", e => {
                 const input = e.target.value
                 switch(input)
@@ -177,7 +189,7 @@ export default class CircleSynth extends AbstractInteractive{
         //     setMode( this.modeIndex )
         // })
 
-        const emojiHitArea = this.element.querySelector(".fifths-emotion")
+        const emojiHitArea = this.#element.querySelector(".fifths-emotion")
         emojiHitArea.addEventListener("click", e => {
             const newMode = (this.modeIndex + 1) % TUNING_MODE_NAMES.length
             this.mode = setMode( TUNING_MODE_NAMES[newMode] )
@@ -191,6 +203,11 @@ export default class CircleSynth extends AbstractInteractive{
         })
     }
 
+    /**
+     * 
+     * @param {HTMLElement} button 
+     * @returns 
+     */
     getNoteFromKey( button){
         const noteNumber = parseInt( button.getAttribute("data-number") )
         const octaveOffset = this.octave * 12
@@ -199,8 +216,15 @@ export default class CircleSynth extends AbstractInteractive{
         return note
     }
 
+    /**
+     * Add the audio key buttons
+     * @param {*} notes 
+     * @param {String} query 
+     * @param {Number} offset 
+     * @returns 
+     */
     createKeys(notes, query=".circle-of-fifths-tonics path", offset=0){
-        const htmlElementKeys = Array.from(  this.element.querySelectorAll(query) )
+        const htmlElementKeys = Array.from( this.#element.querySelectorAll(query) )
         const keys = htmlElementKeys.map((path, i)=>{
             i = (i+offset)%notes.length
             const note = notes[i]

@@ -707,7 +707,7 @@ const saveVolume = debounce( value =>{
  * @param {Number} value 0->1
  */
 const setVolume = (value) => {
-    mixer.gain.value = value
+    mixer.gain.value = value * 0.8
     volume = value
     saveVolume( volume )
 }
@@ -1241,7 +1241,7 @@ const createAudioContext = async(event) => {
     limiter.ratio.value = 2 // 20
     
     mixer = audioContext.createGain()
-    mixer.gain.value = parseInt(searchParams.get("volume") ?? 1)
+    mixer.gain.value = parseFloat(searchParams.get("volume") ?? 1) * 0.8
 
     limiter.connect(mixer)
     mixer.connect( audioContext.destination )
