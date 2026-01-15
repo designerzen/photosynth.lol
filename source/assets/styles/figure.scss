@@ -50,7 +50,7 @@ figure{
     }
 
     // if figcaption is below image...
-    :is(img,picture) + figcaption{
+    :is(img,picture,video,lite-youtube) + figcaption{
         min-height: 2lh;
         display: flex;
         flex-direction: column;
@@ -91,7 +91,13 @@ figure.sticky{
     > img{
        background-color: var(--col);
     }
+
+    &.tight{
+        padding: 0;
+    }
 }
+
+
 
 .corner-bumpers { 
     // corner size

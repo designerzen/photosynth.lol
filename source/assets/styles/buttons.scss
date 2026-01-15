@@ -5,6 +5,26 @@
     cursor: pointer;
 }
 
+path[role="button"]{
+    outline:none;
+
+    transition: 
+        fill var(--time-quick) linear,
+        stroke var(--time-quick) linear;
+
+    &:hover{
+        fill:yellow !important;
+        stroke:brown !important;
+        z-index: 909;
+    }
+
+    &:focus{
+        outline: none;
+        // fill:red !important;
+        // stroke:pink !important;
+    }
+}
+
 // External links
 a[target="_blank"]{
     text-decoration: dashed;

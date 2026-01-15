@@ -41,11 +41,44 @@
     // --step-5: clamp(2.7994rem, 1.4081rem + 6.9561vw, 6.1035rem);
 }
 
-
-body{
+// https://nerdy.dev/adjust-perceived-typepace-weight-for-dark-mode-without-layout-shift
+body {
+	--GRAD: 0;
+	font-variation-settings: "GRAD" var(--GRAD);
     line-height: 1.7;
     font-weight: 600;
 }
+
+@media (prefers-contrast: more) {
+	body {
+		--GRAD: 700
+	}
+}
+
+@media (prefers-contrast: less) {
+	body {
+		--GRAD: -50
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		--GRAD: -50
+	}
+}
+
+@media (prefers-color-scheme: dark) and (prefers-contrast: more) {
+	body {
+		--GRAD: 150
+	}
+}
+
+@media (prefers-color-scheme: dark) and (prefers-contrast: less) {
+	body {
+		--GRAD: -150
+	}
+}
+
 
 :is(h1,h2,h3,h4,h5,h6,header){
     // font-weight: bold;
