@@ -242,7 +242,7 @@ dt{
     margin-right:auto;
 }
 
-video, 
+// video, 
 canvas.canvas-full-size{
     width:100%;
     visibility: hidden;
@@ -255,9 +255,7 @@ abbr{
     cursor: help;
 }
 
-
-aside{
-    
+aside{   
     border-radius: var(--curve);
     border:dashed var(--col-border) 2px;
     background-color: var(--col-stone-light);

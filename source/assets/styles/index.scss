@@ -43,6 +43,7 @@
 
 // finally we apply any themes
 @use "./sections.scss";
+@use "./lessons.scss";
 @use "./themes.scss";
 
 @use "./view-transitions.scss";
