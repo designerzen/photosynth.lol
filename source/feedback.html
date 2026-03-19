@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="default" data-scale="major">
+<include src="./source/partials/head.html"></include>
+<body>   
+    <include 
+        src="./source/partials/header.html" 
+        locals='{
+            "h1":"Smile Powered Pop Music with the <cite>Photo&ZeroWidthSpace;SYNTH</cite>!",
+            "h2":"User Feedback",
+        }'>
+    </include>
+    <include src="./source/partials/nav.html"></include>
+    
+    <main id="main-content">
+
+        <!-- Introduction data-full-keyboard -->
+        <section id="introduction" class="full-width full-height" inert data-observe>
+           <include src="./source/partials/hero.html"></include>
+           <include src="./source/partials/warning.html"></include>
+        </section>
+
+       <!-- Teaser -->
+        <include src="./source/partials/project-summary.html" locals='{ "textScroller":true, "biography":true }'></include>
+
+        <!-- MIDI Equipment ------------------------------------------- -->
+        <include src="./source/partials/midi.html"></include>
+
+        <!-- About the event -->
+        <!-- <include src="./source/partials/event-royal-society.html"></include> -->
+        <!-- <include src="./source/partials/event-royal-society.html"></include> -->
+        <section id="events" class="shadow wavey" data-observe>
+            <article class="page">
+                <header class="underline">
+                    <h3 class="heading-icon">Public Events</h3>
+                    <h4>Come and play with it in person!</h4>
+                </header>
+
+                <include src="./source/partials/calendar.html"></include>
+            </article>
+        </section>
+      
+        <include src="./source/partials/contact.html"></include>
+  
+        <!-- Interactive wallpapers -->
+        <canvas id="mouse-visualiser" inert></canvas>
+        <canvas id="wallpaper"></canvas>
+    </main>
+   
+    <!-- Password protection -->
+    <!-- <include src="./source/partials/password.html"></include> -->
+  
+    <include src="./source/partials/footer.html"></include>
+    
+</body>
+</html>

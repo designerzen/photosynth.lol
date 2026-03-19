@@ -11,10 +11,11 @@
 
 <nav class="menu-main">
     <ul role="list">
-        <li><a href="/{{path}}#introduction">About</a></li>
+        <li><a href="/{{path}}#introduction">about</a></li>
         <li class="menu-sub-list">
-            <a href="{{path}}#main-menu-events">Events</a>
+            <a href="{{path}}#main-menu-events">events</a>
             <ol id="main-menu-events" class="menu-events menu-sub-list-items">
+                <li><a href="newham-citizen-science-fair.html">Newham Citizen Science Fair</a></li>
                 <li><a href="wac.html">Web Audio Conference 2025</a></li>
                 <li><a href="v&a.html">Victoria &amp; Albert Museum</a></li>
                 <li><a href="science-media-museum.html">Science+ Media Museum 2025</a></li>
@@ -30,6 +31,8 @@
         <each loop="hash, index in hashes">
             <li><a href="{{path.toLowerCase()}}#{{hash}}">{{hash}}</a></li>
         </each>
+
+         <li><a href="{{path}}lessons">lessons</a></li>
 
         <!-- <li><a href="{{path}}#science">Science</a></li>
         <li><a href="{{path}}#research">Research</a></li>
