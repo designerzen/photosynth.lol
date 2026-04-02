@@ -1,0 +1,30 @@
+<!-- {"src": "/source/assets/photos/event/dcf1361.jpg", "alt": "PhotoSYNTH event candid 1361", "width": 1620, "height": 1080}, -->
+<article class="section section-event">
+
+    <header class="underline">
+        <h3 class="heading-icon">Gallery</h3>
+        <h4>Royal Society Summer Exhibition 2025</h4>
+    </header>
+
+    <!-- https://youtu.be/mFrNDEOtMF8 -->
+    <lite-youtube videoid="mFrNDEOtMF8" autopause>
+         <img slot="image" src="/source/assets/photos/event/fancy strut.jpg">
+    </lite-youtube>
+   
+    <include 
+        src="./source/partials/gallery.html" 
+        locals='{ 
+            "id":"media-newham-citizens-science-fair",
+            "title":"Newham Citizens Science Fair",
+            "images":[
+                { "src": "/source/assets/photos/newham-citizens-science-fair/curious minds collate.jpg", "alt": "PhotoSYNTH at the Newham Citizen`s Science Fair", "width": 1200, "height": 1600 }
+            ]
+        }'>
+    </include>
+
+    <script type="module">
+        import {createGallery} from "./assets/scripts/gallery.js"
+        createGallery()
+    </script>
+
+</article>
