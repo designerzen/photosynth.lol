@@ -72,9 +72,11 @@ figure.sticky{
 
     margin-bottom: calc( var(--pad) * 6);
 
+    // we never want the image to be larger than the screen
     img{
-        max-width:min(420px, 66%);
+        max-width:clamp(303px, 66%, 66vmin);
     }
+
     figcaption{
         width: 100%;
     }
